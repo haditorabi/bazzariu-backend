@@ -3,6 +3,7 @@ import { ConfigModule } from '@nestjs/config';
 import { GraphQLModule } from '@nestjs/graphql';
 import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
 import { join } from 'path';
+import { AppResolver } from './app.resolver';
 
 @Module({
   imports: [
@@ -17,5 +18,6 @@ import { join } from 'path';
       sortSchema: true, // Optional: Sorts fields in schema alphabetically
     }),
   ],
+  providers: [AppResolver],
 })
 export class AppModule {}
