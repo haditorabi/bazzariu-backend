@@ -1,0 +1,59 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mongodb"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id       String   @id @default(auto()) @map("_id") @db.ObjectId
+  email    String   @unique
+  password String
+  name     String
+  businesses Business[]
+
+  @@map("User") // Maps the model to the "User" collection in MongoDB
+}
+
+model Business {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  name      String
+  address   String
+  phone     String
+  website   String?
+  services  String[]
+  ownerId   String   @db.ObjectId
+  owner     User     @relation(fields: [ownerId], references: [id])
+  locations Location[]
+  updates   Update[]
+
+  @@map("Business") // Maps the model to the "Business" collection
+}
+
+model Location {
+  id         String   @id @default(auto()) @map("_id") @db.ObjectId
+  address    String
+  businessId String   @db.ObjectId
+  business   Business @relation(fields: [businessId], references: [id])
+
+  @@map("Location") // Maps the model to the "Location" collection
+}
+
+model Update {
+  id         String   @id @default(auto()) @map("_id") @db.ObjectId
+  content    String
+  createdAt  DateTime @default(now())
+  expiresAt  DateTime
+  businessId String   @db.ObjectId
+  business   Business @relation(fields: [businessId], references: [id])
+
+  @@map("Update") // Maps the model to the "Update" collection
+}
