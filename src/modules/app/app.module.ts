@@ -4,10 +4,14 @@ import { GraphQLModule } from '@nestjs/graphql';
 import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
 import { join } from 'path';
 import { AppResolver } from './app.resolver';
+import { AuthModule } from 'src/auth/auth.module';
+import { UserModule } from 'src/user/user.module';
+import { PrismaModule } from 'src/prisma/prisma.module';
 
 @Module({
   imports: [
     // Configure the ConfigModule to be global
+    PrismaModule,
     ConfigModule.forRoot({
       isGlobal: true, // Makes the ConfigModule available globally
     }),
@@ -17,6 +21,8 @@ import { AppResolver } from './app.resolver';
       autoSchemaFile: join(process.cwd(), 'src/schema.gql'), // Generates schema.gql automatically
       sortSchema: true, // Optional: Sorts fields in schema alphabetically
     }),
+    AuthModule,
+    UserModule,
   ],
   providers: [AppResolver],
 })
