@@ -24,15 +24,19 @@ export class AuthService {
     return bcrypt.compare(password, hash);
   }
 
-  async generateToken(user: { id: string; email: string }): Promise<string> {
-    const payload = { sub: user.id, email: user.email };
+  async generateToken(user: {
+    id: string;
+    email: string;
+    name: string;
+  }): Promise<string> {
+    const payload = { id: user.id, email: user.email, name: user.name };
     return this.jwtService.sign(payload);
   }
 
-  async login(user: any) {
-    const payload = { username: user.username, sub: user.userId };
-    return {
-      access_token: this.jwtService.sign(payload),
-    };
-  }
+  // async login(user: any) {
+  //   const payload = { email: user.email, id: user.userId };
+  //   return {
+  //     access_token: this.jwtService.sign(payload),
+  //   };
+  // }
 }

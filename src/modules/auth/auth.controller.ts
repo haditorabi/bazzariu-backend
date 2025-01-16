@@ -19,7 +19,11 @@ export class AuthController {
       password: hashedPassword,
       name: body.name,
     });
-    return this.authService.generateToken({ id: user.id, email: user.email });
+    return this.authService.generateToken({
+      id: user.id,
+      email: user.email,
+      name: user.name,
+    });
   }
 
   @Post('login')
@@ -31,7 +35,11 @@ export class AuthController {
     ) {
       throw new Error('Invalid credentials');
     }
-    return this.authService.generateToken({ id: user.id, email: user.email });
+    return this.authService.generateToken({
+      id: user.id,
+      email: user.email,
+      name: user.name,
+    });
   }
 }
 
