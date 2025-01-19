@@ -13,12 +13,11 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model User {
-  id       String   @id @default(auto()) @map("_id") @db.ObjectId
-  email    String   @unique
-  password String
-  name     String
-  businesses Business[]
+model Amenities {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  name      String
+  picture     User     @relation(fields: [ownerId], references: [id])
+  createdAt  DateTime @default(now())
 }
 
 model Business {
@@ -48,4 +47,11 @@ model Update {
   expiresAt  DateTime
   businessId String   @db.ObjectId
   business   Business @relation(fields: [businessId], references: [id])
+}
+model User {
+  id       String   @id @default(auto()) @map("_id") @db.ObjectId
+  email    String   @unique
+  password String
+  name     String
+  businesses Business[]
 }
