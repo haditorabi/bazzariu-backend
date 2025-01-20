@@ -1,5 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service';
+import { UserRole, UserStatus } from '@prisma/client';
 
 @Injectable()
 export class UserService {
@@ -14,6 +15,8 @@ export class UserService {
           email: data.email,
           password: data.password,
           name: data.name,
+          role: UserRole.USER,
+          status: UserStatus.ACTIVE,
         },
       });
     } catch (error) {

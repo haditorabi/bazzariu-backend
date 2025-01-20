@@ -11,7 +11,15 @@ export class AuthController {
 
   @Post('register')
   async register(
-    @Body() body: { email: string; password: string; name: string },
+    @Body()
+    body: {
+      email: string;
+      password: string;
+      name: string;
+      role;
+      string;
+      status: string;
+    },
   ) {
     const hashedPassword = await this.authService.hashPassword(body.password);
     const user = await this.userService.createUser({

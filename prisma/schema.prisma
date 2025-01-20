@@ -16,42 +16,924 @@ datasource db {
 model Amenities {
   id        String   @id @default(auto()) @map("_id") @db.ObjectId
   name      String
-  picture     User     @relation(fields: [ownerId], references: [id])
+  mediaId   String?  @db.ObjectId
+  createdAt DateTime @default(now())
+}
+
+model BusinessBooking {
+  id                String                @id @default(auto()) @map("_id") @db.ObjectId
+  businessId        String                @db.ObjectId
+  business          Business              @relation(fields: [businessId], references: [id])
+  businessProductId String[]              @db.ObjectId
+  businessProduct   BusinessProduct       @relation(fields: [businessProductId], references: [id])
+  maxAvilible       Int?
+  maxGuest          Int?
+  mediaId           String[]              @db.ObjectId
+  status            BusinessBookingStatus
+  createdAt         DateTime              @default(now())
+  updatedAt         DateTime              @updatedAt
+
+  BookingTimeSlot BookingTimeSlot[]
+}
+
+enum BusinessBookingStatus {
+  SUSPENDED
+  ACTIVE
+  CLOSED
+  CANCELED
+}
+
+model BusinessBoost {
+  id         String              @id @default(auto()) @map("_id") @db.ObjectId
+  businessId String              @db.ObjectId
+  business   Business            @relation(fields: [businessId], references: [id])
+  type       BusinessBoostType
+  startAt    DateTime
+  endAt      DateTime
+  status     BusinessBoostStatus
+  createdAt  DateTime            @default(now())
+  updatedAt  DateTime            @updatedAt
+}
+
+enum BusinessBoostType {
+  BUSINESS
+  DEAL
+  REVIEW
+  MEDIA
+  BOOKING
+}
+
+enum BusinessBoostStatus {
+  ACTIVE
+  SUSPENDED
+  ARCHIVED
+  DELETED
+}
+
+model BusinessCategory {
+  id        String                 @id @default(auto()) @map("_id") @db.ObjectId
+  name      String
+  mediaId   String?                @db.ObjectId
+  status    BusinessCategoryStatus
+  createdAt DateTime               @default(now())
+  updatedAt DateTime               @updatedAt
+}
+
+enum BusinessCategoryStatus {
+  ACTIVE
+  ARCHIVED
+}
+
+model BusinessDeal {
+  id                String             @id @default(auto()) @map("_id") @db.ObjectId
+  name              String
+  description       String?
+  businessId        String             @db.ObjectId
+  business          Business           @relation(fields: [businessId], references: [id])
+  businessProductId String[]           @db.ObjectId
+  businessProduct   BusinessProduct    @relation(fields: [businessProductId], references: [id])
+  discountType      DiscountType
+  value             Float
+  maxRedemption     Int
+  maxPerUser        Int
+  startDate         DateTime
+  endDate           DateTime
+  mediaId           String[]           @db.ObjectId
+  status            BusinessDealStatus
+  createdAt         DateTime           @default(now())
+  updatedAt         DateTime           @updatedAt
+
+  DealsRedemption DealsRedemption[]
+}
+
+enum DiscountType {
+  FLAT
+  PERCENT
+}
+
+enum BusinessDealStatus {
+  SUSPENDED
+  ACTIVE
+  CLOSED
+  ARCHIVED
+}
+
+model BusinessFollowing {
+  id         String   @id @default(auto()) @map("_id") @db.ObjectId
+  businessId String   @db.ObjectId
+  business   Business @relation(fields: [businessId], references: [id])
+  userId     String   @db.ObjectId
+  user       User     @relation(fields: [userId], references: [id])
   createdAt  DateTime @default(now())
+}
+
+model BusinessHour {
+  id         String             @id @default(auto()) @map("_id") @db.ObjectId
+  businessId String             @db.ObjectId
+  business   Business           @relation(fields: [businessId], references: [id])
+  dayOfWeek  String
+  openTime   String?
+  closeTime  String?
+  status     BusinessHourStatus
+  createdAt  DateTime           @default(now())
+}
+
+enum BusinessHourStatus {
+  SUSPENDED
+  ACTIVE
+  CLOSED
+  ARCHIVED
+}
+
+model BusinessLanguage {
+  id         String   @id @default(auto()) @map("_id") @db.ObjectId
+  businessId String   @db.ObjectId
+  business   Business @relation(fields: [businessId], references: [id])
+  languageId String   @db.ObjectId
+  createdAt  DateTime @default(now())
+}
+
+model BusinessLocation {
+  id         String                 @id @default(auto()) @map("_id") @db.ObjectId
+  businessId String                 @db.ObjectId
+  business   Business               @relation(fields: [businessId], references: [id])
+  address    String?
+  latitude   Float?
+  longitude  Float?
+  countryId  String?                @db.ObjectId
+  provinceId String?                @db.ObjectId
+  cityId     String?                @db.ObjectId
+  zipCode    String?                @db.ObjectId
+  phone      String?                @db.ObjectId
+  status     BusinessLocationStatus
+  createdAt  DateTime               @default(now())
+  updatedAt  DateTime               @updatedAt
+}
+
+enum BusinessLocationStatus {
+  OPEN
+  CLOSED
+  PERMANENTLYCLOSED
+  TEMPORARYCLOSED
+  MOVED
+}
+
+model BusinessProduct {
+  id          String                @id @default(auto()) @map("_id") @db.ObjectId
+  businessId  String                @db.ObjectId
+  business    Business              @relation(fields: [businessId], references: [id])
+  categoryId  String?               @db.ObjectId
+  category    ProductCategory?      @relation(fields: [categoryId], references: [id])
+  name        String
+  description String?
+  mediaId     String[]              @db.ObjectId
+  status      BusinessProductStatus
+  createdAt   DateTime              @default(now())
+  updatedAt   DateTime              @updatedAt
+
+  BusinessBooking BusinessBooking[]
+
+  BusinessDeal BusinessDeal[]
+
+  BusinessProductsPrice BusinessProductsPrice[]
+}
+
+enum BusinessProductStatus {
+  ACTIVE
+  SUSPENDED
+  ARCHIVED
+  DISCOUNTINUED
+  NOTAVAILABLE
+  OUTOFSERVICE
+}
+
+model BusinessProductsPrice {
+  id         String          @id @default(auto()) @map("_id") @db.ObjectId
+  productId  String          @db.ObjectId
+  product    BusinessProduct @relation(fields: [productId], references: [id])
+  currencyId String          @db.ObjectId
+  price      Float
+  createdAt  DateTime        @default(now())
+  updatedAt  DateTime        @updatedAt
+}
+
+model BusinessTag {
+  id        String            @id @default(auto()) @map("_id") @db.ObjectId
+  name      String
+  status    BusinessTagStatus
+  createdAt DateTime          @default(now())
+}
+
+enum BusinessTagStatus {
+  ACTIVE
+  SUSPENDED
+  ARCHIVED
+}
+
+model BusinessUpdate {
+  id         String               @id @default(auto()) @map("_id") @db.ObjectId
+  businessId String               @db.ObjectId
+  context    String
+  type       BusinessUpdateType
+  startAt    DateTime
+  endAt      DateTime
+  status     BusinessUpdateStatus
+  createdAt  DateTime             @default(now())
+  updatedAt  DateTime             @updatedAt
+}
+
+enum BusinessUpdateType {
+  NEWPRODUCTS
+  NEWDEALS
+  NEWLOCATION
+  EVENTS
+  NEWAMENITY
+  NEWPRICE
+  RATES
+  WORKHOURS
+  CONGRRATS
+  HIRING
+}
+
+enum BusinessUpdateStatus {
+  ACTIVE
+  SUSPENDED
+  ARCHIVED
+  DELETED
+}
+
+model BookingTimeSlot {
+  id                String                @id @default(auto()) @map("_id") @db.ObjectId
+  businessBookingId String                @db.ObjectId
+  businessBooking   BusinessBooking       @relation(fields: [businessBookingId], references: [id])
+  startAt           DateTime
+  endAt             DateTime
+  timezone          String
+  status            BookingTimeSlotStatus
+
+  UserBooking UserBooking[]
+}
+
+enum BookingTimeSlotStatus {
+  ACTIVE
+  NOTAVAILABLE
 }
 
 model Business {
-  id        String   @id @default(auto()) @map("_id") @db.ObjectId
-  name      String
-  address   String
-  phone     String
-  website   String?
-  services  String[]
-  ownerId   String   @db.ObjectId
-  owner     User     @relation(fields: [ownerId], references: [id])
-  locations Location[]
-  updates   Update[]
+  id                 String         @id @default(auto()) @map("_id") @db.ObjectId
+  name               String
+  description        String?
+  website            String?
+  isClaimed          Boolean
+  businessCategoryId String[]       @db.ObjectId
+  regionId           String         @db.ObjectId
+  region             Region         @relation(fields: [regionId], references: [id])
+  claimedBy          String?        @db.ObjectId
+  claimedByUser      User?          @relation(fields: [claimedBy], references: [id])
+  mediaId            String[]       @db.ObjectId
+  status             BusinessStatus
+  createdAt          DateTime       @default(now())
+  updatedAt          DateTime       @updatedAt
+
+  BusinessBooking BusinessBooking[]
+
+  BusinessDeal BusinessDeal[]
+
+  BusinessFollowing BusinessFollowing[]
+
+  BusinessHour BusinessHour[]
+
+  BusinessLanguage BusinessLanguage[]
+
+  BusinessLocation BusinessLocation[]
+
+  BusinessProduct BusinessProduct[]
+
+  Payment Payment[]
+
+  Transaction Transaction[]
+
+  BusinessBoost BusinessBoost[]
+
+  UserCheckin UserCheckin[]
 }
 
-model Location {
-  id         String   @id @default(auto()) @map("_id") @db.ObjectId
-  address    String
-  businessId String   @db.ObjectId
-  business   Business @relation(fields: [businessId], references: [id])
+enum BusinessStatus {
+  ACTIVE
+  SUSPENDED
+  ARCHIVED
+  DISABLED
+  DELETED
 }
 
-model Update {
-  id         String   @id @default(auto()) @map("_id") @db.ObjectId
-  content    String
-  createdAt  DateTime @default(now())
+model City {
+  id         String     @id @default(auto()) @map("_id") @db.ObjectId
+  name       String
+  provinceId String     @db.ObjectId
+  province   Province   @relation(fields: [provinceId], references: [id])
+  status     CityStatus
+  Region     Region[]
+}
+
+enum CityStatus {
+  ACTIVE
+  DISABLED
+}
+
+model Currency {
+  id     String         @id @default(auto()) @map("_id") @db.ObjectId
+  name   String
+  code   String
+  status CurrencyStatus
+
+  Payment Payment[]
+}
+
+enum CurrencyStatus {
+  ACTIVE
+  DISABLED
+}
+
+model Country {
+  id     String        @id @default(auto()) @map("_id") @db.ObjectId
+  name   String
+  code   String
+  status CountryStatus
+
+  Province Province[]
+
+  Region Region[]
+}
+
+enum CountryStatus {
+  ACTIVE
+  DISABLED
+}
+
+model DealsRedemption {
+  id         String                @id @default(auto()) @map("_id") @db.ObjectId
+  dealId     String                @db.ObjectId
+  deal       BusinessDeal          @relation(fields: [dealId], references: [id])
+  userId     String                @db.ObjectId
+  user       User                  @relation(fields: [userId], references: [id])
+  redeemedAt DateTime              @default(now())
   expiresAt  DateTime
+  status     DealsRedemptionStatus
+  createdAt  DateTime              @default(now())
+  updatedAt  DateTime              @updatedAt
+}
+
+enum DealsRedemptionStatus {
+  PENDING
+  REDEEMED
+  EXPIRED
+}
+
+model Event {
+  id          String          @id @default(auto()) @map("_id") @db.ObjectId
+  name        String
+  description String?
+  startDate   DateTime
+  endDate     DateTime
+  categoryId  String[]        @db.ObjectId
+  category    EventCategory[] @relation(fields: [categoryId], references: [id])
+  mediaId     String[]        @db.ObjectId
+  status      EventStatus
+  createdAt   DateTime        @default(now())
+  updatedAt   DateTime        @updatedAt
+}
+
+enum EventStatus {
+  ACTIVE
+  DISABLED
+}
+
+model EventCategory {
+  id        String              @id @default(auto()) @map("_id") @db.ObjectId
+  name      String
+  status    EventCategoryStatus
+  createdAt DateTime            @default(now())
+  eventId   String[]            @db.ObjectId
+  event     Event[]             @relation(fields: [eventId], references: [id])
+}
+
+enum EventCategoryStatus {
+  ACTIVE
+  DISABLED
+}
+
+model Language {
+  id     String         @id @default(auto()) @map("_id") @db.ObjectId
+  name   String
+  code   String
+  status LanguageStatus
+}
+
+enum LanguageStatus {
+  ACTIVE
+  DISABLED
+}
+
+model Media {
+  id         String     @id @default(auto()) @map("_id") @db.ObjectId
+  url        String
+  type       MediaType
+  moduleType ModuleType
+  createdAt  DateTime   @default(now())
+}
+
+enum ModuleType {
+  BUSINESS
+  BUSINESSPRODUCT
+  BUSINESSCATEGORY
+  BUSINESSDEAL
+  BUSINESSBOOKING
+  REVIEW
+  EVENT
+  AMENITY
+}
+
+enum MediaType {
+  IMAGE
+  VIDEO
+  AUDIO
+  DOCUMENT
+}
+
+model PaymentMethod {
+  id        String              @id @default(auto()) @map("_id") @db.ObjectId
+  userId    String              @db.ObjectId
+  user      User                @relation(fields: [userId], references: [id])
+  details   String?
+  type      PaymentMethodType
+  status    PaymentMethodStatus
+  createdAt DateTime            @default(now())
+
+  Payment Payment[]
+}
+
+enum PaymentMethodType {
+  CREDITCARD
+  DEBITCARD
+  PAYPAL
+  STRIPE
+  APPLEPAY
+  GOOGLEPAY
+  CASH
+  CHECK
+  BANKTRANSFER
+}
+
+enum PaymentMethodStatus {
+  ACTIVE
+  DISABLED
+  DIACTIVE
+}
+
+model Payment {
+  id              String            @id @default(auto()) @map("_id") @db.ObjectId
+  transactionId   String
+  description     String?
+  targetId        String            @db.ObjectId
+  targetType      PaymentTargetType
+  userId          String            @db.ObjectId
+  user            User              @relation(fields: [userId], references: [id])
+  businessId      String?           @db.ObjectId
+  business        Business?         @relation(fields: [businessId], references: [id])
+  paymentMethodId String            @db.ObjectId
+  paymentMethod   PaymentMethod     @relation(fields: [paymentMethodId], references: [id])
+  amount          Float
+  currencyId      String            @db.ObjectId
+  currency        Currency          @relation(fields: [currencyId], references: [id])
+  status          PaymentStatus
+  createdAt       DateTime          @default(now())
+  updatedAt       DateTime          @updatedAt
+
+  Transaction Transaction[]
+}
+
+enum PaymentStatus {
+  PENDING
+  COMPLETED
+  CANCELED
+  REFUNDED
+  FAILED
+}
+
+enum PaymentTargetType {
+  DEAL
+  BOOKING
+  BOOSTBUSINESS
+  BOOSTUPDATE
+  BOOSTREVIEW
+  BOOSTDEAL
+  BOOSTBOOKING
+  PRODUCTORDER
+}
+
+model ProductCategory {
+  id        String                @id @default(auto()) @map("_id") @db.ObjectId
+  name      String
+  status    ProductCategoryStatus
+  createdAt DateTime              @default(now())
+
+  BusinessProduct BusinessProduct[]
+}
+
+enum ProductCategoryStatus {
+  ACTIVE
+  DISABLED
+}
+
+model Province {
+  id        String         @id @default(auto()) @map("_id") @db.ObjectId
+  name      String
+  countryId String         @db.ObjectId
+  country   Country        @relation(fields: [countryId], references: [id])
+  status    ProvinceStatus
+
+  City City[]
+}
+
+enum ProvinceStatus {
+  ACTIVE
+  DISABLED
+}
+
+model Region {
+  id        String       @id @default(auto()) @map("_id") @db.ObjectId
+  name      String
+  countryId String       @db.ObjectId
+  country   Country      @relation(fields: [countryId], references: [id])
+  cityId    String       @db.ObjectId
+  city      City         @relation(fields: [cityId], references: [id])
+  boundry   Json?
+  status    RegionStatus
+
+  Business Business[]
+}
+
+enum RegionStatus {
+  ACTIVE
+  DISABLED
+}
+
+model Report {
+  id         String           @id @default(auto()) @map("_id") @db.ObjectId
+  byId       String           @db.ObjectId
+  by         User             @relation(fields: [byId], references: [id])
+  targetId   String           @db.ObjectId
+  targetType ReportTargetType
+  reason     ReportReasonType
+  reasonText String?
+  createdAt  DateTime         @default(now())
+}
+
+enum ReportTargetType {
+  USER
+  BUSINESS
+  PRODUCT
+  DEAL
+  REVIEW
+  MEDIA
+  BOOKING
+  EVENT
+}
+
+enum ReportReasonType {
+  SPAM
+  ABUSE
+  SCAM
+  HATE
+  FAKE
+  INAPPROPRIATE
+  THREAT
+  VIOLANCE
+  OFFENSIVE
+  FRAUD
+  PRIVACY
+  MISUSE
+  ILLEGAL
+  OTHER
+}
+
+model Transaction {
+  id          String            @id @default(auto()) @map("_id") @db.ObjectId
+  paymentId   String            @db.ObjectId
+  payment     Payment           @relation(fields: [paymentId], references: [id])
+  businessId  String?           @db.ObjectId
+  business    Business?         @relation(fields: [businessId], references: [id])
+  currencyId  String            @db.ObjectId
+  userId      String            @db.ObjectId
+  user        User              @relation(fields: [userId], references: [id])
+  amount      Float
+  Description String?
+  status      TransactionStatus
+  createdAt   DateTime          @default(now())
+  updatedAt   DateTime          @updatedAt
+}
+
+enum TransactionStatus {
+  PENDING
+  COMPLETED
+  CANCELED
+  REFUNDED
+  FAILED
+  REVERSED
+}
+
+model User {
+  id         String     @id @default(auto()) @map("_id") @db.ObjectId
+  email      String     @unique
+  password   String
+  name       String
+  firstName  String?
+  lastName   String?
+  role       UserRole
+  status     UserStatus
+  businesses Business[]
+  createdAt  DateTime   @default(now())
+  updatedAt  DateTime   @updatedAt
+
+  BusinessFollowing BusinessFollowing[]
+
+  DealsRedemption DealsRedemption[]
+
+  PaymentMethod PaymentMethod[]
+
+  Payment Payment[]
+
+  Report Report[]
+
+  Transaction Transaction[]
+
+  UserAction UserAction[]
+
+  UserActionLog UserActionLog[]
+
+  UserBlocked UserBlocked[] @relation(name: "UserBlockedUser")
+
+  BlockedBy UserBlocked[] @relation(name: "UserBlockedBlocked")
+
+  UserBooking UserBooking[]
+
+  UserBookmark UserBookmark[]
+
+  UserCheckin UserCheckin[]
+
+  UserFollowing UserFollowing[] @relation(name: "UserFollower")
+
+  UserFollowee UserFollowing[] @relation(name: "UserFollowee")
+
+  UserReview UserReview[]
+
+  UserScore UserScore[]
+
+  UserVerification UserVerification[]
+
+  UserWallet UserWallet[]
+
+  UserPreference UserPreference[]
+}
+
+enum UserRole {
+  USER
+  BUSINESS
+  ADMIN
+}
+
+enum UserStatus {
+  ACTIVE
+  SUSPENDED
+  REPORTED
+  DELETED
+}
+
+model UserAction {
+  id            String               @id @default(auto()) @map("_id") @db.ObjectId
+  userId        String               @db.ObjectId
+  user          User                 @relation(fields: [userId], references: [id])
+  action        UserActionType
+  targetId      String               @db.ObjectId
+  targetType    UserActionTargetType
+  actionDetails Json?
+  points        Int?                 @default(0)
+  createdAt     DateTime             @default(now())
+}
+
+enum UserActionType {
+  LIKE
+  FOLLOW
+  UNFOLLOW
+  BOOKMARK
+  UNBOOKMARK
+  REPORT
+  BLOCK
+  UNBLOCK
+  REVIEW
+  SHARE
+  INVITE
+  BOOST
+  PURCHASE
+  ORDER
+  PAY
+  REFUND
+  CANCEL
+  UPDATE
+  DELETE
+  CHECKIN
+  REDEEM
+}
+
+enum UserActionTargetType {
+  USER
+  BUSINESS
+  PRODUCT
+  DEAL
+  REVIEW
+  MEDIA
+  BOOKING
+  EVENT
+}
+
+model UserActionLog {
+  id            String               @id @default(auto()) @map("_id") @db.ObjectId
+  userId        String               @db.ObjectId
+  user          User                 @relation(fields: [userId], references: [id])
+  action        UserActionType
+  actionDetails Json?
+  targetId      String               @db.ObjectId
+  targetType    UserActionTargetType
+  ipAddress     String?
+  device        String?
+  os            String?
+  createdAt     DateTime             @default(now())
+}
+
+enum UserActionLogType {
+  LIKE
+  FOLLOW
+  UNFOLLOW
+  BOOKMARK
+  UNBOOKMARK
+  REPORT
+  BLOCK
+  UNBLOCK
+  REVIEW
+  SHARE
+  INVITE
+  BOOST
+  PURCHASE
+  ORDER
+  PAY
+  REFUND
+  CANCEL
+  UPDATE
+  DELETE
+  CHECKIN
+}
+
+model UserBlocked {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  userId    String   @db.ObjectId
+  user      User     @relation(fields: [userId], references: [id], name: "UserBlockedUser")
+  blockedId String   @db.ObjectId
+  blocked   User     @relation(fields: [blockedId], references: [id], name: "UserBlockedBlocked")
+  createdAt DateTime @default(now())
+}
+
+model UserBooking {
+  id                String            @id @default(auto()) @map("_id") @db.ObjectId
+  userId            String            @db.ObjectId
+  user              User              @relation(fields: [userId], references: [id])
+  businessProductId String[]          @db.ObjectId
+  bookingTimeSlotId String            @db.ObjectId
+  bookingTimeSlot   BookingTimeSlot   @relation(fields: [bookingTimeSlotId], references: [id])
+  status            UserBookingStatus
+  createdAt         DateTime          @default(now())
+  updatedAt         DateTime          @updatedAt
+}
+
+enum UserBookingStatus {
+  PENDING
+  CONFIRMED
+  CANCELED
+  COMPLETED
+  REJECTED
+  REDEEMED
+}
+
+model UserBookmark {
+  id         String           @id @default(auto()) @map("_id") @db.ObjectId
+  userId     String           @db.ObjectId
+  user       User             @relation(fields: [userId], references: [id])
+  targetId   String           @db.ObjectId
+  targetType UserBookmarkType
+  createdAt  DateTime         @default(now())
+}
+
+enum UserBookmarkType {
+  BUSINESS
+  PRODUCT
+  DEAL
+  REVIEW
+  MEDIA
+  BOOKING
+  EVENT
+}
+
+model UserCheckin {
+  id         String   @id @default(auto()) @map("_id") @db.ObjectId
+  userId     String   @db.ObjectId
+  user       User     @relation(fields: [userId], references: [id])
   businessId String   @db.ObjectId
   business   Business @relation(fields: [businessId], references: [id])
+  createdAt  DateTime @default(now())
 }
-model User {
-  id       String   @id @default(auto()) @map("_id") @db.ObjectId
-  email    String   @unique
-  password String
-  name     String
-  businesses Business[]
+
+model UserFollowing {
+  id         String   @id @default(auto()) @map("_id") @db.ObjectId
+  followerId String   @db.ObjectId
+  follower   User     @relation(fields: [followerId], references: [id], name: "UserFollower")
+  followeeId String   @db.ObjectId
+  followee   User     @relation(fields: [followeeId], references: [id], name: "UserFollowee")
+  createdAt  DateTime @default(now())
+}
+
+model UserPreference {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  userId    String   @db.ObjectId
+  user      User     @relation(fields: [userId], references: [id])
+  key       String
+  value     String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model UserReview {
+  id         String           @id @default(auto()) @map("_id") @db.ObjectId
+  userId     String           @db.ObjectId
+  user       User             @relation(fields: [userId], references: [id])
+  targetId   String           @db.ObjectId
+  targetType UserReviewType
+  mediaId    String[]         @db.ObjectId
+  rating     Int
+  content    String?
+  status     UserReviewStatus
+  createdAt  DateTime         @default(now())
+  updatedAt  DateTime         @updatedAt
+}
+
+enum UserReviewStatus {
+  PENDING
+  APPROVED
+  REJECTED
+}
+
+enum UserReviewType {
+  BUSINESS
+  PRODUCT
+  DEAL
+  REVIEW
+  BOOKING
+  EVENT
+}
+
+model UserScore {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  userId    String   @db.ObjectId
+  user      User     @relation(fields: [userId], references: [id])
+  score     Int
+  createdAt DateTime @default(now())
+}
+
+model UserVerification {
+  id        String                 @id @default(auto()) @map("_id") @db.ObjectId
+  userId    String                 @db.ObjectId
+  user      User                   @relation(fields: [userId], references: [id])
+  type      UserVerificationType
+  status    UserVerificationStatus
+  createdAt DateTime               @default(now())
+  updatedAt DateTime               @updatedAt
+}
+
+enum UserVerificationStatus {
+  PENDING
+  APPROVED
+  REJECTED
+}
+
+enum UserVerificationType {
+  EMAIL
+  PHONE
+}
+
+model UserWallet {
+  id         String   @id @default(auto()) @map("_id") @db.ObjectId
+  userId     String   @db.ObjectId
+  user       User     @relation(fields: [userId], references: [id])
+  balance    Float
+  currencyId String   @db.ObjectId
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
 }
