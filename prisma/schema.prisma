@@ -13,7 +13,7 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model Amenities {
+model Amenity {
   id        String   @id @default(auto()) @map("_id") @db.ObjectId
   name      String
   mediaId   String?  @db.ObjectId
@@ -195,7 +195,7 @@ model BusinessProduct {
 
   BusinessDeal BusinessDeal[]
 
-  BusinessProductsPrice BusinessProductsPrice[]
+  BusinessProductPrice BusinessProductPrice[]
 }
 
 enum BusinessProductStatus {
@@ -207,7 +207,7 @@ enum BusinessProductStatus {
   OUTOFSERVICE
 }
 
-model BusinessProductsPrice {
+model BusinessProductPrice {
   id         String          @id @default(auto()) @map("_id") @db.ObjectId
   productId  String          @db.ObjectId
   product    BusinessProduct @relation(fields: [productId], references: [id])
@@ -286,6 +286,7 @@ model Business {
   website            String?
   isClaimed          Boolean
   businessCategoryId String[]       @db.ObjectId
+  amenityId          String[]       @db.ObjectId
   regionId           String         @db.ObjectId
   region             Region         @relation(fields: [regionId], references: [id])
   claimedBy          String?        @db.ObjectId
@@ -345,7 +346,6 @@ model Currency {
   name   String
   code   String
   status CurrencyStatus
-
 }
 
 enum CurrencyStatus {

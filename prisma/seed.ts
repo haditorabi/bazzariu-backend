@@ -14,7 +14,7 @@ async function main() {
 
   console.log('Seeding...');
 
-  const user1 = await prisma.user.create({
+  await prisma.user.create({
     data: {
       email: '1234@gmail.com',
       name: 'hadi',
@@ -57,7 +57,7 @@ async function main() {
       },
     });
   }
-  console.log({ user1 });
+  console.log("Done!");
 }
 
 main()

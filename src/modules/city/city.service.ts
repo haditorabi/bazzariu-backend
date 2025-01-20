@@ -1,4 +1,37 @@
 import { Injectable } from '@nestjs/common';
+import { PrismaService } from '../prisma/prisma.service';
+import { Prisma, City } from '@prisma/client';
 
 @Injectable()
-export class CityService {}
+export class CityService {
+  constructor(private prisma: PrismaService) {}
+
+  async create(data: Prisma.CityCreateInput): Promise<City> {
+    return this.prisma.city.create({
+      data,
+    });
+  }
+
+  async findAll(): Promise<City[]> {
+    return this.prisma.city.findMany();
+  }
+
+  async findOne(id: string): Promise<City | null> {
+    return this.prisma.city.findUnique({
+      where: { id },
+    });
+  }
+
+  async update(id: string, data: Prisma.CityUpdateInput): Promise<City> {
+    return this.prisma.city.update({
+      where: { id },
+      data,
+    });
+  }
+
+  async delete(id: string): Promise<City> {
+    return this.prisma.city.delete({
+      where: { id },
+    });
+  }
+}
