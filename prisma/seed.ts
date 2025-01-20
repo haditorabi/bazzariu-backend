@@ -1,51 +1,63 @@
 import { PrismaClient } from '@prisma/client';
-
+import countries from './countries';
+import provinces from './states';
+import cities from './cities';
+import currencies from './currencies';
 const prisma = new PrismaClient();
 
 async function main() {
   await prisma.user.deleteMany();
+  await prisma.city.deleteMany();
+  await prisma.province.deleteMany();
+  await prisma.country.deleteMany();
+  await prisma.currency.deleteMany();
 
   console.log('Seeding...');
 
-  //   const user1 = await prisma.user.create({
-  //     data: {
-  //       email: 'lisa@simpson.com',
-  //       firstname: 'Lisa',
-  //       lastname: 'Simpson',
-  //       password: '$2b$10$EpRnTzVlqHNP0.fUbXUwSOyuiXe/QLSUG6xNekdHgTGmrpHEfIoxm', // secret42
-  //       role: 'USER',
-  //       posts: {
-  //         create: {
-  //           title: 'Join us for Prisma Day 2019 in Berlin',
-  //           content: 'https://www.prisma.io/day/',
-  //           published: true,
-  //         },
-  //       },
-  //     },
-  //   });
-  //   const user2 = await prisma.user.create({
-  //     data: {
-  //       email: 'bart@simpson.com',
-  //       firstname: 'Bart',
-  //       lastname: 'Simpson',
-  //       role: 'ADMIN',
-  //       password: '$2b$10$EpRnTzVlqHNP0.fUbXUwSOyuiXe/QLSUG6xNekdHgTGmrpHEfIoxm', // secret42
-  //       posts: {
-  //         create: [
-  //           {
-  //             title: 'Subscribe to GraphQL Weekly for community news',
-  //             content: 'https://graphqlweekly.com/',
-  //             published: true,
-  //           },
-  //           {
-  //             title: 'Follow Prisma on Twitter',
-  //             content: 'https://twitter.com/prisma',
-  //             published: false,
-  //           },
-  //         ],
-  //       },
-  //     },
-  //   });
+  const user1 = await prisma.user.create({
+    data: {
+      email: '1234@gmail.com',
+      name: 'hadi',
+      password: '$2b$10$erHPDzHN3Ee9XQjcheagr./XMqA8VE5pnSYqM7HsVVl7wEHAUo76C', // secret42
+      role: 'USER',
+      status: 'ACTIVE',
+    },
+  });
+  for (const currency of currencies) {
+    await prisma.currency.create({
+      data: {
+        name: currency.name,
+        code: currency.code,
+        status: 'ACTIVE',
+      },
+    });
+  }
+  for (const country of countries) {
+    await prisma.country.create({
+      data: {
+        name: country.name,
+        code: country.sortname,
+        status: 'ACTIVE',
+        Province: {
+          create: provinces
+            .filter((province) => province.country_id === country.id)
+            .map((province) => ({
+              name: province.name,
+              status: 'ACTIVE',
+              City: {
+                create: cities
+                  .filter((city) => city.state_id === province.id)
+                  .map((city) => ({
+                    name: city.name,
+                    status: 'ACTIVE',
+                  })),
+              },
+            })),
+        },
+      },
+    });
+  }
+  console.log({ user1 });
 }
 
 main()

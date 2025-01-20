@@ -331,7 +331,7 @@ model City {
   name       String
   provinceId String     @db.ObjectId
   province   Province   @relation(fields: [provinceId], references: [id])
-  status     CityStatus
+  status     CityStatus @default(ACTIVE)
   Region     Region[]
 }
 
@@ -346,7 +346,6 @@ model Currency {
   code   String
   status CurrencyStatus
 
-  Payment Payment[]
 }
 
 enum CurrencyStatus {
@@ -358,7 +357,7 @@ model Country {
   id     String        @id @default(auto()) @map("_id") @db.ObjectId
   name   String
   code   String
-  status CountryStatus
+  status CountryStatus @default(ACTIVE)
 
   Province Province[]
 
@@ -504,7 +503,6 @@ model Payment {
   paymentMethod   PaymentMethod     @relation(fields: [paymentMethodId], references: [id])
   amount          Float
   currencyId      String            @db.ObjectId
-  currency        Currency          @relation(fields: [currencyId], references: [id])
   status          PaymentStatus
   createdAt       DateTime          @default(now())
   updatedAt       DateTime          @updatedAt
@@ -550,7 +548,7 @@ model Province {
   name      String
   countryId String         @db.ObjectId
   country   Country        @relation(fields: [countryId], references: [id])
-  status    ProvinceStatus
+  status    ProvinceStatus @default(ACTIVE)
 
   City City[]
 }
