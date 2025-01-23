@@ -5,6 +5,6 @@ import { PrismaModule } from '../prisma/prisma.module';
 
 @Module({
   imports: [PrismaModule],
-  providers: [BusinessCategoryService, BusinessCategoryResolver]
+  providers: [BusinessCategoryService, BusinessCategoryResolver],
 })
 export class BusinessCategoryModule {}

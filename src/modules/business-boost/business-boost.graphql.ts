@@ -1,0 +1,66 @@
+import { Field, ObjectType, InputType, ID } from '@nestjs/graphql';
+import { Business } from '../../graphql/business.type';
+import { BusinessBoostStatus, BusinessBoostType } from '@prisma/client';
+
+@ObjectType()
+export class BusinessBoost {
+  @Field(() => ID)
+  id: string;
+
+  @Field(() => Business)
+  business: Business;
+
+  @Field()
+  type: BusinessBoostType;
+
+  @Field()
+  startAt: Date;
+
+  @Field()
+  endAt: Date;
+
+  @Field()
+  status: BusinessBoostStatus;
+
+  @Field()
+  createdAt: Date;
+
+  @Field()
+  updatedAt: Date;
+}
+
+@InputType()
+export class CreateBusinessBoostInput {
+  @Field(() => ID)
+  businessId: string;
+
+  @Field()
+  type: BusinessBoostType;
+
+  @Field()
+  startAt: Date;
+
+  @Field()
+  endAt: Date;
+
+  @Field()
+  status: BusinessBoostStatus;
+}
+
+@InputType()
+export class UpdateBusinessBoostInput {
+  @Field(() => ID, { nullable: true })
+  businessId?: string;
+
+  @Field({ nullable: true })
+  type?: BusinessBoostType;
+
+  @Field({ nullable: true })
+  startAt?: Date;
+
+  @Field({ nullable: true })
+  endAt?: Date;
+
+  @Field({ nullable: true })
+  status?: BusinessBoostStatus;
+}

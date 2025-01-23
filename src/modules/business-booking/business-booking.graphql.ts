@@ -1,0 +1,80 @@
+import { Field, ObjectType, InputType, ID } from '@nestjs/graphql';
+import { Business } from '../../graphql/business.type';
+import { BusinessProduct } from '../../graphql/business-product.type';
+import { BusinessBookingStatus } from '@prisma/client';
+import { BookingTimeSlot } from '../booking-time-slot/booking-time-slot.graphql';
+
+@ObjectType()
+export class BusinessBooking {
+  @Field(() => ID)
+  id: string;
+
+  @Field(() => Business)
+  business: Business;
+
+  @Field(() => [BusinessProduct])
+  businessProduct: BusinessProduct[];
+
+  @Field()
+  maxAvilible: number;
+
+  @Field()
+  maxGuest: number;
+
+  @Field(() => [ID])
+  mediaId: string[];
+
+  @Field(() => [BookingTimeSlot])
+  bookingTimeSlot: BookingTimeSlot[];
+
+  @Field()
+  status: BusinessBookingStatus;
+
+  @Field()
+  createdAt: Date;
+
+  @Field()
+  updatedAt: Date;
+}
+
+@InputType()
+export class CreateBusinessBookingInput {
+  @Field(() => ID)
+  businessId: string;
+
+  @Field(() => [ID])
+  businessProductID?: string[];
+
+  @Field({ nullable: true })
+  maxAvilible?: number;
+
+  @Field({ nullable: true })
+  maxGuest?: number;
+
+  @Field(() => [ID], { nullable: true })
+  mediaId?: string[];
+
+  @Field()
+  status: BusinessBookingStatus;
+}
+
+@InputType()
+export class UpdateBusinessBookingInput {
+  @Field(() => ID, { nullable: true })
+  businessId?: string;
+
+  @Field(() => [ID], { nullable: true })
+  businessProductID?: string[];
+
+  @Field({ nullable: true })
+  maxAvilible?: number;
+
+  @Field({ nullable: true })
+  maxGuest?: number;
+
+  @Field(() => [ID], { nullable: true })
+  mediaId?: string[];
+
+  @Field({ nullable: true })
+  status?: BusinessBookingStatus;
+}

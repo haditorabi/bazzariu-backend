@@ -145,14 +145,6 @@ enum BusinessHourStatus {
   ARCHIVED
 }
 
-model BusinessLanguage {
-  id         String   @id @default(auto()) @map("_id") @db.ObjectId
-  businessId String   @db.ObjectId
-  business   Business @relation(fields: [businessId], references: [id])
-  languageId String   @db.ObjectId
-  createdAt  DateTime @default(now())
-}
-
 model BusinessLocation {
   id         String                 @id @default(auto()) @map("_id") @db.ObjectId
   businessId String                 @db.ObjectId
@@ -287,6 +279,7 @@ model Business {
   isClaimed          Boolean
   businessCategoryId String[]       @db.ObjectId
   amenityId          String[]       @db.ObjectId
+  languageId         String[]       @db.ObjectId
   regionId           String         @db.ObjectId
   region             Region         @relation(fields: [regionId], references: [id])
   claimedBy          String?        @db.ObjectId
@@ -303,8 +296,6 @@ model Business {
   BusinessFollowing BusinessFollowing[]
 
   BusinessHour BusinessHour[]
-
-  BusinessLanguage BusinessLanguage[]
 
   BusinessLocation BusinessLocation[]
 
@@ -585,6 +576,7 @@ model Report {
   reason     ReportReasonType
   reasonText String?
   createdAt  DateTime         @default(now())
+  updatedAt       DateTime          @updatedAt
 }
 
 enum ReportTargetType {
@@ -625,7 +617,7 @@ model Transaction {
   userId      String            @db.ObjectId
   user        User              @relation(fields: [userId], references: [id])
   amount      Float
-  Description String?
+  description String?
   status      TransactionStatus
   createdAt   DateTime          @default(now())
   updatedAt   DateTime          @updatedAt
