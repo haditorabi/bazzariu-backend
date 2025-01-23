@@ -6,13 +6,13 @@ export class Payment {
   @Field(() => ID)
   id: string;
 
-  @Field()
+  @Field(() => ID)
   transactionId: string;
 
-  @Field()
+  @Field({ nullable: true })
   description?: string;
 
-  @Field()
+  @Field(() => ID)
   targetId: string;
 
   @Field()
@@ -21,8 +21,8 @@ export class Payment {
   @Field(() => ID)
   userId: string;
 
-  @Field(() => ID)
-  businessId: string;
+  @Field(() => ID, { nullable: true })
+  businessId?: string;
 
   @Field(() => ID)
   paymentMethodId: string;

@@ -17,4 +17,7 @@ export class User {
 
   @Field()
   status: UserStatus;
+
+  @Field()
+  createdAt: Date;
 }

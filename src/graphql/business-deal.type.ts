@@ -9,8 +9,14 @@ export class BusinessDeal {
   @Field()
   name: string;
 
+  @Field({ nullable: true })
+  description?: string;
+
   @Field()
-  description: string;
+  businessId: string;
+
+  @Field(() => [ID], { nullable: true })
+  businessProductId?: string[];
 
   @Field()
   discountType: DiscountType;
@@ -18,11 +24,11 @@ export class BusinessDeal {
   @Field()
   value: number;
 
-  @Field()
-  maxRedemption: number;
+  @Field({ nullable: true })
+  maxRedemption?: number;
 
-  @Field()
-  maxPerUser: number;
+  @Field({ nullable: true })
+  maxPerUser?: number;
 
   @Field()
   startDate: Date;
@@ -30,8 +36,8 @@ export class BusinessDeal {
   @Field()
   endDate: Date;
 
-  @Field()
-  mediaId: string[];
+  @Field({ nullable: true })
+  mediaId?: string[];
 
   @Field()
   status: BusinessDealStatus;

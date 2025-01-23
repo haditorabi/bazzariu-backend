@@ -7,13 +7,19 @@ export class BusinessProduct {
   id: string;
 
   @Field()
-  name: string;
+  businessId: string;
 
   @Field()
-  description: string;
+  categoryId?: string;
 
-  @Field(() => [ID])
-  mediaId: string[];
+  @Field()
+  name: string;
+
+  @Field({ nullable: true })
+  description?: string;
+
+  @Field(() => [ID], { nullable: true })
+  mediaId?: string[];
 
   @Field()
   status: BusinessProductStatus;

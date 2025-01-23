@@ -9,7 +9,7 @@ export class PaymentMethod {
   @Field()
   userId: string;
 
-  @Field()
+  @Field({ nullable: true })
   details?: string;
 
   @Field()

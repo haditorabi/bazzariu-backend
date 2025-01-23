@@ -9,29 +9,29 @@ export class Business {
   @Field()
   name: string;
 
-  @Field()
-  description: string;
+  @Field({ nullable: true })
+  description?: string;
 
-  @Field()
-  website: string;
+  @Field({ nullable: true })
+  website?: string;
 
   @Field()
   isClaimed: boolean;
 
-  @Field(() => [ID])
-  businessCategoryID: string[];
+  @Field(() => [ID], { nullable: true })
+  businessCategoryID?: string[];
 
   @Field(() => [ID], { nullable: true })
-  amenityId: string[];
+  amenityId?: string[];
 
   @Field(() => [ID], { nullable: true })
-  languageId: string[];
+  languageId?: string[];
 
   @Field(() => Region, { nullable: true })
-  region: Region;
+  region?: Region;
 
   @Field(() => [ID], { nullable: true })
-  mediaId: string[];
+  mediaId?: string[];
 
   @Field()
   status: BusinessStatus;

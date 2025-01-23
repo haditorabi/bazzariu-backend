@@ -9,8 +9,8 @@ export class Event {
   @Field()
   name: string;
 
-  @Field()
-  description: string;
+  @Field({ nullable: true })
+  description?: string;
 
   @Field()
   startDate: Date;
@@ -18,8 +18,14 @@ export class Event {
   @Field()
   endDate: Date;
 
+  @Field(() => [ID])
+  categoryId: string[];
+
   @Field()
   status: EventStatus;
+
+  @Field(() => ID)
+  mediaId?: string;
 
   @Field()
   createdAt: Date;

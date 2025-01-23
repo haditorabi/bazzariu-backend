@@ -7,4 +7,7 @@ export class Province {
 
   @Field()
   name: string;
+
+  @Field(() => ID)
+  countryId: string;
 }
