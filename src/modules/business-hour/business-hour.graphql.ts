@@ -29,7 +29,7 @@ export class BusinessHour {
 @InputType()
 export class CreateBusinessHourInput {
   @Field(() => ID)
-  businessId: string;
+  business: string;
 
   @Field()
   dayOfWeek: string;
@@ -46,8 +46,11 @@ export class CreateBusinessHourInput {
 
 @InputType()
 export class UpdateBusinessHourInput {
+  @Field(() => ID)
+  id: string;
+
   @Field(() => ID, { nullable: true })
-  businessId?: string;
+  business?: string;
 
   @Field({ nullable: true })
   dayOfWeek?: string;
