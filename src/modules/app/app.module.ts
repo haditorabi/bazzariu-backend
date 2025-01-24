@@ -10,6 +10,7 @@ import { PrismaModule } from 'src/modules/prisma/prisma.module';
 import { AppController } from './app.controller';
 import { CountryModule } from '../country/country.module';
 import { BusinessCategoryModule } from '../business-category/business-category.module';
+import { BusinessDealModule } from '../business-deal/business-deal.module';
 
 @Module({
   imports: [
@@ -28,6 +29,7 @@ import { BusinessCategoryModule } from '../business-category/business-category.m
     UserModule,
     CountryModule,
     BusinessCategoryModule,
+    BusinessDealModule,
   ],
   controllers: [AppController],
   providers: [AppResolver],

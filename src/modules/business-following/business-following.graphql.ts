@@ -17,17 +17,20 @@ export class BusinessFollowing {
 @InputType()
 export class CreateBusinessFollowingInput {
   @Field(() => ID)
-  businessId: string;
+  business: string;
 
   @Field(() => ID)
-  userId: string;
+  user: string;
 }
 
 @InputType()
 export class UpdateBusinessFollowingInput {
-  @Field(() => ID, { nullable: true })
-  businessId?: string;
+  @Field(() => ID)
+  id: string;
 
   @Field(() => ID, { nullable: true })
-  userId?: string;
+  business?: string;
+
+  @Field(() => ID, { nullable: true })
+  user?: string;
 }
