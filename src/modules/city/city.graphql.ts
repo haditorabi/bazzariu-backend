@@ -33,7 +33,7 @@ export class CreateCityInput {
   name: string;
 
   @Field(() => ID)
-  provinceId: string;
+  province: string;
 
   @Field()
   statusId: CityStatus;
@@ -41,12 +41,15 @@ export class CreateCityInput {
 
 @InputType()
 export class UpdateCityInput {
+  @Field(() => ID)
+  id?: string;
+
   @Field({ nullable: true })
-  name: string;
+  name?: string;
 
   @Field(() => ID, { nullable: true })
-  provinceId: string;
+  province?: string;
 
   @Field({ nullable: true })
-  status: CityStatus;
+  status?: CityStatus;
 }
