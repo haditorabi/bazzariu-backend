@@ -27,7 +27,7 @@ export class CreateBusinessCategoryInput {
   @Field()
   name: string;
 
-  @Field(() => ID)
+  @Field(() => ID, { nullable: true })
   mediaId?: string;
 
   @Field()
@@ -36,6 +36,9 @@ export class CreateBusinessCategoryInput {
 
 @InputType()
 export class UpdateBusinessCategoryInput {
+  @Field(() => ID)
+  id: string;
+
   @Field({ nullable: true })
   name?: string;
 

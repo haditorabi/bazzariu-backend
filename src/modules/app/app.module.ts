@@ -9,6 +9,7 @@ import { UserModule } from 'src/modules/user/user.module';
 import { PrismaModule } from 'src/modules/prisma/prisma.module';
 import { AppController } from './app.controller';
 import { CountryModule } from '../country/country.module';
+import { BusinessCategoryModule } from '../business-category/business-category.module';
 
 @Module({
   imports: [
@@ -26,6 +27,7 @@ import { CountryModule } from '../country/country.module';
     AuthModule,
     UserModule,
     CountryModule,
+    BusinessCategoryModule,
   ],
   controllers: [AppController],
   providers: [AppResolver],

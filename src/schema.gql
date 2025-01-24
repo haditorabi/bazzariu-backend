@@ -7,12 +7,27 @@ type Boundry {
   longtitude: String!
 }
 
+type BusinessCategory {
+  createdAt: DateTime!
+  id: ID!
+  mediaId: String!
+  name: String!
+  status: String!
+  updatedAt: DateTime!
+}
+
 type Country {
   code: String!
   id: ID!
   name: String!
   province: [Province!]
   region: [Region!]
+  status: String!
+}
+
+input CreateBusinessCategoryInput {
+  mediaId: ID
+  name: String!
   status: String!
 }
 
@@ -27,6 +42,11 @@ input CreateExampleInput {
   name: String!
 }
 
+"""
+A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
+"""
+scalar DateTime
+
 type ExampleModel {
   description: String
   id: Int!
@@ -34,8 +54,10 @@ type ExampleModel {
 }
 
 type Mutation {
+  createBusinessCategory(data: CreateBusinessCategoryInput!): BusinessCategory!
   createCountry(data: CreateCountryInput!): Country!
   createExample(data: CreateExampleInput!): ExampleModel!
+  updateBusinessCategory(data: UpdateBusinessCategoryInput!): BusinessCategory!
   updateCountry(data: UpdateCountryInput!): Country!
 }
 
@@ -46,6 +68,8 @@ type Province {
 }
 
 type Query {
+  businessCategories: [BusinessCategory!]!
+  businessCategory(id: String!): BusinessCategory!
   countries: [Country!]!
   country(id: String!): Country!
   getExamples: [ExampleModel!]!
@@ -61,6 +85,13 @@ type Region {
   id: ID!
   name: String!
   status: String!
+}
+
+input UpdateBusinessCategoryInput {
+  id: ID!
+  mediaId: ID
+  name: String
+  status: String
 }
 
 input UpdateCountryInput {
