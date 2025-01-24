@@ -24,7 +24,7 @@ export class Event {
   @Field()
   status: EventStatus;
 
-  @Field(() => ID)
+  @Field(() => ID, { nullable: true })
   mediaId?: string;
 
   @Field()

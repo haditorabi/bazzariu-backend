@@ -11,8 +11,8 @@ export class UserBooking {
   @Field(() => User)
   user: User;
 
-  @Field()
-  businessProductId: string[];
+  @Field(() => [String], { nullable: true })
+  businessProductId?: string[];
 
   @Field(() => BookingTimeSlot)
   bookingTimeSlotId: BookingTimeSlot;
@@ -32,8 +32,8 @@ export class CreateUserBookingInput {
   @Field(() => ID)
   userId: string;
 
-  @Field(() => [ID])
-  businessProductId: string[];
+  @Field(() => [ID], { nullable: true })
+  businessProductId?: string[];
 
   @Field(() => ID)
   bookingTimeSlotId: string;
@@ -45,14 +45,14 @@ export class CreateUserBookingInput {
 @InputType()
 export class UpdateUserBookingInput {
   @Field(() => ID, { nullable: true })
-  userId: string;
+  userId?: string;
 
   @Field(() => [ID], { nullable: true })
-  businessProductId: string[];
+  businessProductId?: string[];
 
   @Field(() => ID, { nullable: true })
-  bookingTimeSlotId: string;
+  bookingTimeSlotId?: string;
 
-  @Field()
-  status: UserBookingStatus;
+  @Field({ nullable: true })
+  status?: UserBookingStatus;
 }

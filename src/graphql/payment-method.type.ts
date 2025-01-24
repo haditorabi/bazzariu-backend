@@ -6,7 +6,7 @@ export class PaymentMethod {
   @Field(() => ID)
   id: string;
 
-  @Field()
+  @Field(() => ID)
   userId: string;
 
   @Field({ nullable: true })

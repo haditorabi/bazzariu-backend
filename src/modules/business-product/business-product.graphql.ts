@@ -13,16 +13,16 @@ export class BusinessProduct {
   @Field(() => Business)
   business: Business;
 
-  @Field(() => ProductCategory)
-  productCategroy?: string;
+  @Field(() => ProductCategory, { nullable: true })
+  productCategroy?: ProductCategory;
 
   @Field()
   name: string;
 
-  @Field()
+  @Field({ nullable: true })
   description?: string;
 
-  @Field(() => [ID])
+  @Field(() => [ID], { nullable: true })
   mediaId?: string[];
 
   @Field()
@@ -44,18 +44,18 @@ export class BusinessProduct {
 @InputType()
 export class CreateBusinessProductInput {
   @Field(() => ID)
-  business: string;
+  businessId: string;
 
-  @Field(() => [ID])
-  productCategroy?: string[];
+  @Field(() => [ID], { nullable: true })
+  productCategroyId?: string[];
 
   @Field()
   name: string;
 
-  @Field()
+  @Field({ nullable: true })
   description?: string;
 
-  @Field(() => [ID])
+  @Field(() => [ID], { nullable: true })
   mediaId?: string[];
 
   @Field()

@@ -12,8 +12,8 @@ export class BusinessBooking {
   @Field()
   maxGuest: number;
 
-  @Field()
-  mediaId: string[];
+  @Field(() => [ID], { nullable: true })
+  mediaId?: string[];
 
   @Field()
   status: BusinessBookingStatus;

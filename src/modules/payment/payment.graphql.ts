@@ -9,13 +9,13 @@ export class Payment {
   @Field(() => ID)
   id: string;
 
-  @Field()
+  @Field(() => ID)
   transactionId: string;
 
-  @Field()
+  @Field({ nullable: true })
   description?: string;
 
-  @Field()
+  @Field(() => ID)
   targetId: string;
 
   @Field()
@@ -33,7 +33,7 @@ export class Payment {
   @Field()
   amount: number;
 
-  @Field()
+  @Field(() => ID)
   currencyId: string;
 
   @Field()
@@ -48,31 +48,31 @@ export class Payment {
 
 @InputType()
 export class CreatePaymentInput {
-  @Field()
+  @Field(() => ID)
   transactionId: string;
 
-  @Field()
+  @Field({ nullable: true })
   description?: string;
 
-  @Field()
+  @Field(() => ID)
   targetId: string;
 
   @Field()
   targetType: PaymentTargetType;
 
   @Field(() => ID)
-  user: string;
+  userId: string;
+
+  @Field(() => ID, { nullable: true })
+  businessId?: string;
 
   @Field(() => ID)
-  business?: string;
-
-  @Field(() => PaymentMethod)
-  paymentMethod: PaymentMethod;
+  paymentMethodId?: string;
 
   @Field()
   amount: number;
 
-  @Field()
+  @Field(() => ID)
   currencyId: string;
 
   @Field()
@@ -81,26 +81,26 @@ export class CreatePaymentInput {
 
 @InputType()
 export class UpdatePaymentInput {
-  @Field({ nullable: true })
+  @Field(() => ID, { nullable: true })
   transactionId?: string;
 
   @Field({ nullable: true })
   description?: string;
 
-  @Field({ nullable: true })
+  @Field(() => ID, { nullable: true })
   targetId?: string;
 
   @Field({ nullable: true })
   targetType?: PaymentTargetType;
 
   @Field(() => ID, { nullable: true })
-  user?: string;
+  userId?: string;
 
   @Field(() => ID, { nullable: true })
-  business?: string;
+  businessId?: string;
 
-  @Field(() => PaymentMethod, { nullable: true })
-  paymentMethod?: PaymentMethod;
+  @Field(() => ID, { nullable: true })
+  paymentMethodId?: string;
 
   @Field({ nullable: true })
   amount?: number;

@@ -6,10 +6,10 @@ export class BusinessProduct {
   @Field(() => ID)
   id: string;
 
-  @Field()
+  @Field(() => ID)
   businessId: string;
 
-  @Field()
+  @Field(() => ID)
   categoryId?: string;
 
   @Field()

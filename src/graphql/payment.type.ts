@@ -30,7 +30,7 @@ export class Payment {
   @Field()
   amount: number;
 
-  @Field()
+  @Field(() => ID)
   currencyId: string;
 
   @Field()

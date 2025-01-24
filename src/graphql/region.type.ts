@@ -17,6 +17,7 @@ export class Region {
 
   @Field()
   boundry: object;
+
   @Field()
   status: RegionStatus;
 }

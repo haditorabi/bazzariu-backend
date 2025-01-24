@@ -16,8 +16,8 @@ export class EventCategory {
   @Field()
   createdAt: Date;
 
-  @Field(() => Event)
-  event: Event;
+  @Field(() => [Event], { nullable: true })
+  event?: Event[];
 }
 
 @InputType()
@@ -26,7 +26,7 @@ export class CreateEventCategoryInput {
   name: string;
 
   @Field()
-  email: string;
+  status: EventCategoryStatus;
 }
 
 @InputType()
@@ -35,5 +35,5 @@ export class UpdateEventCategoryInput {
   name?: string;
 
   @Field({ nullable: true })
-  email?: string;
+  status?: EventCategoryStatus;
 }

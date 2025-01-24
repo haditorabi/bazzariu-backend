@@ -8,7 +8,7 @@ export class Amenity {
   @Field()
   name: string;
 
-  @Field()
+  @Field(() => ID)
   mediaId: string;
 
   @Field()
@@ -20,8 +20,8 @@ export class CreateAmenityInput {
   @Field()
   name: string;
 
-  @Field()
-  mediaId: string;
+  @Field(() => ID, { nullable: true })
+  mediaId?: string;
 }
 
 @InputType()
@@ -29,6 +29,6 @@ export class UpdateAmenityInput {
   @Field({ nullable: true })
   name?: string;
 
-  @Field({ nullable: true })
+  @Field(() => ID, { nullable: true })
   mediaId?: string;
 }

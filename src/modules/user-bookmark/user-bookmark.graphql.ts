@@ -10,7 +10,7 @@ export class UserBookmark {
   @Field(() => User)
   user: User;
 
-  @Field()
+  @Field(() => ID)
   targetId: string;
 
   @Field()
@@ -25,7 +25,7 @@ export class CreateUserBookmarkInput {
   @Field(() => ID)
   userId: string;
 
-  @Field()
+  @Field(() => ID)
   targetId: string;
 
   @Field()
@@ -37,7 +37,7 @@ export class UpdateUserBookmarkInput {
   @Field(() => ID, { nullable: true })
   userId?: string;
 
-  @Field({ nullable: true })
+  @Field(() => ID, { nullable: true })
   targetId?: string;
 
   @Field({ nullable: true })

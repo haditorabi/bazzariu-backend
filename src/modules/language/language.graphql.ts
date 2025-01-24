@@ -34,8 +34,8 @@ export class UpdateLanguageInput {
   name?: string;
 
   @Field({ nullable: true })
-  code: string;
+  code?: string;
 
   @Field({ nullable: true })
-  status: LanguageStatus;
+  status?: LanguageStatus;
 }

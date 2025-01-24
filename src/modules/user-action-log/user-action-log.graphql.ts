@@ -13,10 +13,10 @@ export class UserActionLog {
   @Field()
   action: UserActionType;
 
-  @Field()
-  actionDetails: object;
+  @Field({ nullable: true })
+  actionDetails?: object;
 
-  @Field()
+  @Field(() => ID)
   targetId: string;
 
   @Field()
@@ -25,11 +25,11 @@ export class UserActionLog {
   @Field()
   ipAddress: string;
 
-  @Field()
-  device: string;
+  @Field({ nullable: true })
+  device?: string;
 
-  @Field()
-  os: string;
+  @Field({ nullable: true })
+  os?: string;
 
   @Field()
   createdAt: Date;
@@ -43,10 +43,10 @@ export class CreateUserActionLogInput {
   @Field()
   action: UserActionType;
 
-  @Field()
+  @Field({ nullable: true })
   actionDetails?: object;
 
-  @Field()
+  @Field(() => ID)
   targetId: string;
 
   @Field()
@@ -55,10 +55,10 @@ export class CreateUserActionLogInput {
   @Field()
   ipAddress: string;
 
-  @Field()
+  @Field({ nullable: true })
   device?: string;
 
-  @Field()
+  @Field({ nullable: true })
   os?: string;
 }
 
@@ -73,7 +73,7 @@ export class UpdateUserActionLogInput {
   @Field({ nullable: true })
   actionDetails?: object;
 
-  @Field({ nullable: true })
+  @Field(() => ID, { nullable: true })
   targetId?: string;
 
   @Field({ nullable: true })

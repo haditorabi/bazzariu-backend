@@ -12,8 +12,8 @@ export class BusinessBooking {
   @Field(() => Business)
   business: Business;
 
-  @Field(() => [BusinessProduct])
-  businessProduct: BusinessProduct[];
+  @Field(() => [BusinessProduct], { nullable: true })
+  businessProduct?: BusinessProduct[];
 
   @Field()
   maxAvilible: number;
@@ -21,11 +21,11 @@ export class BusinessBooking {
   @Field()
   maxGuest: number;
 
-  @Field(() => [ID])
-  mediaId: string[];
+  @Field(() => [ID], { nullable: true })
+  mediaId?: string[];
 
-  @Field(() => [BookingTimeSlot])
-  bookingTimeSlot: BookingTimeSlot[];
+  @Field(() => [BookingTimeSlot], { nullable: true })
+  bookingTimeSlot?: BookingTimeSlot[];
 
   @Field()
   status: BusinessBookingStatus;
@@ -42,7 +42,7 @@ export class CreateBusinessBookingInput {
   @Field(() => ID)
   businessId: string;
 
-  @Field(() => [ID])
+  @Field(() => [ID], { nullable: true })
   businessProductID?: string[];
 
   @Field({ nullable: true })

@@ -12,7 +12,7 @@ export class BusinessDeal {
   @Field({ nullable: true })
   description?: string;
 
-  @Field()
+  @Field(() => ID)
   businessId: string;
 
   @Field(() => [ID], { nullable: true })
@@ -36,7 +36,7 @@ export class BusinessDeal {
   @Field()
   endDate: Date;
 
-  @Field({ nullable: true })
+  @Field(() => [ID], { nullable: true })
   mediaId?: string[];
 
   @Field()

@@ -19,11 +19,11 @@ export class Event {
   @Field()
   endDate: Date;
 
-  @Field(() => [EventCategory])
-  category: EventCategory[];
+  @Field(() => [EventCategory], { nullable: true })
+  category?: EventCategory[];
 
-  @Field(() => [ID])
-  mediaId: string[];
+  @Field(() => [ID], { nullable: true })
+  mediaId?: string[];
 
   @Field()
   status: EventStatus;
@@ -49,8 +49,8 @@ export class CreateEventInput {
   @Field()
   endDate: Date;
 
-  @Field(() => [ID])
-  category: string[];
+  @Field(() => [ID], { nullable: true })
+  categoryId: string[];
 
   @Field(() => [ID], { nullable: true })
   mediaId?: string[];
@@ -74,7 +74,7 @@ export class UpdateEventInput {
   endDate?: Date;
 
   @Field(() => [ID], { nullable: true })
-  category?: string[];
+  categoryId?: string[];
 
   @Field(() => [ID], { nullable: true })
   mediaId?: string[];

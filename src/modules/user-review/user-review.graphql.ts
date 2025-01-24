@@ -10,7 +10,7 @@ export class UserReview {
   @Field(() => User)
   user: User;
 
-  @Field()
+  @Field(() => User)
   targetId: string;
 
   @Field()
@@ -22,7 +22,7 @@ export class UserReview {
   @Field()
   rating: number;
 
-  @Field()
+  @Field({ nullable: true })
   content?: string;
 
   @Field()
@@ -40,7 +40,7 @@ export class CreateUserReviewInput {
   @Field(() => ID)
   userId: string;
 
-  @Field()
+  @Field(() => ID, { nullable: true })
   targetId: string;
 
   @Field()
@@ -52,7 +52,7 @@ export class CreateUserReviewInput {
   @Field()
   rating: number;
 
-  @Field()
+  @Field({ nullable: true })
   content?: string;
 
   @Field()
@@ -64,7 +64,7 @@ export class UpdateUserReviewInput {
   @Field(() => ID, { nullable: true })
   userId?: string;
 
-  @Field({ nullable: true })
+  @Field(() => ID, { nullable: true })
   targetId?: string;
 
   @Field({ nullable: true })

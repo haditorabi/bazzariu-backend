@@ -54,7 +54,7 @@ export class CreateBusinessUpdateInput {
 
 @InputType()
 export class UpdateBusinessUpdateInput {
-  @Field(() => ID)
+  @Field(() => ID, { nullable: true })
   businessId?: string;
 
   @Field({ nullable: true })

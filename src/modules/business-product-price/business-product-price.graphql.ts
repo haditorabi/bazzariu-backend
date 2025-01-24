@@ -1,5 +1,6 @@
 import { Field, ObjectType, InputType, ID } from '@nestjs/graphql';
 import { BusinessProduct } from 'src/graphql/business-product.type';
+import { Currency } from '../currency/currency.graphql';
 
 @ObjectType()
 export class BusinessProductPrice {
@@ -9,8 +10,8 @@ export class BusinessProductPrice {
   @Field(() => BusinessProduct)
   businessProduct: BusinessProduct;
 
-  @Field(() => ID)
-  currencyId: string;
+  @Field(() => Currency)
+  currency: Currency;
 
   @Field()
   price: number;
@@ -25,7 +26,7 @@ export class BusinessProductPrice {
 @InputType()
 export class CreateBusinessProductInput {
   @Field(() => ID, { nullable: true })
-  businessProductID: string;
+  businessProductId: string;
 
   @Field(() => ID)
   currencyId: string;
@@ -40,11 +41,11 @@ export class UpdateBusinessProductInput {
   name?: string;
 
   @Field(() => ID, { nullable: true })
-  businessProduct?: string;
+  businessProductId?: string;
 
   @Field(() => ID, { nullable: true })
   currencyId?: string;
 
   @Field({ nullable: true })
-  price: number;
+  price?: number;
 }

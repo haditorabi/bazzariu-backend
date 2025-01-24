@@ -17,8 +17,8 @@ export class BusinessDeal {
   @Field(() => Business)
   business: Business;
 
-  @Field(() => [BusinessProduct])
-  businessProduct: BusinessProduct[];
+  @Field(() => [BusinessProduct], { nullable: true })
+  businessProduct?: BusinessProduct[];
 
   @Field()
   discountType: DiscountType;
@@ -38,8 +38,8 @@ export class BusinessDeal {
   @Field()
   endDate: Date;
 
-  @Field(() => [ID])
-  mediaId: string[];
+  @Field(() => [ID], { nullable: true })
+  mediaId?: string[];
 
   @Field()
   status: BusinessDealStatus;
@@ -56,43 +56,42 @@ export class CreateBusinessDealInput {
   @Field()
   name: string;
 
-  @Field()
+  @Field({ nullable: true })
   description?: string;
 
   @Field(() => ID)
   business: string;
 
-  @Field(() => [ID])
+  @Field(() => [ID], { nullable: true })
   businessProduct?: string[];
 
   @Field()
-  discountType?: DiscountType;
+  discountType: DiscountType;
 
   @Field()
-  value?: number;
+  value: number;
 
-  @Field()
+  @Field({ nullable: true })
   maxRedemption?: number;
 
-  @Field()
+  @Field({ nullable: true })
   maxPerUser?: number;
 
   @Field()
-  startDate?: Date;
+  startDate: Date;
 
   @Field()
-  endDate?: Date;
+  endDate: Date;
 
-  @Field(() => [ID])
+  @Field(() => [ID], { nullable: true })
   mediaId?: string[];
 
   @Field()
-  status?: BusinessDealStatus;
+  status: BusinessDealStatus;
 }
 
 @InputType()
 export class UpdateBusinessDealInput {
-  @Field({ nullable: true })
   @Field({ nullable: true })
   name?: string;
 

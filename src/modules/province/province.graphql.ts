@@ -17,8 +17,8 @@ export class Province {
   @Field()
   status: ProvinceStatus;
 
-  @Field(() => City)
-  city: City;
+  @Field(() => [City])
+  city?: City[];
 }
 
 @InputType()
@@ -39,8 +39,8 @@ export class UpdateProvinceInput {
   name?: string;
 
   @Field(() => ID, { nullable: true })
-  country: string;
+  country?: string;
 
   @Field({ nullable: true })
-  status: ProvinceStatus;
+  status?: ProvinceStatus;
 }

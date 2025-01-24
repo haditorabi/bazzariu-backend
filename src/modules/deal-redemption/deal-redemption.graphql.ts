@@ -32,18 +32,36 @@ export class DealsRedemption {
 
 @InputType()
 export class CreateDealsRedemptionInput {
-  @Field()
-  name: string;
+  @Field(() => ID)
+  businessDealId: string;
+
+  @Field(() => ID)
+  userId: string;
 
   @Field()
-  email: string;
+  redeemedAt: Date;
+
+  @Field()
+  expiresAt: Date;
+
+  @Field()
+  status: DealsRedemptionStatus;
 }
 
 @InputType()
 export class UpdateDealsRedemptionInput {
-  @Field({ nullable: true })
-  name?: string;
+  @Field(() => ID, { nullable: true })
+  businessDealId?: string;
+
+  @Field(() => ID, { nullable: true })
+  userId?: string;
 
   @Field({ nullable: true })
-  email?: string;
+  redeemedAt?: Date;
+
+  @Field({ nullable: true })
+  expiresAt?: Date;
+
+  @Field({ nullable: true })
+  status?: DealsRedemptionStatus;
 }

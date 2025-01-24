@@ -45,7 +45,7 @@ export class CreateTransactionInput {
   @Field(() => ID)
   businessId: string;
 
-  @Field()
+  @Field(() => ID)
   currencyId: string;
 
   @Field(() => ID)
@@ -69,7 +69,7 @@ export class UpdateTransactionInput {
   @Field(() => ID, { nullable: true })
   businessId?: string;
 
-  @Field({ nullable: true })
+  @Field(() => ID, { nullable: true })
   currencyId?: string;
 
   @Field(() => ID, { nullable: true })

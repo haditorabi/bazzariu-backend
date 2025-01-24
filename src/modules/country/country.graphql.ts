@@ -17,11 +17,11 @@ export class Country {
   @Field()
   status: CountryStatus;
 
-  @Field(() => Province)
-  Province: Province;
+  @Field(() => [Province])
+  Province?: Province[];
 
-  @Field(() => Region)
-  region: Region;
+  @Field(() => [Region])
+  region?: Region[];
 }
 
 @InputType()

@@ -12,7 +12,7 @@ export class UserWallet {
   @Field()
   balance: number;
 
-  @Field()
+  @Field(() => ID)
   currencyId: string;
 
   @Field()
@@ -30,7 +30,7 @@ export class CreateUserWalletInput {
   @Field()
   balance: number;
 
-  @Field()
+  @Field(() => ID)
   currencyId: string;
 }
 
@@ -42,6 +42,6 @@ export class UpdateUserWalletInput {
   @Field({ nullable: true })
   balance?: number;
 
-  @Field({ nullable: true })
+  @Field(() => ID, { nullable: true })
   currencyId?: string;
 }

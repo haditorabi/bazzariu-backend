@@ -13,7 +13,7 @@ export class UserAction {
   @Field()
   action: UserActionType;
 
-  @Field()
+  @Field(() => ID)
   targetId: string;
 
   @Field()
@@ -37,7 +37,7 @@ export class CreateUserActionInput {
   @Field()
   action: UserActionType;
 
-  @Field()
+  @Field(() => ID)
   targetId: string;
 
   @Field()
@@ -58,7 +58,7 @@ export class UpdateUserActionInput {
   @Field({ nullable: true })
   action?: UserActionType;
 
-  @Field({ nullable: true })
+  @Field(() => ID, { nullable: true })
   targetId?: string;
 
   @Field({ nullable: true })
