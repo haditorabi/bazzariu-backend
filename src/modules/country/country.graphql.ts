@@ -17,10 +17,10 @@ export class Country {
   @Field()
   status: CountryStatus;
 
-  @Field(() => [Province])
-  Province?: Province[];
+  @Field(() => [Province], { nullable: true })
+  province?: Province[];
 
-  @Field(() => [Region])
+  @Field(() => [Region], { nullable: true })
   region?: Region[];
 }
 
@@ -38,6 +38,9 @@ export class CreateCountryInput {
 
 @InputType()
 export class UpdateCountryInput {
+  @Field(() => ID)
+  id: string;
+
   @Field({ nullable: true })
   name?: string;
 
