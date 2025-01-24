@@ -1,4 +1,35 @@
-import { Resolver } from '@nestjs/graphql';
+import { Resolver, Query, Mutation, Args } from '@nestjs/graphql';
+import { AmenityService } from './amenity.service';
+import {
+  Amenity,
+  CreateAmenityInput,
+  UpdateAmenityInput,
+} from './amenity.graphql';
 
-@Resolver()
-export class AmenityResolver {}
+@Resolver(() => Amenity)
+export class AmenityResolver {
+  constructor(private service: AmenityService) {}
+
+  @Query(() => [Amenity])
+  async amenities() {
+    return this.service.findAll();
+  }
+
+  @Query(() => Amenity)
+  async amenity(@Args('id') id: string) {
+    return this.service.findOne(id);
+  }
+
+  @Mutation(() => Amenity)
+  async createAmenity(@Args('data') data: CreateAmenityInput) {
+    return this.service.create(data);
+  }
+
+  @Mutation(() => Amenity)
+  async updateUser(
+    @Args('id') id: string,
+    @Args('data') data: UpdateAmenityInput,
+  ) {
+    return this.service.update(id, data);
+  }
+}
