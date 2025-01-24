@@ -18,7 +18,7 @@ async function main() {
     data: {
       email: '1234@gmail.com',
       name: 'hadi',
-      password: '$2b$10$erHPDzHN3Ee9XQjcheagr./XMqA8VE5pnSYqM7HsVVl7wEHAUo76C', // secret42
+      password: '$2b$10$erHPDzHN3Ee9XQjcheagr./XMqA8VE5pnSYqM7HsVVl7wEHAUo76C',
       role: 'USER',
       status: 'ACTIVE',
     },
@@ -33,31 +33,45 @@ async function main() {
     });
   }
   for (const country of countries) {
-    await prisma.country.create({
+    const createdCountry = await prisma.country.create({
       data: {
         name: country.name,
         code: country.sortname,
         status: 'ACTIVE',
-        Province: {
-          create: provinces
-            .filter((province) => province.country_id === country.id)
-            .map((province) => ({
-              name: province.name,
-              status: 'ACTIVE',
-              City: {
-                create: cities
-                  .filter((city) => city.state_id === province.id)
-                  .map((city) => ({
-                    name: city.name,
-                    status: 'ACTIVE',
-                  })),
-              },
-            })),
-        },
       },
     });
+
+    const countryProvinces = provinces.filter(
+      (province) => province.country_id === country.id,
+    );
+    for (const province of countryProvinces) {
+      const createdProvince = await prisma.province.create({
+        data: {
+          name: province.name,
+          status: 'ACTIVE',
+          country: {
+            connect: { id: createdCountry.id },
+          },
+        },
+      });
+
+      const provinceCities = cities.filter(
+        (city) => city.state_id === province.id,
+      );
+      for (const city of provinceCities) {
+        await prisma.city.create({
+          data: {
+            name: city.name,
+            status: 'ACTIVE',
+            province: {
+              connect: { id: createdProvince.id },
+            },
+          },
+        });
+      }
+    }
   }
-  console.log("Done!");
+  console.log('Done!');
 }
 
 main()
