@@ -91,7 +91,7 @@ model BusinessDeal {
   businessId        String             @db.ObjectId
   business          Business           @relation(fields: [businessId], references: [id])
   businessProductId String[]           @db.ObjectId
-  businessProduct   BusinessProduct[]    @relation(fields: [businessProductId], references: [id])
+  businessProduct   BusinessProduct[]  @relation(fields: [businessProductId], references: [id])
   discountType      DiscountType
   value             Float
   maxRedemption     Int?
@@ -184,7 +184,7 @@ model BusinessProduct {
   updatedAt   DateTime              @updatedAt
 
   BusinessBooking BusinessBooking[]
-  businessDealId String[]           @db.ObjectId
+  businessDealId  String[]          @db.ObjectId
 
   BusinessDeal BusinessDeal[] @relation(fields: [businessDealId], references: [id])
 
@@ -201,13 +201,13 @@ enum BusinessProductStatus {
 }
 
 model BusinessProductPrice {
-  id         String          @id @default(auto()) @map("_id") @db.ObjectId
-  businessProductId  String          @db.ObjectId
-  businessProduct    BusinessProduct @relation(fields: [businessProductId], references: [id])
-  currencyId String          @db.ObjectId
-  price      Float
-  createdAt  DateTime        @default(now())
-  updatedAt  DateTime        @updatedAt
+  id                String          @id @default(auto()) @map("_id") @db.ObjectId
+  businessProductId String          @db.ObjectId
+  businessProduct   BusinessProduct @relation(fields: [businessProductId], references: [id])
+  currencyId        String          @db.ObjectId
+  price             Float
+  createdAt         DateTime        @default(now())
+  updatedAt         DateTime        @updatedAt
 }
 
 model BusinessTag {
@@ -226,6 +226,7 @@ enum BusinessTagStatus {
 model BusinessUpdate {
   id         String               @id @default(auto()) @map("_id") @db.ObjectId
   businessId String               @db.ObjectId
+  business   Business             @relation(fields: [businessId], references: [id])
   context    String
   type       BusinessUpdateType
   startAt    DateTime
@@ -308,7 +309,8 @@ model Business {
 
   BusinessBoost BusinessBoost[]
 
-  UserCheckin UserCheckin[]
+  UserCheckin    UserCheckin[]
+  BusinessUpdate BusinessUpdate[]
 }
 
 enum BusinessStatus {

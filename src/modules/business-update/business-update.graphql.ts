@@ -1,13 +1,14 @@
 import { Field, ObjectType, InputType, ID } from '@nestjs/graphql';
 import { BusinessUpdateStatus, BusinessUpdateType } from '@prisma/client';
+import { Business } from 'src/graphql/business.type';
 
 @ObjectType()
 export class BusinessUpdate {
   @Field(() => ID)
   id: string;
 
-  @Field(() => ID)
-  businessId: string;
+  @Field(() => Business)
+  business: Business;
 
   @Field()
   context: string;
@@ -34,7 +35,7 @@ export class BusinessUpdate {
 @InputType()
 export class CreateBusinessUpdateInput {
   @Field(() => ID)
-  businessId: string;
+  business: string;
 
   @Field()
   context: string;
@@ -54,8 +55,11 @@ export class CreateBusinessUpdateInput {
 
 @InputType()
 export class UpdateBusinessUpdateInput {
+  @Field(() => ID)
+  id: string;
+
   @Field(() => ID, { nullable: true })
-  businessId?: string;
+  business?: string;
 
   @Field({ nullable: true })
   context?: string;
