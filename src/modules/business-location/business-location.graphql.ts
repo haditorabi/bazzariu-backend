@@ -50,31 +50,31 @@ export class BusinessLocation {
 @InputType()
 export class CreateBusinessLocationInput {
   @Field(() => ID)
-  businessId: string;
+  business: string;
 
-  @Field()
-  address: string;
+  @Field({ nullable: true })
+  address?: string;
 
-  @Field()
-  latitude: string;
+  @Field({ nullable: true })
+  latitude?: number;
 
-  @Field()
-  longitude: string;
+  @Field({ nullable: true })
+  longitude?: number;
 
-  @Field(() => ID)
-  countryId: string;
+  @Field(() => ID, { nullable: true })
+  country?: string;
 
-  @Field(() => ID)
-  provinceId: string;
+  @Field(() => ID, { nullable: true })
+  province?: string;
 
-  @Field(() => ID)
-  cityId: string;
+  @Field(() => ID, { nullable: true })
+  city?: string;
 
-  @Field()
-  zipCode: string;
+  @Field({ nullable: true })
+  zipCode?: string;
 
-  @Field()
-  phone: string;
+  @Field({ nullable: true })
+  phone?: string;
 
   @Field()
   status: BusinessLocationStatus;
@@ -82,26 +82,29 @@ export class CreateBusinessLocationInput {
 
 @InputType()
 export class UpdateBusinessLocationInput {
+  @Field(() => ID)
+  id: string;
+
   @Field(() => ID, { nullable: true })
-  businessId: string;
+  business: string;
 
   @Field({ nullable: true })
   address?: string;
 
   @Field({ nullable: true })
-  latitude?: string;
+  latitude?: number;
 
   @Field({ nullable: true })
-  longitude?: string;
+  longitude?: number;
 
   @Field(() => ID, { nullable: true })
-  countryId?: string;
+  country?: string;
 
   @Field(() => ID, { nullable: true })
-  provinceId?: string;
+  province?: string;
 
   @Field(() => ID, { nullable: true })
-  cityId?: string;
+  city?: string;
 
   @Field({ nullable: true })
   zipCode?: string;

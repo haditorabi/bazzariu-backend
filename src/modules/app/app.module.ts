@@ -11,6 +11,8 @@ import { AppController } from './app.controller';
 import { CountryModule } from '../country/country.module';
 import { BusinessCategoryModule } from '../business-category/business-category.module';
 import { BusinessDealModule } from '../business-deal/business-deal.module';
+import { BusinessHourModule } from '../business-hour/business-hour.module';
+import { BusinessLocationModule } from '../business-location/business-location.module';
 
 @Module({
   imports: [
@@ -30,6 +32,8 @@ import { BusinessDealModule } from '../business-deal/business-deal.module';
     CountryModule,
     BusinessCategoryModule,
     BusinessDealModule,
+    BusinessHourModule,
+    BusinessLocationModule,
   ],
   controllers: [AppController],
   providers: [AppResolver],
