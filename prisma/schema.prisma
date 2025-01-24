@@ -91,11 +91,11 @@ model BusinessDeal {
   businessId        String             @db.ObjectId
   business          Business           @relation(fields: [businessId], references: [id])
   businessProductId String[]           @db.ObjectId
-  businessProduct   BusinessProduct    @relation(fields: [businessProductId], references: [id])
+  businessProduct   BusinessProduct[]    @relation(fields: [businessProductId], references: [id])
   discountType      DiscountType
   value             Float
-  maxRedemption     Int
-  maxPerUser        Int
+  maxRedemption     Int?
+  maxPerUser        Int?
   startDate         DateTime
   endDate           DateTime
   mediaId           String[]           @db.ObjectId
@@ -184,8 +184,9 @@ model BusinessProduct {
   updatedAt   DateTime              @updatedAt
 
   BusinessBooking BusinessBooking[]
+  businessDealId String[]           @db.ObjectId
 
-  BusinessDeal BusinessDeal[]
+  BusinessDeal BusinessDeal[] @relation(fields: [businessDealId], references: [id])
 
   BusinessProductPrice BusinessProductPrice[]
 }
