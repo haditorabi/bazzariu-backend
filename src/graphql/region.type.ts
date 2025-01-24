@@ -1,5 +1,13 @@
 import { ObjectType, Field, ID } from '@nestjs/graphql';
 import { RegionStatus } from '@prisma/client';
+@ObjectType()
+class Boundry {
+  @Field()
+  longtitude: string;
+
+  @Field()
+  latitude: string;
+}
 
 @ObjectType()
 export class Region {
@@ -15,8 +23,8 @@ export class Region {
   @Field(() => ID)
   cityId: string;
 
-  @Field()
-  boundry: object;
+  @Field(() => Boundry, { nullable: true })
+  boundry?: Boundry;
 
   @Field()
   status: RegionStatus;

@@ -16,8 +16,8 @@ export class Region {
   @Field(() => City)
   city: City;
 
-  @Field()
-  boundry: object;
+  @Field(() => Boundry)
+  boundry: Boundry;
 }
 
 @InputType()
@@ -31,8 +31,8 @@ export class CreateRegionInput {
   @Field(() => ID)
   cityId: string;
 
-  @Field()
-  boundry: object;
+  @Field(() => Boundry)
+  boundry: Boundry;
 }
 
 @InputType()
@@ -46,6 +46,14 @@ export class UpdateRegionInput {
   @Field(() => ID, { nullable: true })
   cityId?: string;
 
-  @Field({ nullable: true })
-  boundry?: object;
+  @Field(() => Boundry, { nullable: true })
+  boundry?: Boundry;
+}
+@ObjectType()
+class Boundry {
+  @Field()
+  longtitude: string;
+
+  @Field()
+  latitude: string;
 }
