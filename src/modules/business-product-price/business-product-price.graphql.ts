@@ -24,27 +24,30 @@ export class BusinessProductPrice {
 }
 
 @InputType()
-export class CreateBusinessProductInput {
+export class CreateBusinessProductPriceInput {
   @Field(() => ID, { nullable: true })
-  businessProductId: string;
+  businessProduct: string;
 
   @Field(() => ID)
-  currencyId: string;
+  currency: string;
 
   @Field()
   price: number;
 }
 
 @InputType()
-export class UpdateBusinessProductInput {
+export class UpdateBusinessProductPriceInput {
+  @Field(() => ID)
+  id: string;
+
   @Field({ nullable: true })
   name?: string;
 
   @Field(() => ID, { nullable: true })
-  businessProductId?: string;
+  businessProduct?: string;
 
   @Field(() => ID, { nullable: true })
-  currencyId?: string;
+  currency?: string;
 
   @Field({ nullable: true })
   price?: number;

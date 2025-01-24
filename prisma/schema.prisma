@@ -202,8 +202,8 @@ enum BusinessProductStatus {
 
 model BusinessProductPrice {
   id         String          @id @default(auto()) @map("_id") @db.ObjectId
-  productId  String          @db.ObjectId
-  product    BusinessProduct @relation(fields: [productId], references: [id])
+  businessProductId  String          @db.ObjectId
+  businessProduct    BusinessProduct @relation(fields: [businessProductId], references: [id])
   currencyId String          @db.ObjectId
   price      Float
   createdAt  DateTime        @default(now())
