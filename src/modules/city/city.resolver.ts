@@ -8,12 +8,12 @@ export class CityResolver {
   constructor(private service: CityService) {}
 
   @Query(() => [City])
-  async countries() {
+  async cities() {
     return this.service.findAll();
   }
 
   @Query(() => City)
-  async country(@Args('id') id: string) {
+  async city(@Args('id') id: string) {
     return this.service.findOne(id);
   }
 

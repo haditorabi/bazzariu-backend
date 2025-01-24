@@ -12,12 +12,12 @@ export class BusinessLocationResolver {
   constructor(private service: BusinessLocationService) {}
 
   @Query(() => [BusinessLocation])
-  async bookingTimeSlots() {
+  async businessLocations() {
     return this.service.findAll();
   }
 
   @Query(() => BusinessLocation)
-  async bookingTimeSlot(@Args('id') id: string) {
+  async businessLocation(@Args('id') id: string) {
     return this.service.findOne(id);
   }
 
