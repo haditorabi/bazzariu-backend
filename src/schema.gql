@@ -2,6 +2,26 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
 # ------------------------------------------------------
 
+type Boundry {
+  latitude: String!
+  longtitude: String!
+}
+
+type Country {
+  code: String!
+  id: ID!
+  name: String!
+  province: [Province!]
+  region: [Region!]
+  status: String!
+}
+
+input CreateCountryInput {
+  code: String!
+  name: String!
+  status: String!
+}
+
 input CreateExampleInput {
   description: String
   name: String!
@@ -14,12 +34,38 @@ type ExampleModel {
 }
 
 type Mutation {
+  createCountry(data: CreateCountryInput!): Country!
   createExample(data: CreateExampleInput!): ExampleModel!
+  updateCountry(data: UpdateCountryInput!): Country!
+}
+
+type Province {
+  countryId: ID!
+  id: ID!
+  name: String!
 }
 
 type Query {
+  countries: [Country!]!
+  country(id: String!): Country!
   getExamples: [ExampleModel!]!
   getProtectedData: String!
   protectedQuery: String!
   publicQuery: String!
+}
+
+type Region {
+  boundry: Boundry
+  cityId: ID!
+  countryId: ID!
+  id: ID!
+  name: String!
+  status: String!
+}
+
+input UpdateCountryInput {
+  code: String
+  id: ID!
+  name: String
+  status: String
 }

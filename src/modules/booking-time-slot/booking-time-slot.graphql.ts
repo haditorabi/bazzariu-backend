@@ -26,7 +26,7 @@ export class BookingTimeSlot {
 @InputType()
 export class CreateBookingTimeSlotInput {
   @Field(() => ID)
-  businessBooking: string;
+  businessBookingId: string;
 
   @Field()
   startAt: Date;
@@ -43,8 +43,11 @@ export class CreateBookingTimeSlotInput {
 
 @InputType()
 export class UpdateBookingTimeSlotInput {
+  @Field(() => ID)
+  id: string;
+
   @Field(() => ID, { nullable: true })
-  businessBooking?: string;
+  businessBookingId?: string;
 
   @Field({ nullable: true })
   startAt?: Date;
