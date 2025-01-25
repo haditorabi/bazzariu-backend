@@ -33,10 +33,10 @@ export class DealsRedemption {
 @InputType()
 export class CreateDealsRedemptionInput {
   @Field(() => ID)
-  businessDealId: string;
+  businessDeal: string;
 
   @Field(() => ID)
-  userId: string;
+  user: string;
 
   @Field()
   redeemedAt: Date;
@@ -50,11 +50,14 @@ export class CreateDealsRedemptionInput {
 
 @InputType()
 export class UpdateDealsRedemptionInput {
-  @Field(() => ID, { nullable: true })
-  businessDealId?: string;
+  @Field(() => ID)
+  id: string;
 
   @Field(() => ID, { nullable: true })
-  userId?: string;
+  businessDeal?: string;
+
+  @Field(() => ID, { nullable: true })
+  user?: string;
 
   @Field({ nullable: true })
   redeemedAt?: Date;
