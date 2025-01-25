@@ -22,6 +22,12 @@ export class MediaService {
     });
   }
 
+  async findManyByIDs(ids: string[]): Promise<Media[]> {
+    return this.prisma.media.findMany({
+      where: { id: { in: ids } },
+    });
+  }
+
   async update(id: string, data: Prisma.MediaUpdateInput): Promise<Media> {
     return this.prisma.media.update({
       where: { id },
