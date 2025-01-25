@@ -1,17 +1,17 @@
 import { Field, ObjectType, InputType, ID } from '@nestjs/graphql';
-import { Business } from 'src/graphql/business.type';
-import { User } from 'src/graphql/user.type';
+import { CommonBusiness } from 'src/graphql/business.type';
+import { CommonUser } from 'src/graphql/user.type';
 
 @ObjectType()
 export class UserCheckin {
   @Field(() => ID)
   id: string;
 
-  @Field(() => User)
-  user: User;
+  @Field(() => CommonUser)
+  user: CommonUser;
 
-  @Field(() => Business)
-  business: Business;
+  @Field(() => CommonBusiness)
+  business: CommonBusiness;
 
   @Field()
   createdAt: Date;
@@ -23,7 +23,7 @@ export class CreateUserCheckinInput {
   userId: string;
 
   @Field(() => ID)
-  businessId: Business;
+  businessId: string;
 }
 
 @InputType()
@@ -32,5 +32,5 @@ export class UpdateUserCheckinInput {
   userId?: string;
 
   @Field(() => ID, { nullable: true })
-  businessId?: Business;
+  businessId?: string;
 }

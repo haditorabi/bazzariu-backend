@@ -1,17 +1,14 @@
 import { Field, ObjectType, InputType, ID } from '@nestjs/graphql';
 import { BusinessLocationStatus } from '@prisma/client';
-import { Business } from 'src/graphql/business.type';
-import { City } from 'src/graphql/city.type';
-import { Country } from 'src/graphql/country.type';
-import { Province } from 'src/graphql/province.type';
+import { CommonBusiness } from 'src/graphql/business.type';
 
 @ObjectType()
 export class BusinessLocation {
   @Field(() => ID)
   id: string;
 
-  @Field(() => Business)
-  business: Business;
+  @Field(() => CommonBusiness)
+  business: CommonBusiness;
 
   @Field()
   address: string;
@@ -22,14 +19,14 @@ export class BusinessLocation {
   @Field()
   longitude: string;
 
-  @Field(() => Country)
-  country: Country;
+  @Field(() => ID)
+  countryId: string;
 
-  @Field(() => Province)
+  @Field(() => ID)
   provinceId: string;
 
-  @Field(() => City)
-  cityID: City;
+  @Field(() => ID)
+  cityId: string;
 
   @Field()
   zipCode: string;
@@ -62,13 +59,13 @@ export class CreateBusinessLocationInput {
   longitude?: number;
 
   @Field(() => ID, { nullable: true })
-  country?: string;
+  countryId?: string;
 
   @Field(() => ID, { nullable: true })
-  province?: string;
+  provinceId?: string;
 
   @Field(() => ID, { nullable: true })
-  city?: string;
+  cityId?: string;
 
   @Field({ nullable: true })
   zipCode?: string;
@@ -98,13 +95,13 @@ export class UpdateBusinessLocationInput {
   longitude?: number;
 
   @Field(() => ID, { nullable: true })
-  country?: string;
+  countryId?: string;
 
   @Field(() => ID, { nullable: true })
-  province?: string;
+  provinceId?: string;
 
   @Field(() => ID, { nullable: true })
-  city?: string;
+  cityId?: string;
 
   @Field({ nullable: true })
   zipCode?: string;

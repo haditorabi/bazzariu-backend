@@ -1,6 +1,6 @@
 import { Field, ObjectType, InputType, ID } from '@nestjs/graphql';
-import { Business } from '../../graphql/business.type';
-import { BusinessProduct } from '../../graphql/business-product.type';
+import { CommonBusiness } from 'src/graphql/business.type';
+import { CommonBusinessProduct } from 'src/graphql/business-product.type';
 import { BusinessDealStatus, DiscountType } from '@prisma/client';
 
 @ObjectType()
@@ -14,11 +14,11 @@ export class BusinessDeal {
   @Field()
   description?: string;
 
-  @Field(() => Business)
-  business: Business;
+  @Field(() => CommonBusiness)
+  business: CommonBusiness;
 
-  @Field(() => [BusinessProduct], { nullable: true })
-  businessProduct?: BusinessProduct[];
+  @Field(() => [CommonBusinessProduct], { nullable: true })
+  businessProduct?: CommonBusinessProduct[];
 
   @Field()
   discountType: DiscountType;

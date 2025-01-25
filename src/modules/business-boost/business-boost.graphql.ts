@@ -1,5 +1,5 @@
 import { Field, ObjectType, InputType, ID } from '@nestjs/graphql';
-import { Business } from '../../graphql/business.type';
+import { CommonBusiness } from 'src/graphql/business.type';
 import { BusinessBoostStatus, BusinessBoostType } from '@prisma/client';
 
 @ObjectType()
@@ -7,8 +7,8 @@ export class BusinessBoost {
   @Field(() => ID)
   id: string;
 
-  @Field(() => Business)
-  business: Business;
+  @Field(() => CommonBusiness)
+  business: CommonBusiness;
 
   @Field()
   type: BusinessBoostType;

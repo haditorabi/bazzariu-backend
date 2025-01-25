@@ -16,12 +16,112 @@ type BusinessCategory {
   updatedAt: DateTime!
 }
 
+type BusinessDeal {
+  business: CommonBusiness!
+  businessProduct: [CommonBusinessProduct!]
+  createdAt: DateTime!
+  description: String!
+  discountType: String!
+  endDate: DateTime!
+  id: ID!
+  maxPerUser: Float!
+  maxRedemption: Float!
+  mediaId: [ID!]
+  name: String!
+  startDate: DateTime!
+  status: String!
+  updatedAt: DateTime!
+  value: Float!
+}
+
+type BusinessHour {
+  business: CommonBusiness!
+  closeTime: String!
+  createdAt: DateTime!
+  dayOfWeek: String!
+  id: ID!
+  openTime: String!
+  status: String!
+}
+
+type BusinessLocation {
+  address: String!
+  business: CommonBusiness!
+  cityId: ID!
+  countryId: ID!
+  createdAt: DateTime!
+  id: ID!
+  latitude: String!
+  longitude: String!
+  phone: String!
+  provinceId: ID!
+  status: String!
+  updatedAt: DateTime!
+  zipCode: String!
+}
+
+type CommonBusiness {
+  amenityId: [ID!]
+  businessCategoryID: [ID!]
+  createdAt: DateTime!
+  description: String
+  id: ID!
+  isClaimed: Boolean!
+  languageId: [ID!]
+  mediaId: [ID!]
+  name: String!
+  region: CommonRegion
+  status: String!
+  updatedAt: DateTime!
+  website: String
+}
+
+type CommonBusinessProduct {
+  businessId: ID!
+  categoryId: ID!
+  description: String
+  id: ID!
+  mediaId: [ID!]
+  name: String!
+  status: String!
+}
+
+type CommonCity {
+  createdAt: DateTime!
+  id: ID!
+  name: String!
+  provinceId: ID!
+  status: String!
+  updatedAt: DateTime!
+}
+
+type CommonCountry {
+  code: String!
+  id: ID!
+  name: String!
+}
+
+type CommonProvince {
+  countryId: ID!
+  id: ID!
+  name: String!
+}
+
+type CommonRegion {
+  boundry: Boundry
+  cityId: ID!
+  countryId: ID!
+  id: ID!
+  name: String!
+  status: String!
+}
+
 type Country {
   code: String!
   id: ID!
   name: String!
-  province: [Province!]
-  region: [Region!]
+  province: [CommonProvince!]
+  region: [CommonRegion!]
   status: String!
 }
 
@@ -29,6 +129,42 @@ input CreateBusinessCategoryInput {
   mediaId: ID
   name: String!
   status: String!
+}
+
+input CreateBusinessDealInput {
+  business: ID!
+  businessProduct: [ID!]
+  description: String
+  discountType: String!
+  endDate: DateTime!
+  maxPerUser: Float
+  maxRedemption: Float
+  mediaId: [ID!]
+  name: String!
+  startDate: DateTime!
+  status: String!
+  value: Float!
+}
+
+input CreateBusinessHourInput {
+  business: ID!
+  closeTime: String!
+  dayOfWeek: String!
+  openTime: String!
+  status: String!
+}
+
+input CreateBusinessLocationInput {
+  address: String
+  business: ID!
+  cityId: ID
+  countryId: ID
+  latitude: Float
+  longitude: Float
+  phone: String
+  provinceId: ID
+  status: String!
+  zipCode: String
 }
 
 input CreateCountryInput {
@@ -40,6 +176,12 @@ input CreateCountryInput {
 input CreateExampleInput {
   description: String
   name: String!
+}
+
+input CreateProvinceInput {
+  country: ID!
+  name: String!
+  status: String!
 }
 
 """
@@ -55,36 +197,45 @@ type ExampleModel {
 
 type Mutation {
   createBusinessCategory(data: CreateBusinessCategoryInput!): BusinessCategory!
+  createBusinessDeal(data: CreateBusinessDealInput!): BusinessDeal!
+  createBusinessHour(data: CreateBusinessHourInput!): BusinessHour!
+  createBusinessLocation(data: CreateBusinessLocationInput!): BusinessLocation!
   createCountry(data: CreateCountryInput!): Country!
   createExample(data: CreateExampleInput!): ExampleModel!
+  createProvince(data: CreateProvinceInput!): Province!
   updateBusinessCategory(data: UpdateBusinessCategoryInput!): BusinessCategory!
+  updateBusinessDeal(data: UpdateBusinessDealInput!): BusinessDeal!
+  updateBusinessHour(data: UpdateBusinessHourInput!): BusinessHour!
+  updateBusinessLocation(data: UpdateBusinessLocationInput!): BusinessLocation!
   updateCountry(data: UpdateCountryInput!): Country!
+  updateProvince(data: UpdateProvinceInput!): Province!
 }
 
 type Province {
-  countryId: ID!
+  city: [CommonCity!]!
+  country: CommonCountry!
   id: ID!
   name: String!
+  status: String!
 }
 
 type Query {
   businessCategories: [BusinessCategory!]!
   businessCategory(id: String!): BusinessCategory!
+  businessDeal(id: String!): BusinessDeal!
+  businessDeals: [BusinessDeal!]!
+  businessHour(id: String!): BusinessHour!
+  businessHours: [BusinessHour!]!
+  businessLocation(id: String!): BusinessLocation!
+  businessLocations: [BusinessLocation!]!
   countries: [Country!]!
   country(id: String!): Country!
   getExamples: [ExampleModel!]!
   getProtectedData: String!
   protectedQuery: String!
+  province(id: String!): Province!
+  provinces: [Province!]!
   publicQuery: String!
-}
-
-type Region {
-  boundry: Boundry
-  cityId: ID!
-  countryId: ID!
-  id: ID!
-  name: String!
-  status: String!
 }
 
 input UpdateBusinessCategoryInput {
@@ -94,8 +245,54 @@ input UpdateBusinessCategoryInput {
   status: String
 }
 
+input UpdateBusinessDealInput {
+  business: ID
+  businessProduct: [ID!]
+  description: String
+  discountType: String
+  endDate: DateTime
+  id: ID!
+  maxPerUser: Float
+  maxRedemption: Float
+  mediaId: [ID!]
+  name: String
+  startDate: DateTime
+  status: String
+  value: Float
+}
+
+input UpdateBusinessHourInput {
+  business: ID
+  closeTime: String
+  dayOfWeek: String
+  id: ID!
+  openTime: String
+  status: String
+}
+
+input UpdateBusinessLocationInput {
+  address: String
+  business: ID
+  cityId: ID
+  countryId: ID
+  id: ID!
+  latitude: Float
+  longitude: Float
+  phone: String
+  provinceId: ID
+  status: String
+  zipCode: String
+}
+
 input UpdateCountryInput {
   code: String
+  id: ID!
+  name: String
+  status: String
+}
+
+input UpdateProvinceInput {
+  country: ID
   id: ID!
   name: String
   status: String

@@ -1,7 +1,7 @@
 import { ObjectType, Field, ID } from '@nestjs/graphql';
 
 @ObjectType()
-export class Country {
+export class CommonCountry {
   @Field(() => ID)
   id: string;
 

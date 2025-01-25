@@ -2,7 +2,7 @@ import { ObjectType, Field, ID } from '@nestjs/graphql';
 import { EventCategoryStatus } from '@prisma/client';
 
 @ObjectType()
-export class EventCategory {
+export class CommonEventCategory {
   @Field(() => ID)
   id: string;
 

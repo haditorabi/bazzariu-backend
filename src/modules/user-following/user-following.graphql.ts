@@ -1,16 +1,16 @@
 import { Field, ObjectType, InputType, ID } from '@nestjs/graphql';
-import { User } from 'src/graphql/user.type';
+import { CommonUser } from 'src/graphql/user.type';
 
 @ObjectType()
 export class UserFollowing {
   @Field(() => ID)
   id: string;
 
-  @Field(() => User)
-  follower: User;
+  @Field(() => CommonUser)
+  follower: CommonUser;
 
-  @Field(() => User)
-  followee: User;
+  @Field(() => CommonUser)
+  followee: CommonUser;
 
   @Field()
   createdAt: Date;

@@ -1,6 +1,6 @@
 import { Field, ObjectType, InputType, ID } from '@nestjs/graphql';
-import { City } from 'src/graphql/city.type';
-import { Country } from 'src/graphql/country.type';
+import { CommonCity } from 'src/graphql/city.type';
+import { CommonCountry } from 'src/graphql/country.type';
 
 @ObjectType()
 export class Region {
@@ -10,11 +10,11 @@ export class Region {
   @Field()
   name: string;
 
-  @Field(() => Country)
-  country: Country;
+  @Field(() => CommonCountry)
+  country: CommonCountry;
 
-  @Field(() => City)
-  city: City;
+  @Field(() => CommonCity)
+  city: CommonCity;
 
   @Field(() => Boundry)
   boundry: Boundry;

@@ -1,6 +1,6 @@
 import { Field, ObjectType, InputType, ID } from '@nestjs/graphql';
 import { EventCategoryStatus } from '@prisma/client';
-import { Event } from 'src/graphql/event.type';
+import { CommonEvent } from 'src/graphql/event.type';
 
 @ObjectType()
 export class EventCategory {
@@ -16,8 +16,8 @@ export class EventCategory {
   @Field()
   createdAt: Date;
 
-  @Field(() => [Event], { nullable: true })
-  event?: Event[];
+  @Field(() => [CommonEvent], { nullable: true })
+  event?: CommonEvent[];
 }
 
 @InputType()

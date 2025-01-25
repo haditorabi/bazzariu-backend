@@ -1,14 +1,14 @@
 import { Field, ObjectType, InputType, ID } from '@nestjs/graphql';
 import { ReportReasonType, ReportTargetType } from '@prisma/client';
-import { User } from 'src/graphql/user.type';
+import { CommonUser } from 'src/graphql/user.type';
 
 @ObjectType()
 export class Report {
   @Field(() => ID)
   id: string;
 
-  @Field(() => User)
-  by: User;
+  @Field(() => CommonUser)
+  by: CommonUser;
 
   @Field()
   targetId: string;

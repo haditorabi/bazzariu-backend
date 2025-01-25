@@ -2,7 +2,7 @@ import { Field, ObjectType, ID } from '@nestjs/graphql';
 import { MediaType, ModuleType } from '@prisma/client';
 
 @ObjectType()
-export class Media {
+export class CommonMedia {
   @Field(() => ID)
   id: string;
 

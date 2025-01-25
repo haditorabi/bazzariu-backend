@@ -1,6 +1,6 @@
 import { Field, ObjectType, InputType, ID } from '@nestjs/graphql';
 import { EventStatus } from '@prisma/client';
-import { EventCategory } from 'src/graphql/event-category.type';
+import { CommonEventCategory } from 'src/graphql/event-category.type';
 
 @ObjectType()
 export class Event {
@@ -19,8 +19,8 @@ export class Event {
   @Field()
   endDate: Date;
 
-  @Field(() => [EventCategory], { nullable: true })
-  category?: EventCategory[];
+  @Field(() => [CommonEventCategory], { nullable: true })
+  category?: CommonEventCategory[];
 
   @Field(() => [ID], { nullable: true })
   mediaId?: string[];

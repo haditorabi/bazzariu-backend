@@ -1,6 +1,6 @@
 import { Field, ObjectType, InputType, ID } from '@nestjs/graphql';
-import { Business } from '../../graphql/business.type';
-import { BusinessProduct } from '../../graphql/business-product.type';
+import { CommonBusiness } from 'src/graphql/business.type';
+import { CommonBusinessProduct } from 'src/graphql/business-product.type';
 import { BusinessBookingStatus } from '@prisma/client';
 import { BookingTimeSlot } from '../booking-time-slot/booking-time-slot.graphql';
 
@@ -9,11 +9,11 @@ export class BusinessBooking {
   @Field(() => ID)
   id: string;
 
-  @Field(() => Business)
-  business: Business;
+  @Field(() => CommonBusiness)
+  business: CommonBusiness;
 
-  @Field(() => [BusinessProduct], { nullable: true })
-  businessProduct?: BusinessProduct[];
+  @Field(() => [CommonBusinessProduct], { nullable: true })
+  businessProduct?: CommonBusinessProduct[];
 
   @Field()
   maxAvilible: number;

@@ -1,17 +1,17 @@
 import { Field, ObjectType, InputType, ID } from '@nestjs/graphql';
-import { Business } from 'src/graphql/business.type';
-import { User } from 'src/graphql/user.type';
+import { CommonBusiness } from 'src/graphql/business.type';
+import { CommonUser } from 'src/graphql/user.type';
 
 @ObjectType()
 export class BusinessFollowing {
   @Field(() => ID)
   id: string;
 
-  @Field(() => Business)
-  business: Business;
+  @Field(() => CommonBusiness)
+  business: CommonBusiness;
 
-  @Field(() => User)
-  user: User;
+  @Field(() => CommonUser)
+  user: CommonUser;
 }
 
 @InputType()

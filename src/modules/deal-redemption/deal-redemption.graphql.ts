@@ -1,18 +1,18 @@
 import { Field, ObjectType, InputType, ID } from '@nestjs/graphql';
 import { DealsRedemptionStatus } from '@prisma/client';
-import { BusinessDeal } from 'src/graphql/business-deal.type';
-import { User } from 'src/graphql/user.type';
+import { CommonBusinessDeal } from 'src/graphql/business-deal.type';
+import { CommonUser } from 'src/graphql/user.type';
 
 @ObjectType()
 export class DealsRedemption {
   @Field(() => ID)
   id: string;
 
-  @Field(() => BusinessDeal)
-  businessDeal: BusinessDeal;
+  @Field(() => CommonBusinessDeal)
+  businessDeal: CommonBusinessDeal;
 
-  @Field(() => User)
-  user: User;
+  @Field(() => CommonUser)
+  user: CommonUser;
 
   @Field()
   redeemedAt: Date;

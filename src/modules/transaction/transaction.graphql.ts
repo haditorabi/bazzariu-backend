@@ -1,25 +1,25 @@
 import { Field, ObjectType, InputType, ID } from '@nestjs/graphql';
 import { TransactionStatus } from '@prisma/client';
-import { Business } from 'src/graphql/business.type';
-import { Payment } from 'src/graphql/payment.type';
-import { User } from 'src/graphql/user.type';
+import { CommonBusiness } from 'src/graphql/business.type';
+import { CommonPayment } from 'src/graphql/payment.type';
+import { CommonUser } from 'src/graphql/user.type';
 
 @ObjectType()
 export class Transaction {
   @Field(() => ID)
   id: string;
 
-  @Field(() => Payment)
-  payment: Payment;
+  @Field(() => CommonPayment)
+  payment: CommonPayment;
 
-  @Field(() => Business)
-  business: Business;
+  @Field(() => CommonBusiness)
+  business: CommonBusiness;
 
   @Field()
   currencyId: string;
 
-  @Field(() => User)
-  user: User;
+  @Field(() => CommonUser)
+  user: CommonUser;
 
   @Field()
   amount: number;

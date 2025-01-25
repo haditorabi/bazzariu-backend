@@ -1,21 +1,21 @@
 import { Field, ObjectType, InputType, ID } from '@nestjs/graphql';
 import { UserBookingStatus } from '@prisma/client';
-import { BookingTimeSlot } from 'src/graphql/booking-time-slot.type';
-import { User } from 'src/graphql/user.type';
+import { CommonBookingTimeSlot } from 'src/graphql/booking-time-slot.type';
+import { CommonUser } from 'src/graphql/user.type';
 
 @ObjectType()
 export class UserBooking {
   @Field(() => ID)
   id: string;
 
-  @Field(() => User)
-  user: User;
+  @Field(() => CommonUser)
+  user: CommonUser;
 
   @Field(() => [String], { nullable: true })
   businessProductId?: string[];
 
-  @Field(() => BookingTimeSlot)
-  bookingTimeSlotId: BookingTimeSlot;
+  @Field(() => CommonBookingTimeSlot)
+  bookingTimeSlotId: CommonBookingTimeSlot;
 
   @Field()
   status: UserBookingStatus;

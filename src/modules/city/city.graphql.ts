@@ -1,7 +1,7 @@
 import { Field, ObjectType, InputType, ID } from '@nestjs/graphql';
 import { CityStatus } from '@prisma/client';
-import { Province } from 'src/graphql/province.type';
-import { Region } from 'src/graphql/Region.type';
+import { CommonProvince } from 'src/graphql/province.type';
+import { CommonRegion } from 'src/graphql/Region.type';
 
 @ObjectType()
 export class City {
@@ -11,8 +11,8 @@ export class City {
   @Field()
   name: string;
 
-  @Field(() => Province)
-  province: Province;
+  @Field(() => CommonProvince)
+  province: CommonProvince;
 
   @Field()
   status: CityStatus;
@@ -23,8 +23,8 @@ export class City {
   @Field()
   updatedAt: Date;
 
-  @Field(() => Region)
-  region: Region;
+  @Field(() => CommonRegion)
+  region: CommonRegion;
 }
 
 @InputType()

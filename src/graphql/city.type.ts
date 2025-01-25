@@ -2,7 +2,7 @@ import { ObjectType, Field, ID } from '@nestjs/graphql';
 import { CityStatus } from '@prisma/client';
 
 @ObjectType()
-export class City {
+export class CommonCity {
   @Field(() => ID)
   id: string;
 

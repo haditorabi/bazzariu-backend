@@ -1,14 +1,14 @@
 import { Field, ObjectType, InputType, ID } from '@nestjs/graphql';
 import { UserActionTargetType, UserActionType } from '@prisma/client';
-import { User } from 'src/graphql/user.type';
+import { CommonUser } from 'src/graphql/user.type';
 
 @ObjectType()
 export class UserAction {
   @Field(() => ID)
   id: string;
 
-  @Field(() => User)
-  user: User;
+  @Field(() => CommonUser)
+  user: CommonUser;
 
   @Field()
   action: UserActionType;

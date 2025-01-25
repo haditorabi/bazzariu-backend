@@ -1,13 +1,13 @@
 import { Field, ObjectType, InputType, ID } from '@nestjs/graphql';
-import { User } from 'src/graphql/user.type';
+import { CommonUser } from 'src/graphql/user.type';
 
 @ObjectType()
 export class UserPreference {
   @Field(() => ID)
   id: string;
 
-  @Field(() => User)
-  user: User;
+  @Field(() => CommonUser)
+  user: CommonUser;
 
   @Field()
   key: string;

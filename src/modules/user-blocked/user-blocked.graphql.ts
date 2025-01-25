@@ -1,16 +1,16 @@
 import { Field, ObjectType, InputType, ID } from '@nestjs/graphql';
-import { User } from 'src/graphql/user.type';
+import { CommonUser } from 'src/graphql/user.type';
 
 @ObjectType()
 export class UserBlocked {
   @Field(() => ID)
   id: string;
 
-  @Field(() => User)
-  user: User;
+  @Field(() => CommonUser)
+  user: CommonUser;
 
-  @Field(() => User)
-  blocked: User;
+  @Field(() => CommonUser)
+  blocked: CommonUser;
 
   @Field()
   createdAt: Date;

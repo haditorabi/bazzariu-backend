@@ -2,7 +2,7 @@ import { Field, ObjectType, ID } from '@nestjs/graphql';
 import { EventStatus } from '@prisma/client';
 
 @ObjectType()
-export class Event {
+export class CommonEvent {
   @Field(() => ID)
   id: string;
 

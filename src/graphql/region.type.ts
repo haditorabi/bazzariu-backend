@@ -10,7 +10,7 @@ class Boundry {
 }
 
 @ObjectType()
-export class Region {
+export class CommonRegion {
   @Field(() => ID)
   id: string;
 

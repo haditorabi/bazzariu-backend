@@ -1,5 +1,5 @@
 import { Field, ObjectType, InputType, ID } from '@nestjs/graphql';
-import { BusinessProduct } from 'src/graphql/business-product.type';
+import { CommonBusinessProduct } from 'src/graphql/business-product.type';
 import { Currency } from '../currency/currency.graphql';
 
 @ObjectType()
@@ -7,8 +7,8 @@ export class BusinessProductPrice {
   @Field(() => ID)
   id: string;
 
-  @Field(() => BusinessProduct)
-  businessProduct: BusinessProduct;
+  @Field(() => CommonBusinessProduct)
+  businessProduct: CommonBusinessProduct;
 
   @Field(() => Currency)
   currency: Currency;
