@@ -35,6 +35,9 @@ export class CreateProvinceInput {
 
 @InputType()
 export class UpdateProvinceInput {
+  @Field(() => ID)
+  id: string;
+
   @Field({ nullable: true })
   name?: string;
 
