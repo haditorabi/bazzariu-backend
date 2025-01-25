@@ -31,6 +31,9 @@ export class CreateEventCategoryInput {
 
 @InputType()
 export class UpdateEventCategoryInput {
+  @Field(() => ID)
+  id: string;
+
   @Field({ nullable: true })
   name?: string;
 
