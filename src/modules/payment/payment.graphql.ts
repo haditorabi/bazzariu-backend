@@ -61,13 +61,13 @@ export class CreatePaymentInput {
   targetType: PaymentTargetType;
 
   @Field(() => ID)
-  userId: string;
+  user: string;
 
   @Field(() => ID, { nullable: true })
-  businessId?: string;
+  business?: string;
 
   @Field(() => ID)
-  paymentMethodId?: string;
+  paymentMethod?: string;
 
   @Field()
   amount: number;
@@ -81,6 +81,9 @@ export class CreatePaymentInput {
 
 @InputType()
 export class UpdatePaymentInput {
+  @Field(() => ID)
+  id: string;
+
   @Field(() => ID, { nullable: true })
   transactionId?: string;
 
@@ -94,13 +97,13 @@ export class UpdatePaymentInput {
   targetType?: PaymentTargetType;
 
   @Field(() => ID, { nullable: true })
-  userId?: string;
+  user?: string;
 
   @Field(() => ID, { nullable: true })
-  businessId?: string;
+  business?: string;
 
   @Field(() => ID, { nullable: true })
-  paymentMethodId?: string;
+  paymentMethod?: string;
 
   @Field({ nullable: true })
   amount?: number;

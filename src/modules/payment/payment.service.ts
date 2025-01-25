@@ -13,7 +13,7 @@ export class PaymentService {
   }
 
   async findAll(): Promise<Payment[]> {
-    return this.prisma.payment.findMany();
+    return this.prisma.payment.findMany({ take: 10 });
   }
 
   async findOne(id: string): Promise<Payment | null> {
