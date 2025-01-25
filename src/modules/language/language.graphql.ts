@@ -30,6 +30,9 @@ export class CreateLanguageInput {
 
 @InputType()
 export class UpdateLanguageInput {
+  @Field(() => ID)
+  id: string;
+
   @Field({ nullable: true })
   name?: string;
 
