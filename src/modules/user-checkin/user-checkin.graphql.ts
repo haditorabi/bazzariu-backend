@@ -20,17 +20,20 @@ export class UserCheckin {
 @InputType()
 export class CreateUserCheckinInput {
   @Field(() => ID)
-  userId: string;
+  user: string;
 
   @Field(() => ID)
-  businessId: string;
+  business: string;
 }
 
 @InputType()
 export class UpdateUserCheckinInput {
-  @Field(() => ID, { nullable: true })
-  userId?: string;
+  @Field(() => ID)
+  id: string;
 
   @Field(() => ID, { nullable: true })
-  businessId?: string;
+  user?: string;
+
+  @Field(() => ID, { nullable: true })
+  business?: string;
 }
