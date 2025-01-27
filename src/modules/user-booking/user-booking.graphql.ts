@@ -30,13 +30,13 @@ export class UserBooking {
 @InputType()
 export class CreateUserBookingInput {
   @Field(() => ID)
-  userId: string;
+  user: string;
 
   @Field(() => [ID], { nullable: true })
-  businessProductId?: string[];
+  businessProduct?: string[];
 
   @Field(() => ID)
-  bookingTimeSlotId: string;
+  bookingTimeSlot: string;
 
   @Field()
   status: UserBookingStatus;
@@ -44,14 +44,17 @@ export class CreateUserBookingInput {
 
 @InputType()
 export class UpdateUserBookingInput {
+  @Field(() => ID)
+  id: string;
+
   @Field(() => ID, { nullable: true })
-  userId?: string;
+  user?: string;
 
   @Field(() => [ID], { nullable: true })
-  businessProductId?: string[];
+  businessProduct?: string[];
 
   @Field(() => ID, { nullable: true })
-  bookingTimeSlotId?: string;
+  bookingTimeSlot?: string;
 
   @Field({ nullable: true })
   status?: UserBookingStatus;
