@@ -1,4 +1,5 @@
 import { Field, ObjectType, InputType, ID } from '@nestjs/graphql';
+import { CountryStatus } from '@prisma/client';
 import { CommonCity } from 'src/graphql/city.type';
 import { CommonCountry } from 'src/graphql/country.type';
 
@@ -26,10 +27,13 @@ export class CreateRegionInput {
   name: string;
 
   @Field(() => ID)
-  countryId: string;
+  country: string;
 
   @Field(() => ID)
-  cityId: string;
+  city: string;
+
+  @Field(() => CountryStatus)
+  status: CountryStatus;
 
   @Field(() => Boundry)
   boundry: Boundry;
@@ -37,14 +41,17 @@ export class CreateRegionInput {
 
 @InputType()
 export class UpdateRegionInput {
+  @Field(() => ID)
+  id: string;
+
   @Field({ nullable: true })
   name?: string;
 
   @Field(() => ID, { nullable: true })
-  countryId?: string;
+  country?: string;
 
   @Field(() => ID, { nullable: true })
-  cityId?: string;
+  city?: string;
 
   @Field(() => Boundry, { nullable: true })
   boundry?: Boundry;
