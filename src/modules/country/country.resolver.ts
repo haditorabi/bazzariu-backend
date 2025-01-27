@@ -1,14 +1,26 @@
-import { Resolver, Query, Mutation, Args } from '@nestjs/graphql';
+import {
+  Resolver,
+  Query,
+  Mutation,
+  Args,
+  Root,
+  ResolveField,
+} from '@nestjs/graphql';
 import { CountryService } from './country.service';
 import {
   Country,
   CreateCountryInput,
   UpdateCountryInput,
 } from './country.graphql';
+import { PrismaService } from '../prisma/prisma.service';
+import { CommonProvince } from 'src/graphql/province.type';
 
 @Resolver(() => Country)
 export class CountryResolver {
-  constructor(private service: CountryService) {}
+  constructor(
+    private service: CountryService,
+    private readonly prisma: PrismaService,
+  ) {}
 
   @Query(() => [Country])
   async countries() {
@@ -18,6 +30,13 @@ export class CountryResolver {
   @Query(() => Country)
   async country(@Args('id') id: string) {
     return this.service.findOne(id);
+  }
+
+  @ResolveField(() => [CommonProvince], { nullable: true })
+  async province(@Root() country: Country): Promise<CommonProvince[] | null> {
+    return this.prisma.province.findMany({
+      where: { countryId: country.id },
+    });
   }
 
   @Mutation(() => Country)
