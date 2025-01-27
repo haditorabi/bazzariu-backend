@@ -19,17 +19,20 @@ export class UserScore {
 @InputType()
 export class CreateUserScoreInput {
   @Field(() => ID)
-  userId: string;
+  user: string;
 
   @Field()
-  score: string;
+  score: number;
 }
 
 @InputType()
 export class UpdateUserScoreInput {
+  @Field(() => ID)
+  id: string;
+
   @Field(() => ID, { nullable: true })
-  userId?: string;
+  user?: string;
 
   @Field({ nullable: true })
-  score?: string;
+  score?: number;
 }
