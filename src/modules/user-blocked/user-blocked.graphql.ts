@@ -19,17 +19,20 @@ export class UserBlocked {
 @InputType()
 export class CreateUserBlockedInput {
   @Field(() => ID)
-  userId: string;
+  user: string;
 
   @Field(() => ID)
-  blockedId: string;
+  blocked: string;
 }
 
 @InputType()
 export class UpdateUserBlockedInput {
-  @Field(() => ID, { nullable: true })
-  userId?: string;
+  @Field(() => ID)
+  id: string;
 
   @Field(() => ID, { nullable: true })
-  blockedId?: string;
+  user?: string;
+
+  @Field(() => ID, { nullable: true })
+  blocked?: string;
 }
