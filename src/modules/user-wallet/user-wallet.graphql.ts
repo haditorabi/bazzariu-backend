@@ -25,7 +25,7 @@ export class UserWallet {
 @InputType()
 export class CreateUserWalletInput {
   @Field(() => ID)
-  userId: string;
+  user: string;
 
   @Field()
   balance: number;
@@ -36,8 +36,11 @@ export class CreateUserWalletInput {
 
 @InputType()
 export class UpdateUserWalletInput {
+  @Field(() => ID)
+  id: string;
+
   @Field(() => ID, { nullable: true })
-  userId?: string;
+  user?: string;
 
   @Field({ nullable: true })
   balance?: number;
