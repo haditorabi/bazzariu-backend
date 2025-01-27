@@ -19,17 +19,20 @@ export class UserFollowing {
 @InputType()
 export class CreateUserFollowingInput {
   @Field(() => ID)
-  followerId: string;
+  follower: string;
 
   @Field(() => ID)
-  followeeId: string;
+  followee: string;
 }
 
 @InputType()
 export class UpdateUserFollowingInput {
-  @Field(() => ID, { nullable: true })
-  followerId?: string;
+  @Field(() => ID)
+  id: string;
 
   @Field(() => ID, { nullable: true })
-  followeeId?: string;
+  follower?: string;
+
+  @Field(() => ID, { nullable: true })
+  followee?: string;
 }
