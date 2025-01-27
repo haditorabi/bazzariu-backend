@@ -25,7 +25,7 @@ model BusinessBooking {
   businessId        String                @db.ObjectId
   business          Business              @relation(fields: [businessId], references: [id])
   businessProductId String[]              @db.ObjectId
-  businessProduct   BusinessProduct       @relation(fields: [businessProductId], references: [id])
+  businessProduct   BusinessProduct[]     @relation(fields: [businessProductId], references: [id])
   maxAvilible       Int?
   maxGuest          Int?
   mediaId           String[]              @db.ObjectId
@@ -183,8 +183,10 @@ model BusinessProduct {
   createdAt   DateTime              @default(now())
   updatedAt   DateTime              @updatedAt
 
-  BusinessBooking BusinessBooking[]
-  businessDealId  String[]          @db.ObjectId
+  businessBookingId String[]          @db.ObjectId
+  businessBooking   BusinessBooking[] @relation(fields: [businessBookingId], references: [id])
+
+  businessDealId String[] @db.ObjectId
 
   BusinessDeal BusinessDeal[] @relation(fields: [businessDealId], references: [id])
 

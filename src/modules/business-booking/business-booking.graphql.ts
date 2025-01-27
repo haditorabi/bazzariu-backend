@@ -40,10 +40,10 @@ export class BusinessBooking {
 @InputType()
 export class CreateBusinessBookingInput {
   @Field(() => ID)
-  businessId: string;
+  business: string;
 
   @Field(() => [ID], { nullable: true })
-  businessProductID?: string[];
+  businessProduct?: string[];
 
   @Field({ nullable: true })
   maxAvilible?: number;
@@ -60,11 +60,14 @@ export class CreateBusinessBookingInput {
 
 @InputType()
 export class UpdateBusinessBookingInput {
+  @Field(() => ID)
+  id: string;
+
   @Field(() => ID, { nullable: true })
-  businessId?: string;
+  business?: string;
 
   @Field(() => [ID], { nullable: true })
-  businessProductID?: string[];
+  businessProduct?: string[];
 
   @Field({ nullable: true })
   maxAvilible?: number;
