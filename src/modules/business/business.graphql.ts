@@ -25,13 +25,13 @@ export class Business {
   isClaimed: boolean;
 
   @Field(() => [ID], { nullable: true })
-  businessCategoryID?: string[];
+  businessCategory?: string[];
 
   @Field(() => [ID], { nullable: true })
-  amenityId?: string[];
+  amenity?: string[];
 
   @Field(() => [ID], { nullable: true })
-  languageId?: string[];
+  language?: string[];
 
   @Field(() => CommonRegion, { nullable: true })
   region?: CommonRegion;
@@ -79,13 +79,13 @@ export class CreateBusinessInput {
   isClaimed: boolean;
 
   @Field(() => [ID], { nullable: true })
-  businessCategoryID?: string[];
+  businessCategory?: string[];
 
   @Field(() => [ID], { nullable: true })
-  amenityId?: string[];
+  amenity?: string[];
 
   @Field(() => ID)
-  regionId: string;
+  region: string;
 
   @Field(() => [ID], { nullable: true })
   mediaId?: string[];
@@ -96,6 +96,9 @@ export class CreateBusinessInput {
 
 @InputType()
 export class UpdateBusinessInput {
+  @Field(() => ID)
+  id: string;
+
   @Field({ nullable: true })
   name?: string;
 
@@ -109,13 +112,13 @@ export class UpdateBusinessInput {
   isClaimed?: boolean;
 
   @Field(() => [ID], { nullable: true })
-  businessCategoryID?: string[];
+  businessCategory?: string[];
 
   @Field(() => [ID], { nullable: true })
-  amenityId?: string[];
+  amenity?: string[];
 
   @Field(() => ID, { nullable: true })
-  regionId?: string;
+  region?: string;
 
   @Field(() => [ID], { nullable: true })
   mediaId?: string[];
