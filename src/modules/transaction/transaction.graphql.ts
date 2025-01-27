@@ -40,16 +40,16 @@ export class Transaction {
 @InputType()
 export class CreateTransactionInput {
   @Field(() => ID)
-  paymentId: string;
+  payment: string;
 
   @Field(() => ID)
-  businessId: string;
+  business: string;
 
   @Field(() => ID)
   currencyId: string;
 
   @Field(() => ID)
-  userId: string;
+  user: string;
 
   @Field()
   amount: number;
@@ -63,17 +63,20 @@ export class CreateTransactionInput {
 
 @InputType()
 export class UpdateTransactionInput {
-  @Field(() => ID, { nullable: true })
-  paymentId?: string;
+  @Field(() => ID)
+  id: string;
 
   @Field(() => ID, { nullable: true })
-  businessId?: string;
+  payment?: string;
+
+  @Field(() => ID, { nullable: true })
+  business?: string;
 
   @Field(() => ID, { nullable: true })
   currencyId?: string;
 
   @Field(() => ID, { nullable: true })
-  userId?: string;
+  user?: string;
 
   @Field({ nullable: true })
   amount?: number;
