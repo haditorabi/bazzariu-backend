@@ -38,7 +38,7 @@ export class UserReview {
 @InputType()
 export class CreateUserReviewInput {
   @Field(() => ID)
-  userId: string;
+  user: string;
 
   @Field(() => ID, { nullable: true })
   targetId: string;
@@ -61,8 +61,11 @@ export class CreateUserReviewInput {
 
 @InputType()
 export class UpdateUserReviewInput {
+  @Field(() => ID)
+  id: string;
+
   @Field(() => ID, { nullable: true })
-  userId?: string;
+  user?: string;
 
   @Field(() => ID, { nullable: true })
   targetId?: string;
