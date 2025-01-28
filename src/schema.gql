@@ -2,6 +2,13 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
 # ------------------------------------------------------
 
+type Amenity {
+  createdAt: DateTime!
+  id: ID!
+  mediaId: ID!
+  name: String!
+}
+
 type Boundry {
   latitude: String!
   longtitude: String!
@@ -61,13 +68,13 @@ type BusinessLocation {
 }
 
 type CommonBusiness {
-  amenityId: [ID!]
-  businessCategoryID: [ID!]
+  amenity: [ID!]
+  businessCategory: [ID!]
   createdAt: DateTime!
   description: String
   id: ID!
   isClaimed: Boolean!
-  languageId: [ID!]
+  language: [ID!]
   mediaId: [ID!]
   name: String!
   region: CommonRegion
@@ -77,8 +84,8 @@ type CommonBusiness {
 }
 
 type CommonBusinessProduct {
-  businessId: ID!
-  categoryId: ID!
+  business: ID!
+  category: ID!
   description: String
   id: ID!
   mediaId: [ID!]
@@ -123,6 +130,11 @@ type Country {
   province: [CommonProvince!]
   region: [CommonRegion!]
   status: String!
+}
+
+input CreateAmenityInput {
+  mediaId: ID
+  name: String!
 }
 
 input CreateBusinessCategoryInput {
@@ -196,6 +208,7 @@ type ExampleModel {
 }
 
 type Mutation {
+  createAmenity(data: CreateAmenityInput!): Amenity!
   createBusinessCategory(data: CreateBusinessCategoryInput!): BusinessCategory!
   createBusinessDeal(data: CreateBusinessDealInput!): BusinessDeal!
   createBusinessHour(data: CreateBusinessHourInput!): BusinessHour!
@@ -203,6 +216,7 @@ type Mutation {
   createCountry(data: CreateCountryInput!): Country!
   createExample(data: CreateExampleInput!): ExampleModel!
   createProvince(data: CreateProvinceInput!): Province!
+  updateAmenity(data: UpdateAmenityInput!, id: String!): Amenity!
   updateBusinessCategory(data: UpdateBusinessCategoryInput!): BusinessCategory!
   updateBusinessDeal(data: UpdateBusinessDealInput!): BusinessDeal!
   updateBusinessHour(data: UpdateBusinessHourInput!): BusinessHour!
@@ -220,6 +234,8 @@ type Province {
 }
 
 type Query {
+  amenities: [Amenity!]!
+  amenity(id: String!): Amenity!
   businessCategories: [BusinessCategory!]!
   businessCategory(id: String!): BusinessCategory!
   businessDeal(id: String!): BusinessDeal!
@@ -236,6 +252,11 @@ type Query {
   province(id: String!): Province!
   provinces: [Province!]!
   publicQuery: String!
+}
+
+input UpdateAmenityInput {
+  mediaId: ID
+  name: String
 }
 
 input UpdateBusinessCategoryInput {

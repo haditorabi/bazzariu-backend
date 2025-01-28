@@ -14,6 +14,7 @@ import { BusinessDealModule } from '../business-deal/business-deal.module';
 import { BusinessHourModule } from '../business-hour/business-hour.module';
 import { BusinessLocationModule } from '../business-location/business-location.module';
 import { ProvinceModule } from '../province/province.module';
+import { AmenityModule } from '../amenity/amenity.module';
 
 @Module({
   imports: [
@@ -29,6 +30,7 @@ import { ProvinceModule } from '../province/province.module';
       sortSchema: true, // Optional: Sorts fields in schema alphabetically
     }),
     AuthModule,
+    AmenityModule,
     UserModule,
     BusinessCategoryModule,
     BusinessDealModule,

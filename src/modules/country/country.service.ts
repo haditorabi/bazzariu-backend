@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service';
 import { Prisma, Country } from '@prisma/client';
+import { CommonProvince } from 'src/graphql/province.type';
 
 @Injectable()
 export class CountryService {
@@ -20,6 +21,9 @@ export class CountryService {
     return this.prisma.country.findUnique({
       where: { id },
     });
+  }
+  async findProvincesByCountryId(countryId: string): Promise<CommonProvince[]> {
+    return this.prisma.province.findMany({ where: { countryId } });
   }
 
   async update(id: string, data: Prisma.CountryUpdateInput): Promise<Country> {

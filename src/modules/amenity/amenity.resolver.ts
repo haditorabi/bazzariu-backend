@@ -26,7 +26,7 @@ export class AmenityResolver {
   }
 
   @Mutation(() => Amenity)
-  async updateUser(
+  async updateAmenity(
     @Args('id') id: string,
     @Args('data') data: UpdateAmenityInput,
   ) {

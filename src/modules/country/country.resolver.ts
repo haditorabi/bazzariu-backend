@@ -34,9 +34,7 @@ export class CountryResolver {
 
   @ResolveField(() => [CommonProvince], { nullable: true })
   async province(@Root() country: Country): Promise<CommonProvince[] | null> {
-    return this.prisma.province.findMany({
-      where: { countryId: country.id },
-    });
+    return this.service.findProvincesByCountryId(country.id);
   }
 
   @Mutation(() => Country)
