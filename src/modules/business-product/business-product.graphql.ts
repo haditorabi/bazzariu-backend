@@ -44,10 +44,10 @@ export class BusinessProduct {
 @InputType()
 export class CreateBusinessProductInput {
   @Field(() => ID)
-  businessId: string;
+  business: string;
 
   @Field(() => [ID], { nullable: true })
-  productCategroyId?: string[];
+  productCategroy?: string[];
 
   @Field()
   name: string;
@@ -64,6 +64,9 @@ export class CreateBusinessProductInput {
 
 @InputType()
 export class UpdateBusinessProductInput {
+  @Field(() => ID)
+  id: string;
+
   @Field(() => ID, { nullable: true })
   business?: string;
 
