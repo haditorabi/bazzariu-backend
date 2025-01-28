@@ -15,6 +15,8 @@ import { BusinessHourModule } from '../business-hour/business-hour.module';
 import { BusinessLocationModule } from '../business-location/business-location.module';
 import { ProvinceModule } from '../province/province.module';
 import { AmenityModule } from '../amenity/amenity.module';
+import { BusinessBookingModule } from '../business-booking/business-booking.module';
+import { BookingTimeSlotModule } from '../booking-time-slot/booking-time-slot.module';
 
 @Module({
   imports: [
@@ -32,6 +34,7 @@ import { AmenityModule } from '../amenity/amenity.module';
     AuthModule,
     AmenityModule,
     UserModule,
+    BookingTimeSlotModule,
     BusinessCategoryModule,
     BusinessDealModule,
     BusinessHourModule,

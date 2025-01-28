@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service';
 import { Prisma, BookingTimeSlot } from '@prisma/client';
+import { CommonBusinessBooking } from 'src/graphql/business-booking.type';
 
 @Injectable()
 export class BookingTimeSlotService {
@@ -23,7 +24,13 @@ export class BookingTimeSlotService {
       where: { id },
     });
   }
-
+  async findBusinessBookingsByBusinessBookingId(
+    id: string,
+  ): Promise<CommonBusinessBooking[]> {
+    return this.prisma.businessBooking.findMany({
+      where: { id },
+    });
+  }
   async update(
     id: string,
     data: Prisma.BookingTimeSlotUpdateInput,

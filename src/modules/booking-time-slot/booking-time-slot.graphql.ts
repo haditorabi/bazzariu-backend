@@ -1,14 +1,14 @@
 import { Field, ObjectType, InputType, ID } from '@nestjs/graphql';
 import { BookingTimeSlotStatus } from '@prisma/client';
-import { BusinessBooking } from './business-booking.type';
+import { CommonBusinessBooking } from 'src/graphql/business-booking.type';
 
 @ObjectType()
 export class BookingTimeSlot {
   @Field(() => ID)
   id: string;
 
-  @Field(() => BusinessBooking)
-  businessBooking: BusinessBooking;
+  @Field(() => CommonBusinessBooking)
+  businessBooking: CommonBusinessBooking;
 
   @Field()
   startAt: Date;

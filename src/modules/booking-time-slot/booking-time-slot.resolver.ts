@@ -1,4 +1,11 @@
-import { Resolver, Query, Mutation, Args } from '@nestjs/graphql';
+import {
+  Resolver,
+  Query,
+  Mutation,
+  Args,
+  ResolveField,
+  Root,
+} from '@nestjs/graphql';
 import { BookingTimeSlotService } from './booking-time-slot.service';
 import {
   BookingTimeSlot,
@@ -6,6 +13,7 @@ import {
   UpdateBookingTimeSlotInput,
 } from './booking-time-slot.graphql';
 import { Prisma } from '@prisma/client';
+import { CommonBusinessBooking } from 'src/graphql/business-booking.type';
 
 @Resolver(() => BookingTimeSlot)
 export class BookingTimeSlotResolver {
@@ -20,7 +28,14 @@ export class BookingTimeSlotResolver {
   async bookingTimeSlot(@Args('id') id: string) {
     return this.service.findOne(id);
   }
-
+  @ResolveField(() => [CommonBusinessBooking], { nullable: true })
+  async businessBooking(
+    @Root() bookingTimeSlot: BookingTimeSlot,
+  ): Promise<CommonBusinessBooking[] | null> {
+    return this.service.findBusinessBookingsByBusinessBookingId(
+      bookingTimeSlot.id,
+    );
+  }
   @Mutation(() => BookingTimeSlot)
   async createBookingTimeSlot(@Args('data') data: CreateBookingTimeSlotInput) {
     const { businessBooking, ...rest } = data;

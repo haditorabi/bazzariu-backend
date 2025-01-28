@@ -1,6 +1,6 @@
 import { Field, ObjectType, InputType, ID } from '@nestjs/graphql';
 import { BusinessStatus } from '@prisma/client';
-import { BusinessBooking } from './business-booking.type';
+import { CommonBusinessBooking } from 'src/graphql/business-booking.type';
 import { BusinessHour } from './business-hour.type';
 import { BusinessLocation } from './business-location.type';
 import { CommonBusinessDeal } from 'src/graphql/business-deal.type';
@@ -48,8 +48,8 @@ export class Business {
   @Field()
   updatedAt: Date;
 
-  @Field(() => [BusinessBooking], { nullable: true })
-  businessBooking?: BusinessBooking[];
+  @Field(() => [CommonBusinessBooking], { nullable: true })
+  businessBooking?: CommonBusinessBooking[];
 
   @Field(() => [CommonBusinessDeal], { nullable: true })
   businessDeal?: CommonBusinessDeal[];
