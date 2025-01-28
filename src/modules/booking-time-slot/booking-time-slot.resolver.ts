@@ -28,13 +28,9 @@ export class BookingTimeSlotResolver {
   async bookingTimeSlot(@Args('id') id: string) {
     return this.service.findOne(id);
   }
-  @ResolveField(() => [CommonBusinessBooking], { nullable: true })
-  async businessBooking(
-    @Root() bookingTimeSlot: BookingTimeSlot,
-  ): Promise<CommonBusinessBooking[] | null> {
-    return this.service.findBusinessBookingsByBusinessBookingId(
-      bookingTimeSlot.id,
-    );
+  @ResolveField(() => CommonBusinessBooking)
+  async businessBooking(@Root() bookingTimeSlot: BookingTimeSlot) {
+    return this.service.getBusinessBooking(bookingTimeSlot.id);
   }
   @Mutation(() => BookingTimeSlot)
   async createBookingTimeSlot(@Args('data') data: CreateBookingTimeSlotInput) {
