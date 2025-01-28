@@ -34,8 +34,8 @@ export class BusinessCategoryResolver {
   async updateBusinessCategory(
     @Args('data') data: UpdateBusinessCategoryInput,
   ) {
-    const { id } = data;
-    return this.service.update(id, data);
+    const { id, ...rest } = data;
+    return this.service.update(id, { ...rest });
   }
 
   @Mutation(() => BusinessCategory)

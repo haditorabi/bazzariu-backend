@@ -25,6 +25,7 @@ type Boundry {
 
 type BusinessCategory {
   createdAt: DateTime!
+  deletedAt: DateTime
   id: ID!
   mediaId: ID
   name: String!
@@ -244,6 +245,7 @@ type Mutation {
   createCountry(data: CreateCountryInput!): Country!
   createExample(data: CreateExampleInput!): ExampleModel!
   createProvince(data: CreateProvinceInput!): Province!
+  deleteBusinessCategory(id: String!): BusinessCategory!
   updateAmenity(data: UpdateAmenityInput!, id: String!): Amenity!
   updateBookingTimeSlot(data: UpdateBookingTimeSlotInput!): BookingTimeSlot!
   updateBusinessCategory(data: UpdateBusinessCategoryInput!): BusinessCategory!
@@ -267,7 +269,7 @@ type Query {
   amenity(id: String!): Amenity!
   bookingTimeSlot(id: String!): BookingTimeSlot!
   bookingTimeSlots: [BookingTimeSlot!]!
-  businessCategories: [BusinessCategory!]!
+  businessCategories(skip: Float! = 0, take: Float! = 10): [BusinessCategory!]!
   businessCategory(id: String!): BusinessCategory!
   businessDeal(id: String!): BusinessDeal!
   businessDeals: [BusinessDeal!]!
@@ -300,6 +302,7 @@ input UpdateBookingTimeSlotInput {
 }
 
 input UpdateBusinessCategoryInput {
+  deletedAt: DateTime
   id: ID!
   mediaId: ID
   name: String
