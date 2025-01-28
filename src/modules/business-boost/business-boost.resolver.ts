@@ -1,19 +1,31 @@
-import { Resolver, Query, Mutation, Args } from '@nestjs/graphql';
+import {
+  Resolver,
+  Query,
+  Mutation,
+  Args,
+  ResolveField,
+  Parent,
+} from '@nestjs/graphql';
 import { BusinessBoostService } from './business-boost.service';
 import {
   BusinessBoost,
   CreateBusinessBoostInput,
   UpdateBusinessBoostInput,
 } from './business-boost.graphql';
-import { Prisma } from '@prisma/client';
+import { BusinessBoostType, Prisma } from '@prisma/client';
+import { CommonBusiness } from 'src/graphql/business.type';
 
 @Resolver(() => BusinessBoost)
 export class BusinessBoostResolver {
   constructor(private service: BusinessBoostService) {}
 
   @Query(() => [BusinessBoost])
-  async businessBoosts() {
-    return this.service.findAll();
+  async businessBoosts(
+    @Args('skip', { nullable: true }) skip?: number,
+    @Args('take', { nullable: true }) take?: number,
+    @Args('type', { nullable: true }) type?: BusinessBoostType,
+  ) {
+    return this.service.findAll({ skip, take, type });
   }
 
   @Query(() => BusinessBoost)
@@ -49,5 +61,15 @@ export class BusinessBoostResolver {
     };
 
     return this.service.update(id, prismaData);
+  }
+
+  @Mutation(() => BusinessBoost)
+  async deleteBusinessBoost(@Args('id') id: string) {
+    return this.service.delete(id);
+  }
+
+  @ResolveField(() => CommonBusiness)
+  async business(@Parent() boost: BusinessBoost) {
+    return this.service.getBusiness(boost.business.id);
   }
 }

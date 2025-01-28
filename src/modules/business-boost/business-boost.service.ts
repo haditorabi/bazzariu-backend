@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service';
-import { Prisma, BusinessBoost } from '@prisma/client';
+import { Prisma, BusinessBoost, BusinessBoostType } from '@prisma/client';
+import { CommonBusiness } from 'src/graphql/business.type';
 
 @Injectable()
 export class BusinessBoostService {
@@ -12,14 +13,32 @@ export class BusinessBoostService {
     });
   }
 
-  async findAll(): Promise<BusinessBoost[]> {
-    return this.prisma.businessBoost.findMany();
+  async findAll(args?: {
+    skip?: number;
+    take?: number;
+    type?: BusinessBoostType;
+  }): Promise<BusinessBoost[]> {
+    const { skip, take, type } = args || {};
+    return this.prisma.businessBoost.findMany({
+      skip,
+      take,
+      where: {
+        ...(type && { type }),
+      },
+      orderBy: {
+        createdAt: 'desc', // Optionally, you can order by creation date or any other field
+      },
+    });
   }
 
   async findOne(id: string): Promise<BusinessBoost | null> {
-    return this.prisma.businessBoost.findUnique({
-      where: { id },
-    });
+    try {
+      return this.prisma.businessBoost.findUnique({
+        where: { id },
+      });
+    } catch (error) {
+      throw new Error(`Error finding BusinessBoost with ID: ${id}`);
+    }
   }
 
   async update(
@@ -35,6 +54,12 @@ export class BusinessBoostService {
   async delete(id: string): Promise<BusinessBoost> {
     return this.prisma.businessBoost.delete({
       where: { id },
+    });
+  }
+
+  async getBusiness(businessId: string): Promise<CommonBusiness | null> {
+    return this.prisma.business.findUnique({
+      where: { id: businessId },
     });
   }
 }

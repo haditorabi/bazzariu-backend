@@ -1,6 +1,7 @@
 import { Field, ObjectType, InputType, ID } from '@nestjs/graphql';
 import { CommonBusiness } from 'src/graphql/business.type';
 import { BusinessBoostStatus, BusinessBoostType } from '@prisma/client';
+import { IsDate } from 'class-validator';
 
 @ObjectType()
 export class BusinessBoost {
@@ -37,9 +38,11 @@ export class CreateBusinessBoostInput {
   @Field()
   type: BusinessBoostType;
 
+  @IsDate()
   @Field()
   startAt: Date;
 
+  @IsDate()
   @Field()
   endAt: Date;
 
@@ -58,9 +61,11 @@ export class UpdateBusinessBoostInput {
   @Field({ nullable: true })
   type?: BusinessBoostType;
 
+  @IsDate()
   @Field({ nullable: true })
   startAt?: Date;
 
+  @IsDate()
   @Field({ nullable: true })
   endAt?: Date;
 
