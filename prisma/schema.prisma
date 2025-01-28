@@ -78,6 +78,7 @@ model BusinessCategory {
   status    BusinessCategoryStatus
   createdAt DateTime               @default(now())
   updatedAt DateTime               @updatedAt
+  deletedAt DateTime?
 }
 
 enum BusinessCategoryStatus {

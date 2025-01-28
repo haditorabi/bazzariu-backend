@@ -11,8 +11,11 @@ export class BusinessCategoryResolver {
   constructor(private service: BusinessCategoryService) {}
 
   @Query(() => [BusinessCategory])
-  async businessCategories() {
-    return this.service.findAll();
+  async businessCategories(
+    @Args('skip', { type: () => Number, defaultValue: 0 }) skip: number,
+    @Args('take', { type: () => Number, defaultValue: 10 }) take: number,
+  ) {
+    return this.service.findAll(skip, take);
   }
 
   @Query(() => BusinessCategory)
@@ -32,7 +35,11 @@ export class BusinessCategoryResolver {
     @Args('data') data: UpdateBusinessCategoryInput,
   ) {
     const { id } = data;
-
     return this.service.update(id, data);
+  }
+
+  @Mutation(() => BusinessCategory)
+  async deleteBusinessCategory(@Args('id') id: string) {
+    return this.service.delete(id);
   }
 }

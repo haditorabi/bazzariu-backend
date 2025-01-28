@@ -14,8 +14,15 @@ export class BusinessCategoryService {
     });
   }
 
-  async findAll(): Promise<BusinessCategory[]> {
-    return this.prisma.businessCategory.findMany();
+  async findAll(
+    skip: number = 0,
+    take: number = 10,
+  ): Promise<BusinessCategory[]> {
+    return this.prisma.businessCategory.findMany({
+      where: { deletedAt: null }, // Only return non-deleted records
+      skip,
+      take,
+    });
   }
 
   async findOne(id: string): Promise<BusinessCategory | null> {
@@ -35,8 +42,9 @@ export class BusinessCategoryService {
   }
 
   async delete(id: string): Promise<BusinessCategory> {
-    return this.prisma.businessCategory.delete({
+    return this.prisma.businessCategory.update({
       where: { id },
+      data: { deletedAt: new Date() }, // Soft delete
     });
   }
 }
