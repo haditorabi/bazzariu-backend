@@ -19,13 +19,13 @@ export class CommonBusiness {
   isClaimed: boolean;
 
   @Field(() => [ID], { nullable: true })
-  businessCategoryID?: string[];
+  businessCategory?: string[];
 
   @Field(() => [ID], { nullable: true })
-  amenityId?: string[];
+  amenity?: string[];
 
   @Field(() => [ID], { nullable: true })
-  languageId?: string[];
+  language?: string[];
 
   @Field(() => CommonRegion, { nullable: true })
   region?: CommonRegion;
