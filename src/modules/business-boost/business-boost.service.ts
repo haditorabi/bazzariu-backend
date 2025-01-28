@@ -24,21 +24,24 @@ export class BusinessBoostService {
       take,
       where: {
         ...(type && { type }),
+        deletedAt: null,
       },
       orderBy: {
         createdAt: 'desc', // Optionally, you can order by creation date or any other field
+      },
+      include: {
+        business: true,
       },
     });
   }
 
   async findOne(id: string): Promise<BusinessBoost | null> {
-    try {
-      return this.prisma.businessBoost.findUnique({
-        where: { id },
-      });
-    } catch (error) {
-      throw new Error(`Error finding BusinessBoost with ID: ${id}`);
-    }
+    return this.prisma.businessBoost.findUnique({
+      where: { id, deletedAt: null },
+      include: {
+        business: true,
+      },
+    });
   }
 
   async update(
@@ -52,8 +55,9 @@ export class BusinessBoostService {
   }
 
   async delete(id: string): Promise<BusinessBoost> {
-    return this.prisma.businessBoost.delete({
+    return this.prisma.businessBoost.update({
       where: { id },
+      data: { deletedAt: new Date() },
     });
   }
 
