@@ -9,7 +9,7 @@ export class BusinessCategory {
   @Field()
   name: string;
 
-  @Field()
+  @Field(() => ID, { nullable: true })
   mediaId?: string;
 
   @Field()

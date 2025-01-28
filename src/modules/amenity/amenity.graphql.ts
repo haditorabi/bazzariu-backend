@@ -8,8 +8,8 @@ export class Amenity {
   @Field()
   name: string;
 
-  @Field(() => ID)
-  mediaId: string;
+  @Field(() => ID, { nullable: true })
+  mediaId?: string;
 
   @Field()
   createdAt: Date;

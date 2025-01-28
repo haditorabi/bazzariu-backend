@@ -5,7 +5,7 @@
 type Amenity {
   createdAt: DateTime!
   id: ID!
-  mediaId: ID!
+  mediaId: ID
   name: String!
 }
 
@@ -17,7 +17,7 @@ type Boundry {
 type BusinessCategory {
   createdAt: DateTime!
   id: ID!
-  mediaId: String!
+  mediaId: ID
   name: String!
   status: String!
   updatedAt: DateTime!
