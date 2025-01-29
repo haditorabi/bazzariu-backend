@@ -1,29 +1,35 @@
 import { Injectable } from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service';
 import { Prisma, BusinessFollowing } from '@prisma/client';
+import { ServiceErrorHandler } from 'src/common/decorators/ServiceErrorHandler';
 
 @Injectable()
 export class BusinessFollowingService {
   constructor(private prisma: PrismaService) {}
 
+  @ServiceErrorHandler('create business following')
   async create(
     data: Prisma.BusinessFollowingCreateInput,
   ): Promise<BusinessFollowing> {
-    return this.prisma.businessFollowing.create({
-      data,
+    return this.prisma.businessFollowing.create({ data });
+  }
+
+  @ServiceErrorHandler('find all business followings')
+  async findAll(page: number, pageSize: number): Promise<BusinessFollowing[]> {
+    return this.prisma.businessFollowing.findMany({
+      skip: (page - 1) * pageSize,
+      take: pageSize,
     });
   }
 
-  async findAll(): Promise<BusinessFollowing[]> {
-    return this.prisma.businessFollowing.findMany();
-  }
-
+  @ServiceErrorHandler('find one business following')
   async findOne(id: string): Promise<BusinessFollowing | null> {
     return this.prisma.businessFollowing.findUnique({
       where: { id },
     });
   }
 
+  @ServiceErrorHandler('update business following')
   async update(
     id: string,
     data: Prisma.BusinessFollowingUpdateInput,
@@ -34,6 +40,7 @@ export class BusinessFollowingService {
     });
   }
 
+  @ServiceErrorHandler('delete business following')
   async delete(id: string): Promise<BusinessFollowing> {
     return this.prisma.businessFollowing.delete({
       where: { id },
