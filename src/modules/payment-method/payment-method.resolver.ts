@@ -12,8 +12,11 @@ export class PaymentMethodResolver {
   constructor(private service: PaymentMethodService) {}
 
   @Query(() => [PaymentMethod])
-  async paymentMethods() {
-    return this.service.findAll();
+  async paymentMethods(
+    @Args('skip', { type: () => Number, nullable: true }) skip?: number,
+    @Args('limit', { type: () => Number, nullable: true }) limit?: number,
+  ) {
+    return this.service.findAll({ skip, limit });
   }
 
   @Query(() => PaymentMethod)
