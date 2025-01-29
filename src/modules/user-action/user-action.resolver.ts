@@ -1,19 +1,30 @@
-import { Resolver, Query, Mutation, Args } from '@nestjs/graphql';
-import { UserActionService } from './user-action.service';
 import {
-  UserAction,
+  Args,
+  Mutation,
+  Parent,
+  Query,
+  ResolveField,
+  Resolver,
+} from '@nestjs/graphql';
+import { Prisma, User } from '@prisma/client';
+import {
   CreateUserActionInput,
   UpdateUserActionInput,
+  UserAction,
 } from './user-action.graphql';
-import { Prisma } from '@prisma/client';
+import { UserActionService } from './user-action.service';
+import { CommonUser } from 'src/graphql/user.type';
 
 @Resolver(() => UserAction)
 export class UserActionResolver {
   constructor(private service: UserActionService) {}
 
   @Query(() => [UserAction])
-  async userActions() {
-    return this.service.findAll();
+  async userActions(
+    @Args('page', { nullable: true }) page?: number,
+    @Args('limit', { nullable: true }) limit?: number,
+  ) {
+    return this.service.findAll({ page, limit });
   }
 
   @Query(() => UserAction)
@@ -49,5 +60,10 @@ export class UserActionResolver {
     };
 
     return this.service.update(id, prismaData);
+  }
+  @ResolveField(() => CommonUser)
+  async user(@Parent() userAction: UserAction): Promise<User> {
+    const { userId } = userAction;
+    return this.service.getUser(userId);
   }
 }

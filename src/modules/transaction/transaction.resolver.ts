@@ -1,4 +1,11 @@
-import { Resolver, Query, Mutation, Args } from '@nestjs/graphql';
+import {
+  Resolver,
+  Query,
+  Mutation,
+  Args,
+  ResolveField,
+  Parent,
+} from '@nestjs/graphql';
 import { TransactionService } from './transaction.service';
 import {
   Transaction,
@@ -6,18 +13,41 @@ import {
   UpdateTransactionInput,
 } from './transaction.graphql';
 import { Prisma } from '@prisma/client';
+import { CommonPayment } from 'src/graphql/payment.type';
+import { CommonBusiness } from 'src/graphql/business.type';
+import { CommonUser } from 'src/graphql/user.type';
 
 @Resolver(() => Transaction)
 export class TransactionResolver {
   constructor(private service: TransactionService) {}
 
   @Query(() => [Transaction])
-  async bookingTimeSlots() {
-    return this.service.findAll();
+  async bookingTimeSlots(
+    @Args('skip', { type: () => Number, nullable: true }) skip?: number,
+    @Args('take', { type: () => Number, nullable: true }) take?: number,
+  ) {
+    return this.service.findAll(skip, take);
+  }
+
+  @ResolveField(() => CommonPayment)
+  async payment(@Parent() transaction: Transaction) {
+    return this.service.getPayment(transaction.payment.id);
+  }
+
+  @ResolveField(() => CommonBusiness, { nullable: true })
+  async business(@Parent() transaction: Transaction) {
+    return transaction.business.id
+      ? this.service.getBusiness(transaction.business.id)
+      : null;
+  }
+
+  @ResolveField(() => CommonUser)
+  async user(@Parent() transaction: Transaction) {
+    return this.service.getUser(transaction.user.id);
   }
 
   @Query(() => Transaction)
-  async bookingTimeSlot(@Args('id') id: string) {
+  async transaction(@Args('id') id: string) {
     return this.service.findOne(id);
   }
 

@@ -8,6 +8,12 @@ export class User {
   @Field()
   name: string;
 
+  @Field({ nullable: true })
+  firstName?: string;
+
+  @Field({ nullable: true })
+  lastName?: string;
+
   @Field()
   email: string;
 
@@ -23,6 +29,12 @@ export class CreateUserInput {
   @Field()
   name: string;
 
+  @Field({ nullable: true })
+  firstName?: string;
+
+  @Field({ nullable: true })
+  lastName?: string;
+
   @Field()
   email: string;
 }
@@ -34,4 +46,10 @@ export class UpdateUserInput {
 
   @Field({ nullable: true })
   email?: string;
+
+  @Field()
+  firstName?: string;
+
+  @Field()
+  lastName?: string;
 }
