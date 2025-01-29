@@ -32,4 +32,8 @@ export class AmenityResolver {
   ) {
     return this.service.update(id, data);
   }
+  @Mutation(() => Amenity)
+  async deleteAmenity(@Args('id') id: string) {
+    return this.service.delete(id);
+  }
 }

@@ -245,6 +245,7 @@ type Mutation {
   createCountry(data: CreateCountryInput!): Country!
   createExample(data: CreateExampleInput!): ExampleModel!
   createProvince(data: CreateProvinceInput!): Province!
+  deleteAmenity(id: String!): Amenity!
   deleteBusinessCategory(id: String!): BusinessCategory!
   updateAmenity(data: UpdateAmenityInput!, id: String!): Amenity!
   updateBookingTimeSlot(data: UpdateBookingTimeSlotInput!): BookingTimeSlot!
