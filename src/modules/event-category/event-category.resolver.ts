@@ -1,4 +1,11 @@
-import { Resolver, Query, Mutation, Args } from '@nestjs/graphql';
+import {
+  Resolver,
+  Query,
+  Mutation,
+  Args,
+  ResolveField,
+  Parent,
+} from '@nestjs/graphql';
 import { EventCategoryService } from './event-category.service';
 import {
   EventCategory,
@@ -6,14 +13,25 @@ import {
   UpdateEventCategoryInput,
 } from './event-category.graphql';
 import { Prisma } from '@prisma/client';
+import { CommonEvent } from 'src/graphql/event.type';
 
 @Resolver(() => EventCategory)
 export class EventCategoryResolver {
   constructor(private service: EventCategoryService) {}
 
   @Query(() => [EventCategory])
-  async bookingTimeSlots() {
-    return this.service.findAll();
+  async bookingTimeSlots(
+    @Args('page', { type: () => Number, nullable: true }) page: number = 1,
+    @Args('limit', { type: () => Number, nullable: true })
+    limit: number = 10,
+  ) {
+    return this.service.findAll({ page, limit });
+  }
+
+  @ResolveField(() => [CommonEvent], { nullable: true })
+  async event(@Parent() eventCategory: EventCategory) {
+    const { id } = eventCategory;
+    return this.service.getEventsForCategory(id);
   }
 
   @Query(() => EventCategory)
