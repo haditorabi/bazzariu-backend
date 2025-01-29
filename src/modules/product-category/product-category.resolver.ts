@@ -1,4 +1,11 @@
-import { Resolver, Query, Mutation, Args } from '@nestjs/graphql';
+import {
+  Resolver,
+  Query,
+  Mutation,
+  Args,
+  ResolveField,
+  Parent,
+} from '@nestjs/graphql';
 import { ProductCategoryService } from './product-category.service';
 import {
   ProductCategory,
@@ -6,14 +13,23 @@ import {
   UpdateProductCategoryInput,
 } from './product-category.graphql';
 import { Prisma } from '@prisma/client';
+import { CommonBusinessProduct } from 'src/graphql/business-product.type';
 
 @Resolver(() => ProductCategory)
 export class ProductCategoryResolver {
   constructor(private service: ProductCategoryService) {}
 
   @Query(() => [ProductCategory])
-  async productCategories() {
-    return this.service.findAll();
+  async productCategories(
+    @Args('page', { type: () => Number, nullable: true }) page?: number,
+    @Args('limit', { type: () => Number, nullable: true }) limit?: number,
+  ) {
+    return this.service.findAll({ page, limit });
+  }
+  @ResolveField(() => [CommonBusinessProduct])
+  async BusinessProduct(@Parent() category: ProductCategory) {
+    const { id } = category;
+    return this.service.getBusinessProductsByCategory(id);
   }
 
   @Query(() => ProductCategory)
