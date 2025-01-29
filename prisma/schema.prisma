@@ -563,7 +563,7 @@ model Region {
   country   Country      @relation(fields: [countryId], references: [id])
   cityId    String       @db.ObjectId
   city      City         @relation(fields: [cityId], references: [id])
-  boundry   Json?
+  boundry   String?
   status    RegionStatus
 
   Business Business[]

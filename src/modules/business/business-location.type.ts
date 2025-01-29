@@ -7,7 +7,7 @@ export class BusinessLocation {
   id: string;
 
   @Field()
-  adress: string;
+  address: string;
 
   @Field()
   latitude: number;
@@ -19,7 +19,7 @@ export class BusinessLocation {
   countryId: string;
 
   @Field(() => ID)
-  privinceId: string;
+  provinceId: string;
 
   @Field(() => ID)
   cityId: string;

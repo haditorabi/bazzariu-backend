@@ -29,7 +29,7 @@ export class RegionResolver {
       city: {
         connect: { id: city },
       },
-      boundry: rest.boundry as unknown as Prisma.InputJsonValue,
+      boundry: rest.boundry as string,
     };
 
     return this.service.create(prismaData);
@@ -52,7 +52,7 @@ export class RegionResolver {
         },
       }),
       ...(boundry && {
-        boundry: boundry as unknown as Prisma.InputJsonValue,
+        boundry: boundry as unknown,
       }),
     };
 
