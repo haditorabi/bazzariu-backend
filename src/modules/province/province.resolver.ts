@@ -1,4 +1,11 @@
-import { Resolver, Query, Mutation, Args } from '@nestjs/graphql';
+import {
+  Resolver,
+  Query,
+  Mutation,
+  Args,
+  ResolveField,
+  Parent,
+} from '@nestjs/graphql';
 import { ProvinceService } from './province.service';
 import {
   Province,
@@ -6,14 +13,19 @@ import {
   UpdateProvinceInput,
 } from './province.graphql';
 import { Prisma } from '@prisma/client';
+import { CommonCountry } from 'src/graphql/country.type';
+import { CommonCity } from 'src/graphql/city.type';
 
 @Resolver(() => Province)
 export class ProvinceResolver {
   constructor(private service: ProvinceService) {}
 
   @Query(() => [Province])
-  async provinces() {
-    return this.service.findAll();
+  async provinces(
+    @Args('page', { type: () => Number, nullable: true }) page?: number,
+    @Args('limit', { type: () => Number, nullable: true }) limit?: number,
+  ) {
+    return this.service.findAll({ page, limit });
   }
 
   @Query(() => Province)
@@ -49,5 +61,16 @@ export class ProvinceResolver {
     };
 
     return this.service.update(id, prismaData);
+  }
+  @ResolveField(() => [CommonCity])
+  async city(@Parent() province: Province) {
+    const { id } = province;
+    return this.service.getCitiesForProvince(id);
+  }
+
+  @ResolveField(() => CommonCountry)
+  async country(@Parent() province: Province) {
+    const { country } = province;
+    return this.service.getCountry(country.id);
   }
 }

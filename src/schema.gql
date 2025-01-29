@@ -279,7 +279,7 @@ type Query {
   getProtectedData: String!
   protectedQuery: String!
   province(id: String!): Province!
-  provinces: [Province!]!
+  provinces(limit: Float, page: Float): [Province!]!
   publicQuery: String!
 }
 

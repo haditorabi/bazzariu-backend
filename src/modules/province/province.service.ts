@@ -1,27 +1,41 @@
 import { Injectable } from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service';
-import { Prisma, Province } from '@prisma/client';
+import { City, Country, Prisma, Province } from '@prisma/client';
+import { ServiceErrorHandler } from 'src/common/decorators/ServiceErrorHandler';
 
 @Injectable()
 export class ProvinceService {
   constructor(private prisma: PrismaService) {}
 
+  @ServiceErrorHandler('create a province')
   async create(data: Prisma.ProvinceCreateInput): Promise<Province> {
     return this.prisma.province.create({
       data,
     });
   }
 
-  async findAll(): Promise<Province[]> {
-    return this.prisma.province.findMany();
+  @ServiceErrorHandler('retrieve provinces with pagination')
+  async findAll({
+    page = 1,
+    limit = 10,
+  }: {
+    page?: number;
+    limit?: number;
+  }): Promise<Province[]> {
+    return this.prisma.province.findMany({
+      skip: (page - 1) * limit,
+      take: limit,
+    });
   }
 
+  @ServiceErrorHandler('retrieve a province')
   async findOne(id: string): Promise<Province | null> {
     return this.prisma.province.findUnique({
       where: { id },
     });
   }
 
+  @ServiceErrorHandler('update a province')
   async update(
     id: string,
     data: Prisma.ProvinceUpdateInput,
@@ -32,9 +46,24 @@ export class ProvinceService {
     });
   }
 
+  @ServiceErrorHandler('delete a province')
   async delete(id: string): Promise<Province> {
     return this.prisma.province.delete({
       where: { id },
+    });
+  }
+
+  @ServiceErrorHandler('retrieve cities for a province')
+  async getCitiesForProvince(provinceId: string): Promise<City[]> {
+    return this.prisma.city.findMany({
+      where: { provinceId },
+    });
+  }
+
+  @ServiceErrorHandler('retrieve the country of a province')
+  async getCountry(countryId: string): Promise<Country> {
+    return this.prisma.country.findUnique({
+      where: { id: countryId },
     });
   }
 }
