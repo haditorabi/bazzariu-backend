@@ -268,7 +268,7 @@ type Query {
   businessCategories(skip: Float! = 0, take: Float! = 10): [BusinessCategory!]!
   businessCategory(id: String!): BusinessCategory!
   businessDeal(id: String!): BusinessDeal!
-  businessDeals: [BusinessDeal!]!
+  businessDeals(limit: Float, page: Float): [BusinessDeal!]!
   businessHour(id: String!): BusinessHour!
   businessHours: [BusinessHour!]!
   businessLocation(id: String!): BusinessLocation!
