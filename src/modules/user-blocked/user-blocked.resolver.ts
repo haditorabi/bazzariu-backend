@@ -1,4 +1,11 @@
-import { Resolver, Query, Mutation, Args } from '@nestjs/graphql';
+import {
+  Resolver,
+  Query,
+  Mutation,
+  Args,
+  Parent,
+  ResolveField,
+} from '@nestjs/graphql';
 import { UserBlockedService } from './user-blocked.service';
 import {
   UserBlocked,
@@ -6,14 +13,18 @@ import {
   UpdateUserBlockedInput,
 } from './user-blocked.graphql';
 import { Prisma } from '@prisma/client';
+import { ServiceErrorHandler } from 'src/common/decorators/ServiceErrorHandler';
 
 @Resolver(() => UserBlocked)
 export class UserBlockedResolver {
   constructor(private service: UserBlockedService) {}
 
   @Query(() => [UserBlocked])
-  async userBlockes() {
-    return this.service.findAll();
+  async userBlockes(
+    @Args('skip', { type: () => Number, nullable: true }) skip?: number,
+    @Args('limit', { type: () => Number, nullable: true }) limit?: number,
+  ) {
+    return this.service.findAll(skip, limit);
   }
 
   @Query(() => UserBlocked)
@@ -22,6 +33,7 @@ export class UserBlockedResolver {
   }
 
   @Mutation(() => UserBlocked)
+  @ServiceErrorHandler('Create user block')
   async createUserBlocked(@Args('data') data: CreateUserBlockedInput) {
     const { user, blocked, ...rest } = data;
 
@@ -39,6 +51,7 @@ export class UserBlockedResolver {
   }
 
   @Mutation(() => UserBlocked)
+  @ServiceErrorHandler('Update user block')
   async updateUserBlocked(@Args('data') data: UpdateUserBlockedInput) {
     const { id, user, blocked, ...rest } = data;
 
@@ -57,5 +70,15 @@ export class UserBlockedResolver {
     };
 
     return this.service.update(id, prismaData);
+  }
+
+  @ResolveField(() => UserBlocked)
+  async user(@Parent() userBlocked: UserBlocked) {
+    return this.service.findOne(userBlocked.user.id);
+  }
+
+  @ResolveField(() => UserBlocked)
+  async blocked(@Parent() userBlocked: UserBlocked) {
+    return this.service.findOne(userBlocked.blocked.id);
   }
 }
