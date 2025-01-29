@@ -1,4 +1,11 @@
-import { Resolver, Query, Mutation, Args } from '@nestjs/graphql';
+import {
+  Resolver,
+  Query,
+  Mutation,
+  Args,
+  Parent,
+  ResolveField,
+} from '@nestjs/graphql';
 import { UserVerificationService } from './user-verification.service';
 import {
   UserVerification,
@@ -6,14 +13,19 @@ import {
   UpdateUserVerificationInput,
 } from './user-verification.graphql';
 import { Prisma } from '@prisma/client';
-
+import { CommonUser } from 'src/graphql/user.type';
 @Resolver(() => UserVerification)
 export class UserVerificationResolver {
   constructor(private service: UserVerificationService) {}
 
   @Query(() => [UserVerification])
-  async userVerifications() {
-    return this.service.findAll();
+  async userVerifications(
+    @Args('skip', { type: () => Number, nullable: true, defaultValue: 0 })
+    skip: number,
+    @Args('limit', { type: () => Number, nullable: true, defaultValue: 10 })
+    limit: number,
+  ) {
+    return this.service.findAll({ skip, limit });
   }
 
   @Query(() => UserVerification)
@@ -53,5 +65,9 @@ export class UserVerificationResolver {
     };
 
     return this.service.update(id, prismaData);
+  }
+  @ResolveField(() => CommonUser)
+  async user(@Parent() userVerification: UserVerification) {
+    return this.service.getUserById(userVerification.user.id);
   }
 }

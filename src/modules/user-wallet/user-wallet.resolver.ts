@@ -1,4 +1,11 @@
-import { Resolver, Query, Mutation, Args } from '@nestjs/graphql';
+import {
+  Resolver,
+  Query,
+  Mutation,
+  Args,
+  Parent,
+  ResolveField,
+} from '@nestjs/graphql';
 import { UserWalletService } from './user-wallet.service';
 import {
   UserWallet,
@@ -6,14 +13,18 @@ import {
   UpdateUserWalletInput,
 } from './user-wallet.graphql';
 import { Prisma } from '@prisma/client';
-
 @Resolver(() => UserWallet)
 export class UserWalletResolver {
   constructor(private service: UserWalletService) {}
 
   @Query(() => [UserWallet])
-  async userWallets() {
-    return this.service.findAll();
+  async userWallets(
+    @Args('skip', { type: () => Number, nullable: true, defaultValue: 0 })
+    skip: number,
+    @Args('limit', { type: () => Number, nullable: true, defaultValue: 10 })
+    limit: number,
+  ) {
+    return this.service.findAll({ skip, limit });
   }
 
   @Query(() => UserWallet)
@@ -24,21 +35,18 @@ export class UserWalletResolver {
   @Mutation(() => UserWallet)
   async createUserWallet(@Args('data') data: CreateUserWalletInput) {
     const { user, ...rest } = data;
-
     const prismaData: Prisma.UserWalletCreateInput = {
       ...rest,
       user: {
         connect: { id: user },
       },
     };
-
     return this.service.create(prismaData);
   }
 
   @Mutation(() => UserWallet)
   async updateUserWallet(@Args('data') data: UpdateUserWalletInput) {
     const { id, user, ...rest } = data;
-
     const prismaData: Prisma.UserWalletUpdateInput = {
       ...rest,
       ...(user && {
@@ -47,7 +55,11 @@ export class UserWalletResolver {
         },
       }),
     };
-
     return this.service.update(id, prismaData);
+  }
+
+  @ResolveField()
+  async user(@Parent() userWallet: UserWallet) {
+    return this.service.findUser(userWallet.user.id);
   }
 }
