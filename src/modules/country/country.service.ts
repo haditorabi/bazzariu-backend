@@ -2,30 +2,53 @@ import { Injectable } from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service';
 import { Prisma, Country } from '@prisma/client';
 import { CommonProvince } from 'src/graphql/province.type';
+import { ServiceErrorHandler } from 'src/common/decorators/ServiceErrorHandler';
 
 @Injectable()
 export class CountryService {
   constructor(private prisma: PrismaService) {}
 
+  @ServiceErrorHandler('create country') // Error handling
   async create(data: Prisma.CountryCreateInput): Promise<Country> {
     return this.prisma.country.create({
       data,
     });
   }
 
-  async findAll(): Promise<Country[]> {
-    return this.prisma.country.findMany();
+  @ServiceErrorHandler('findAll countries') // Error handling
+  async findAll({
+    page,
+    limit,
+  }: {
+    page: number;
+    limit: number;
+  }): Promise<Country[]> {
+    return this.prisma.country.findMany({
+      skip: (page - 1) * limit,
+      take: limit,
+    });
   }
 
+  @ServiceErrorHandler('find one country') // Error handling
   async findOne(id: string): Promise<Country | null> {
     return this.prisma.country.findUnique({
       where: { id },
     });
   }
-  async findProvincesByCountryId(countryId: string): Promise<CommonProvince[]> {
-    return this.prisma.province.findMany({ where: { countryId } });
+
+  @ServiceErrorHandler('findProvincesByCountryId') // Error handling
+  async findProvincesByCountryId(
+    countryId: string,
+    { page, limit }: { page: number; limit: number },
+  ): Promise<CommonProvince[]> {
+    return this.prisma.province.findMany({
+      where: { countryId },
+      skip: (page - 1) * limit,
+      take: limit,
+    });
   }
 
+  @ServiceErrorHandler('update country') // Error handling
   async update(id: string, data: Prisma.CountryUpdateInput): Promise<Country> {
     return this.prisma.country.update({
       where: { id },
@@ -33,6 +56,7 @@ export class CountryService {
     });
   }
 
+  @ServiceErrorHandler('delete country') // Error handling
   async delete(id: string): Promise<Country> {
     return this.prisma.country.delete({
       where: { id },

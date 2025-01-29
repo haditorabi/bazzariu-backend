@@ -141,7 +141,7 @@ type Country {
   code: String!
   id: ID!
   name: String!
-  province: [CommonProvince!]
+  province(limit: Float, page: Float): [CommonProvince!]
   region: [CommonRegion!]
   status: String!
 }
@@ -273,7 +273,7 @@ type Query {
   businessHours(limit: Float! = 10, page: Float! = 1): [BusinessHour!]!
   businessLocation(id: String!): BusinessLocation!
   businessLocations(skip: Float, take: Float): [BusinessLocation!]!
-  countries: [Country!]!
+  countries(limit: Float, page: Float): [Country!]!
   country(id: String!): Country!
   getExamples: [ExampleModel!]!
   getProtectedData: String!
