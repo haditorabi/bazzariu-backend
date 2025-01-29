@@ -2,17 +2,20 @@ import { Injectable } from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service';
 import { Prisma, BusinessBoost, BusinessBoostType } from '@prisma/client';
 import { CommonBusiness } from 'src/graphql/business.type';
+import { ServiceErrorHandler } from 'src/common/decorators/ServiceErrorHandler';
 
 @Injectable()
 export class BusinessBoostService {
   constructor(private prisma: PrismaService) {}
 
+  @ServiceErrorHandler('Create Business Boost')
   async create(data: Prisma.BusinessBoostCreateInput): Promise<BusinessBoost> {
     return this.prisma.businessBoost.create({
       data,
     });
   }
 
+  @ServiceErrorHandler('Find All Business Boosts')
   async findAll(args?: {
     skip?: number;
     take?: number;
@@ -27,7 +30,7 @@ export class BusinessBoostService {
         deletedAt: null,
       },
       orderBy: {
-        createdAt: 'desc', // Optionally, you can order by creation date or any other field
+        createdAt: 'desc',
       },
       include: {
         business: true,
@@ -35,6 +38,7 @@ export class BusinessBoostService {
     });
   }
 
+  @ServiceErrorHandler('Find One Business Boost')
   async findOne(id: string): Promise<BusinessBoost | null> {
     return this.prisma.businessBoost.findUnique({
       where: { id, deletedAt: null },
@@ -44,6 +48,7 @@ export class BusinessBoostService {
     });
   }
 
+  @ServiceErrorHandler('Update Business Boost')
   async update(
     id: string,
     data: Prisma.BusinessBoostUpdateInput,
@@ -54,6 +59,7 @@ export class BusinessBoostService {
     });
   }
 
+  @ServiceErrorHandler('Delete Business Boost')
   async delete(id: string): Promise<BusinessBoost> {
     return this.prisma.businessBoost.update({
       where: { id },
@@ -61,6 +67,7 @@ export class BusinessBoostService {
     });
   }
 
+  @ServiceErrorHandler('Get Business')
   async getBusiness(businessId: string): Promise<CommonBusiness | null> {
     return this.prisma.business.findUnique({
       where: { id: businessId },
