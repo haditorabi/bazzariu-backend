@@ -12,8 +12,13 @@ export class CurrencyResolver {
   constructor(private service: CurrencyService) {}
 
   @Query(() => [Currency])
-  async currencies() {
-    return this.service.findAll();
+  async currencies(
+    @Args('page', { type: () => Number, nullable: true, defaultValue: 1 })
+    page: number,
+    @Args('limit', { type: () => Number, nullable: true, defaultValue: 10 })
+    limit: number,
+  ) {
+    return this.service.findAll(page, limit);
   }
 
   @Query(() => Currency)

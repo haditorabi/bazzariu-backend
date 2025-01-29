@@ -1,4 +1,11 @@
-import { Resolver, Query, Mutation, Args } from '@nestjs/graphql';
+import {
+  Resolver,
+  Query,
+  Mutation,
+  Args,
+  ResolveField,
+  Parent,
+} from '@nestjs/graphql';
 import { DealsRedemptionService } from './deal-redemption.service';
 import {
   DealsRedemption,
@@ -6,22 +13,32 @@ import {
   UpdateDealsRedemptionInput,
 } from './deal-redemption.graphql';
 import { Prisma } from '@prisma/client';
+import { CommonBusinessDeal } from 'src/graphql/business-deal.type';
+import { CommonUser } from 'src/graphql/user.type';
+import { ServiceErrorHandler } from 'src/common/decorators/ServiceErrorHandler';
 
 @Resolver(() => DealsRedemption)
 export class DealsRedemptionResolver {
   constructor(private service: DealsRedemptionService) {}
 
   @Query(() => [DealsRedemption])
-  async dealRedemptions() {
-    return this.service.findAll();
+  @ServiceErrorHandler('fetch all deal redemptions')
+  async dealRedemptions(
+    @Args('page', { type: () => Number, defaultValue: 1 }) page: number,
+    @Args('pageSize', { type: () => Number, defaultValue: 10 })
+    pageSize: number,
+  ) {
+    return this.service.findAll(page, pageSize);
   }
 
   @Query(() => DealsRedemption)
+  @ServiceErrorHandler('fetch deal redemption by ID')
   async dealRedemption(@Args('id') id: string) {
     return this.service.findOne(id);
   }
 
   @Mutation(() => DealsRedemption)
+  @ServiceErrorHandler('create deal redemption')
   async createDealsRedemption(@Args('data') data: CreateDealsRedemptionInput) {
     const { businessDeal, user, ...rest } = data;
 
@@ -39,6 +56,7 @@ export class DealsRedemptionResolver {
   }
 
   @Mutation(() => DealsRedemption)
+  @ServiceErrorHandler('update deal redemption')
   async updateDealsRedemption(@Args('data') data: UpdateDealsRedemptionInput) {
     const { id, businessDeal, user, ...rest } = data;
 
@@ -57,5 +75,17 @@ export class DealsRedemptionResolver {
     };
 
     return this.service.update(id, prismaData);
+  }
+
+  // ResolveField for businessDeal
+  @ResolveField(() => CommonBusinessDeal)
+  async businessDeal(@Parent() dealRedemption: DealsRedemption) {
+    return this.service.getBusinessDeal(dealRedemption.businessDeal.id);
+  }
+
+  // ResolveField for user
+  @ResolveField(() => CommonUser)
+  async user(@Parent() dealRedemption: DealsRedemption) {
+    return this.service.getUser(dealRedemption.user.id);
   }
 }
