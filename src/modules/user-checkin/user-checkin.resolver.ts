@@ -1,4 +1,11 @@
-import { Resolver, Query, Mutation, Args } from '@nestjs/graphql';
+import {
+  Resolver,
+  Query,
+  Mutation,
+  Args,
+  Parent,
+  ResolveField,
+} from '@nestjs/graphql';
 import { UserCheckinService } from './user-checkin.service';
 import {
   UserCheckin,
@@ -6,18 +13,25 @@ import {
   UpdateUserCheckinInput,
 } from './user-checkin.graphql';
 import { Prisma } from '@prisma/client';
+import { CommonBusiness } from 'src/graphql/business.type';
+import { CommonUser } from 'src/graphql/user.type';
 
 @Resolver(() => UserCheckin)
 export class UserCheckinResolver {
   constructor(private service: UserCheckinService) {}
 
   @Query(() => [UserCheckin])
-  async suerCheckeins() {
-    return this.service.findAll();
+  async userCheckeins(
+    @Args('page', { type: () => Number, nullable: true, defaultValue: 1 })
+    page: number,
+    @Args('limit', { type: () => Number, nullable: true, defaultValue: 10 })
+    limit: number,
+  ) {
+    return this.service.findAll(page, limit);
   }
 
   @Query(() => UserCheckin)
-  async suerCheckein(@Args('id') id: string) {
+  async userCheckein(@Args('id') id: string) {
     return this.service.findOne(id);
   }
 
@@ -57,5 +71,16 @@ export class UserCheckinResolver {
     };
 
     return this.service.update(id, prismaData);
+  }
+
+  // Optional: Add ResolveFields to resolve nested data for `user` and `business`
+  @ResolveField(() => CommonUser)
+  async user(@Parent() userCheckin: UserCheckin) {
+    return this.service.findUser(userCheckin.user.id);
+  }
+
+  @ResolveField(() => CommonBusiness)
+  async business(@Parent() userCheckin: UserCheckin) {
+    return this.service.findBusiness(userCheckin.business.id);
   }
 }
