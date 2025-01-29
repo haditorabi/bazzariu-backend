@@ -1,27 +1,41 @@
 import { Injectable } from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service';
-import { Prisma, Event } from '@prisma/client';
+import { Prisma, Event, EventCategory } from '@prisma/client';
+import { ServiceErrorHandler } from 'src/common/decorators/ServiceErrorHandler';
 
 @Injectable()
 export class EventService {
   constructor(private prisma: PrismaService) {}
 
+  @ServiceErrorHandler('Creating event')
   async create(data: Prisma.EventCreateInput): Promise<Event> {
     return this.prisma.event.create({
       data,
     });
   }
 
-  async findAll(): Promise<Event[]> {
-    return this.prisma.event.findMany();
+  @ServiceErrorHandler('Fetching all events')
+  async findAll({
+    page,
+    limit,
+  }: {
+    page: number;
+    limit: number;
+  }): Promise<Event[]> {
+    return this.prisma.event.findMany({
+      skip: (page - 1) * limit,
+      take: limit,
+    });
   }
 
+  @ServiceErrorHandler('Fetching event by ID')
   async findOne(id: string): Promise<Event | null> {
     return this.prisma.event.findUnique({
       where: { id },
     });
   }
 
+  @ServiceErrorHandler('Updating event')
   async update(id: string, data: Prisma.EventUpdateInput): Promise<Event> {
     return this.prisma.event.update({
       where: { id },
@@ -29,9 +43,18 @@ export class EventService {
     });
   }
 
+  @ServiceErrorHandler('Deleting event')
   async delete(id: string): Promise<Event> {
     return this.prisma.event.delete({
       where: { id },
+    });
+  }
+  @ServiceErrorHandler('Fetching event categories')
+  async findCategories(eventId: string): Promise<EventCategory[]> {
+    return this.prisma.eventCategory.findMany({
+      where: {
+        eventId: { has: eventId },
+      },
     });
   }
 }

@@ -1,15 +1,27 @@
-import { Resolver, Query, Mutation, Args } from '@nestjs/graphql';
+import {
+  Resolver,
+  Query,
+  Mutation,
+  Args,
+  ResolveField,
+  Parent,
+} from '@nestjs/graphql';
 import { EventService } from './event.service';
 import { Event, CreateEventInput, UpdateEventInput } from './event.graphql';
 import { Prisma } from '@prisma/client';
+import { CommonEventCategory } from 'src/graphql/event-category.type';
 
 @Resolver(() => Event)
 export class EventResolver {
   constructor(private service: EventService) {}
 
   @Query(() => [Event])
-  async events() {
-    return this.service.findAll();
+  async events(
+    @Args('page', { type: () => Number, defaultValue: 1 }) page: number,
+    @Args('limit', { type: () => Number, defaultValue: 10 })
+    limit: number,
+  ) {
+    return this.service.findAll({ page, limit });
   }
 
   @Query(() => Event)
@@ -20,18 +32,17 @@ export class EventResolver {
   @Mutation(() => Event)
   async createEvent(@Args('data') data: CreateEventInput) {
     const prismaData: Prisma.EventCreateInput = data;
-
     return this.service.create(prismaData);
   }
 
   @Mutation(() => Event)
   async updateEvent(@Args('data') data: UpdateEventInput) {
     const { id, ...rest } = data;
-
-    const prismaData: Prisma.EventUpdateInput = {
-      ...rest,
-    };
-
+    const prismaData: Prisma.EventUpdateInput = { ...rest };
     return this.service.update(id, prismaData);
+  }
+  @ResolveField(() => [CommonEventCategory], { nullable: true })
+  async category(@Parent() event: Event) {
+    return this.service.findCategories(event.id);
   }
 }
