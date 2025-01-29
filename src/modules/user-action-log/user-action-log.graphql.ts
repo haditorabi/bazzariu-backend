@@ -10,6 +10,9 @@ export class UserActionLog {
   @Field(() => CommonUser)
   user: CommonUser;
 
+  @Field(() => ID)
+  userId: string;
+
   @Field()
   action: UserActionType;
 

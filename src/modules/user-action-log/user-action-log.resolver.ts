@@ -1,4 +1,11 @@
-import { Resolver, Query, Mutation, Args } from '@nestjs/graphql';
+import {
+  Resolver,
+  Query,
+  Mutation,
+  Args,
+  Parent,
+  ResolveField,
+} from '@nestjs/graphql';
 import { UserActionLogService } from './user-action-log.service';
 import {
   UserActionLog,
@@ -6,14 +13,24 @@ import {
   UpdateUserActionLogInput,
 } from './user-action-log.graphql';
 import { Prisma } from '@prisma/client';
+import { CommonUser } from 'src/graphql/user.type';
 
 @Resolver(() => UserActionLog)
 export class UserActionLogResolver {
   constructor(private service: UserActionLogService) {}
 
   @Query(() => [UserActionLog])
-  async userActionLogs() {
-    return this.service.findAll();
+  async userActionLogs(
+    @Args('skip', { type: () => Number, nullable: true }) skip?: number,
+    @Args('take', { type: () => Number, nullable: true }) take?: number,
+  ) {
+    return this.service.findAll({ skip, take });
+  }
+
+  @ResolveField(() => CommonUser)
+  async user(@Parent() userActionLog: UserActionLog) {
+    const { userId } = userActionLog;
+    return this.service.getUser(userId);
   }
 
   @Query(() => UserActionLog)
