@@ -12,8 +12,12 @@ export class UserPreferenceResolver {
   constructor(private service: UserPreferenceService) {}
 
   @Query(() => [UserPreference])
-  async userPreferences() {
-    return this.service.findAll();
+  async userPreferences(
+    @Args('page', { type: () => Number, nullable: true }) page: number = 1, // Pagination: page argument
+    @Args('pageSize', { type: () => Number, nullable: true })
+    pageSize: number = 10, // Pagination: pageSize argument
+  ) {
+    return this.service.findAll({ page, pageSize });
   }
 
   @Query(() => UserPreference)
