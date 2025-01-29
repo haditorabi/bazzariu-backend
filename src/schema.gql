@@ -272,7 +272,7 @@ type Query {
   businessHour(id: String!): BusinessHour!
   businessHours(limit: Float! = 10, page: Float! = 1): [BusinessHour!]!
   businessLocation(id: String!): BusinessLocation!
-  businessLocations: [BusinessLocation!]!
+  businessLocations(skip: Float, take: Float): [BusinessLocation!]!
   countries: [Country!]!
   country(id: String!): Country!
   getExamples: [ExampleModel!]!

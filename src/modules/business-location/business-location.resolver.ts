@@ -1,4 +1,11 @@
-import { Resolver, Query, Mutation, Args } from '@nestjs/graphql';
+import {
+  Resolver,
+  Query,
+  Mutation,
+  Args,
+  ResolveField,
+  Parent,
+} from '@nestjs/graphql';
 import { BusinessLocationService } from './business-location.service';
 import {
   BusinessLocation,
@@ -12,8 +19,11 @@ export class BusinessLocationResolver {
   constructor(private service: BusinessLocationService) {}
 
   @Query(() => [BusinessLocation])
-  async businessLocations() {
-    return this.service.findAll();
+  async businessLocations(
+    @Args('skip', { type: () => Number, nullable: true }) skip?: number,
+    @Args('take', { type: () => Number, nullable: true }) take?: number,
+  ) {
+    return this.service.findAll({ skip, take });
   }
 
   @Query(() => BusinessLocation)
@@ -53,5 +63,11 @@ export class BusinessLocationResolver {
     };
 
     return this.service.update(id, prismaData);
+  }
+
+  @ResolveField(() => String, { nullable: true })
+  async business(@Parent() businessLocation: BusinessLocation) {
+    // Example: resolve the business associated with the location
+    return this.service.getBusiness(businessLocation.business.id);
   }
 }
