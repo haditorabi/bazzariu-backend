@@ -27,7 +27,6 @@ export class BusinessBoostService {
       take,
       where: {
         ...(type && { type }),
-        deletedAt: null,
       },
       orderBy: {
         createdAt: 'desc',
@@ -41,7 +40,7 @@ export class BusinessBoostService {
   @ServiceErrorHandler('Find One Business Boost')
   async findOne(id: string): Promise<BusinessBoost | null> {
     return this.prisma.businessBoost.findUnique({
-      where: { id, deletedAt: null },
+      where: { id },
       include: {
         business: true,
       },
@@ -61,9 +60,8 @@ export class BusinessBoostService {
 
   @ServiceErrorHandler('Delete Business Boost')
   async delete(id: string): Promise<BusinessBoost> {
-    return this.prisma.businessBoost.update({
+    return this.prisma.businessBoost.delete({
       where: { id },
-      data: { deletedAt: new Date() },
     });
   }
 

@@ -1,6 +1,6 @@
 import { Field, ObjectType, InputType, ID } from '@nestjs/graphql';
 import { BusinessCategoryStatus } from '@prisma/client';
-import { IsDate, IsOptional } from 'class-validator';
+import { IsDate } from 'class-validator';
 
 @ObjectType()
 export class BusinessCategory {
@@ -23,11 +23,6 @@ export class BusinessCategory {
   @Field()
   @IsDate()
   updatedAt: Date;
-
-  @Field({ nullable: true })
-  @IsOptional()
-  @IsDate()
-  deletedAt?: Date;
 }
 
 @InputType()
@@ -55,7 +50,4 @@ export class UpdateBusinessCategoryInput {
 
   @Field({ nullable: true })
   status?: BusinessCategoryStatus;
-
-  @Field({ nullable: true })
-  deletedAt?: Date;
 }

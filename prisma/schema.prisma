@@ -53,7 +53,6 @@ model BusinessBoost {
   status     BusinessBoostStatus
   createdAt  DateTime            @default(now())
   updatedAt  DateTime            @updatedAt
-  deletedAt  DateTime?
 }
 
 enum BusinessBoostType {
@@ -78,7 +77,6 @@ model BusinessCategory {
   status    BusinessCategoryStatus
   createdAt DateTime               @default(now())
   updatedAt DateTime               @updatedAt
-  deletedAt DateTime?
 }
 
 enum BusinessCategoryStatus {
