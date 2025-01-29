@@ -61,4 +61,8 @@ export class BookingTimeSlotResolver {
 
     return this.service.update(id, prismaData);
   }
+  @Mutation(() => Boolean)
+  async deleteBookingTimeSlot(@Args('id') id: string) {
+    return this.service.delete(id);
+  }
 }
