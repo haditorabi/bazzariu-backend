@@ -15,7 +15,7 @@ export class UserBooking {
   businessProductId?: string[];
 
   @Field(() => CommonBookingTimeSlot)
-  bookingTimeSlotId: CommonBookingTimeSlot;
+  bookingTimeSlot: CommonBookingTimeSlot;
 
   @Field()
   status: UserBookingStatus;

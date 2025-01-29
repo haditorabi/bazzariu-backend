@@ -1,4 +1,11 @@
-import { Resolver, Query, Mutation, Args } from '@nestjs/graphql';
+import {
+  Resolver,
+  Query,
+  Mutation,
+  Args,
+  Parent,
+  ResolveField,
+} from '@nestjs/graphql';
 import { UserBookingService } from './user-booking.service';
 import {
   UserBooking,
@@ -6,14 +13,19 @@ import {
   UpdateUserBookingInput,
 } from './user-booking.graphql';
 import { Prisma } from '@prisma/client';
-
+import { CommonBookingTimeSlot } from 'src/graphql/booking-time-slot.type';
+import { CommonUser } from 'src/graphql/user.type';
 @Resolver(() => UserBooking)
 export class UserBookingResolver {
   constructor(private service: UserBookingService) {}
 
   @Query(() => [UserBooking])
-  async userBookings() {
-    return this.service.findAll();
+  async userBookings(
+    @Args('page', { type: () => Number, nullable: true }) page: number = 1,
+    @Args('limit', { type: () => Number, nullable: true })
+    limit: number = 10,
+  ) {
+    return this.service.findAll({ page, limit });
   }
 
   @Query(() => UserBooking)
@@ -67,5 +79,23 @@ export class UserBookingResolver {
     };
 
     return this.service.update(id, prismaData);
+  }
+
+  // ResolveField for user
+  @ResolveField(() => CommonUser)
+  async user(@Parent() userBooking: UserBooking) {
+    return this.service.getUser(userBooking.user.id);
+  }
+
+  // ResolveField for businessProductId
+  @ResolveField(() => [String])
+  async businessProductId(@Parent() userBooking: UserBooking) {
+    return this.service.getBusinessProducts(userBooking.businessProductId);
+  }
+
+  // ResolveField for bookingTimeSlotId
+  @ResolveField(() => CommonBookingTimeSlot)
+  async bookingTimeSlotId(@Parent() userBooking: UserBooking) {
+    return this.service.getBookingTimeSlot(userBooking.bookingTimeSlot.id);
   }
 }

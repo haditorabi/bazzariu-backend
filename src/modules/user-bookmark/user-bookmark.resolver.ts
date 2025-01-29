@@ -12,8 +12,11 @@ export class UserBookmarkResolver {
   constructor(private service: UserBookmarkService) {}
 
   @Query(() => [UserBookmark])
-  async userBookmarks() {
-    return this.service.findAll();
+  async userBookmarks(
+    @Args('page', { type: () => Number, defaultValue: 1 }) page: number,
+    @Args('limit', { type: () => Number, defaultValue: 10 }) limit: number,
+  ) {
+    return this.service.findAll(page, limit);
   }
 
   @Query(() => UserBookmark)
