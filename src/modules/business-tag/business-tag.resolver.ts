@@ -12,8 +12,11 @@ export class BusinessTagResolver {
   constructor(private service: BusinessTagService) {}
 
   @Query(() => [BusinessTag])
-  async businessTags() {
-    return this.service.findAll();
+  async businessTags(
+    @Args('page', { type: () => Number, nullable: true }) page: number = 1,
+    @Args('limit', { type: () => Number, nullable: true }) limit: number = 10,
+  ) {
+    return this.service.findAll({ page, limit });
   }
 
   @Query(() => BusinessTag)
@@ -24,16 +27,13 @@ export class BusinessTagResolver {
   @Mutation(() => BusinessTag)
   async createBusinessTag(@Args('data') data: CreateBusinessTagInput) {
     const prismaData: Prisma.BusinessTagCreateInput = data;
-
     return this.service.create(prismaData);
   }
 
   @Mutation(() => BusinessTag)
   async updateBusinessTag(@Args('data') data: UpdateBusinessTagInput) {
     const { id } = data;
-
     const prismaData: Prisma.BusinessTagUpdateInput = data;
-
     return this.service.update(id, prismaData);
   }
 }
