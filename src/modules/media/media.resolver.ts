@@ -12,6 +12,14 @@ export class MediaResolver {
     return this.service.findOne(id);
   }
 
+  @Query(() => [Media])
+  async mediaList(
+    @Args('page', { type: () => Number, defaultValue: 1 }) page: number,
+    @Args('limit', { type: () => Number, defaultValue: 10 }) limit: number,
+  ) {
+    return this.service.findAll(page, limit);
+  }
+
   @Query(() => Media)
   async mediaByIDs(@Args('ids') ids: string[]) {
     return this.service.findManyByIDs(ids);
