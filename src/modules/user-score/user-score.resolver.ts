@@ -1,4 +1,11 @@
-import { Resolver, Query, Mutation, Args } from '@nestjs/graphql';
+import {
+  Resolver,
+  Query,
+  Mutation,
+  Args,
+  Parent,
+  ResolveField,
+} from '@nestjs/graphql';
 import { UserScoreService } from './user-score.service';
 import {
   UserScore,
@@ -6,14 +13,17 @@ import {
   UpdateUserScoreInput,
 } from './user-score.graphql';
 import { Prisma } from '@prisma/client';
-
+import { User } from '../user/user.graphql';
 @Resolver(() => UserScore)
 export class UserScoreResolver {
   constructor(private service: UserScoreService) {}
 
   @Query(() => [UserScore])
-  async userScores() {
-    return this.service.findAll();
+  async userScores(
+    @Args('page', { type: () => Number, defaultValue: 1 }) page: number,
+    @Args('limit', { type: () => Number, defaultValue: 10 }) limit: number,
+  ) {
+    return this.service.findAll(page, limit);
   }
 
   @Query(() => UserScore)
@@ -49,5 +59,10 @@ export class UserScoreResolver {
     };
 
     return this.service.update(id, prismaData);
+  }
+
+  @ResolveField(() => User)
+  async user(@Parent() userScore: UserScore) {
+    return this.service.getUserById(userScore.user.id);
   }
 }
