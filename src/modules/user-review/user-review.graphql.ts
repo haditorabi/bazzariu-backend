@@ -11,6 +11,9 @@ export class UserReview {
   user: CommonUser;
 
   @Field(() => ID)
+  userId: string;
+
+  @Field(() => ID)
   targetId: string;
 
   @Field()

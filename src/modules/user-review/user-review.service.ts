@@ -1,27 +1,41 @@
 import { Injectable } from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service';
-import { Prisma, UserReview } from '@prisma/client';
+import { Prisma, User, UserReview } from '@prisma/client';
+import { ServiceErrorHandler } from 'src/common/decorators/ServiceErrorHandler';
 
 @Injectable()
 export class UserReviewService {
   constructor(private prisma: PrismaService) {}
 
+  @ServiceErrorHandler('create user review')
   async create(data: Prisma.UserReviewCreateInput): Promise<UserReview> {
     return this.prisma.userReview.create({
       data,
     });
   }
 
-  async findAll(): Promise<UserReview[]> {
-    return this.prisma.userReview.findMany();
+  @ServiceErrorHandler('find all user reviews')
+  async findAll({
+    page,
+    limit,
+  }: {
+    page: number;
+    limit: number;
+  }): Promise<UserReview[]> {
+    return this.prisma.userReview.findMany({
+      skip: (page - 1) * limit,
+      take: limit,
+    });
   }
 
+  @ServiceErrorHandler('find one user review')
   async findOne(id: string): Promise<UserReview | null> {
     return this.prisma.userReview.findUnique({
       where: { id },
     });
   }
 
+  @ServiceErrorHandler('update user review')
   async update(
     id: string,
     data: Prisma.UserReviewUpdateInput,
@@ -32,9 +46,17 @@ export class UserReviewService {
     });
   }
 
+  @ServiceErrorHandler('delete user review')
   async delete(id: string): Promise<UserReview> {
     return this.prisma.userReview.delete({
       where: { id },
+    });
+  }
+
+  @ServiceErrorHandler('get user by ID')
+  async getUserById(userId: string): Promise<User> {
+    return this.prisma.user.findUnique({
+      where: { id: userId },
     });
   }
 }
