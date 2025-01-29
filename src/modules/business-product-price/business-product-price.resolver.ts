@@ -1,4 +1,11 @@
-import { Resolver, Query, Mutation, Args } from '@nestjs/graphql';
+import {
+  Resolver,
+  Query,
+  Mutation,
+  Args,
+  ResolveField,
+  Parent,
+} from '@nestjs/graphql';
 import { BusinessProductPriceService } from './business-product-price.service';
 import {
   BusinessProductPrice,
@@ -6,14 +13,19 @@ import {
   UpdateBusinessProductPriceInput,
 } from './business-product-price.graphql';
 import { Prisma } from '@prisma/client';
+import { CommonBusinessProduct } from 'src/graphql/business-product.type';
 
 @Resolver(() => BusinessProductPrice)
 export class BusinessProductPriceResolver {
   constructor(private service: BusinessProductPriceService) {}
 
   @Query(() => [BusinessProductPrice])
-  async businessProductPrices() {
-    return this.service.findAll();
+  async businessProductPrices(
+    @Args('page', { type: () => Number, defaultValue: 1 }) page: number,
+    @Args('pageSize', { type: () => Number, defaultValue: 10 })
+    pageSize: number,
+  ) {
+    return this.service.findAll(page, pageSize);
   }
 
   @Query(() => BusinessProductPrice)
@@ -55,5 +67,9 @@ export class BusinessProductPriceResolver {
     };
 
     return this.service.update(id, prismaData);
+  }
+  @ResolveField(() => CommonBusinessProduct)
+  async businessProduct(@Parent() businessProductPrice: BusinessProductPrice) {
+    return this.service.findOne(businessProductPrice.businessProduct.id);
   }
 }
