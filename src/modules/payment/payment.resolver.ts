@@ -1,4 +1,11 @@
-import { Resolver, Query, Mutation, Args } from '@nestjs/graphql';
+import {
+  Resolver,
+  Query,
+  Mutation,
+  Args,
+  ResolveField,
+  Parent,
+} from '@nestjs/graphql';
 import { PaymentService } from './payment.service';
 import {
   Payment,
@@ -6,14 +13,22 @@ import {
   UpdatePaymentInput,
 } from './payment.graphql';
 import { Prisma } from '@prisma/client';
-
+import { CommonPaymentMethod } from 'src/graphql/payment-method.type';
+import { CommonBusiness } from 'src/graphql/business.type';
+import { CommonUser } from 'src/graphql/user.type';
 @Resolver(() => Payment)
 export class PaymentResolver {
   constructor(private service: PaymentService) {}
 
   @Query(() => [Payment])
-  async payments() {
-    return this.service.findAll();
+  async payments(
+    @Args('page', { type: () => Number, nullable: true, defaultValue: 1 })
+    page: number,
+    @Args('limit', { type: () => Number, nullable: true, defaultValue: 10 })
+    limit: number,
+  ) {
+    const skip = (page - 1) * limit; // Calculate skip based on page and limit
+    return this.service.findAll(skip, limit); // Pass pagination params
   }
 
   @Query(() => Payment)
@@ -67,5 +82,21 @@ export class PaymentResolver {
     };
 
     return this.service.update(id, prismaData);
+  }
+  @ResolveField(() => CommonUser)
+  async user(@Parent() payment: Payment): Promise<CommonUser> {
+    return payment.user;
+  }
+
+  @ResolveField(() => CommonBusiness, { nullable: true })
+  async business(@Parent() payment: Payment): Promise<CommonBusiness | null> {
+    return this.service.findBusinessById(payment.business.id);
+  }
+
+  @ResolveField(() => CommonPaymentMethod)
+  async paymentMethod(
+    @Parent() payment: Payment,
+  ): Promise<CommonPaymentMethod> {
+    return this.service.findPaymentMethodById(payment.paymentMethod.id);
   }
 }
