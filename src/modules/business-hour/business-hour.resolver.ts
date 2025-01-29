@@ -12,8 +12,11 @@ export class BusinessHourResolver {
   constructor(private service: BusinessHourService) {}
 
   @Query(() => [BusinessHour])
-  async businessHours() {
-    return this.service.findAll();
+  async businessHours(
+    @Args('page', { type: () => Number, defaultValue: 1 }) page: number,
+    @Args('limit', { type: () => Number, defaultValue: 10 }) limit: number,
+  ) {
+    return this.service.findAll(page, limit);
   }
 
   @Query(() => BusinessHour)

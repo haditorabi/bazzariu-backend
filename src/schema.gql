@@ -270,7 +270,7 @@ type Query {
   businessDeal(id: String!): BusinessDeal!
   businessDeals(limit: Float, page: Float): [BusinessDeal!]!
   businessHour(id: String!): BusinessHour!
-  businessHours: [BusinessHour!]!
+  businessHours(limit: Float! = 10, page: Float! = 1): [BusinessHour!]!
   businessLocation(id: String!): BusinessLocation!
   businessLocations: [BusinessLocation!]!
   countries: [Country!]!
