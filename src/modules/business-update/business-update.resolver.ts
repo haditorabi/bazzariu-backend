@@ -1,4 +1,11 @@
-import { Resolver, Query, Mutation, Args } from '@nestjs/graphql';
+import {
+  Resolver,
+  Query,
+  Mutation,
+  Args,
+  ResolveField,
+  Parent,
+} from '@nestjs/graphql';
 import { BusinessUpdateService } from './business-update.service';
 import {
   BusinessUpdate,
@@ -6,14 +13,18 @@ import {
   UpdateBusinessUpdateInput,
 } from './business-update.graphql';
 import { Prisma } from '@prisma/client';
+import { CommonBusiness } from 'src/graphql/business.type';
 
 @Resolver(() => BusinessUpdate)
 export class BusinessUpdateResolver {
   constructor(private service: BusinessUpdateService) {}
 
   @Query(() => [BusinessUpdate])
-  async businessUpdates() {
-    return this.service.findAll();
+  async businessUpdates(
+    @Args('skip', { type: () => Number, nullable: true }) skip?: number,
+    @Args('take', { type: () => Number, nullable: true }) take?: number,
+  ) {
+    return this.service.findAll(skip, take);
   }
 
   @Query(() => BusinessUpdate)
@@ -49,5 +60,11 @@ export class BusinessUpdateResolver {
     };
 
     return this.service.update(id, prismaData);
+  }
+
+  // Resolve related fields (e.g., business)
+  @ResolveField(() => CommonBusiness)
+  async business(@Parent() businessUpdate: BusinessUpdate) {
+    return this.service.getBusiness(businessUpdate.business.id);
   }
 }
