@@ -16,6 +16,9 @@ export class BusinessProduct {
   @Field(() => CommonProductCategory, { nullable: true })
   productCategroy?: CommonProductCategory;
 
+  @Field(() => ID, { nullable: true })
+  productCategroyId?: string;
+
   @Field()
   name: string;
 

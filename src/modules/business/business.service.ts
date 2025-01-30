@@ -1,12 +1,15 @@
 import { Injectable } from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service';
-import { Prisma, Business } from '@prisma/client';
+import {
+  Prisma,
+  Business,
+  BusinessHour,
+  BusinessLocation,
+} from '@prisma/client';
 import { ServiceErrorHandler } from 'src/common/decorators/ServiceErrorHandler';
 import { CommonRegion } from 'src/graphql/region.type';
 import { CommonBusinessBooking } from 'src/graphql/business-booking.type';
 import { CommonBusinessDeal } from 'src/graphql/business-deal.type';
-import { BusinessHour } from './business-hour.type';
-import { BusinessLocation } from './business-location.type';
 import { CommonBusinessProduct } from 'src/graphql/business-product.type';
 
 @Injectable()

@@ -54,9 +54,9 @@ export class ProductCategoryService {
   }
 
   @ServiceErrorHandler('get BusinessProducts by category')
-  async getBusinessProductsByCategory(categoryId: string) {
+  async getBusinessProductsByCategory(productCategoryId: string) {
     return this.prisma.businessProduct.findMany({
-      where: { categoryId },
+      where: { productCategoryId },
     });
   }
 }

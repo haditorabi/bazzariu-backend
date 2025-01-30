@@ -1,6 +1,6 @@
-import { Field, ID } from '@nestjs/graphql';
+import { Field, ID, ObjectType } from '@nestjs/graphql';
 import { ProductCategoryStatus } from '@prisma/client';
-
+@ObjectType()
 export class CommonProductCategory {
   @Field(() => ID)
   id: string;

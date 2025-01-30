@@ -21,7 +21,7 @@ export class MediaResolver {
   }
 
   @Query(() => Media)
-  async mediaByIDs(@Args('ids') ids: string[]) {
+  async mediaByIDs(@Args('ids', { type: () => [String] }) ids: string[]) {
     return this.service.findManyByIDs(ids);
   }
 

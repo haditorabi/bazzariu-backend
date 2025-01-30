@@ -18,6 +18,51 @@ type BookingTimeSlot {
   timezone: String!
 }
 
+type Business {
+  amenity: [ID!]
+  businessBooking: [CommonBusinessBooking!]
+  businessCategory: [ID!]
+  businessDeal: [CommonBusinessDeal!]
+  businessHour: [CommonBusinessHour!]
+  businessLocation: [CommonBusinessLocation!]
+  businessProduct: [CommonBusinessProduct!]
+  createdAt: DateTime!
+  description: String!
+  id: ID!
+  isClaimed: Boolean!
+  language: [ID!]
+  mediaId: [ID!]
+  name: String!
+  region: CommonRegion
+  status: String!
+  updatedAt: DateTime!
+  website: String!
+}
+
+type BusinessBooking {
+  bookingTimeSlot: [BookingTimeSlot!]
+  business: CommonBusiness!
+  businessProduct: [CommonBusinessProduct!]
+  createdAt: DateTime!
+  id: ID!
+  maxAvilible: Float!
+  maxGuest: Float!
+  mediaId: [ID!]
+  status: String!
+  updatedAt: DateTime!
+}
+
+type BusinessBoost {
+  business: CommonBusiness!
+  createdAt: DateTime!
+  endAt: DateTime!
+  id: ID!
+  startAt: DateTime!
+  status: String!
+  type: String!
+  updatedAt: DateTime!
+}
+
 type BusinessCategory {
   createdAt: DateTime!
   id: ID!
@@ -43,6 +88,12 @@ type BusinessDeal {
   status: String!
   updatedAt: DateTime!
   value: Float!
+}
+
+type BusinessFollowing {
+  business: CommonBusiness!
+  id: ID!
+  user: CommonUser!
 }
 
 type BusinessHour {
@@ -71,6 +122,27 @@ type BusinessLocation {
   zipCode: String!
 }
 
+type BusinessProduct {
+  business: CommonBusiness!
+  businessDeal: CommonBusinessDeal
+  businessProductPrice: BusinessProductPrice
+  createdAt: DateTime!
+  description: String
+  id: ID!
+  mediaId: [ID!]
+  name: String!
+  productCategroy: CommonProductCategory
+  productCategroyId: ID
+  status: String!
+  updatedAt: DateTime!
+}
+
+type BusinessProductPrice {
+  currencyId: ID!
+  id: ID!
+  price: Float!
+}
+
 type CommonBusiness {
   amenity: [ID!]
   businessCategory: [ID!]
@@ -97,6 +169,45 @@ type CommonBusinessBooking {
   updatedAt: DateTime!
 }
 
+type CommonBusinessDeal {
+  businessId: ID!
+  businessProduct: [ID!]
+  createdAt: DateTime!
+  description: String
+  discountType: String!
+  endDate: DateTime!
+  id: ID!
+  maxPerUser: Float
+  maxRedemption: Float
+  mediaId: [ID!]
+  name: String!
+  startDate: DateTime!
+  status: String!
+  updatedAt: DateTime!
+  value: Float!
+}
+
+type CommonBusinessHour {
+  closeTime: String!
+  dayOfWeek: String!
+  id: ID!
+  openTime: String!
+  status: String!
+}
+
+type CommonBusinessLocation {
+  address: String!
+  cityId: ID!
+  countryId: ID!
+  id: ID!
+  latitude: Float!
+  longitude: Float!
+  phone: ID!
+  provinceId: ID!
+  status: ID!
+  zipCode: ID!
+}
+
 type CommonBusinessProduct {
   business: ID!
   category: ID!
@@ -107,25 +218,10 @@ type CommonBusinessProduct {
   status: String!
 }
 
-type CommonCity {
-  createdAt: DateTime!
+type CommonProductCategory {
   id: ID!
   name: String!
-  provinceId: ID!
   status: String!
-  updatedAt: DateTime!
-}
-
-type CommonCountry {
-  code: String!
-  id: ID!
-  name: String!
-}
-
-type CommonProvince {
-  countryId: ID!
-  id: ID!
-  name: String!
 }
 
 type CommonRegion {
@@ -137,12 +233,12 @@ type CommonRegion {
   status: String!
 }
 
-type Country {
-  code: String!
+type CommonUser {
+  createdAt: DateTime!
+  firstName: String!
   id: ID!
+  lastName: String!
   name: String!
-  province(limit: Float, page: Float): [CommonProvince!]
-  region: [CommonRegion!]
   status: String!
 }
 
@@ -157,6 +253,23 @@ input CreateBookingTimeSlotInput {
   startAt: DateTime!
   status: String!
   timezone: String!
+}
+
+input CreateBusinessBookingInput {
+  business: ID!
+  businessProduct: [ID!]
+  maxAvilible: Float
+  maxGuest: Float
+  mediaId: [ID!]
+  status: String!
+}
+
+input CreateBusinessBoostInput {
+  business: ID!
+  endAt: DateTime!
+  startAt: DateTime!
+  status: String!
+  type: String!
 }
 
 input CreateBusinessCategoryInput {
@@ -180,12 +293,29 @@ input CreateBusinessDealInput {
   value: Float!
 }
 
+input CreateBusinessFollowingInput {
+  business: ID!
+  user: ID!
+}
+
 input CreateBusinessHourInput {
   business: ID!
   closeTime: String!
   dayOfWeek: String!
   openTime: String!
   status: String!
+}
+
+input CreateBusinessInput {
+  amenity: [ID!]
+  businessCategory: [ID!]
+  description: String
+  isClaimed: Boolean!
+  mediaId: [ID!]
+  name: String!
+  region: ID!
+  status: String!
+  website: String
 }
 
 input CreateBusinessLocationInput {
@@ -201,21 +331,18 @@ input CreateBusinessLocationInput {
   zipCode: String
 }
 
-input CreateCountryInput {
-  code: String!
+input CreateBusinessProductInput {
+  business: ID!
+  description: String
+  mediaId: [ID!]
   name: String!
+  productCategroy: [ID!]
   status: String!
 }
 
 input CreateExampleInput {
   description: String
   name: String!
-}
-
-input CreateProvinceInput {
-  country: ID!
-  name: String!
-  status: String!
 }
 
 """
@@ -232,32 +359,32 @@ type ExampleModel {
 type Mutation {
   createAmenity(data: CreateAmenityInput!): Amenity!
   createBookingTimeSlot(data: CreateBookingTimeSlotInput!): BookingTimeSlot!
+  createBusiness(data: CreateBusinessInput!): Business!
+  createBusinessBooking(data: CreateBusinessBookingInput!): BusinessBooking!
+  createBusinessBoost(data: CreateBusinessBoostInput!): BusinessBoost!
   createBusinessCategory(data: CreateBusinessCategoryInput!): BusinessCategory!
   createBusinessDeal(data: CreateBusinessDealInput!): BusinessDeal!
+  createBusinessFollowing(data: CreateBusinessFollowingInput!): BusinessFollowing!
   createBusinessHour(data: CreateBusinessHourInput!): BusinessHour!
   createBusinessLocation(data: CreateBusinessLocationInput!): BusinessLocation!
-  createCountry(data: CreateCountryInput!): Country!
+  createBusinessProduct(data: CreateBusinessProductInput!): BusinessProduct!
   createExample(data: CreateExampleInput!): ExampleModel!
-  createProvince(data: CreateProvinceInput!): Province!
   deleteAmenity(id: String!): Amenity!
   deleteBookingTimeSlot(id: String!): Boolean!
+  deleteBusiness(id: String!): Boolean!
+  deleteBusinessBoost(id: String!): BusinessBoost!
   deleteBusinessCategory(id: String!): BusinessCategory!
   updateAmenity(data: UpdateAmenityInput!, id: String!): Amenity!
   updateBookingTimeSlot(data: UpdateBookingTimeSlotInput!): BookingTimeSlot!
+  updateBusiness(data: UpdateBusinessInput!): Business!
+  updateBusinessBooking(data: UpdateBusinessBookingInput!): BusinessBooking!
+  updateBusinessBoost(data: UpdateBusinessBoostInput!): BusinessBoost!
   updateBusinessCategory(data: UpdateBusinessCategoryInput!): BusinessCategory!
   updateBusinessDeal(data: UpdateBusinessDealInput!): BusinessDeal!
+  updateBusinessFollowing(data: UpdateBusinessFollowingInput!): BusinessFollowing!
   updateBusinessHour(data: UpdateBusinessHourInput!): BusinessHour!
   updateBusinessLocation(data: UpdateBusinessLocationInput!): BusinessLocation!
-  updateCountry(data: UpdateCountryInput!): Country!
-  updateProvince(data: UpdateProvinceInput!): Province!
-}
-
-type Province {
-  city: [CommonCity!]!
-  country: CommonCountry!
-  id: ID!
-  name: String!
-  status: String!
+  updateBusinessProduct(data: UpdateBusinessProductInput!): BusinessProduct!
 }
 
 type Query {
@@ -265,22 +392,29 @@ type Query {
   amenity(id: String!): Amenity!
   bookingTimeSlot(id: String!): BookingTimeSlot!
   bookingTimeSlots: [BookingTimeSlot!]!
+  busienss(id: String!): Business!
+  businessBooking(id: String!): BusinessBooking!
+  businessBookings(skip: Float, take: Float): [BusinessBooking!]!
+  businessBoost(id: String!): BusinessBoost!
+  businessBoosts(skip: Float, take: Float, type: String): [BusinessBoost!]!
   businessCategories(skip: Float! = 0, take: Float! = 10): [BusinessCategory!]!
   businessCategory(id: String!): BusinessCategory!
   businessDeal(id: String!): BusinessDeal!
   businessDeals(limit: Float, page: Float): [BusinessDeal!]!
+  businessFollowing(id: String!): BusinessFollowing!
+  businessFollowings(page: Float! = 1, pageSize: Float! = 10): [BusinessFollowing!]!
   businessHour(id: String!): BusinessHour!
   businessHours(limit: Float! = 10, page: Float! = 1): [BusinessHour!]!
   businessLocation(id: String!): BusinessLocation!
   businessLocations(skip: Float, take: Float): [BusinessLocation!]!
-  countries(limit: Float, page: Float): [Country!]!
-  country(id: String!): Country!
+  businessProduct(id: String!): BusinessProduct!
+  businessProducts(page: Float = 1, pageSize: Float = 10): [BusinessProduct!]!
+  businesses(limit: Float = 10, page: Float = 1): [Business!]!
   getExamples: [ExampleModel!]!
   getProtectedData: String!
   protectedQuery: String!
-  province(id: String!): Province!
-  provinces(limit: Float, page: Float): [Province!]!
   publicQuery: String!
+  totalBusinesses: Int!
 }
 
 input UpdateAmenityInput {
@@ -295,6 +429,25 @@ input UpdateBookingTimeSlotInput {
   startAt: DateTime
   status: String
   timezone: String
+}
+
+input UpdateBusinessBookingInput {
+  business: ID
+  businessProduct: [ID!]
+  id: ID!
+  maxAvilible: Float
+  maxGuest: Float
+  mediaId: [ID!]
+  status: String
+}
+
+input UpdateBusinessBoostInput {
+  business: ID
+  endAt: DateTime
+  id: ID!
+  startAt: DateTime
+  status: String
+  type: String
 }
 
 input UpdateBusinessCategoryInput {
@@ -320,6 +473,12 @@ input UpdateBusinessDealInput {
   value: Float
 }
 
+input UpdateBusinessFollowingInput {
+  business: ID
+  id: ID!
+  user: ID
+}
+
 input UpdateBusinessHourInput {
   business: ID
   closeTime: String
@@ -327,6 +486,19 @@ input UpdateBusinessHourInput {
   id: ID!
   openTime: String
   status: String
+}
+
+input UpdateBusinessInput {
+  amenity: [ID!]
+  businessCategory: [ID!]
+  description: String
+  id: ID!
+  isClaimed: Boolean
+  mediaId: [ID!]
+  name: String
+  region: ID
+  status: String
+  website: String
 }
 
 input UpdateBusinessLocationInput {
@@ -343,16 +515,12 @@ input UpdateBusinessLocationInput {
   zipCode: String
 }
 
-input UpdateCountryInput {
-  code: String
+input UpdateBusinessProductInput {
+  business: ID
+  description: String
   id: ID!
+  mediaId: [ID!]
   name: String
-  status: String
-}
-
-input UpdateProvinceInput {
-  country: ID
-  id: ID!
-  name: String
+  productCategroy: [ID!]
   status: String
 }

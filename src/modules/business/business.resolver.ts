@@ -13,13 +13,13 @@ import {
   CreateBusinessInput,
   UpdateBusinessInput,
 } from './business.graphql';
-import { Prisma } from '@prisma/client';
+import { BusinessHour, BusinessLocation, Prisma } from '@prisma/client';
 import { CommonBusinessBooking } from 'src/graphql/business-booking.type';
 import { CommonRegion } from 'src/graphql/region.type';
 import { CommonBusinessDeal } from 'src/graphql/business-deal.type';
-import { BusinessHour } from './business-hour.type';
-import { BusinessLocation } from './business-location.type';
 import { CommonBusinessProduct } from 'src/graphql/business-product.type';
+import { CommonBusinessHour } from 'src/graphql/business-hour.type';
+import { CommonBusinessLocation } from 'src/graphql/business-location.type';
 
 @Resolver(() => Business)
 export class BusinessResolver {
@@ -117,14 +117,14 @@ export class BusinessResolver {
     return this.service.getBusinessDeals(business.id);
   }
 
-  @ResolveField(() => [BusinessHour], { nullable: true })
+  @ResolveField(() => [CommonBusinessHour], { nullable: true })
   async businessHour(
     @Parent() business: Business,
   ): Promise<BusinessHour[] | null> {
     return this.service.getBusinessHours(business.id);
   }
 
-  @ResolveField(() => [BusinessLocation], { nullable: true })
+  @ResolveField(() => [CommonBusinessLocation], { nullable: true })
   async businessLocation(
     @Parent() business: Business,
   ): Promise<BusinessLocation[] | null> {

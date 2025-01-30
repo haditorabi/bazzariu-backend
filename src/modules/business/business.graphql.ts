@@ -1,11 +1,11 @@
 import { Field, ObjectType, InputType, ID } from '@nestjs/graphql';
 import { BusinessStatus } from '@prisma/client';
 import { CommonBusinessBooking } from 'src/graphql/business-booking.type';
-import { BusinessHour } from './business-hour.type';
-import { BusinessLocation } from './business-location.type';
+import { CommonBusinessHour } from 'src/graphql/business-hour.type';
 import { CommonBusinessDeal } from 'src/graphql/business-deal.type';
 import { CommonRegion } from 'src/graphql/region.type';
 import { CommonBusinessProduct } from 'src/graphql/business-product.type';
+import { CommonBusinessLocation } from 'src/graphql/business-location.type';
 
 @ObjectType()
 export class Business {
@@ -54,11 +54,11 @@ export class Business {
   @Field(() => [CommonBusinessDeal], { nullable: true })
   businessDeal?: CommonBusinessDeal[];
 
-  @Field(() => [BusinessHour], { nullable: true })
-  businessHour?: BusinessHour[];
+  @Field(() => [CommonBusinessHour], { nullable: true })
+  businessHour?: CommonBusinessHour[];
 
-  @Field(() => [BusinessLocation], { nullable: true })
-  businessLocation?: BusinessLocation[];
+  @Field(() => [CommonBusinessLocation], { nullable: true })
+  businessLocation?: CommonBusinessLocation[];
 
   @Field(() => [CommonBusinessProduct], { nullable: true })
   businessProduct?: CommonBusinessProduct[];

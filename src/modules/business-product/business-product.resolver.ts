@@ -80,7 +80,7 @@ export class BusinessProductResolver {
 
   @ResolveField(() => CommonProductCategory, { nullable: true })
   async productCategroy(@Parent() businessProduct: BusinessProduct) {
-    return this.service.getProductCategory(businessProduct.productCategroy.id);
+    return this.service.getProductCategory(businessProduct.productCategroyId);
   }
 
   @ResolveField(() => CommonBusinessDeal, { nullable: true })

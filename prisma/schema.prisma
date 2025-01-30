@@ -174,8 +174,8 @@ model BusinessProduct {
   id          String                @id @default(auto()) @map("_id") @db.ObjectId
   businessId  String                @db.ObjectId
   business    Business              @relation(fields: [businessId], references: [id])
-  categoryId  String?               @db.ObjectId
-  category    ProductCategory?      @relation(fields: [categoryId], references: [id])
+  productCategoryId  String?               @db.ObjectId
+  productCategory    ProductCategory?      @relation(fields: [productCategoryId], references: [id])
   name        String
   description String?
   mediaId     String[]              @db.ObjectId

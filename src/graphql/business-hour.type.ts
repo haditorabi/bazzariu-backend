@@ -2,7 +2,7 @@ import { ObjectType, Field, ID } from '@nestjs/graphql';
 import { BusinessHourStatus } from '@prisma/client';
 
 @ObjectType()
-export class BusinessHour {
+export class CommonBusinessHour {
   @Field(() => ID)
   id: string;
 
