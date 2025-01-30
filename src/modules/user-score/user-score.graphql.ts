@@ -1,4 +1,4 @@
-import { Field, ObjectType, InputType, ID } from '@nestjs/graphql';
+import { Field, ObjectType, InputType, ID, Int } from '@nestjs/graphql';
 import { CommonUser } from 'src/graphql/user.type';
 
 @ObjectType()
@@ -21,7 +21,7 @@ export class CreateUserScoreInput {
   @Field(() => ID)
   user: string;
 
-  @Field()
+  @Field(() => Int)
   score: number;
 }
 
@@ -30,6 +30,6 @@ export class UpdateUserScoreInput {
   @Field(() => ID, { nullable: true })
   user?: string;
 
-  @Field({ nullable: true })
+  @Field(() => Int, { nullable: true })
   score?: number;
 }

@@ -1,4 +1,4 @@
-import { Field, ObjectType, InputType, ID } from '@nestjs/graphql';
+import { Field, ObjectType, InputType, ID, Int } from '@nestjs/graphql';
 import { UserActionTargetType, UserActionType } from '@prisma/client';
 import { CommonUser } from 'src/graphql/user.type';
 
@@ -25,7 +25,7 @@ export class UserAction {
   @Field()
   accountDetails: string;
 
-  @Field()
+  @Field(() => Int)
   points: number;
 
   @Field()
@@ -49,7 +49,7 @@ export class CreateUserActionInput {
   @Field()
   accountDetails: string;
 
-  @Field()
+  @Field(() => Int)
   points?: number;
 }
 
@@ -70,6 +70,6 @@ export class UpdateUserActionInput {
   @Field({ nullable: true })
   accountDetails?: string;
 
-  @Field({ nullable: true })
+  @Field(() => Int, { nullable: true })
   points?: number;
 }

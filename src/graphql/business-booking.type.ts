@@ -1,4 +1,4 @@
-import { ObjectType, Field, ID } from '@nestjs/graphql';
+import { ObjectType, Field, ID, Int } from '@nestjs/graphql';
 import { BusinessBookingStatus } from '@prisma/client';
 
 @ObjectType()
@@ -6,10 +6,10 @@ export class CommonBusinessBooking {
   @Field(() => ID)
   id: string;
 
-  @Field()
+  @Field(() => Int)
   maxAvilible: number;
 
-  @Field()
+  @Field(() => Int)
   maxGuest: number;
 
   @Field(() => [ID], { nullable: true })

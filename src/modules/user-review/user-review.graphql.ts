@@ -1,4 +1,4 @@
-import { Field, ObjectType, InputType, ID } from '@nestjs/graphql';
+import { Field, ObjectType, InputType, ID, Int } from '@nestjs/graphql';
 import { UserReviewStatus, UserReviewType } from '@prisma/client';
 import { CommonUser } from 'src/graphql/user.type';
 
@@ -52,7 +52,7 @@ export class CreateUserReviewInput {
   @Field(() => [ID], { nullable: true })
   mediaId?: string[];
 
-  @Field()
+  @Field(() => Int)
   rating: number;
 
   @Field({ nullable: true })
@@ -76,7 +76,7 @@ export class UpdateUserReviewInput {
   @Field(() => [ID], { nullable: true })
   mediaId?: string[];
 
-  @Field({ nullable: true })
+  @Field(() => Int, { nullable: true })
   rating?: number;
 
   @Field({ nullable: true })

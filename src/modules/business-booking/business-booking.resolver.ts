@@ -74,6 +74,11 @@ export class BusinessBookingResolver {
 
     return this.service.update(id, prismaData);
   }
+  @Mutation(() => BusinessBooking)
+  async deleteBusinessBooking(@Args('id') id: string) {
+    return this.service.delete(id);
+  }
+
   @ResolveField(() => CommonBusiness)
   async business(@Parent() businessBooking: BusinessBooking) {
     return this.service.getBusiness(businessBooking.business.id);

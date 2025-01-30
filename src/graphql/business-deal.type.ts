@@ -1,4 +1,4 @@
-import { ObjectType, Field, ID } from '@nestjs/graphql';
+import { ObjectType, Field, ID, Int } from '@nestjs/graphql';
 import { BusinessDealStatus, DiscountType } from '@prisma/client';
 
 @ObjectType()
@@ -24,10 +24,10 @@ export class CommonBusinessDeal {
   @Field()
   value: number;
 
-  @Field({ nullable: true })
+  @Field(() => Int, { nullable: true })
   maxRedemption?: number;
 
-  @Field({ nullable: true })
+  @Field(() => Int, { nullable: true })
   maxPerUser?: number;
 
   @Field()

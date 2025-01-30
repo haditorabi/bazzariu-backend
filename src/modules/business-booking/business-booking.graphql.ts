@@ -1,4 +1,4 @@
-import { Field, ObjectType, InputType, ID } from '@nestjs/graphql';
+import { Field, ObjectType, InputType, ID, Int } from '@nestjs/graphql';
 import { CommonBusiness } from 'src/graphql/business.type';
 import { CommonBusinessProduct } from 'src/graphql/business-product.type';
 import { BusinessBookingStatus } from '@prisma/client';
@@ -15,10 +15,10 @@ export class BusinessBooking {
   @Field(() => [CommonBusinessProduct], { nullable: true })
   businessProduct?: CommonBusinessProduct[];
 
-  @Field()
+  @Field(() => Int)
   maxAvilible: number;
 
-  @Field()
+  @Field(() => Int)
   maxGuest: number;
 
   @Field(() => [ID], { nullable: true })
@@ -45,10 +45,10 @@ export class CreateBusinessBookingInput {
   @Field(() => [ID], { nullable: true })
   businessProduct?: string[];
 
-  @Field({ nullable: true })
+  @Field(() => Int, { nullable: true })
   maxAvilible?: number;
 
-  @Field({ nullable: true })
+  @Field(() => Int, { nullable: true })
   maxGuest?: number;
 
   @Field(() => [ID], { nullable: true })
@@ -66,10 +66,10 @@ export class UpdateBusinessBookingInput {
   @Field(() => [ID], { nullable: true })
   businessProduct?: string[];
 
-  @Field({ nullable: true })
+  @Field(() => Int, { nullable: true })
   maxAvilible?: number;
 
-  @Field({ nullable: true })
+  @Field(() => Int, { nullable: true })
   maxGuest?: number;
 
   @Field(() => [ID], { nullable: true })

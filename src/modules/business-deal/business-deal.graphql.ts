@@ -1,4 +1,4 @@
-import { Field, ObjectType, InputType, ID } from '@nestjs/graphql';
+import { Field, ObjectType, InputType, ID, Int } from '@nestjs/graphql';
 import { CommonBusiness } from 'src/graphql/business.type';
 import { CommonBusinessProduct } from 'src/graphql/business-product.type';
 import { BusinessDealStatus, DiscountType } from '@prisma/client';
@@ -26,10 +26,10 @@ export class BusinessDeal {
   @Field()
   value: number;
 
-  @Field()
+  @Field(() => Int)
   maxRedemption: number;
 
-  @Field()
+  @Field(() => Int)
   maxPerUser: number;
 
   @Field()
@@ -71,10 +71,10 @@ export class CreateBusinessDealInput {
   @Field()
   value: number;
 
-  @Field({ nullable: true })
+  @Field(() => Int, { nullable: true })
   maxRedemption?: number;
 
-  @Field({ nullable: true })
+  @Field(() => Int, { nullable: true })
   maxPerUser?: number;
 
   @Field()
@@ -110,10 +110,10 @@ export class UpdateBusinessDealInput {
   @Field({ nullable: true })
   value?: number;
 
-  @Field({ nullable: true })
+  @Field(() => Int, { nullable: true })
   maxRedemption?: number;
 
-  @Field({ nullable: true })
+  @Field(() => Int, { nullable: true })
   maxPerUser?: number;
 
   @Field({ nullable: true })
