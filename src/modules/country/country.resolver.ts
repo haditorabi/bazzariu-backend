@@ -60,8 +60,11 @@ export class CountryResolver {
 
   @Mutation(() => Country)
   @ServiceErrorHandler('update country') // Error handling
-  async updateCountry(@Args('data') data: UpdateCountryInput) {
-    const { id, ...rest } = data;
+  async updateCountry(
+    @Args('id') id: string,
+    @Args('data') data: UpdateCountryInput,
+  ) {
+    const { ...rest } = data;
     return this.service.update(id, { ...rest });
   }
 

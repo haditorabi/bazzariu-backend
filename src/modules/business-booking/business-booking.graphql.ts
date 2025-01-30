@@ -60,9 +60,6 @@ export class CreateBusinessBookingInput {
 
 @InputType()
 export class UpdateBusinessBookingInput {
-  @Field(() => ID)
-  id: string;
-
   @Field(() => ID, { nullable: true })
   business?: string;
 

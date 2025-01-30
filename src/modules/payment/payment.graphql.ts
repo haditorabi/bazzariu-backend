@@ -81,9 +81,6 @@ export class CreatePaymentInput {
 
 @InputType()
 export class UpdatePaymentInput {
-  @Field(() => ID)
-  id: string;
-
   @Field(() => ID, { nullable: true })
   transactionId?: string;
 

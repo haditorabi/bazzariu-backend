@@ -38,9 +38,6 @@ export class CreateCountryInput {
 
 @InputType()
 export class UpdateCountryInput {
-  @Field(() => ID)
-  id: string;
-
   @Field({ nullable: true })
   name?: string;
 

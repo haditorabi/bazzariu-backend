@@ -34,9 +34,10 @@ export class CurrencyResolver {
   }
 
   @Mutation(() => Currency)
-  async updateCurrency(@Args('data') data: UpdateCurrencyInput) {
-    const { id } = data;
-
+  async updateCurrency(
+    @Args('id') id: string,
+    @Args('data') data: UpdateCurrencyInput,
+  ) {
     const prismaData: Prisma.CurrencyUpdateInput = data;
 
     return this.service.update(id, prismaData);

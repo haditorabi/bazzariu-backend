@@ -39,9 +39,6 @@ export class CreateBusinessCategoryInput {
 
 @InputType()
 export class UpdateBusinessCategoryInput {
-  @Field(() => ID)
-  id: string;
-
   @Field({ nullable: true })
   name?: string;
 

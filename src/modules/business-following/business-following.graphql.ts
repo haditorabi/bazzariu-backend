@@ -25,9 +25,6 @@ export class CreateBusinessFollowingInput {
 
 @InputType()
 export class UpdateBusinessFollowingInput {
-  @Field(() => ID)
-  id: string;
-
   @Field(() => ID, { nullable: true })
   business?: string;
 

@@ -33,9 +33,6 @@ export class CreateMediaInput {
 
 @InputType()
 export class UpdateMediaInput {
-  @Field(() => ID)
-  id: string;
-
   @Field({ nullable: true })
   url?: string;
 

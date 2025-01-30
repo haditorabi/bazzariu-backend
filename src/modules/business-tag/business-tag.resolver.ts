@@ -31,8 +31,10 @@ export class BusinessTagResolver {
   }
 
   @Mutation(() => BusinessTag)
-  async updateBusinessTag(@Args('data') data: UpdateBusinessTagInput) {
-    const { id } = data;
+  async updateBusinessTag(
+    @Args('id') id: string,
+    @Args('data') data: UpdateBusinessTagInput,
+  ) {
     const prismaData: Prisma.BusinessTagUpdateInput = data;
     return this.service.update(id, prismaData);
   }

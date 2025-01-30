@@ -44,9 +44,6 @@ export class CreateUserBookingInput {
 
 @InputType()
 export class UpdateUserBookingInput {
-  @Field(() => ID)
-  id: string;
-
   @Field(() => ID, { nullable: true })
   user?: string;
 

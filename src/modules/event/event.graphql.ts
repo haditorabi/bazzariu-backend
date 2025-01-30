@@ -61,9 +61,6 @@ export class CreateEventInput {
 
 @InputType()
 export class UpdateEventInput {
-  @Field(() => ID)
-  id: string;
-
   @Field({ nullable: true })
   name?: string;
 

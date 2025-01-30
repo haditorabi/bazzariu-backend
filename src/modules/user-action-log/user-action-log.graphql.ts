@@ -67,9 +67,6 @@ export class CreateUserActionLogInput {
 
 @InputType()
 export class UpdateUserActionLogInput {
-  @Field(() => ID)
-  id: string;
-
   @Field(() => ID, { nullable: true })
   user?: string;
 

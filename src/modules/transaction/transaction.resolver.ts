@@ -72,8 +72,11 @@ export class TransactionResolver {
   }
 
   @Mutation(() => Transaction)
-  async updateTransaction(@Args('data') data: UpdateTransactionInput) {
-    const { id, payment, business, user, ...rest } = data;
+  async updateTransaction(
+    @Args('id') id: string,
+    @Args('data') data: UpdateTransactionInput,
+  ) {
+    const { payment, business, user, ...rest } = data;
 
     const prismaData: Prisma.TransactionUpdateInput = {
       ...rest,

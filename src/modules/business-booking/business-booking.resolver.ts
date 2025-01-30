@@ -54,8 +54,11 @@ export class BusinessBookingResolver {
   }
 
   @Mutation(() => BusinessBooking)
-  async updateBusinessBooking(@Args('data') data: UpdateBusinessBookingInput) {
-    const { id, business, businessProduct, ...rest } = data;
+  async updateBusinessBooking(
+    @Args('id') id: string,
+    @Args('data') data: UpdateBusinessBookingInput,
+  ) {
+    const { business, businessProduct, ...rest } = data;
 
     const prismaData: Prisma.BusinessBookingUpdateInput = {
       ...rest,

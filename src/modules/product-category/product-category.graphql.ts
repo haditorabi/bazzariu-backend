@@ -27,9 +27,6 @@ export class CreateProductCategoryInput {
 
 @InputType()
 export class UpdateProductCategoryInput {
-  @Field(() => ID)
-  id: string;
-
   @Field({ nullable: true })
   name?: string;
 

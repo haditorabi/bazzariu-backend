@@ -27,9 +27,6 @@ export class CreateUserScoreInput {
 
 @InputType()
 export class UpdateUserScoreInput {
-  @Field(() => ID)
-  id: string;
-
   @Field(() => ID, { nullable: true })
   user?: string;
 

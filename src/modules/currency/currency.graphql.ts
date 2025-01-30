@@ -30,9 +30,6 @@ export class CreateCurrencyInput {
 
 @InputType()
 export class UpdateCurrencyInput {
-  @Field(() => ID)
-  id: string;
-
   @Field({ nullable: true })
   name?: string;
 

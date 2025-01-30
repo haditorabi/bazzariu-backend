@@ -64,9 +64,6 @@ export class CreateUserReviewInput {
 
 @InputType()
 export class UpdateUserReviewInput {
-  @Field(() => ID)
-  id: string;
-
   @Field(() => ID, { nullable: true })
   user?: string;
 

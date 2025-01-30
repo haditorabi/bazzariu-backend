@@ -36,8 +36,11 @@ export class EventResolver {
   }
 
   @Mutation(() => Event)
-  async updateEvent(@Args('data') data: UpdateEventInput) {
-    const { id, ...rest } = data;
+  async updateEvent(
+    @Args('id') id: string,
+    @Args('data') data: UpdateEventInput,
+  ) {
+    const { ...rest } = data;
     const prismaData: Prisma.EventUpdateInput = { ...rest };
     return this.service.update(id, prismaData);
   }

@@ -39,8 +39,11 @@ export class BusinessHourResolver {
   }
 
   @Mutation(() => BusinessHour)
-  async updateBusinessHour(@Args('data') data: UpdateBusinessHourInput) {
-    const { id, business, ...rest } = data;
+  async updateBusinessHour(
+    @Args('id') id: string,
+    @Args('data') data: UpdateBusinessHourInput,
+  ) {
+    const { business, ...rest } = data;
 
     const prismaData: Prisma.BusinessHourUpdateInput = {
       ...rest,

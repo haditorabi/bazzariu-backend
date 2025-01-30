@@ -37,8 +37,11 @@ export class MediaResolver {
   }
 
   @Mutation(() => Media)
-  async updateMedia(@Args('data') data: UpdateMediaInput) {
-    const { id, ...rest } = data;
+  async updateMedia(
+    @Args('id') id: string,
+    @Args('data') data: UpdateMediaInput,
+  ) {
+    const { ...rest } = data;
 
     const prismaData: Prisma.MediaUpdateInput = {
       ...rest,

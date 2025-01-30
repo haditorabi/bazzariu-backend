@@ -52,8 +52,11 @@ export class UserBlockedResolver {
 
   @Mutation(() => UserBlocked)
   @ServiceErrorHandler('Update user block')
-  async updateUserBlocked(@Args('data') data: UpdateUserBlockedInput) {
-    const { id, user, blocked, ...rest } = data;
+  async updateUserBlocked(
+    @Args('id') id: string,
+    @Args('data') data: UpdateUserBlockedInput,
+  ) {
+    const { user, blocked, ...rest } = data;
 
     const prismaData: Prisma.UserBlockedUpdateInput = {
       ...rest,

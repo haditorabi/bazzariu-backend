@@ -45,8 +45,11 @@ export class UserWalletResolver {
   }
 
   @Mutation(() => UserWallet)
-  async updateUserWallet(@Args('data') data: UpdateUserWalletInput) {
-    const { id, user, ...rest } = data;
+  async updateUserWallet(
+    @Args('id') id: string,
+    @Args('data') data: UpdateUserWalletInput,
+  ) {
+    const { user, ...rest } = data;
     const prismaData: Prisma.UserWalletUpdateInput = {
       ...rest,
       ...(user && {

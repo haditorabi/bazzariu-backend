@@ -27,9 +27,6 @@ export class CreateBusinessTagInput {
 
 @InputType()
 export class UpdateBusinessTagInput {
-  @Field(() => ID)
-  id: string;
-
   @Field({ nullable: true })
   name?: string;
 

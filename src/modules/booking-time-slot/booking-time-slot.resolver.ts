@@ -47,8 +47,11 @@ export class BookingTimeSlotResolver {
   }
 
   @Mutation(() => BookingTimeSlot)
-  async updateBookingTimeSlot(@Args('data') data: UpdateBookingTimeSlotInput) {
-    const { id, businessBooking, ...rest } = data;
+  async updateBookingTimeSlot(
+    @Args('id') id: string,
+    @Args('data') data: UpdateBookingTimeSlotInput,
+  ) {
+    const { businessBooking, ...rest } = data;
 
     const prismaData: Prisma.BookingTimeSlotUpdateInput = {
       ...rest,

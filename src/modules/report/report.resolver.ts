@@ -44,8 +44,11 @@ export class ReportResolver {
   }
 
   @Mutation(() => Report)
-  async updateReport(@Args('data') data: UpdateReportInput) {
-    const { id, by, ...rest } = data;
+  async updateReport(
+    @Args('id') id: string,
+    @Args('data') data: UpdateReportInput,
+  ) {
+    const { by, ...rest } = data;
 
     const prismaData: Prisma.ReportUpdateInput = {
       ...rest,

@@ -50,9 +50,6 @@ export class CreateDealsRedemptionInput {
 
 @InputType()
 export class UpdateDealsRedemptionInput {
-  @Field(() => ID)
-  id: string;
-
   @Field(() => ID, { nullable: true })
   businessDeal?: string;
 

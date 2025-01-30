@@ -34,9 +34,6 @@ export class CreateUserBookmarkInput {
 
 @InputType()
 export class UpdateUserBookmarkInput {
-  @Field(() => ID)
-  id: string;
-
   @Field(() => ID, { nullable: true })
   user?: string;
 

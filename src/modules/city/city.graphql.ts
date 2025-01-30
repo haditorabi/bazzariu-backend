@@ -41,9 +41,6 @@ export class CreateCityInput {
 
 @InputType()
 export class UpdateCityInput {
-  @Field(() => ID)
-  id: string;
-
   @Field({ nullable: true })
   name?: string;
 

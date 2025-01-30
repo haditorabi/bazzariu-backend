@@ -27,9 +27,6 @@ export class CreateUserBlockedInput {
 
 @InputType()
 export class UpdateUserBlockedInput {
-  @Field(() => ID)
-  id: string;
-
   @Field(() => ID, { nullable: true })
   user?: string;
 

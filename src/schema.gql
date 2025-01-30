@@ -775,44 +775,44 @@ type Mutation {
   deleteBusinessBoost(id: String!): BusinessBoost!
   deleteBusinessCategory(id: String!): BusinessCategory!
   updateAmenity(data: UpdateAmenityInput!, id: String!): Amenity!
-  updateBookingTimeSlot(data: UpdateBookingTimeSlotInput!): BookingTimeSlot!
-  updateBusiness(data: UpdateBusinessInput!): Business!
-  updateBusinessBooking(data: UpdateBusinessBookingInput!): BusinessBooking!
-  updateBusinessBoost(data: UpdateBusinessBoostInput!): BusinessBoost!
-  updateBusinessCategory(data: UpdateBusinessCategoryInput!): BusinessCategory!
-  updateBusinessDeal(data: UpdateBusinessDealInput!): BusinessDeal!
-  updateBusinessFollowing(data: UpdateBusinessFollowingInput!): BusinessFollowing!
-  updateBusinessHour(data: UpdateBusinessHourInput!): BusinessHour!
-  updateBusinessLocation(data: UpdateBusinessLocationInput!): BusinessLocation!
-  updateBusinessProduct(data: UpdateBusinessProductInput!): BusinessProduct!
-  updateBusinessProductPrice(data: UpdateBusinessProductPriceInput!): BusinessProductPrice!
-  updateBusinessTag(data: UpdateBusinessTagInput!): BusinessTag!
-  updateBusinessUpdate(data: UpdateBusinessUpdateInput!): BusinessUpdate!
-  updateCity(data: UpdateCityInput!): City!
-  updateCountry(data: UpdateCountryInput!): Country!
-  updateCurrency(data: UpdateCurrencyInput!): Currency!
-  updateDealsRedemption(data: UpdateDealsRedemptionInput!): DealsRedemption!
-  updateEvent(data: UpdateEventInput!): Event!
-  updateEventCategory(data: UpdateEventCategoryInput!): EventCategory!
-  updateLanguage(data: UpdateLanguageInput!): Language!
-  updateMedia(data: UpdateMediaInput!): Media!
-  updatePayment(data: UpdatePaymentInput!): Payment!
-  updateProductCategory(data: UpdateProductCategoryInput!): ProductCategory!
-  updateProvince(data: UpdateProvinceInput!): Province!
-  updateRegion(data: UpdateRegionInput!): Region!
-  updateReport(data: UpdateReportInput!): Report!
-  updateTransaction(data: UpdateTransactionInput!): Transaction!
-  updateUserAction(data: UpdateUserActionInput!): UserAction!
-  updateUserActionLog(data: UpdateUserActionLogInput!): UserActionLog!
-  updateUserBlocked(data: UpdateUserBlockedInput!): UserBlocked!
-  updateUserBooking(data: UpdateUserBookingInput!): UserBooking!
-  updateUserBookmark(data: UpdateUserBookmarkInput!): UserBookmark!
-  updateUserCheckin(data: UpdateUserCheckinInput!): UserCheckin!
-  updateUserFollowing(data: UpdateUserFollowingInput!): UserFollowing!
-  updateUserPreference(data: UpdateUserPreferenceInput!): UserPreference!
-  updateUserReview(data: UpdateUserReviewInput!): UserReview!
-  updateUserScore(data: UpdateUserScoreInput!): UserScore!
-  updateUserWallet(data: UpdateUserWalletInput!): UserWallet!
+  updateBookingTimeSlot(data: UpdateBookingTimeSlotInput!, id: String!): BookingTimeSlot!
+  updateBusiness(data: UpdateBusinessInput!, id: String!): Business!
+  updateBusinessBooking(data: UpdateBusinessBookingInput!, id: String!): BusinessBooking!
+  updateBusinessBoost(data: UpdateBusinessBoostInput!, id: String!): BusinessBoost!
+  updateBusinessCategory(data: UpdateBusinessCategoryInput!, id: String!): BusinessCategory!
+  updateBusinessDeal(data: UpdateBusinessDealInput!, id: String!): BusinessDeal!
+  updateBusinessFollowing(data: UpdateBusinessFollowingInput!, id: String!): BusinessFollowing!
+  updateBusinessHour(data: UpdateBusinessHourInput!, id: String!): BusinessHour!
+  updateBusinessLocation(data: UpdateBusinessLocationInput!, id: String!): BusinessLocation!
+  updateBusinessProduct(data: UpdateBusinessProductInput!, id: String!): BusinessProduct!
+  updateBusinessProductPrice(data: UpdateBusinessProductPriceInput!, id: String!): BusinessProductPrice!
+  updateBusinessTag(data: UpdateBusinessTagInput!, id: String!): BusinessTag!
+  updateBusinessUpdate(data: UpdateBusinessUpdateInput!, id: String!): BusinessUpdate!
+  updateCity(data: UpdateCityInput!, id: String!): City!
+  updateCountry(data: UpdateCountryInput!, id: String!): Country!
+  updateCurrency(data: UpdateCurrencyInput!, id: String!): Currency!
+  updateDealsRedemption(data: UpdateDealsRedemptionInput!, id: String!): DealsRedemption!
+  updateEvent(data: UpdateEventInput!, id: String!): Event!
+  updateEventCategory(data: UpdateEventCategoryInput!, id: String!): EventCategory!
+  updateLanguage(data: UpdateLanguageInput!, id: String!): Language!
+  updateMedia(data: UpdateMediaInput!, id: String!): Media!
+  updatePayment(data: UpdatePaymentInput!, id: String!): Payment!
+  updateProductCategory(data: UpdateProductCategoryInput!, id: String!): ProductCategory!
+  updateProvince(data: UpdateProvinceInput!, id: String!): Province!
+  updateRegion(data: UpdateRegionInput!, id: String!): Region!
+  updateReport(data: UpdateReportInput!, id: String!): Report!
+  updateTransaction(data: UpdateTransactionInput!, id: String!): Transaction!
+  updateUserAction(data: UpdateUserActionInput!, id: String!): UserAction!
+  updateUserActionLog(data: UpdateUserActionLogInput!, id: String!): UserActionLog!
+  updateUserBlocked(data: UpdateUserBlockedInput!, id: String!): UserBlocked!
+  updateUserBooking(data: UpdateUserBookingInput!, id: String!): UserBooking!
+  updateUserBookmark(data: UpdateUserBookmarkInput!, id: String!): UserBookmark!
+  updateUserCheckin(data: UpdateUserCheckinInput!, id: String!): UserCheckin!
+  updateUserFollowing(data: UpdateUserFollowingInput!, id: String!): UserFollowing!
+  updateUserPreference(data: UpdateUserPreferenceInput!, id: String!): UserPreference!
+  updateUserReview(data: UpdateUserReviewInput!, id: String!): UserReview!
+  updateUserScore(data: UpdateUserScoreInput!, id: String!): UserScore!
+  updateUserWallet(data: UpdateUserWalletInput!, id: String!): UserWallet!
 }
 
 type Payment {
@@ -976,7 +976,6 @@ input UpdateAmenityInput {
 input UpdateBookingTimeSlotInput {
   businessBooking: ID
   endAt: DateTime
-  id: ID!
   startAt: DateTime
   status: String
   timezone: String
@@ -985,7 +984,6 @@ input UpdateBookingTimeSlotInput {
 input UpdateBusinessBookingInput {
   business: ID
   businessProduct: [ID!]
-  id: ID!
   maxAvilible: Float
   maxGuest: Float
   mediaId: [ID!]
@@ -995,14 +993,12 @@ input UpdateBusinessBookingInput {
 input UpdateBusinessBoostInput {
   business: ID
   endAt: DateTime
-  id: ID!
   startAt: DateTime
   status: String
   type: String
 }
 
 input UpdateBusinessCategoryInput {
-  id: ID!
   mediaId: ID
   name: String
   status: String
@@ -1014,7 +1010,6 @@ input UpdateBusinessDealInput {
   description: String
   discountType: String
   endDate: DateTime
-  id: ID!
   maxPerUser: Float
   maxRedemption: Float
   mediaId: [ID!]
@@ -1026,7 +1021,6 @@ input UpdateBusinessDealInput {
 
 input UpdateBusinessFollowingInput {
   business: ID
-  id: ID!
   user: ID
 }
 
@@ -1034,7 +1028,6 @@ input UpdateBusinessHourInput {
   business: ID
   closeTime: String
   dayOfWeek: String
-  id: ID!
   openTime: String
   status: String
 }
@@ -1043,7 +1036,6 @@ input UpdateBusinessInput {
   amenity: [ID!]
   businessCategory: [ID!]
   description: String
-  id: ID!
   isClaimed: Boolean
   mediaId: [ID!]
   name: String
@@ -1057,7 +1049,6 @@ input UpdateBusinessLocationInput {
   business: ID
   cityId: ID
   countryId: ID
-  id: ID!
   latitude: Float
   longitude: Float
   phone: String
@@ -1069,7 +1060,6 @@ input UpdateBusinessLocationInput {
 input UpdateBusinessProductInput {
   business: ID
   description: String
-  id: ID!
   mediaId: [ID!]
   name: String
   productCategroy: [ID!]
@@ -1079,13 +1069,11 @@ input UpdateBusinessProductInput {
 input UpdateBusinessProductPriceInput {
   businessProduct: ID
   currency: ID
-  id: ID!
   name: String
   price: Float
 }
 
 input UpdateBusinessTagInput {
-  id: ID!
   name: String
   status: String
 }
@@ -1094,14 +1082,12 @@ input UpdateBusinessUpdateInput {
   business: ID
   context: String
   endAt: DateTime
-  id: ID!
   startAt: DateTime
   status: String
   type: String
 }
 
 input UpdateCityInput {
-  id: ID!
   name: String
   province: ID
   status: String
@@ -1109,14 +1095,12 @@ input UpdateCityInput {
 
 input UpdateCountryInput {
   code: String
-  id: ID!
   name: String
   status: String
 }
 
 input UpdateCurrencyInput {
   code: String
-  id: ID!
   name: String
   status: String
 }
@@ -1124,14 +1108,12 @@ input UpdateCurrencyInput {
 input UpdateDealsRedemptionInput {
   businessDeal: ID
   expiresAt: DateTime
-  id: ID!
   redeemedAt: DateTime
   status: String
   user: ID
 }
 
 input UpdateEventCategoryInput {
-  id: ID!
   name: String
   status: String
 }
@@ -1140,7 +1122,6 @@ input UpdateEventInput {
   categoryId: [ID!]
   description: String
   endDate: DateTime
-  id: ID!
   mediaId: [ID!]
   name: String
   startDate: DateTime
@@ -1149,13 +1130,11 @@ input UpdateEventInput {
 
 input UpdateLanguageInput {
   code: String
-  id: ID!
   name: String
   status: String
 }
 
 input UpdateMediaInput {
-  id: ID!
   moduleType: String
   type: String
   url: String
@@ -1166,7 +1145,6 @@ input UpdatePaymentInput {
   business: ID
   currencyId: String
   description: String
-  id: ID!
   paymentMethod: ID
   status: String
   targetId: ID
@@ -1176,14 +1154,12 @@ input UpdatePaymentInput {
 }
 
 input UpdateProductCategoryInput {
-  id: ID!
   name: String
   status: String
 }
 
 input UpdateProvinceInput {
   country: ID
-  id: ID!
   name: String
   status: String
 }
@@ -1192,14 +1168,12 @@ input UpdateRegionInput {
   boundry: String
   city: ID
   country: ID
-  id: ID!
   name: String
   status: RegionStatus
 }
 
 input UpdateReportInput {
   by: ID
-  id: ID!
   reason: String
   targetId: ID
   targetType: String
@@ -1210,7 +1184,6 @@ input UpdateTransactionInput {
   business: ID
   currencyId: ID
   description: String
-  id: ID!
   payment: ID
   status: String
   user: ID
@@ -1219,7 +1192,6 @@ input UpdateTransactionInput {
 input UpdateUserActionInput {
   accountDetails: String
   action: String
-  id: ID!
   points: Float
   targetId: ID
   targetType: String
@@ -1230,7 +1202,6 @@ input UpdateUserActionLogInput {
   action: String
   actionDetails: String
   device: String
-  id: ID!
   ipAddress: String
   os: String
   targetId: ID
@@ -1240,20 +1211,17 @@ input UpdateUserActionLogInput {
 
 input UpdateUserBlockedInput {
   blocked: ID
-  id: ID!
   user: ID
 }
 
 input UpdateUserBookingInput {
   bookingTimeSlot: ID
   businessProduct: [ID!]
-  id: ID!
   status: String
   user: ID
 }
 
 input UpdateUserBookmarkInput {
-  id: ID!
   targetId: ID
   targetType: String
   user: ID
@@ -1261,18 +1229,15 @@ input UpdateUserBookmarkInput {
 
 input UpdateUserCheckinInput {
   business: ID
-  id: ID!
   user: ID
 }
 
 input UpdateUserFollowingInput {
   followee: ID
   follower: ID
-  id: ID!
 }
 
 input UpdateUserPreferenceInput {
-  id: ID!
   key: String
   user: ID
   value: String
@@ -1280,7 +1245,6 @@ input UpdateUserPreferenceInput {
 
 input UpdateUserReviewInput {
   content: String
-  id: ID!
   mediaId: [ID!]
   rating: Float
   status: String
@@ -1290,7 +1254,6 @@ input UpdateUserReviewInput {
 }
 
 input UpdateUserScoreInput {
-  id: ID!
   score: Float
   user: ID
 }
@@ -1298,7 +1261,6 @@ input UpdateUserScoreInput {
 input UpdateUserWalletInput {
   balance: Float
   currencyId: ID
-  id: ID!
   user: ID
 }
 

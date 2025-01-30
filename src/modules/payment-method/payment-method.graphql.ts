@@ -44,9 +44,6 @@ export class CreatePaymentMethodInput {
 
 @InputType()
 export class UpdatePaymentMethodInput {
-  @Field(() => ID)
-  id: string;
-
   @Field(() => ID, { nullable: true })
   user?: string;
 

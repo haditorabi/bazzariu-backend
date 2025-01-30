@@ -33,9 +33,6 @@ export class CreateUserPreferenceInput {
 
 @InputType()
 export class UpdateUserPreferenceInput {
-  @Field(() => ID)
-  id: string;
-
   @Field(() => ID, { nullable: true })
   user?: string;
 

@@ -51,9 +51,10 @@ export class UserVerificationResolver {
 
   @Mutation(() => UserVerification)
   async updateUserVerification(
+    @Args('id') id: string,
     @Args('data') data: UpdateUserVerificationInput,
   ) {
-    const { id, user, ...rest } = data;
+    const { user, ...rest } = data;
 
     const prismaData: Prisma.UserVerificationUpdateInput = {
       ...rest,

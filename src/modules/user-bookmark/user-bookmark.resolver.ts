@@ -39,8 +39,12 @@ export class UserBookmarkResolver {
   }
 
   @Mutation(() => UserBookmark)
-  async updateUserBookmark(@Args('data') data: UpdateUserBookmarkInput) {
-    const { id, user, ...rest } = data;
+  async updateUserBookmark(
+    @Args('id') id: string,
+    @Args('data')
+    data: UpdateUserBookmarkInput,
+  ) {
+    const { user, ...rest } = data;
 
     const prismaData: Prisma.UserBookmarkUpdateInput = {
       ...rest,

@@ -40,8 +40,11 @@ export class UserPreferenceResolver {
   }
 
   @Mutation(() => UserPreference)
-  async updateUserPreference(@Args('data') data: UpdateUserPreferenceInput) {
-    const { id, user, ...rest } = data;
+  async updateUserPreference(
+    @Args('id') id: string,
+    @Args('data') data: UpdateUserPreferenceInput,
+  ) {
+    const { user, ...rest } = data;
 
     const prismaData: Prisma.UserPreferenceUpdateInput = {
       ...rest,

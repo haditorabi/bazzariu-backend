@@ -40,9 +40,6 @@ export class CreateReportInput {
 
 @InputType()
 export class UpdateReportInput {
-  @Field(() => ID)
-  id: string;
-
   @Field(() => ID, { nullable: true })
   by?: string;
 

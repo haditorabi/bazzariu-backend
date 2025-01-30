@@ -28,9 +28,6 @@ export class CreateUserCheckinInput {
 
 @InputType()
 export class UpdateUserCheckinInput {
-  @Field(() => ID)
-  id: string;
-
   @Field(() => ID, { nullable: true })
   user?: string;
 

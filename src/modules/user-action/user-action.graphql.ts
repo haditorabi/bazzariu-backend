@@ -55,9 +55,6 @@ export class CreateUserActionInput {
 
 @InputType()
 export class UpdateUserActionInput {
-  @Field(() => ID)
-  id: string;
-
   @Field(() => ID, { nullable: true })
   user?: string;
 

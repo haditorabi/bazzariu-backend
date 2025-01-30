@@ -92,9 +92,6 @@ export class CreateBusinessDealInput {
 
 @InputType()
 export class UpdateBusinessDealInput {
-  @Field(() => ID)
-  id: string;
-
   @Field({ nullable: true })
   name?: string;
 

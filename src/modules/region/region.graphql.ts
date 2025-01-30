@@ -54,9 +54,6 @@ export class CreateRegionInput {
 
 @InputType()
 export class UpdateRegionInput {
-  @Field(() => ID)
-  id: string;
-
   @Field({ nullable: true })
   name?: string;
 

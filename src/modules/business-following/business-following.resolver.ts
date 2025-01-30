@@ -50,9 +50,11 @@ export class BusinessFollowingResolver {
 
   @Mutation(() => BusinessFollowing)
   async updateBusinessFollowing(
+    @Args('id') id: string,
+
     @Args('data') data: UpdateBusinessFollowingInput,
   ) {
-    const { id, business, user, ...rest } = data;
+    const { business, user, ...rest } = data;
 
     const prismaData: Prisma.BusinessFollowingUpdateInput = {
       ...rest,

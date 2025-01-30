@@ -58,8 +58,12 @@ export class RegionResolver {
   }
 
   @Mutation(() => Region)
-  async updateRegion(@Args('data') data: UpdateRegionInput) {
-    const { id, country, city, boundry, ...rest } = data;
+  async updateRegion(
+    @Args('id') id: string,
+
+    @Args('data') data: UpdateRegionInput,
+  ) {
+    const { country, city, boundry, ...rest } = data;
 
     const prismaData: Prisma.RegionUpdateInput = {
       ...rest,

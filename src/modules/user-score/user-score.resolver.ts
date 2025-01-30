@@ -46,8 +46,11 @@ export class UserScoreResolver {
   }
 
   @Mutation(() => UserScore)
-  async updateUserScore(@Args('data') data: UpdateUserScoreInput) {
-    const { id, user, ...rest } = data;
+  async updateUserScore(
+    @Args('id') id: string,
+    @Args('data') data: UpdateUserScoreInput,
+  ) {
+    const { user, ...rest } = data;
 
     const prismaData: Prisma.UserScoreUpdateInput = {
       ...rest,

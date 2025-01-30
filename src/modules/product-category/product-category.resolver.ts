@@ -49,8 +49,11 @@ export class ProductCategoryResolver {
   }
 
   @Mutation(() => ProductCategory)
-  async updateProductCategory(@Args('data') data: UpdateProductCategoryInput) {
-    const { id, ...rest } = data;
+  async updateProductCategory(
+    @Args('id') id: string,
+    @Args('data') data: UpdateProductCategoryInput,
+  ) {
+    const { ...rest } = data;
 
     const prismaData: Prisma.ProductCategoryUpdateInput = {
       ...rest,

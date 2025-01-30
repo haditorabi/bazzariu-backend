@@ -48,8 +48,11 @@ export class ProvinceResolver {
   }
 
   @Mutation(() => Province)
-  async updateProvince(@Args('data') data: UpdateProvinceInput) {
-    const { id, country, ...rest } = data;
+  async updateProvince(
+    @Args('id') id: string,
+    @Args('data') data: UpdateProvinceInput,
+  ) {
+    const { country, ...rest } = data;
 
     const prismaData: Prisma.ProvinceUpdateInput = {
       ...rest,

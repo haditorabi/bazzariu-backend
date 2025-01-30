@@ -47,8 +47,11 @@ export class EventCategoryResolver {
   }
 
   @Mutation(() => EventCategory)
-  async updateEventCategory(@Args('data') data: UpdateEventCategoryInput) {
-    const { id, ...rest } = data;
+  async updateEventCategory(
+    @Args('id') id: string,
+    @Args('data') data: UpdateEventCategoryInput,
+  ) {
+    const { ...rest } = data;
 
     const prismaData: Prisma.EventCategoryUpdateInput = { ...rest };
 

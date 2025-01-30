@@ -59,8 +59,11 @@ export class PaymentResolver {
   }
 
   @Mutation(() => Payment)
-  async updatePayment(@Args('data') data: UpdatePaymentInput) {
-    const { id, user, business, paymentMethod, ...rest } = data;
+  async updatePayment(
+    @Args('id') id: string,
+    @Args('data') data: UpdatePaymentInput,
+  ) {
+    const { user, business, paymentMethod, ...rest } = data;
 
     const prismaData: Prisma.PaymentUpdateInput = {
       ...rest,

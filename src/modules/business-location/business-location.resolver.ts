@@ -49,9 +49,10 @@ export class BusinessLocationResolver {
 
   @Mutation(() => BusinessLocation)
   async updateBusinessLocation(
+    @Args('id') id: string,
     @Args('data') data: UpdateBusinessLocationInput,
   ) {
-    const { id, business, ...rest } = data;
+    const { business, ...rest } = data;
 
     const prismaData: Prisma.BusinessLocationUpdateInput = {
       ...rest,

@@ -53,8 +53,11 @@ export class UserActionLogResolver {
   }
 
   @Mutation(() => UserActionLog)
-  async updateUserActionLog(@Args('data') data: UpdateUserActionLogInput) {
-    const { id, user, ...rest } = data;
+  async updateUserActionLog(
+    @Args('id') id: string,
+    @Args('data') data: UpdateUserActionLogInput,
+  ) {
+    const { user, ...rest } = data;
 
     const prismaData: Prisma.UserActionLogUpdateInput = {
       ...rest,

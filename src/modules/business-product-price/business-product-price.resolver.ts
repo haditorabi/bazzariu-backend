@@ -52,9 +52,10 @@ export class BusinessProductPriceResolver {
 
   @Mutation(() => BusinessProductPrice)
   async updateBusinessProductPrice(
+    @Args('id') id: string,
     @Args('data') data: UpdateBusinessProductPriceInput,
   ) {
-    const { id, businessProduct, currency, ...rest } = data;
+    const { businessProduct, currency, ...rest } = data;
 
     const prismaData: Prisma.BusinessProductPriceUpdateInput = {
       ...rest,

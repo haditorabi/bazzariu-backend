@@ -56,8 +56,11 @@ export class BusinessProductResolver {
   }
 
   @Mutation(() => BusinessProduct)
-  async updateBusinessProduct(@Args('data') data: UpdateBusinessProductInput) {
-    const { id, business, productCategroy, ...rest } = data;
+  async updateBusinessProduct(
+    @Args('id') id: string,
+    @Args('data') data: UpdateBusinessProductInput,
+  ) {
+    const { business, productCategroy, ...rest } = data;
 
     const prismaData: Prisma.BusinessProductUpdateInput = {
       ...rest,

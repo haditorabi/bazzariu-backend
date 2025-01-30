@@ -57,8 +57,11 @@ export class DealsRedemptionResolver {
 
   @Mutation(() => DealsRedemption)
   @ServiceErrorHandler('update deal redemption')
-  async updateDealsRedemption(@Args('data') data: UpdateDealsRedemptionInput) {
-    const { id, businessDeal, user, ...rest } = data;
+  async updateDealsRedemption(
+    @Args('id') id: string,
+    @Args('data') data: UpdateDealsRedemptionInput,
+  ) {
+    const { businessDeal, user, ...rest } = data;
 
     const prismaData: Prisma.DealsRedemptionUpdateInput = {
       ...rest,

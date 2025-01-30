@@ -36,9 +36,6 @@ export class CreateUserWalletInput {
 
 @InputType()
 export class UpdateUserWalletInput {
-  @Field(() => ID)
-  id: string;
-
   @Field(() => ID, { nullable: true })
   user?: string;
 

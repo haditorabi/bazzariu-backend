@@ -32,8 +32,11 @@ export class CityResolver {
   }
 
   @Mutation(() => City)
-  async updateCity(@Args('data') data: UpdateCityInput) {
-    const { id, province, ...rest } = data;
+  async updateCity(
+    @Args('id') id: string,
+    @Args('data') data: UpdateCityInput,
+  ) {
+    const { province, ...rest } = data;
 
     const prismaData: Prisma.CityUpdateInput = {
       ...rest,

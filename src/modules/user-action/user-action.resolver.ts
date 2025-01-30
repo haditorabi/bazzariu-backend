@@ -47,8 +47,11 @@ export class UserActionResolver {
   }
 
   @Mutation(() => UserAction)
-  async updateUserAction(@Args('data') data: UpdateUserActionInput) {
-    const { id, user, ...rest } = data;
+  async updateUserAction(
+    @Args('id') id: string,
+    @Args('data') data: UpdateUserActionInput,
+  ) {
+    const { user, ...rest } = data;
 
     const prismaData: Prisma.UserActionUpdateInput = {
       ...rest,

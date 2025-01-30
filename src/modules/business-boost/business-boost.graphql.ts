@@ -52,9 +52,6 @@ export class CreateBusinessBoostInput {
 
 @InputType()
 export class UpdateBusinessBoostInput {
-  @Field(() => ID)
-  id: string;
-
   @Field(() => ID, { nullable: true })
   business?: string;
 

@@ -33,8 +33,11 @@ export class LanguageResolver {
   }
 
   @Mutation(() => Language)
-  async updateLanguage(@Args('data') data: UpdateLanguageInput) {
-    const { id, ...rest } = data;
+  async updateLanguage(
+    @Args('id') id: string,
+    @Args('data') data: UpdateLanguageInput,
+  ) {
+    const { ...rest } = data;
 
     const prismaData: Prisma.LanguageUpdateInput = {
       ...rest,

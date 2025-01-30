@@ -37,9 +37,6 @@ export class CreateBusinessProductPriceInput {
 
 @InputType()
 export class UpdateBusinessProductPriceInput {
-  @Field(() => ID)
-  id: string;
-
   @Field({ nullable: true })
   name?: string;
 

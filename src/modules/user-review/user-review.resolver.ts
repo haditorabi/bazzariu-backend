@@ -45,8 +45,11 @@ export class UserReviewResolver {
   }
 
   @Mutation(() => UserReview)
-  async updateUserReview(@Args('data') data: UpdateUserReviewInput) {
-    const { id, user, ...rest } = data;
+  async updateUserReview(
+    @Args('id') id: string,
+    @Args('data') data: UpdateUserReviewInput,
+  ) {
+    const { user, ...rest } = data;
     const prismaData: Prisma.UserReviewUpdateInput = {
       ...rest,
       ...(user && {

@@ -79,9 +79,6 @@ export class CreateBusinessLocationInput {
 
 @InputType()
 export class UpdateBusinessLocationInput {
-  @Field(() => ID)
-  id: string;
-
   @Field(() => ID, { nullable: true })
   business: string;
 

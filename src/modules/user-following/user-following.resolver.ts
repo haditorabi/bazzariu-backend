@@ -44,8 +44,12 @@ export class UserFollowingResolver {
   }
 
   @Mutation(() => UserFollowing)
-  async updateUserFollowing(@Args('data') data: UpdateUserFollowingInput) {
-    const { id, follower, followee, ...rest } = data;
+  async updateUserFollowing(
+    @Args('id') id: string,
+
+    @Args('data') data: UpdateUserFollowingInput,
+  ) {
+    const { follower, followee, ...rest } = data;
     const prismaData: Prisma.UserFollowingUpdateInput = {
       ...rest,
       ...(follower && { follower: { connect: { id: follower } } }),

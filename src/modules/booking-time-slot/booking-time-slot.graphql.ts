@@ -43,9 +43,6 @@ export class CreateBookingTimeSlotInput {
 
 @InputType()
 export class UpdateBookingTimeSlotInput {
-  @Field(() => ID)
-  id: string;
-
   @Field(() => ID, { nullable: true })
   businessBooking?: string;
 

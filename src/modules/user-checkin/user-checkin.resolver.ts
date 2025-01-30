@@ -53,8 +53,11 @@ export class UserCheckinResolver {
   }
 
   @Mutation(() => UserCheckin)
-  async updateUserCheckin(@Args('data') data: UpdateUserCheckinInput) {
-    const { id, user, business, ...rest } = data;
+  async updateUserCheckin(
+    @Args('id') id: string,
+    @Args('data') data: UpdateUserCheckinInput,
+  ) {
+    const { user, business, ...rest } = data;
 
     const prismaData: Prisma.UserCheckinUpdateInput = {
       ...rest,

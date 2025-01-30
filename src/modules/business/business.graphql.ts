@@ -96,9 +96,6 @@ export class CreateBusinessInput {
 
 @InputType()
 export class UpdateBusinessInput {
-  @Field(() => ID)
-  id: string;
-
   @Field({ nullable: true })
   name?: string;
 

@@ -27,9 +27,6 @@ export class CreateUserFollowingInput {
 
 @InputType()
 export class UpdateUserFollowingInput {
-  @Field(() => ID)
-  id: string;
-
   @Field(() => ID, { nullable: true })
   follower?: string;
 

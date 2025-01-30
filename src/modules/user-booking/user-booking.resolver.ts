@@ -56,8 +56,11 @@ export class UserBookingResolver {
   }
 
   @Mutation(() => UserBooking)
-  async updateUserBooking(@Args('data') data: UpdateUserBookingInput) {
-    const { id, user, bookingTimeSlot, businessProduct, ...rest } = data;
+  async updateUserBooking(
+    @Args('id') id: string,
+    @Args('data') data: UpdateUserBookingInput,
+  ) {
+    const { user, bookingTimeSlot, businessProduct, ...rest } = data;
 
     const prismaData: Prisma.UserBookingUpdateInput = {
       ...rest,

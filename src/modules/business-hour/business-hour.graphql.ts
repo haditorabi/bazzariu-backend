@@ -46,9 +46,6 @@ export class CreateBusinessHourInput {
 
 @InputType()
 export class UpdateBusinessHourInput {
-  @Field(() => ID)
-  id: string;
-
   @Field(() => ID, { nullable: true })
   business?: string;
 

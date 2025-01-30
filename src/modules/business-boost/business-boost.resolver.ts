@@ -46,8 +46,11 @@ export class BusinessBoostResolver {
   }
 
   @Mutation(() => BusinessBoost)
-  async updateBusinessBoost(@Args('data') data: UpdateBusinessBoostInput) {
-    const { id, business, ...rest } = data;
+  async updateBusinessBoost(
+    @Args('id') id: string,
+    @Args('data') data: UpdateBusinessBoostInput,
+  ) {
+    const { business, ...rest } = data;
     const prismaData: Prisma.BusinessBoostUpdateInput = {
       ...rest,
       ...(business && {

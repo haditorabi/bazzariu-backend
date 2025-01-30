@@ -37,9 +37,6 @@ export class CreateUserVerificationInput {
 
 @InputType()
 export class UpdateUserVerificationInput {
-  @Field(() => ID)
-  id: string;
-
   @Field(() => ID, { nullable: true })
   user?: string;
 
