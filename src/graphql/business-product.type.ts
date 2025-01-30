@@ -10,6 +10,9 @@ export class CommonBusinessProduct {
   business: string;
 
   @Field(() => ID)
+  businessId: string;
+
+  @Field(() => ID)
   category?: string;
 
   @Field()

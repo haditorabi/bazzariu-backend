@@ -61,14 +61,17 @@ export class BusinessFollowingResolver {
 
     return this.service.update(id, prismaData);
   }
-
+  @Mutation(() => BusinessFollowing)
+  async deleteBusinessFollowing(@Args('id') id: string) {
+    return this.service.delete(id);
+  }
   @ResolveField(() => CommonBusiness)
   async business(@Parent() businessFollowing: BusinessFollowing) {
-    return businessFollowing.business;
+    return this.service.getBusiness(businessFollowing.businessId);
   }
 
   @ResolveField(() => CommonUser)
   async user(@Parent() businessFollowing: BusinessFollowing) {
-    return businessFollowing.user;
+    return this.service.getUser(businessFollowing.userId);
   }
 }

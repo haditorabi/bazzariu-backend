@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service';
-import { Prisma, BusinessFollowing } from '@prisma/client';
+import { Prisma, BusinessFollowing, Business, User } from '@prisma/client';
 import { ServiceErrorHandler } from 'src/common/decorators/ServiceErrorHandler';
 import { PaginationArgs } from 'src/graphql/pagination-args-types';
 
@@ -46,6 +46,19 @@ export class BusinessFollowingService {
   @ServiceErrorHandler('delete business following')
   async delete(id: string): Promise<BusinessFollowing> {
     return this.prisma.businessFollowing.delete({
+      where: { id },
+    });
+  }
+
+  @ServiceErrorHandler('Get Business by ID')
+  async getBusiness(id: string): Promise<Business> {
+    return this.prisma.business.findUnique({
+      where: { id },
+    });
+  }
+  @ServiceErrorHandler('Get User by ID')
+  async getUser(id: string): Promise<User> {
+    return this.prisma.user.findUnique({
       where: { id },
     });
   }

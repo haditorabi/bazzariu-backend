@@ -22,9 +22,6 @@ export class CommonBusiness {
   businessCategory?: string[];
 
   @Field(() => [ID], { nullable: true })
-  amenity?: string[];
-
-  @Field(() => [ID], { nullable: true })
   language?: string[];
 
   @Field(() => CommonRegion, { nullable: true })

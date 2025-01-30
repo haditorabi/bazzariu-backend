@@ -76,7 +76,10 @@ export class DealsRedemptionResolver {
 
     return this.service.update(id, prismaData);
   }
-
+  @Mutation(() => DealsRedemption)
+  async deleteDealsRedemption(@Args('id') id: string) {
+    return this.service.delete(id);
+  }
   // ResolveField for businessDeal
   @ResolveField(() => CommonBusinessDeal)
   async businessDeal(@Parent() dealRedemption: DealsRedemption) {

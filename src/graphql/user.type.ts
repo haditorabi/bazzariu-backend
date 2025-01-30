@@ -3,8 +3,8 @@ import { DiscountType, UserStatus } from '@prisma/client';
 
 @ObjectType()
 export class CommonUser {
-  @Field(() => ID)
-  id: string;
+  @Field(() => ID, { nullable: true })
+  id?: string;
 
   @Field()
   name: string;

@@ -71,10 +71,13 @@ export class BusinessDealResolver {
 
     return this.service.update(id, prismaData);
   }
-
+  @Mutation(() => BusinessDeal)
+  async deleteBusinessDeal(@Args('id') id: string) {
+    return this.service.delete(id);
+  }
   @ResolveField(() => CommonBusiness)
   async business(@Parent() businessDeal: BusinessDeal) {
-    return this.service.getBusinessById(businessDeal.business.id);
+    return this.service.getBusinessById(businessDeal.businessId);
   }
 
   @ResolveField(() => [CommonBusinessProduct])

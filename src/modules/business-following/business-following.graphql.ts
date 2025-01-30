@@ -10,8 +10,14 @@ export class BusinessFollowing {
   @Field(() => CommonBusiness)
   business: CommonBusiness;
 
+  @Field(() => ID)
+  businessId: string;
+
   @Field(() => CommonUser)
   user: CommonUser;
+
+  @Field(() => ID)
+  userId: string;
 }
 
 @InputType()
