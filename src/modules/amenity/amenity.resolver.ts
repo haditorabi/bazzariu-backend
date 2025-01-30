@@ -30,6 +30,7 @@ export class AmenityResolver {
     @Args('id') id: string,
     @Args('data') data: UpdateAmenityInput,
   ) {
+    console.log(id, data);
     return this.service.update(id, data);
   }
   @Mutation(() => Amenity)
