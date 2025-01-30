@@ -1,8 +1,18 @@
-import { Field, ObjectType, InputType, ID } from '@nestjs/graphql';
-import { CountryStatus } from '@prisma/client';
+import {
+  Field,
+  ObjectType,
+  InputType,
+  ID,
+  registerEnumType,
+} from '@nestjs/graphql';
+import { RegionStatus } from '@prisma/client';
 import { CommonCity } from 'src/graphql/city.type';
 import { CommonCountry } from 'src/graphql/country.type';
 
+registerEnumType(RegionStatus, {
+  name: 'RegionStatus',
+  description: 'The status of the region',
+});
 @ObjectType()
 export class Region {
   @Field(() => ID)
@@ -16,6 +26,9 @@ export class Region {
 
   @Field(() => CommonCity)
   city: CommonCity;
+
+  @Field(() => RegionStatus)
+  status: RegionStatus;
 
   @Field()
   boundry?: string;
@@ -32,8 +45,8 @@ export class CreateRegionInput {
   @Field(() => ID)
   city: string;
 
-  @Field(() => CountryStatus)
-  status: CountryStatus;
+  @Field(() => RegionStatus)
+  status: RegionStatus;
 
   @Field()
   boundry?: string;
@@ -55,4 +68,7 @@ export class UpdateRegionInput {
 
   @Field({ nullable: true })
   boundry?: string;
+
+  @Field(() => RegionStatus, { nullable: true })
+  status?: RegionStatus;
 }

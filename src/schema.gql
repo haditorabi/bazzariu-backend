@@ -175,6 +175,15 @@ type City {
   updatedAt: DateTime!
 }
 
+type CommonBookingTimeSlot {
+  businessBookingId: ID!
+  endAt: DateTime!
+  id: ID!
+  startAt: DateTime!
+  status: String!
+  timezone: String!
+}
+
 type CommonBusiness {
   amenity: [ID!]
   businessCategory: [ID!]
@@ -256,6 +265,65 @@ type CommonBusinessProductPrice {
   price: Float!
 }
 
+type CommonCity {
+  createdAt: DateTime!
+  id: ID!
+  name: String!
+  provinceId: ID!
+  status: String!
+  updatedAt: DateTime!
+}
+
+type CommonCountry {
+  code: String!
+  id: ID!
+  name: String!
+}
+
+type CommonEvent {
+  categoryId: [ID!]!
+  createdAt: DateTime!
+  description: String
+  endDate: DateTime!
+  id: ID!
+  mediaId: ID
+  name: String!
+  startDate: DateTime!
+  status: String!
+  updatedAt: DateTime!
+}
+
+type CommonEventCategory {
+  id: ID!
+  name: String!
+  status: String!
+}
+
+type CommonPayment {
+  amount: Float!
+  business: ID
+  createdAt: DateTime!
+  currencyId: ID!
+  description: String
+  id: ID!
+  paymentMethodId: ID!
+  status: String!
+  targetId: ID!
+  targetType: String!
+  transactionId: ID!
+  updatedAt: DateTime!
+  userId: ID!
+}
+
+type CommonPaymentMethod {
+  createdAt: DateTime!
+  details: String
+  id: ID!
+  status: String!
+  type: String!
+  userId: ID!
+}
+
 type CommonProductCategory {
   id: ID!
   name: String!
@@ -283,6 +351,15 @@ type CommonUser {
   id: ID!
   lastName: String!
   name: String!
+  status: String!
+}
+
+type Country {
+  code: String!
+  id: ID!
+  name: String!
+  province(limit: Float, page: Float): [CommonProvince!]
+  region: [CommonRegion!]
   status: String!
 }
 
@@ -410,9 +487,180 @@ input CreateCityInput {
   statusId: String!
 }
 
+input CreateCountryInput {
+  code: String!
+  name: String!
+  status: String!
+}
+
+input CreateCurrencyInput {
+  code: String!
+  name: String!
+  status: String!
+}
+
+input CreateDealsRedemptionInput {
+  businessDeal: ID!
+  expiresAt: DateTime!
+  redeemedAt: DateTime!
+  status: String!
+  user: ID!
+}
+
+input CreateEventCategoryInput {
+  name: String!
+  status: String!
+}
+
+input CreateEventInput {
+  categoryId: [ID!]
+  description: String
+  endDate: DateTime!
+  mediaId: [ID!]
+  name: String!
+  startDate: DateTime!
+  status: String!
+}
+
 input CreateExampleInput {
   description: String
   name: String!
+}
+
+input CreateLanguageInput {
+  code: String!
+  name: String!
+  status: String!
+}
+
+input CreateMediaInput {
+  moduleType: String!
+  type: String!
+  url: String!
+}
+
+input CreatePaymentInput {
+  amount: Float!
+  business: ID
+  currencyId: ID!
+  description: String
+  paymentMethod: ID!
+  status: String!
+  targetId: ID!
+  targetType: String!
+  transactionId: ID!
+  user: ID!
+}
+
+input CreateProductCategoryInput {
+  name: String!
+  status: String!
+}
+
+input CreateProvinceInput {
+  country: ID!
+  name: String!
+  status: String!
+}
+
+input CreateRegionInput {
+  boundry: String!
+  city: ID!
+  country: ID!
+  name: String!
+  status: RegionStatus!
+}
+
+input CreateReportInput {
+  by: ID!
+  reason: String!
+  targetId: ID!
+  targetType: String!
+}
+
+input CreateTransactionInput {
+  amount: Float!
+  business: ID!
+  currencyId: ID!
+  description: String!
+  payment: ID!
+  status: String!
+  user: ID!
+}
+
+input CreateUserActionInput {
+  accountDetails: String!
+  action: String!
+  points: Float!
+  targetId: ID!
+  targetType: String!
+  user: ID!
+}
+
+input CreateUserActionLogInput {
+  action: String!
+  actionDetails: String
+  device: String
+  ipAddress: String!
+  os: String
+  targetId: ID!
+  targetType: String!
+  user: ID!
+}
+
+input CreateUserBlockedInput {
+  blocked: ID!
+  user: ID!
+}
+
+input CreateUserBookingInput {
+  bookingTimeSlot: ID!
+  businessProduct: [ID!]
+  status: String!
+  user: ID!
+}
+
+input CreateUserBookmarkInput {
+  targetId: ID!
+  targetType: String!
+  user: ID!
+}
+
+input CreateUserCheckinInput {
+  business: ID!
+  user: ID!
+}
+
+input CreateUserFollowingInput {
+  followee: ID!
+  follower: ID!
+}
+
+input CreateUserPreferenceInput {
+  key: String!
+  user: ID!
+  value: String!
+}
+
+input CreateUserReviewInput {
+  content: String
+  mediaId: [ID!]
+  rating: Float!
+  status: String!
+  targetId: ID
+  targetType: String!
+  user: ID!
+}
+
+input CreateUserScoreInput {
+  score: Float!
+  user: ID!
+}
+
+input CreateUserWalletInput {
+  balance: Float!
+  currencyId: ID!
+  user: ID!
 }
 
 type Currency {
@@ -427,10 +675,57 @@ A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date
 """
 scalar DateTime
 
+type DealsRedemption {
+  businessDeal: CommonBusinessDeal!
+  createdAt: DateTime!
+  expiresAt: DateTime!
+  id: ID!
+  redeemedAt: DateTime!
+  status: String!
+  updatedAt: DateTime!
+  user: CommonUser!
+}
+
+type Event {
+  category: [CommonEventCategory!]
+  createdAt: DateTime!
+  description: String!
+  endDate: DateTime!
+  id: ID!
+  mediaId: [ID!]
+  name: String!
+  startDate: DateTime!
+  status: String!
+  updatedAt: DateTime!
+}
+
+type EventCategory {
+  createdAt: DateTime!
+  event: [CommonEvent!]
+  id: ID!
+  name: String!
+  status: String!
+}
+
 type ExampleModel {
   description: String
   id: Int!
   name: String!
+}
+
+type Language {
+  code: String!
+  id: ID!
+  name: String!
+  status: String!
+}
+
+type Media {
+  createdAt: DateTime!
+  id: ID!
+  moduleType: String!
+  type: String!
+  url: String!
 }
 
 type Mutation {
@@ -449,7 +744,31 @@ type Mutation {
   createBusinessTag(data: CreateBusinessTagInput!): BusinessTag!
   createBusinessUpdate(data: CreateBusinessUpdateInput!): BusinessUpdate!
   createCity(data: CreateCityInput!): City!
+  createCountry(data: CreateCountryInput!): Country!
+  createCurrency(data: CreateCurrencyInput!): Currency!
+  createDealsRedemption(data: CreateDealsRedemptionInput!): DealsRedemption!
+  createEvent(data: CreateEventInput!): Event!
+  createEventCategory(data: CreateEventCategoryInput!): EventCategory!
   createExample(data: CreateExampleInput!): ExampleModel!
+  createLanguage(data: CreateLanguageInput!): Language!
+  createMedia(data: CreateMediaInput!): Media!
+  createPayment(data: CreatePaymentInput!): Payment!
+  createProductCategory(data: CreateProductCategoryInput!): ProductCategory!
+  createProvince(data: CreateProvinceInput!): Province!
+  createRegion(data: CreateRegionInput!): Region!
+  createReport(data: CreateReportInput!): Report!
+  createTransaction(data: CreateTransactionInput!): Transaction!
+  createUserAction(data: CreateUserActionInput!): UserAction!
+  createUserActionLog(data: CreateUserActionLogInput!): UserActionLog!
+  createUserBlocked(data: CreateUserBlockedInput!): UserBlocked!
+  createUserBooking(data: CreateUserBookingInput!): UserBooking!
+  createUserBookmark(data: CreateUserBookmarkInput!): UserBookmark!
+  createUserCheckin(data: CreateUserCheckinInput!): UserCheckin!
+  createUserFollowing(data: CreateUserFollowingInput!): UserFollowing!
+  createUserPreference(data: CreateUserPreferenceInput!): UserPreference!
+  createUserReview(data: CreateUserReviewInput!): UserReview!
+  createUserScore(data: CreateUserScoreInput!): UserScore!
+  createUserWallet(data: CreateUserWalletInput!): UserWallet!
   deleteAmenity(id: String!): Amenity!
   deleteBookingTimeSlot(id: String!): Boolean!
   deleteBusiness(id: String!): Boolean!
@@ -470,13 +789,69 @@ type Mutation {
   updateBusinessTag(data: UpdateBusinessTagInput!): BusinessTag!
   updateBusinessUpdate(data: UpdateBusinessUpdateInput!): BusinessUpdate!
   updateCity(data: UpdateCityInput!): City!
+  updateCountry(data: UpdateCountryInput!): Country!
+  updateCurrency(data: UpdateCurrencyInput!): Currency!
+  updateDealsRedemption(data: UpdateDealsRedemptionInput!): DealsRedemption!
+  updateEvent(data: UpdateEventInput!): Event!
+  updateEventCategory(data: UpdateEventCategoryInput!): EventCategory!
+  updateLanguage(data: UpdateLanguageInput!): Language!
+  updateMedia(data: UpdateMediaInput!): Media!
+  updatePayment(data: UpdatePaymentInput!): Payment!
+  updateProductCategory(data: UpdateProductCategoryInput!): ProductCategory!
+  updateProvince(data: UpdateProvinceInput!): Province!
+  updateRegion(data: UpdateRegionInput!): Region!
+  updateReport(data: UpdateReportInput!): Report!
+  updateTransaction(data: UpdateTransactionInput!): Transaction!
+  updateUserAction(data: UpdateUserActionInput!): UserAction!
+  updateUserActionLog(data: UpdateUserActionLogInput!): UserActionLog!
+  updateUserBlocked(data: UpdateUserBlockedInput!): UserBlocked!
+  updateUserBooking(data: UpdateUserBookingInput!): UserBooking!
+  updateUserBookmark(data: UpdateUserBookmarkInput!): UserBookmark!
+  updateUserCheckin(data: UpdateUserCheckinInput!): UserCheckin!
+  updateUserFollowing(data: UpdateUserFollowingInput!): UserFollowing!
+  updateUserPreference(data: UpdateUserPreferenceInput!): UserPreference!
+  updateUserReview(data: UpdateUserReviewInput!): UserReview!
+  updateUserScore(data: UpdateUserScoreInput!): UserScore!
+  updateUserWallet(data: UpdateUserWalletInput!): UserWallet!
+}
+
+type Payment {
+  amount: Float!
+  business: CommonBusiness!
+  createdAt: DateTime!
+  currencyId: ID!
+  description: String
+  id: ID!
+  paymentMethod: CommonPaymentMethod!
+  status: String!
+  targetId: ID!
+  targetType: String!
+  transactionId: ID!
+  updatedAt: DateTime!
+  user: CommonUser!
+}
+
+type ProductCategory {
+  BusinessProduct: [CommonBusinessProduct!]!
+  createdAt: DateTime!
+  id: ID!
+  name: String!
+  status: String!
+}
+
+type Province {
+  city: [CommonCity!]!
+  country: CommonCountry!
+  id: ID!
+  name: String!
+  status: String!
 }
 
 type Query {
   amenities: [Amenity!]!
   amenity(id: String!): Amenity!
-  bookingTimeSlot(id: String!): BookingTimeSlot!
-  bookingTimeSlots: [BookingTimeSlot!]!
+  bookingTimeSlot(id: String!): EventCategory!
+  bookingTimeSlots(skip: Float, take: Float): [Transaction!]!
   busienss(id: String!): Business!
   businessBooking(id: String!): BusinessBooking!
   businessBookings(skip: Float, take: Float): [BusinessBooking!]!
@@ -503,11 +878,94 @@ type Query {
   businesses(limit: Float = 10, page: Float = 1): [Business!]!
   cities: [City!]!
   city(id: String!): City!
+  countries(limit: Float, page: Float): [Country!]!
+  country(id: String!): Country!
+  currencies(limit: Float = 10, page: Float = 1): [Currency!]!
+  currency(id: String!): Currency!
+  dealRedemption(id: String!): DealsRedemption!
+  dealRedemptions(page: Float! = 1, pageSize: Float! = 10): [DealsRedemption!]!
+  event(id: String!): Event!
+  events(limit: Float! = 10, page: Float! = 1): [Event!]!
   getExamples: [ExampleModel!]!
   getProtectedData: String!
+  language(id: String!): Language!
+  languages(limit: Float, page: Float): [Language!]!
+  media(id: String!): Media!
+  mediaByIDs(ids: [String!]!): Media!
+  mediaList(limit: Float! = 10, page: Float! = 1): [Media!]!
+  payment(id: String!): Payment!
+  payments(limit: Float = 10, page: Float = 1): [Payment!]!
+  productCategories(limit: Float, page: Float): [ProductCategory!]!
+  productCategory(id: String!): ProductCategory!
   protectedQuery: String!
+  province(id: String!): Province!
+  provinces(limit: Float, page: Float): [Province!]!
   publicQuery: String!
+  region(id: String!): Region!
+  regions(limit: Float, page: Float): [Region!]!
+  report(id: String!): Report!
+  reports(limit: Float, page: Float): [Report!]!
   totalBusinesses: Int!
+  transaction(id: String!): Transaction!
+  userAction(id: String!): UserAction!
+  userActionLog(id: String!): UserActionLog!
+  userActionLogs(skip: Float, take: Float): [UserActionLog!]!
+  userActions(limit: Float, page: Float): [UserAction!]!
+  userBlocke(id: String!): UserBlocked!
+  userBlockes(limit: Float, skip: Float): [UserBlocked!]!
+  userBooking(id: String!): UserBooking!
+  userBookings(limit: Float, page: Float): [UserBooking!]!
+  userBookmark(id: String!): UserBookmark!
+  userBookmarks(limit: Float! = 10, page: Float! = 1): [UserBookmark!]!
+  userCheckein(id: String!): UserCheckin!
+  userCheckeins(limit: Float = 10, page: Float = 1): [UserCheckin!]!
+  userFollowing(id: String!): UserFollowing!
+  userFollowings(limit: Float, skip: Float): [UserFollowing!]!
+  userPreference(id: String!): UserPreference!
+  userPreferences(page: Float, pageSize: Float): [UserPreference!]!
+  userReview(id: String!): UserReview!
+  userReviews(limit: Float! = 10, page: Float! = 1): [UserReview!]!
+  userScore(id: String!): UserScore!
+  userScores(limit: Float! = 10, page: Float! = 1): [UserScore!]!
+  userWallet(id: String!): UserWallet!
+  userWallets(limit: Float = 10, skip: Float = 0): [UserWallet!]!
+}
+
+type Region {
+  boundry: String!
+  city: CommonCity!
+  country: CommonCountry!
+  id: ID!
+  name: String!
+  status: RegionStatus!
+}
+
+"""The status of the region"""
+enum RegionStatus {
+  ACTIVE
+  DISABLED
+}
+
+type Report {
+  by: CommonUser!
+  createdAt: DateTime!
+  id: ID!
+  reason: String!
+  targetId: String!
+  targetType: String!
+}
+
+type Transaction {
+  amount: Float!
+  business: CommonBusiness!
+  createdAt: DateTime!
+  currencyId: String!
+  description: String!
+  id: ID!
+  payment: CommonPayment!
+  status: String!
+  updatedAt: DateTime!
+  user: CommonUser!
 }
 
 input UpdateAmenityInput {
@@ -647,4 +1105,303 @@ input UpdateCityInput {
   name: String
   province: ID
   status: String
+}
+
+input UpdateCountryInput {
+  code: String
+  id: ID!
+  name: String
+  status: String
+}
+
+input UpdateCurrencyInput {
+  code: String
+  id: ID!
+  name: String
+  status: String
+}
+
+input UpdateDealsRedemptionInput {
+  businessDeal: ID
+  expiresAt: DateTime
+  id: ID!
+  redeemedAt: DateTime
+  status: String
+  user: ID
+}
+
+input UpdateEventCategoryInput {
+  id: ID!
+  name: String
+  status: String
+}
+
+input UpdateEventInput {
+  categoryId: [ID!]
+  description: String
+  endDate: DateTime
+  id: ID!
+  mediaId: [ID!]
+  name: String
+  startDate: DateTime
+  status: String
+}
+
+input UpdateLanguageInput {
+  code: String
+  id: ID!
+  name: String
+  status: String
+}
+
+input UpdateMediaInput {
+  id: ID!
+  moduleType: String
+  type: String
+  url: String
+}
+
+input UpdatePaymentInput {
+  amount: Float
+  business: ID
+  currencyId: String
+  description: String
+  id: ID!
+  paymentMethod: ID
+  status: String
+  targetId: ID
+  targetType: String
+  transactionId: ID
+  user: ID
+}
+
+input UpdateProductCategoryInput {
+  id: ID!
+  name: String
+  status: String
+}
+
+input UpdateProvinceInput {
+  country: ID
+  id: ID!
+  name: String
+  status: String
+}
+
+input UpdateRegionInput {
+  boundry: String
+  city: ID
+  country: ID
+  id: ID!
+  name: String
+  status: RegionStatus
+}
+
+input UpdateReportInput {
+  by: ID
+  id: ID!
+  reason: String
+  targetId: ID
+  targetType: String
+}
+
+input UpdateTransactionInput {
+  amount: Float
+  business: ID
+  currencyId: ID
+  description: String
+  id: ID!
+  payment: ID
+  status: String
+  user: ID
+}
+
+input UpdateUserActionInput {
+  accountDetails: String
+  action: String
+  id: ID!
+  points: Float
+  targetId: ID
+  targetType: String
+  user: ID
+}
+
+input UpdateUserActionLogInput {
+  action: String
+  actionDetails: String
+  device: String
+  id: ID!
+  ipAddress: String
+  os: String
+  targetId: ID
+  targetType: String
+  user: ID
+}
+
+input UpdateUserBlockedInput {
+  blocked: ID
+  id: ID!
+  user: ID
+}
+
+input UpdateUserBookingInput {
+  bookingTimeSlot: ID
+  businessProduct: [ID!]
+  id: ID!
+  status: String
+  user: ID
+}
+
+input UpdateUserBookmarkInput {
+  id: ID!
+  targetId: ID
+  targetType: String
+  user: ID
+}
+
+input UpdateUserCheckinInput {
+  business: ID
+  id: ID!
+  user: ID
+}
+
+input UpdateUserFollowingInput {
+  followee: ID
+  follower: ID
+  id: ID!
+}
+
+input UpdateUserPreferenceInput {
+  id: ID!
+  key: String
+  user: ID
+  value: String
+}
+
+input UpdateUserReviewInput {
+  content: String
+  id: ID!
+  mediaId: [ID!]
+  rating: Float
+  status: String
+  targetId: ID
+  targetType: String
+  user: ID
+}
+
+input UpdateUserScoreInput {
+  id: ID!
+  score: Float
+  user: ID
+}
+
+input UpdateUserWalletInput {
+  balance: Float
+  currencyId: ID
+  id: ID!
+  user: ID
+}
+
+type UserAction {
+  accountDetails: String!
+  action: String!
+  createdAt: DateTime!
+  id: ID!
+  points: Float!
+  targetId: ID!
+  targetType: String!
+  user: CommonUser!
+  userId: ID!
+}
+
+type UserActionLog {
+  action: String!
+  actionDetails: String
+  createdAt: DateTime!
+  device: String
+  id: ID!
+  ipAddress: String!
+  os: String
+  targetId: ID!
+  targetType: String!
+  user: CommonUser!
+  userId: ID!
+}
+
+type UserBlocked {
+  blocked: CommonUser!
+  createdAt: DateTime!
+  id: ID!
+  user: CommonUser!
+}
+
+type UserBooking {
+  bookingTimeSlot: CommonBookingTimeSlot!
+  bookingTimeSlotId: CommonBookingTimeSlot!
+  businessProductId: [String!]
+  createdAt: DateTime!
+  id: ID!
+  status: String!
+  updatedAt: DateTime!
+  user: CommonUser!
+}
+
+type UserBookmark {
+  createdAt: DateTime!
+  id: ID!
+  targetId: ID!
+  targetType: String!
+  user: CommonUser!
+}
+
+type UserCheckin {
+  business: CommonBusiness!
+  createdAt: DateTime!
+  id: ID!
+  user: CommonUser!
+}
+
+type UserFollowing {
+  createdAt: DateTime!
+  followee: CommonUser!
+  follower: CommonUser!
+  id: ID!
+}
+
+type UserPreference {
+  id: ID!
+  key: String!
+  updatedAt: DateTime!
+  user: CommonUser!
+  value: String!
+}
+
+type UserReview {
+  content: String
+  createdAt: DateTime!
+  id: ID!
+  mediaId: [ID!]
+  rating: Float!
+  status: String!
+  targetId: ID!
+  targetType: String!
+  updatedAt: DateTime!
+  user: CommonUser!
+  userId: ID!
+}
+
+type UserScore {
+  createdAt: DateTime!
+  id: ID!
+  score: String!
+  user: CommonUser!
+}
+
+type UserWallet {
+  balance: Float!
+  createdAt: DateTime!
+  currencyId: ID!
+  id: ID!
+  updatedAt: DateTime!
+  user: CommonUser!
 }
