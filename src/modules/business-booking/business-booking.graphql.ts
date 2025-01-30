@@ -16,7 +16,7 @@ export class BusinessBooking {
   businessProduct?: CommonBusinessProduct[];
 
   @Field(() => Int)
-  maxAvilible: number;
+  maxAvailable: number;
 
   @Field(() => Int)
   maxGuest: number;
@@ -46,7 +46,7 @@ export class CreateBusinessBookingInput {
   businessProduct?: string[];
 
   @Field(() => Int, { nullable: true })
-  maxAvilible?: number;
+  maxAvailable?: number;
 
   @Field(() => Int, { nullable: true })
   maxGuest?: number;
@@ -67,7 +67,7 @@ export class UpdateBusinessBookingInput {
   businessProduct?: string[];
 
   @Field(() => Int, { nullable: true })
-  maxAvilible?: number;
+  maxAvailable?: number;
 
   @Field(() => Int, { nullable: true })
   maxGuest?: number;

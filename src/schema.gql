@@ -45,7 +45,7 @@ type BusinessBooking {
   businessProduct: [CommonBusinessProduct!]
   createdAt: DateTime!
   id: ID!
-  maxAvilible: Int!
+  maxAvailable: Int!
   maxGuest: Int!
   mediaId: [ID!]
   status: String!
@@ -203,7 +203,7 @@ type CommonBusiness {
 type CommonBusinessBooking {
   createdAt: DateTime!
   id: ID!
-  maxAvilible: Int!
+  maxAvailable: Int!
   maxGuest: Int!
   mediaId: [ID!]
   status: String!
@@ -379,7 +379,7 @@ input CreateBookingTimeSlotInput {
 input CreateBusinessBookingInput {
   business: ID!
   businessProduct: [ID!]
-  maxAvilible: Int
+  maxAvailable: Int
   maxGuest: Int
   mediaId: [ID!]
   status: String!
@@ -1222,7 +1222,7 @@ input UpdateBookingTimeSlotInput {
 input UpdateBusinessBookingInput {
   business: ID
   businessProduct: [ID!]
-  maxAvilible: Int
+  maxAvailable: Int
   maxGuest: Int
   mediaId: [ID!]
   status: String

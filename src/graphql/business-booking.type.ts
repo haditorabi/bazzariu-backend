@@ -7,7 +7,7 @@ export class CommonBusinessBooking {
   id: string;
 
   @Field(() => Int)
-  maxAvilible: number;
+  maxAvailable: number;
 
   @Field(() => Int)
   maxGuest: number;

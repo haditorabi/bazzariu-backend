@@ -26,7 +26,7 @@ model BusinessBooking {
   business          Business              @relation(fields: [businessId], references: [id])
   businessProductId String[]              @db.ObjectId
   businessProduct   BusinessProduct[]     @relation(fields: [businessProductId], references: [id])
-  maxAvilible       Int?
+  maxAvailable       Int?
   maxGuest          Int?
   mediaId           String[]              @db.ObjectId
   status            BusinessBookingStatus
