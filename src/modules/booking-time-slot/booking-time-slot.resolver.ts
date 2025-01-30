@@ -24,7 +24,7 @@ export class BookingTimeSlotResolver {
     return this.service.findAll();
   }
 
-  @Query(() => BookingTimeSlot)
+  @Query(() => BookingTimeSlot, { nullable: true })
   async bookingTimeSlot(@Args('id') id: string) {
     return this.service.findOne(id);
   }

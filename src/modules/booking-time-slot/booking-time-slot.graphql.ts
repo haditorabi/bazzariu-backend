@@ -7,8 +7,8 @@ export class BookingTimeSlot {
   @Field(() => ID)
   id: string;
 
-  @Field(() => CommonBusinessBooking)
-  businessBooking: CommonBusinessBooking;
+  @Field(() => CommonBusinessBooking, { nullable: true })
+  businessBooking?: CommonBusinessBooking;
 
   @Field()
   startAt: Date;
@@ -25,8 +25,8 @@ export class BookingTimeSlot {
 
 @InputType()
 export class CreateBookingTimeSlotInput {
-  @Field(() => ID)
-  businessBooking: string;
+  @Field(() => ID, { nullable: true })
+  businessBooking?: string;
 
   @Field()
   startAt: Date;

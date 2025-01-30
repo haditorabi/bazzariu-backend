@@ -20,7 +20,7 @@ export class EventCategoryResolver {
   constructor(private service: EventCategoryService) {}
 
   @Query(() => [EventCategory])
-  async bookingTimeSlots(
+  async eventCategories(
     @Args('page', { type: () => Number, nullable: true }) page: number = 1,
     @Args('limit', { type: () => Number, nullable: true })
     limit: number = 10,
@@ -35,7 +35,7 @@ export class EventCategoryResolver {
   }
 
   @Query(() => EventCategory)
-  async bookingTimeSlot(@Args('id') id: string) {
+  async eventCategory(@Args('id') id: string) {
     return this.service.findOne(id);
   }
 

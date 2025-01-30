@@ -10,7 +10,7 @@ type Amenity {
 }
 
 type BookingTimeSlot {
-  businessBooking: CommonBusinessBooking!
+  businessBooking: CommonBusinessBooking
   endAt: DateTime!
   id: ID!
   startAt: DateTime!
@@ -369,7 +369,7 @@ input CreateAmenityInput {
 }
 
 input CreateBookingTimeSlotInput {
-  businessBooking: ID!
+  businessBooking: ID
   endAt: DateTime!
   startAt: DateTime!
   status: String!
@@ -850,8 +850,8 @@ type Province {
 type Query {
   amenities: [Amenity!]!
   amenity(id: String!): Amenity!
-  bookingTimeSlot(id: String!): EventCategory!
-  bookingTimeSlots(skip: Float, take: Float): [Transaction!]!
+  bookingTimeSlot(id: String!): BookingTimeSlot
+  bookingTimeSlots: [BookingTimeSlot!]!
   busienss(id: String!): Business!
   businessBooking(id: String!): BusinessBooking!
   businessBookings(skip: Float, take: Float): [BusinessBooking!]!
@@ -885,6 +885,8 @@ type Query {
   dealRedemption(id: String!): DealsRedemption!
   dealRedemptions(page: Float! = 1, pageSize: Float! = 10): [DealsRedemption!]!
   event(id: String!): Event!
+  eventCategories(limit: Float, page: Float): [EventCategory!]!
+  eventCategory(id: String!): EventCategory!
   events(limit: Float! = 10, page: Float! = 1): [Event!]!
   getExamples: [ExampleModel!]!
   getProtectedData: String!
@@ -907,6 +909,7 @@ type Query {
   reports(limit: Float, page: Float): [Report!]!
   totalBusinesses: Int!
   transaction(id: String!): Transaction!
+  transactions(skip: Float, take: Float): [Transaction!]!
   userAction(id: String!): UserAction!
   userActionLog(id: String!): UserActionLog!
   userActionLogs(skip: Float, take: Float): [UserActionLog!]!

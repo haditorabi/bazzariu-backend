@@ -22,7 +22,7 @@ export class TransactionResolver {
   constructor(private service: TransactionService) {}
 
   @Query(() => [Transaction])
-  async bookingTimeSlots(
+  async transactions(
     @Args('skip', { type: () => Number, nullable: true }) skip?: number,
     @Args('take', { type: () => Number, nullable: true }) take?: number,
   ) {
