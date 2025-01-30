@@ -3,7 +3,7 @@ import { BusinessProductStatus } from '@prisma/client';
 import { CommonBusiness } from 'src/graphql/business.type';
 import { CommonProductCategory } from 'src/graphql/product-category.type';
 import { CommonBusinessDeal } from 'src/graphql/business-deal.type';
-import { BusinessProductPrice } from './business-product-price.type';
+import { CommonBusinessProductPrice } from 'src/graphql/business-product-price.type';
 
 @ObjectType()
 export class BusinessProduct {
@@ -40,8 +40,8 @@ export class BusinessProduct {
   @Field(() => CommonBusinessDeal, { nullable: true })
   businessDeal: CommonBusinessDeal;
 
-  @Field(() => BusinessProductPrice, { nullable: true })
-  businessProductPrice: BusinessProductPrice;
+  @Field(() => CommonBusinessProductPrice, { nullable: true })
+  businessProductPrice: CommonBusinessProductPrice;
 }
 
 @InputType()

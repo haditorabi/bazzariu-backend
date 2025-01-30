@@ -125,7 +125,7 @@ type BusinessLocation {
 type BusinessProduct {
   business: CommonBusiness!
   businessDeal: CommonBusinessDeal
-  businessProductPrice: BusinessProductPrice
+  businessProductPrice: CommonBusinessProductPrice
   createdAt: DateTime!
   description: String
   id: ID!
@@ -138,9 +138,41 @@ type BusinessProduct {
 }
 
 type BusinessProductPrice {
-  currencyId: ID!
+  businessProduct: CommonBusinessProduct!
+  createdAt: DateTime!
+  currency: Currency!
   id: ID!
   price: Float!
+  updatedAt: DateTime!
+}
+
+type BusinessTag {
+  createdAt: DateTime!
+  id: ID!
+  name: String!
+  status: String!
+}
+
+type BusinessUpdate {
+  business: CommonBusiness!
+  context: String!
+  createdAt: DateTime!
+  endAt: DateTime!
+  id: ID!
+  startAt: DateTime!
+  status: String!
+  type: String!
+  updatedAt: DateTime!
+}
+
+type City {
+  createdAt: DateTime!
+  id: ID!
+  name: String!
+  province: CommonProvince!
+  region: CommonRegion!
+  status: String!
+  updatedAt: DateTime!
 }
 
 type CommonBusiness {
@@ -218,10 +250,22 @@ type CommonBusinessProduct {
   status: String!
 }
 
+type CommonBusinessProductPrice {
+  currencyId: ID!
+  id: ID!
+  price: Float!
+}
+
 type CommonProductCategory {
   id: ID!
   name: String!
   status: String!
+}
+
+type CommonProvince {
+  countryId: ID!
+  id: ID!
+  name: String!
 }
 
 type CommonRegion {
@@ -340,9 +384,42 @@ input CreateBusinessProductInput {
   status: String!
 }
 
+input CreateBusinessProductPriceInput {
+  businessProduct: ID
+  currency: ID!
+  price: Float!
+}
+
+input CreateBusinessTagInput {
+  name: String!
+  status: String!
+}
+
+input CreateBusinessUpdateInput {
+  business: ID!
+  context: String!
+  endAt: DateTime!
+  startAt: DateTime!
+  status: String!
+  type: String!
+}
+
+input CreateCityInput {
+  name: String!
+  province: ID!
+  statusId: String!
+}
+
 input CreateExampleInput {
   description: String
   name: String!
+}
+
+type Currency {
+  code: String!
+  id: ID!
+  name: String!
+  status: String!
 }
 
 """
@@ -368,6 +445,10 @@ type Mutation {
   createBusinessHour(data: CreateBusinessHourInput!): BusinessHour!
   createBusinessLocation(data: CreateBusinessLocationInput!): BusinessLocation!
   createBusinessProduct(data: CreateBusinessProductInput!): BusinessProduct!
+  createBusinessProductPrice(data: CreateBusinessProductPriceInput!): BusinessProductPrice!
+  createBusinessTag(data: CreateBusinessTagInput!): BusinessTag!
+  createBusinessUpdate(data: CreateBusinessUpdateInput!): BusinessUpdate!
+  createCity(data: CreateCityInput!): City!
   createExample(data: CreateExampleInput!): ExampleModel!
   deleteAmenity(id: String!): Amenity!
   deleteBookingTimeSlot(id: String!): Boolean!
@@ -385,6 +466,10 @@ type Mutation {
   updateBusinessHour(data: UpdateBusinessHourInput!): BusinessHour!
   updateBusinessLocation(data: UpdateBusinessLocationInput!): BusinessLocation!
   updateBusinessProduct(data: UpdateBusinessProductInput!): BusinessProduct!
+  updateBusinessProductPrice(data: UpdateBusinessProductPriceInput!): BusinessProductPrice!
+  updateBusinessTag(data: UpdateBusinessTagInput!): BusinessTag!
+  updateBusinessUpdate(data: UpdateBusinessUpdateInput!): BusinessUpdate!
+  updateCity(data: UpdateCityInput!): City!
 }
 
 type Query {
@@ -408,8 +493,16 @@ type Query {
   businessLocation(id: String!): BusinessLocation!
   businessLocations(skip: Float, take: Float): [BusinessLocation!]!
   businessProduct(id: String!): BusinessProduct!
+  businessProductPrice(id: String!): BusinessProductPrice!
+  businessProductPrices(page: Float! = 1, pageSize: Float! = 10): [BusinessProductPrice!]!
   businessProducts(page: Float = 1, pageSize: Float = 10): [BusinessProduct!]!
+  businessTag(id: String!): BusinessTag!
+  businessTags(limit: Float, page: Float): [BusinessTag!]!
+  businessUpdate(id: String!): BusinessUpdate!
+  businessUpdates(skip: Float, take: Float): [BusinessUpdate!]!
   businesses(limit: Float = 10, page: Float = 1): [Business!]!
+  cities: [City!]!
+  city(id: String!): City!
   getExamples: [ExampleModel!]!
   getProtectedData: String!
   protectedQuery: String!
@@ -522,5 +615,36 @@ input UpdateBusinessProductInput {
   mediaId: [ID!]
   name: String
   productCategroy: [ID!]
+  status: String
+}
+
+input UpdateBusinessProductPriceInput {
+  businessProduct: ID
+  currency: ID
+  id: ID!
+  name: String
+  price: Float
+}
+
+input UpdateBusinessTagInput {
+  id: ID!
+  name: String
+  status: String
+}
+
+input UpdateBusinessUpdateInput {
+  business: ID
+  context: String
+  endAt: DateTime
+  id: ID!
+  startAt: DateTime
+  status: String
+  type: String
+}
+
+input UpdateCityInput {
+  id: ID!
+  name: String
+  province: ID
   status: String
 }

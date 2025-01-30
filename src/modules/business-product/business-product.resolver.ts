@@ -15,7 +15,7 @@ import {
 import { Prisma } from '@prisma/client';
 import { CommonProductCategory } from 'src/graphql/product-category.type';
 import { CommonBusinessDeal } from 'src/graphql/business-deal.type';
-import { BusinessProductPrice } from './business-product-price.type';
+import { CommonBusinessProductPrice } from 'src/graphql/business-product-price.type';
 
 @Resolver(() => BusinessProduct)
 export class BusinessProductResolver {
@@ -88,7 +88,7 @@ export class BusinessProductResolver {
     return this.service.getBusinessDeal([businessProduct.businessDeal.id]);
   }
 
-  @ResolveField(() => BusinessProductPrice, { nullable: true })
+  @ResolveField(() => CommonBusinessProductPrice, { nullable: true })
   async businessProductPrice(@Parent() businessProduct: BusinessProduct) {
     return this.service.getBusinessProductPrice(businessProduct.id);
   }

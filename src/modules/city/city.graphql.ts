@@ -1,7 +1,7 @@
 import { Field, ObjectType, InputType, ID } from '@nestjs/graphql';
 import { CityStatus } from '@prisma/client';
 import { CommonProvince } from 'src/graphql/province.type';
-import { CommonRegion } from 'src/graphql/Region.type';
+import { CommonRegion } from 'src/graphql/region.type';
 
 @ObjectType()
 export class City {
