@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service';
 import { Prisma, Amenity } from '@prisma/client';
 import { ServiceErrorHandler } from 'src/common/decorators/ServiceErrorHandler';
@@ -23,7 +23,7 @@ export class AmenityService {
       where: { id },
     });
     if (!amenity) {
-      throw new Error('Amenity not found');
+      throw new NotFoundException('Amenity not found');
     }
     return amenity;
   }
