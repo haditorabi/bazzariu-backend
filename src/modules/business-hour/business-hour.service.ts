@@ -3,6 +3,7 @@ import { PrismaService } from '../prisma/prisma.service';
 import { Prisma, BusinessHour } from '@prisma/client';
 import { ServiceErrorHandler } from 'src/common/decorators/ServiceErrorHandler';
 import { PaginationArgs } from 'src/graphql/pagination-args-types';
+import { CommonBusiness } from 'src/graphql/business.type';
 
 @Injectable()
 export class BusinessHourService {
@@ -47,6 +48,13 @@ export class BusinessHourService {
   async delete(id: string): Promise<BusinessHour> {
     return this.prisma.businessHour.delete({
       where: { id },
+    });
+  }
+
+  @ServiceErrorHandler('Get Business')
+  async getBusiness(businessId: string): Promise<CommonBusiness | null> {
+    return this.prisma.business.findUnique({
+      where: { id: businessId },
     });
   }
 }

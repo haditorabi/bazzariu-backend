@@ -1,4 +1,11 @@
-import { Resolver, Query, Mutation, Args } from '@nestjs/graphql';
+import {
+  Resolver,
+  Query,
+  Mutation,
+  Args,
+  Parent,
+  ResolveField,
+} from '@nestjs/graphql';
 import { BusinessHourService } from './business-hour.service';
 import {
   BusinessHour,
@@ -7,6 +14,7 @@ import {
 } from './business-hour.graphql';
 import { Prisma } from '@prisma/client';
 import { PaginationArgs } from 'src/graphql/pagination-args-types';
+import { CommonBusiness } from 'src/graphql/business.type';
 
 @Resolver(() => BusinessHour)
 export class BusinessHourResolver {
@@ -53,5 +61,9 @@ export class BusinessHourResolver {
     };
 
     return this.service.update(id, prismaData);
+  }
+  @ResolveField(() => CommonBusiness)
+  async business(@Parent() businessHour: BusinessHour) {
+    return this.service.getBusiness(businessHour.businessId);
   }
 }

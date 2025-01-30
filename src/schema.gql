@@ -102,6 +102,7 @@ type BusinessFollowing {
 
 type BusinessHour {
   business: CommonBusiness!
+  businessId: ID!
   closeTime: String!
   createdAt: DateTime!
   dayOfWeek: String!

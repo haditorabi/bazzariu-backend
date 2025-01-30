@@ -10,6 +10,9 @@ export class BusinessHour {
   @Field(() => CommonBusiness)
   business: CommonBusiness;
 
+  @Field(() => ID)
+  businessId: string;
+
   @Field()
   dayOfWeek: string;
 
