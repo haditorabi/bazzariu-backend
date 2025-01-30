@@ -66,6 +66,6 @@ export class BusinessBoostResolver {
 
   @ResolveField(() => CommonBusiness)
   async business(@Parent() boost: BusinessBoost) {
-    return this.service.getBusiness(boost.business.id);
+    return this.service.getBusiness(boost.businessId);
   }
 }

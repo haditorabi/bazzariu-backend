@@ -11,6 +11,9 @@ export class BusinessBoost {
   @Field(() => CommonBusiness)
   business: CommonBusiness;
 
+  @Field(() => ID)
+  businessId: string;
+
   @Field()
   type: BusinessBoostType;
 

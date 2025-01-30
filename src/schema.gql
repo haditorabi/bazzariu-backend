@@ -54,6 +54,7 @@ type BusinessBooking {
 
 type BusinessBoost {
   business: CommonBusiness!
+  businessId: ID!
   createdAt: DateTime!
   endAt: DateTime!
   id: ID!
