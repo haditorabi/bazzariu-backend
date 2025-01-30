@@ -14,17 +14,15 @@ import {
 } from './user-following.graphql';
 import { Prisma } from '@prisma/client';
 import { CommonUser } from 'src/graphql/user.type';
+import { PaginationArgs } from 'src/graphql/pagination-args-types';
 
 @Resolver(() => UserFollowing)
 export class UserFollowingResolver {
   constructor(private service: UserFollowingService) {}
 
   @Query(() => [UserFollowing])
-  async userFollowings(
-    @Args('skip', { type: () => Number, nullable: true }) skip: number = 0,
-    @Args('limit', { type: () => Number, nullable: true }) limit: number = 10,
-  ) {
-    return this.service.findAll({ skip, limit });
+  async userFollowings(@Args() paginationArgs: PaginationArgs) {
+    return this.service.findAll(paginationArgs);
   }
 
   @Query(() => UserFollowing)

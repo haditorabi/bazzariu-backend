@@ -14,17 +14,15 @@ import {
 } from './user-blocked.graphql';
 import { Prisma } from '@prisma/client';
 import { ServiceErrorHandler } from 'src/common/decorators/ServiceErrorHandler';
+import { PaginationArgs } from 'src/graphql/pagination-args-types';
 
 @Resolver(() => UserBlocked)
 export class UserBlockedResolver {
   constructor(private service: UserBlockedService) {}
 
   @Query(() => [UserBlocked])
-  async userBlockes(
-    @Args('skip', { type: () => Number, nullable: true }) skip?: number,
-    @Args('limit', { type: () => Number, nullable: true }) limit?: number,
-  ) {
-    return this.service.findAll(skip, limit);
+  async userBlockes(@Args() paginationArgs: PaginationArgs) {
+    return this.service.findAll(paginationArgs);
   }
 
   @Query(() => UserBlocked)

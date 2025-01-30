@@ -2,6 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service';
 import { Prisma, BusinessHour } from '@prisma/client';
 import { ServiceErrorHandler } from 'src/common/decorators/ServiceErrorHandler';
+import { PaginationArgs } from 'src/graphql/pagination-args-types';
 
 @Injectable()
 export class BusinessHourService {
@@ -15,10 +16,12 @@ export class BusinessHourService {
   }
 
   @ServiceErrorHandler('findAll BusinessHours')
-  async findAll(page: number, limit: number): Promise<BusinessHour[]> {
+  async findAll(paginationArgs: PaginationArgs): Promise<BusinessHour[]> {
+    const { take, skip } = paginationArgs;
+
     return this.prisma.businessHour.findMany({
-      skip: (page - 1) * limit,
-      take: limit,
+      skip,
+      take,
     });
   }
 

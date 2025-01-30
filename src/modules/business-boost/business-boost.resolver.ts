@@ -12,20 +12,17 @@ import {
   CreateBusinessBoostInput,
   UpdateBusinessBoostInput,
 } from './business-boost.graphql';
-import { BusinessBoostType, Prisma } from '@prisma/client';
+import { Prisma } from '@prisma/client';
 import { CommonBusiness } from 'src/graphql/business.type';
+import { PaginationArgs } from 'src/graphql/pagination-args-types';
 
 @Resolver(() => BusinessBoost)
 export class BusinessBoostResolver {
   constructor(private service: BusinessBoostService) {}
 
   @Query(() => [BusinessBoost])
-  async businessBoosts(
-    @Args('skip', { nullable: true }) skip?: number,
-    @Args('take', { nullable: true }) take?: number,
-    @Args('type', { nullable: true }) type?: BusinessBoostType,
-  ) {
-    return this.service.findAll({ skip, take, type });
+  async businessBoosts(@Args() paginationArgs: PaginationArgs) {
+    return this.service.findAll(paginationArgs);
   }
 
   @Query(() => BusinessBoost)

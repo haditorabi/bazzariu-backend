@@ -5,17 +5,15 @@ import {
   CreateBusinessCategoryInput,
   UpdateBusinessCategoryInput,
 } from './business-category.graphql';
+import { PaginationArgs } from 'src/graphql/pagination-args-types';
 
 @Resolver(() => BusinessCategory)
 export class BusinessCategoryResolver {
   constructor(private service: BusinessCategoryService) {}
 
   @Query(() => [BusinessCategory])
-  async businessCategories(
-    @Args('skip', { type: () => Number, defaultValue: 0 }) skip: number,
-    @Args('take', { type: () => Number, defaultValue: 10 }) take: number,
-  ) {
-    return this.service.findAll(skip, take);
+  async businessCategories(@Args() paginationArgs: PaginationArgs) {
+    return this.service.findAll(paginationArgs);
   }
 
   @Query(() => BusinessCategory)

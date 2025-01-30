@@ -2,6 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service';
 import { Business, Prisma, User, UserCheckin } from '@prisma/client';
 import { ServiceErrorHandler } from 'src/common/decorators/ServiceErrorHandler';
+import { PaginationArgs } from 'src/graphql/pagination-args-types';
 
 @Injectable()
 export class UserCheckinService {
@@ -15,11 +16,11 @@ export class UserCheckinService {
   }
 
   @ServiceErrorHandler('Find All UserCheckins')
-  async findAll(page: number = 1, limit: number = 10): Promise<UserCheckin[]> {
-    const skip = (page - 1) * limit;
+  async findAll(paginationArgs: PaginationArgs): Promise<UserCheckin[]> {
+    const { take, skip } = paginationArgs;
     return this.prisma.userCheckin.findMany({
       skip,
-      take: limit,
+      take,
     });
   }
 

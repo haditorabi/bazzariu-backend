@@ -14,18 +14,14 @@ import {
 } from './user-verification.graphql';
 import { Prisma } from '@prisma/client';
 import { CommonUser } from 'src/graphql/user.type';
+import { PaginationArgs } from 'src/graphql/pagination-args-types';
 @Resolver(() => UserVerification)
 export class UserVerificationResolver {
   constructor(private service: UserVerificationService) {}
 
   @Query(() => [UserVerification])
-  async userVerifications(
-    @Args('skip', { type: () => Number, nullable: true, defaultValue: 0 })
-    skip: number,
-    @Args('limit', { type: () => Number, nullable: true, defaultValue: 10 })
-    limit: number,
-  ) {
-    return this.service.findAll({ skip, limit });
+  async userVerifications(@Args() paginationArgs: PaginationArgs) {
+    return this.service.findAll(paginationArgs);
   }
 
   @Query(() => UserVerification)

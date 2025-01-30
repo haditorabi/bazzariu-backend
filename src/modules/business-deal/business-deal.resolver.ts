@@ -15,17 +15,15 @@ import {
 import { Prisma } from '@prisma/client';
 import { CommonBusinessProduct } from 'src/graphql/business-product.type';
 import { CommonBusiness } from 'src/graphql/business.type';
+import { PaginationArgs } from 'src/graphql/pagination-args-types';
 
 @Resolver(() => BusinessDeal)
 export class BusinessDealResolver {
   constructor(private service: BusinessDealService) {}
 
   @Query(() => [BusinessDeal])
-  async businessDeals(
-    @Args('page', { type: () => Number, nullable: true }) page: number = 1,
-    @Args('limit', { type: () => Number, nullable: true }) limit: number = 10,
-  ) {
-    return this.service.findAll({ page, limit });
+  async businessDeals(@Args() paginationArgs: PaginationArgs) {
+    return this.service.findAll(paginationArgs);
   }
 
   @Query(() => BusinessDeal)

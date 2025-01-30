@@ -16,19 +16,14 @@ import { Prisma } from '@prisma/client';
 import { CommonPaymentMethod } from 'src/graphql/payment-method.type';
 import { CommonBusiness } from 'src/graphql/business.type';
 import { CommonUser } from 'src/graphql/user.type';
+import { PaginationArgs } from 'src/graphql/pagination-args-types';
 @Resolver(() => Payment)
 export class PaymentResolver {
   constructor(private service: PaymentService) {}
 
   @Query(() => [Payment])
-  async payments(
-    @Args('page', { type: () => Number, nullable: true, defaultValue: 1 })
-    page: number,
-    @Args('limit', { type: () => Number, nullable: true, defaultValue: 10 })
-    limit: number,
-  ) {
-    const skip = (page - 1) * limit; // Calculate skip based on page and limit
-    return this.service.findAll(skip, limit); // Pass pagination params
+  async payments(@Args() paginationArgs: PaginationArgs) {
+    return this.service.findAll(paginationArgs); // Pass pagination params
   }
 
   @Query(() => Payment)

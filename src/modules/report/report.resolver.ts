@@ -10,6 +10,7 @@ import { ReportService } from './report.service';
 import { Report, CreateReportInput, UpdateReportInput } from './report.graphql';
 import { Prisma } from '@prisma/client';
 import { CommonUser } from 'src/graphql/user.type';
+import { PaginationArgs } from 'src/graphql/pagination-args-types';
 
 @Resolver(() => Report)
 export class ReportResolver {
@@ -17,11 +18,8 @@ export class ReportResolver {
 
   // Pagination added to reports query
   @Query(() => [Report])
-  async reports(
-    @Args('page', { type: () => Number, nullable: true }) page = 1,
-    @Args('limit', { type: () => Number, nullable: true }) limit = 10,
-  ) {
-    return this.service.findAll({ page, limit });
+  async reports(@Args() paginationArgs: PaginationArgs) {
+    return this.service.findAll(paginationArgs);
   }
 
   @Query(() => Report)

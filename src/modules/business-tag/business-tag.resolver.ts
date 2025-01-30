@@ -6,17 +6,15 @@ import {
   UpdateBusinessTagInput,
 } from './business-tag.graphql';
 import { Prisma } from '@prisma/client';
+import { PaginationArgs } from 'src/graphql/pagination-args-types';
 
 @Resolver(() => BusinessTag)
 export class BusinessTagResolver {
   constructor(private service: BusinessTagService) {}
 
   @Query(() => [BusinessTag])
-  async businessTags(
-    @Args('page', { type: () => Number, nullable: true }) page: number = 1,
-    @Args('limit', { type: () => Number, nullable: true }) limit: number = 10,
-  ) {
-    return this.service.findAll({ page, limit });
+  async businessTags(@Args() paginationArgs: PaginationArgs) {
+    return this.service.findAll(paginationArgs);
   }
 
   @Query(() => BusinessTag)

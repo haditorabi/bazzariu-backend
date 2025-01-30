@@ -15,17 +15,15 @@ import {
 import { Prisma } from '@prisma/client';
 import { CommonCountry } from 'src/graphql/country.type';
 import { CommonCity } from 'src/graphql/city.type';
+import { PaginationArgs } from 'src/graphql/pagination-args-types';
 
 @Resolver(() => Province)
 export class ProvinceResolver {
   constructor(private service: ProvinceService) {}
 
   @Query(() => [Province])
-  async provinces(
-    @Args('page', { type: () => Number, nullable: true }) page?: number,
-    @Args('limit', { type: () => Number, nullable: true }) limit?: number,
-  ) {
-    return this.service.findAll({ page, limit });
+  async provinces(@Args() paginationArgs: PaginationArgs) {
+    return this.service.findAll(paginationArgs);
   }
 
   @Query(() => Province)

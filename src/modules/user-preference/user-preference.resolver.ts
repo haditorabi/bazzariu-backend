@@ -6,18 +6,15 @@ import {
   UpdateUserPreferenceInput,
 } from './user-preference.graphql';
 import { Prisma } from '@prisma/client';
+import { PaginationArgs } from 'src/graphql/pagination-args-types';
 
 @Resolver(() => UserPreference)
 export class UserPreferenceResolver {
   constructor(private service: UserPreferenceService) {}
 
   @Query(() => [UserPreference])
-  async userPreferences(
-    @Args('page', { type: () => Number, nullable: true }) page: number = 1, // Pagination: page argument
-    @Args('pageSize', { type: () => Number, nullable: true })
-    pageSize: number = 10, // Pagination: pageSize argument
-  ) {
-    return this.service.findAll({ page, pageSize });
+  async userPreferences(@Args() paginationArgs: PaginationArgs) {
+    return this.service.findAll(paginationArgs);
   }
 
   @Query(() => UserPreference)

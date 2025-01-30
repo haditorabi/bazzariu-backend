@@ -2,6 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service';
 import { Prisma, UserPreference } from '@prisma/client';
 import { ServiceErrorHandler } from 'src/common/decorators/ServiceErrorHandler';
+import { PaginationArgs } from 'src/graphql/pagination-args-types';
 
 @Injectable()
 export class UserPreferenceService {
@@ -17,16 +18,12 @@ export class UserPreferenceService {
   }
 
   @ServiceErrorHandler('Find All User Preferences')
-  async findAll({
-    page,
-    pageSize,
-  }: {
-    page: number;
-    pageSize: number;
-  }): Promise<UserPreference[]> {
+  async findAll(paginationArgs: PaginationArgs): Promise<UserPreference[]> {
+    const { take, skip } = paginationArgs;
+
     return this.prisma.userPreference.findMany({
-      skip: (page - 1) * pageSize,
-      take: pageSize,
+      skip,
+      take,
     });
   }
 

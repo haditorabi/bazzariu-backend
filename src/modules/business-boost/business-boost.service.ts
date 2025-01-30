@@ -1,8 +1,9 @@
 import { Injectable } from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service';
-import { Prisma, BusinessBoost, BusinessBoostType } from '@prisma/client';
+import { Prisma, BusinessBoost } from '@prisma/client';
 import { CommonBusiness } from 'src/graphql/business.type';
 import { ServiceErrorHandler } from 'src/common/decorators/ServiceErrorHandler';
+import { PaginationArgs } from 'src/graphql/pagination-args-types';
 
 @Injectable()
 export class BusinessBoostService {
@@ -16,24 +17,11 @@ export class BusinessBoostService {
   }
 
   @ServiceErrorHandler('Find All Business Boosts')
-  async findAll(args?: {
-    skip?: number;
-    take?: number;
-    type?: BusinessBoostType;
-  }): Promise<BusinessBoost[]> {
-    const { skip, take, type } = args || {};
+  async findAll(paginationArgs: PaginationArgs): Promise<BusinessBoost[]> {
+    const { take, skip } = paginationArgs;
     return this.prisma.businessBoost.findMany({
       skip,
       take,
-      where: {
-        ...(type && { type }),
-      },
-      orderBy: {
-        createdAt: 'desc',
-      },
-      include: {
-        business: true,
-      },
     });
   }
 

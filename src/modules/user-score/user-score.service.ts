@@ -2,6 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service';
 import { Prisma, UserScore } from '@prisma/client';
 import { ServiceErrorHandler } from 'src/common/decorators/ServiceErrorHandler';
+import { PaginationArgs } from 'src/graphql/pagination-args-types';
 
 @Injectable()
 export class UserScoreService {
@@ -15,10 +16,11 @@ export class UserScoreService {
   }
 
   @ServiceErrorHandler('findAll UserScores')
-  async findAll(page: number, pageSize: number): Promise<UserScore[]> {
+  async findAll(paginationArgs: PaginationArgs): Promise<UserScore[]> {
+    const { take, skip } = paginationArgs;
     return this.prisma.userScore.findMany({
-      skip: (page - 1) * pageSize,
-      take: pageSize,
+      skip,
+      take,
     });
   }
 

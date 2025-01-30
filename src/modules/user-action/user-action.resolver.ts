@@ -14,17 +14,15 @@ import {
 } from './user-action.graphql';
 import { UserActionService } from './user-action.service';
 import { CommonUser } from 'src/graphql/user.type';
+import { PaginationArgs } from 'src/graphql/pagination-args-types';
 
 @Resolver(() => UserAction)
 export class UserActionResolver {
   constructor(private service: UserActionService) {}
 
   @Query(() => [UserAction])
-  async userActions(
-    @Args('page', { nullable: true }) page?: number,
-    @Args('limit', { nullable: true }) limit?: number,
-  ) {
-    return this.service.findAll({ page, limit });
+  async userActions(@Args() paginationArgs: PaginationArgs) {
+    return this.service.findAll(paginationArgs);
   }
 
   @Query(() => UserAction)

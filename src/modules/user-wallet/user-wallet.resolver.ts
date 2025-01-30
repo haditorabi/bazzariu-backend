@@ -13,18 +13,14 @@ import {
   UpdateUserWalletInput,
 } from './user-wallet.graphql';
 import { Prisma } from '@prisma/client';
+import { PaginationArgs } from 'src/graphql/pagination-args-types';
 @Resolver(() => UserWallet)
 export class UserWalletResolver {
   constructor(private service: UserWalletService) {}
 
   @Query(() => [UserWallet])
-  async userWallets(
-    @Args('skip', { type: () => Number, nullable: true, defaultValue: 0 })
-    skip: number,
-    @Args('limit', { type: () => Number, nullable: true, defaultValue: 10 })
-    limit: number,
-  ) {
-    return this.service.findAll({ skip, limit });
+  async userWallets(@Args() paginationArgs: PaginationArgs) {
+    return this.service.findAll(paginationArgs);
   }
 
   @Query(() => UserWallet)

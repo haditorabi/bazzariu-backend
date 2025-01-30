@@ -14,17 +14,15 @@ import {
 } from './business-update.graphql';
 import { Prisma } from '@prisma/client';
 import { CommonBusiness } from 'src/graphql/business.type';
+import { PaginationArgs } from 'src/graphql/pagination-args-types';
 
 @Resolver(() => BusinessUpdate)
 export class BusinessUpdateResolver {
   constructor(private service: BusinessUpdateService) {}
 
   @Query(() => [BusinessUpdate])
-  async businessUpdates(
-    @Args('skip', { type: () => Number, nullable: true }) skip?: number,
-    @Args('take', { type: () => Number, nullable: true }) take?: number,
-  ) {
-    return this.service.findAll(skip, take);
+  async businessUpdates(@Args() paginationArgs: PaginationArgs) {
+    return this.service.findAll(paginationArgs);
   }
 
   @Query(() => BusinessUpdate)

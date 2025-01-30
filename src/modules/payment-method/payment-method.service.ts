@@ -2,6 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service';
 import { Prisma, PaymentMethod } from '@prisma/client';
 import { ServiceErrorHandler } from 'src/common/decorators/ServiceErrorHandler';
+import { PaginationArgs } from 'src/graphql/pagination-args-types';
 
 Injectable();
 export class PaymentMethodService {
@@ -15,13 +16,11 @@ export class PaymentMethodService {
   }
 
   @ServiceErrorHandler('find all payment methods')
-  async findAll(
-    params: { skip?: number; limit?: number } = {},
-  ): Promise<PaymentMethod[]> {
-    const { skip, limit } = params;
+  async findAll(paginationArgs: PaginationArgs): Promise<PaymentMethod[]> {
+    const { take, skip } = paginationArgs;
     return this.prisma.paymentMethod.findMany({
       skip,
-      take: limit,
+      take,
     });
   }
 

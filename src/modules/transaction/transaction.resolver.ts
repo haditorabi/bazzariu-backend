@@ -16,17 +16,15 @@ import { Prisma } from '@prisma/client';
 import { CommonPayment } from 'src/graphql/payment.type';
 import { CommonBusiness } from 'src/graphql/business.type';
 import { CommonUser } from 'src/graphql/user.type';
+import { PaginationArgs } from 'src/graphql/pagination-args-types';
 
 @Resolver(() => Transaction)
 export class TransactionResolver {
   constructor(private service: TransactionService) {}
 
   @Query(() => [Transaction])
-  async transactions(
-    @Args('skip', { type: () => Number, nullable: true }) skip?: number,
-    @Args('take', { type: () => Number, nullable: true }) take?: number,
-  ) {
-    return this.service.findAll(skip, take);
+  async transactions(@Args() paginationArgs: PaginationArgs) {
+    return this.service.findAll(paginationArgs);
   }
 
   @ResolveField(() => CommonPayment)

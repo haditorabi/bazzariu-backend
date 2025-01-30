@@ -848,90 +848,324 @@ type Province {
 }
 
 type Query {
-  amenities: [Amenity!]!
+  amenities(
+    """The number of items per page"""
+    limit: Int! = 10
+
+    """The page number to fetch"""
+    page: Int! = 1
+  ): [Amenity!]!
   amenity(id: String!): Amenity!
   bookingTimeSlot(id: String!): BookingTimeSlot
-  bookingTimeSlots: [BookingTimeSlot!]!
+  bookingTimeSlots(
+    """The number of items per page"""
+    limit: Int! = 10
+
+    """The page number to fetch"""
+    page: Int! = 1
+  ): [BookingTimeSlot!]!
   busienss(id: String!): Business!
   businessBooking(id: String!): BusinessBooking!
-  businessBookings(skip: Float, take: Float): [BusinessBooking!]!
+  businessBookings(
+    """The number of items per page"""
+    limit: Int! = 10
+
+    """The page number to fetch"""
+    page: Int! = 1
+  ): [BusinessBooking!]!
   businessBoost(id: String!): BusinessBoost!
-  businessBoosts(skip: Float, take: Float, type: String): [BusinessBoost!]!
-  businessCategories(skip: Float! = 0, take: Float! = 10): [BusinessCategory!]!
+  businessBoosts(
+    """The number of items per page"""
+    limit: Int! = 10
+
+    """The page number to fetch"""
+    page: Int! = 1
+  ): [BusinessBoost!]!
+  businessCategories(
+    """The number of items per page"""
+    limit: Int! = 10
+
+    """The page number to fetch"""
+    page: Int! = 1
+  ): [BusinessCategory!]!
   businessCategory(id: String!): BusinessCategory!
   businessDeal(id: String!): BusinessDeal!
-  businessDeals(limit: Float, page: Float): [BusinessDeal!]!
+  businessDeals(
+    """The number of items per page"""
+    limit: Int! = 10
+
+    """The page number to fetch"""
+    page: Int! = 1
+  ): [BusinessDeal!]!
   businessFollowing(id: String!): BusinessFollowing!
-  businessFollowings(page: Float! = 1, pageSize: Float! = 10): [BusinessFollowing!]!
+  businessFollowings(
+    """The number of items per page"""
+    limit: Int! = 10
+
+    """The page number to fetch"""
+    page: Int! = 1
+  ): [BusinessFollowing!]!
   businessHour(id: String!): BusinessHour!
-  businessHours(limit: Float! = 10, page: Float! = 1): [BusinessHour!]!
+  businessHours(
+    """The number of items per page"""
+    limit: Int! = 10
+
+    """The page number to fetch"""
+    page: Int! = 1
+  ): [BusinessHour!]!
   businessLocation(id: String!): BusinessLocation!
-  businessLocations(skip: Float, take: Float): [BusinessLocation!]!
+  businessLocations(
+    """The number of items per page"""
+    limit: Int! = 10
+
+    """The page number to fetch"""
+    page: Int! = 1
+  ): [BusinessLocation!]!
   businessProduct(id: String!): BusinessProduct!
   businessProductPrice(id: String!): BusinessProductPrice!
-  businessProductPrices(page: Float! = 1, pageSize: Float! = 10): [BusinessProductPrice!]!
-  businessProducts(page: Float = 1, pageSize: Float = 10): [BusinessProduct!]!
+  businessProductPrices(
+    """The number of items per page"""
+    limit: Int! = 10
+
+    """The page number to fetch"""
+    page: Int! = 1
+  ): [BusinessProductPrice!]!
+  businessProducts(
+    """The number of items per page"""
+    limit: Int! = 10
+
+    """The page number to fetch"""
+    page: Int! = 1
+  ): [BusinessProduct!]!
   businessTag(id: String!): BusinessTag!
-  businessTags(limit: Float, page: Float): [BusinessTag!]!
+  businessTags(
+    """The number of items per page"""
+    limit: Int! = 10
+
+    """The page number to fetch"""
+    page: Int! = 1
+  ): [BusinessTag!]!
   businessUpdate(id: String!): BusinessUpdate!
-  businessUpdates(skip: Float, take: Float): [BusinessUpdate!]!
-  businesses(limit: Float = 10, page: Float = 1): [Business!]!
-  cities: [City!]!
+  businessUpdates(
+    """The number of items per page"""
+    limit: Int! = 10
+
+    """The page number to fetch"""
+    page: Int! = 1
+  ): [BusinessUpdate!]!
+  businesses(
+    """The number of items per page"""
+    limit: Int! = 10
+
+    """The page number to fetch"""
+    page: Int! = 1
+  ): [Business!]!
+  cities(
+    """The number of items per page"""
+    limit: Int! = 10
+
+    """The page number to fetch"""
+    page: Int! = 1
+  ): [City!]!
   city(id: String!): City!
-  countries(limit: Float, page: Float): [Country!]!
+  countries(
+    """The number of items per page"""
+    limit: Int! = 10
+
+    """The page number to fetch"""
+    page: Int! = 1
+  ): [Country!]!
   country(id: String!): Country!
-  currencies(limit: Float = 10, page: Float = 1): [Currency!]!
+  currencies(
+    """The number of items per page"""
+    limit: Int! = 10
+
+    """The page number to fetch"""
+    page: Int! = 1
+  ): [Currency!]!
   currency(id: String!): Currency!
   dealRedemption(id: String!): DealsRedemption!
-  dealRedemptions(page: Float! = 1, pageSize: Float! = 10): [DealsRedemption!]!
+  dealRedemptions(
+    """The number of items per page"""
+    limit: Int! = 10
+
+    """The page number to fetch"""
+    page: Int! = 1
+  ): [DealsRedemption!]!
   event(id: String!): Event!
-  eventCategories(limit: Float, page: Float): [EventCategory!]!
+  eventCategories(
+    """The number of items per page"""
+    limit: Int! = 10
+
+    """The page number to fetch"""
+    page: Int! = 1
+  ): [EventCategory!]!
   eventCategory(id: String!): EventCategory!
-  events(limit: Float! = 10, page: Float! = 1): [Event!]!
+  events(
+    """The number of items per page"""
+    limit: Int! = 10
+
+    """The page number to fetch"""
+    page: Int! = 1
+  ): [Event!]!
   getExamples: [ExampleModel!]!
   getProtectedData: String!
   language(id: String!): Language!
-  languages(limit: Float, page: Float): [Language!]!
+  languages(
+    """The number of items per page"""
+    limit: Int! = 10
+
+    """The page number to fetch"""
+    page: Int! = 1
+  ): [Language!]!
   media(id: String!): Media!
   mediaByIDs(ids: [String!]!): Media!
-  mediaList(limit: Float! = 10, page: Float! = 1): [Media!]!
+  mediaList(
+    """The number of items per page"""
+    limit: Int! = 10
+
+    """The page number to fetch"""
+    page: Int! = 1
+  ): [Media!]!
   payment(id: String!): Payment!
-  payments(limit: Float = 10, page: Float = 1): [Payment!]!
-  productCategories(limit: Float, page: Float): [ProductCategory!]!
+  payments(
+    """The number of items per page"""
+    limit: Int! = 10
+
+    """The page number to fetch"""
+    page: Int! = 1
+  ): [Payment!]!
+  productCategories(
+    """The number of items per page"""
+    limit: Int! = 10
+
+    """The page number to fetch"""
+    page: Int! = 1
+  ): [ProductCategory!]!
   productCategory(id: String!): ProductCategory!
   protectedQuery: String!
   province(id: String!): Province!
-  provinces(limit: Float, page: Float): [Province!]!
+  provinces(
+    """The number of items per page"""
+    limit: Int! = 10
+
+    """The page number to fetch"""
+    page: Int! = 1
+  ): [Province!]!
   publicQuery: String!
   region(id: String!): Region!
-  regions(limit: Float, page: Float): [Region!]!
+  regions(
+    """The number of items per page"""
+    limit: Int! = 10
+
+    """The page number to fetch"""
+    page: Int! = 1
+  ): [Region!]!
   report(id: String!): Report!
-  reports(limit: Float, page: Float): [Report!]!
+  reports(
+    """The number of items per page"""
+    limit: Int! = 10
+
+    """The page number to fetch"""
+    page: Int! = 1
+  ): [Report!]!
   totalBusinesses: Int!
   transaction(id: String!): Transaction!
-  transactions(skip: Float, take: Float): [Transaction!]!
+  transactions(
+    """The number of items per page"""
+    limit: Int! = 10
+
+    """The page number to fetch"""
+    page: Int! = 1
+  ): [Transaction!]!
   userAction(id: String!): UserAction!
   userActionLog(id: String!): UserActionLog!
-  userActionLogs(skip: Float, take: Float): [UserActionLog!]!
-  userActions(limit: Float, page: Float): [UserAction!]!
+  userActionLogs(
+    """The number of items per page"""
+    limit: Int! = 10
+
+    """The page number to fetch"""
+    page: Int! = 1
+  ): [UserActionLog!]!
+  userActions(
+    """The number of items per page"""
+    limit: Int! = 10
+
+    """The page number to fetch"""
+    page: Int! = 1
+  ): [UserAction!]!
   userBlocke(id: String!): UserBlocked!
-  userBlockes(limit: Float, skip: Float): [UserBlocked!]!
+  userBlockes(
+    """The number of items per page"""
+    limit: Int! = 10
+
+    """The page number to fetch"""
+    page: Int! = 1
+  ): [UserBlocked!]!
   userBooking(id: String!): UserBooking!
-  userBookings(limit: Float, page: Float): [UserBooking!]!
+  userBookings(
+    """The number of items per page"""
+    limit: Int! = 10
+
+    """The page number to fetch"""
+    page: Int! = 1
+  ): [UserBooking!]!
   userBookmark(id: String!): UserBookmark!
-  userBookmarks(limit: Float! = 10, page: Float! = 1): [UserBookmark!]!
+  userBookmarks(
+    """The number of items per page"""
+    limit: Int! = 10
+
+    """The page number to fetch"""
+    page: Int! = 1
+  ): [UserBookmark!]!
   userCheckein(id: String!): UserCheckin!
-  userCheckeins(limit: Float = 10, page: Float = 1): [UserCheckin!]!
+  userCheckeins(
+    """The number of items per page"""
+    limit: Int! = 10
+
+    """The page number to fetch"""
+    page: Int! = 1
+  ): [UserCheckin!]!
   userFollowing(id: String!): UserFollowing!
-  userFollowings(limit: Float, skip: Float): [UserFollowing!]!
+  userFollowings(
+    """The number of items per page"""
+    limit: Int! = 10
+
+    """The page number to fetch"""
+    page: Int! = 1
+  ): [UserFollowing!]!
   userPreference(id: String!): UserPreference!
-  userPreferences(page: Float, pageSize: Float): [UserPreference!]!
+  userPreferences(
+    """The number of items per page"""
+    limit: Int! = 10
+
+    """The page number to fetch"""
+    page: Int! = 1
+  ): [UserPreference!]!
   userReview(id: String!): UserReview!
-  userReviews(limit: Float! = 10, page: Float! = 1): [UserReview!]!
+  userReviews(
+    """The number of items per page"""
+    limit: Int! = 10
+
+    """The page number to fetch"""
+    page: Int! = 1
+  ): [UserReview!]!
   userScore(id: String!): UserScore!
-  userScores(limit: Float! = 10, page: Float! = 1): [UserScore!]!
+  userScores(
+    """The number of items per page"""
+    limit: Int! = 10
+
+    """The page number to fetch"""
+    page: Int! = 1
+  ): [UserScore!]!
   userWallet(id: String!): UserWallet!
-  userWallets(limit: Float = 10, skip: Float = 0): [UserWallet!]!
+  userWallets(
+    """The number of items per page"""
+    limit: Int! = 10
+
+    """The page number to fetch"""
+    page: Int! = 1
+  ): [UserWallet!]!
 }
 
 type Region {

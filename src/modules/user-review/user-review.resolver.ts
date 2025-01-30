@@ -15,16 +15,14 @@ import {
 import { Prisma } from '@prisma/client';
 import { CommonUser } from 'src/graphql/user.type';
 import { User } from '../user/user.graphql';
+import { PaginationArgs } from 'src/graphql/pagination-args-types';
 @Resolver(() => UserReview)
 export class UserReviewResolver {
   constructor(private service: UserReviewService) {}
 
   @Query(() => [UserReview])
-  async userReviews(
-    @Args('page', { type: () => Number, defaultValue: 1 }) page: number,
-    @Args('limit', { type: () => Number, defaultValue: 10 }) limit: number,
-  ) {
-    return this.service.findAll({ page, limit });
+  async userReviews(@Args() paginationArgs: PaginationArgs) {
+    return this.service.findAll(paginationArgs);
   }
 
   @Query(() => UserReview)

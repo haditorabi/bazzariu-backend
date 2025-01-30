@@ -16,6 +16,7 @@ import { Prisma } from '@prisma/client';
 import { CommonBusinessDeal } from 'src/graphql/business-deal.type';
 import { CommonUser } from 'src/graphql/user.type';
 import { ServiceErrorHandler } from 'src/common/decorators/ServiceErrorHandler';
+import { PaginationArgs } from 'src/graphql/pagination-args-types';
 
 @Resolver(() => DealsRedemption)
 export class DealsRedemptionResolver {
@@ -23,12 +24,8 @@ export class DealsRedemptionResolver {
 
   @Query(() => [DealsRedemption])
   @ServiceErrorHandler('fetch all deal redemptions')
-  async dealRedemptions(
-    @Args('page', { type: () => Number, defaultValue: 1 }) page: number,
-    @Args('pageSize', { type: () => Number, defaultValue: 10 })
-    pageSize: number,
-  ) {
-    return this.service.findAll(page, pageSize);
+  async dealRedemptions(@Args() paginationArgs: PaginationArgs) {
+    return this.service.findAll(paginationArgs);
   }
 
   @Query(() => DealsRedemption)

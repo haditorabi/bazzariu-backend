@@ -3,6 +3,7 @@ import { PrismaService } from '../prisma/prisma.service';
 import { Prisma, Country } from '@prisma/client';
 import { CommonProvince } from 'src/graphql/province.type';
 import { ServiceErrorHandler } from 'src/common/decorators/ServiceErrorHandler';
+import { PaginationArgs } from 'src/graphql/pagination-args-types';
 
 @Injectable()
 export class CountryService {
@@ -16,16 +17,12 @@ export class CountryService {
   }
 
   @ServiceErrorHandler('findAll countries') // Error handling
-  async findAll({
-    page,
-    limit,
-  }: {
-    page: number;
-    limit: number;
-  }): Promise<Country[]> {
+  async findAll(paginationArgs: PaginationArgs): Promise<Country[]> {
+    const { take, skip } = paginationArgs;
+
     return this.prisma.country.findMany({
-      skip: (page - 1) * limit,
-      take: limit,
+      skip,
+      take,
     });
   }
 

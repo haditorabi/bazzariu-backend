@@ -2,6 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service';
 import { Prisma, Currency } from '@prisma/client';
 import { ServiceErrorHandler } from 'src/common/decorators/ServiceErrorHandler';
+import { PaginationArgs } from 'src/graphql/pagination-args-types';
 
 @Injectable()
 export class CurrencyService {
@@ -15,12 +16,12 @@ export class CurrencyService {
   }
 
   @ServiceErrorHandler('findAllCurrencies')
-  async findAll(page: number = 1, limit: number = 10): Promise<Currency[]> {
-    const skip = (page - 1) * limit;
+  async findAll(paginationArgs: PaginationArgs): Promise<Currency[]> {
+    const { take, skip } = paginationArgs;
 
     return this.prisma.currency.findMany({
       skip,
-      take: limit,
+      take,
     });
   }
 

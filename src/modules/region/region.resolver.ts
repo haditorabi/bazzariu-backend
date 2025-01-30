@@ -11,17 +11,15 @@ import { Region, CreateRegionInput, UpdateRegionInput } from './region.graphql';
 import { Prisma } from '@prisma/client';
 import { CommonCountry } from 'src/graphql/country.type';
 import { CommonCity } from 'src/graphql/city.type';
+import { PaginationArgs } from 'src/graphql/pagination-args-types';
 
 @Resolver(() => Region)
 export class RegionResolver {
   constructor(private service: RegionService) {}
 
   @Query(() => [Region])
-  async regions(
-    @Args('page', { type: () => Number, nullable: true }) page?: number,
-    @Args('limit', { type: () => Number, nullable: true }) limit?: number,
-  ) {
-    return this.service.findAll({ page, limit });
+  async regions(@Args() paginationArgs: PaginationArgs) {
+    return this.service.findAll(paginationArgs);
   }
 
   @ResolveField(() => CommonCountry)

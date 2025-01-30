@@ -11,6 +11,7 @@ import { CommonRegion } from 'src/graphql/region.type';
 import { CommonBusinessBooking } from 'src/graphql/business-booking.type';
 import { CommonBusinessDeal } from 'src/graphql/business-deal.type';
 import { CommonBusinessProduct } from 'src/graphql/business-product.type';
+import { PaginationArgs } from 'src/graphql/pagination-args-types';
 
 @Injectable()
 export class BusinessService {
@@ -24,13 +25,11 @@ export class BusinessService {
   }
 
   @ServiceErrorHandler('retrieve all businesses with pagination')
-  async findAll(pagination: {
-    skip?: number;
-    take?: number;
-  }): Promise<Business[]> {
+  async findAll(paginationArgs: PaginationArgs): Promise<Business[]> {
+    const { take, skip } = paginationArgs;
     return this.prisma.business.findMany({
-      skip: pagination.skip,
-      take: pagination.take,
+      skip,
+      take,
     });
   }
 

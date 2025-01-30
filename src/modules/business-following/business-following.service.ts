@@ -2,6 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service';
 import { Prisma, BusinessFollowing } from '@prisma/client';
 import { ServiceErrorHandler } from 'src/common/decorators/ServiceErrorHandler';
+import { PaginationArgs } from 'src/graphql/pagination-args-types';
 
 @Injectable()
 export class BusinessFollowingService {
@@ -15,10 +16,12 @@ export class BusinessFollowingService {
   }
 
   @ServiceErrorHandler('find all business followings')
-  async findAll(page: number, pageSize: number): Promise<BusinessFollowing[]> {
+  async findAll(paginationArgs: PaginationArgs): Promise<BusinessFollowing[]> {
+    const { take, skip } = paginationArgs;
+
     return this.prisma.businessFollowing.findMany({
-      skip: (page - 1) * pageSize,
-      take: pageSize,
+      skip,
+      take,
     });
   }
 

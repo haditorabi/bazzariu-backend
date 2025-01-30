@@ -2,6 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service';
 import { Prisma, Media } from '@prisma/client';
 import { ServiceErrorHandler } from 'src/common/decorators/ServiceErrorHandler';
+import { PaginationArgs } from 'src/graphql/pagination-args-types';
 
 @Injectable()
 export class MediaService {
@@ -15,11 +16,11 @@ export class MediaService {
   }
 
   @ServiceErrorHandler('Find All Media')
-  async findAll(page: number, pageSize: number): Promise<Media[]> {
-    const skip = (page - 1) * pageSize;
+  async findAll(paginationArgs: PaginationArgs): Promise<Media[]> {
+    const { take, skip } = paginationArgs;
     return this.prisma.media.findMany({
       skip,
-      take: pageSize,
+      take,
     });
   }
 

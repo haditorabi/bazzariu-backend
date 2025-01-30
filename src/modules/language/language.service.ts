@@ -2,6 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service';
 import { Prisma, Language } from '@prisma/client';
 import { ServiceErrorHandler } from 'src/common/decorators/ServiceErrorHandler';
+import { PaginationArgs } from 'src/graphql/pagination-args-types';
 
 @Injectable()
 export class LanguageService {
@@ -15,12 +16,12 @@ export class LanguageService {
   }
 
   @ServiceErrorHandler('find all languages')
-  async findAll(page: number = 1, pageSize: number = 10): Promise<Language[]> {
-    const skip = (page - 1) * pageSize;
+  async findAll(paginationArgs: PaginationArgs): Promise<Language[]> {
+    const { take, skip } = paginationArgs;
 
     return this.prisma.language.findMany({
       skip,
-      take: pageSize,
+      take,
     });
   }
 

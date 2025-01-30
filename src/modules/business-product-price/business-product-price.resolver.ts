@@ -14,18 +14,15 @@ import {
 } from './business-product-price.graphql';
 import { Prisma } from '@prisma/client';
 import { CommonBusinessProduct } from 'src/graphql/business-product.type';
+import { PaginationArgs } from 'src/graphql/pagination-args-types';
 
 @Resolver(() => BusinessProductPrice)
 export class BusinessProductPriceResolver {
   constructor(private service: BusinessProductPriceService) {}
 
   @Query(() => [BusinessProductPrice])
-  async businessProductPrices(
-    @Args('page', { type: () => Number, defaultValue: 1 }) page: number,
-    @Args('pageSize', { type: () => Number, defaultValue: 10 })
-    pageSize: number,
-  ) {
-    return this.service.findAll(page, pageSize);
+  async businessProductPrices(@Args() paginationArgs: PaginationArgs) {
+    return this.service.findAll(paginationArgs);
   }
 
   @Query(() => BusinessProductPrice)

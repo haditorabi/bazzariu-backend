@@ -16,17 +16,15 @@ import { Prisma } from '@prisma/client';
 import { CommonBusiness } from 'src/graphql/business.type';
 import { CommonBusinessProduct } from 'src/graphql/business-product.type';
 import { CommonBookingTimeSlot } from 'src/graphql/booking-time-slot.type';
+import { PaginationArgs } from 'src/graphql/pagination-args-types';
 
 @Resolver(() => BusinessBooking)
 export class BusinessBookingResolver {
   constructor(private service: BusinessBookingService) {}
 
   @Query(() => [BusinessBooking])
-  async businessBookings(
-    @Args('skip', { type: () => Number, nullable: true }) skip: number = 0,
-    @Args('take', { type: () => Number, nullable: true }) take: number = 10,
-  ) {
-    return this.service.findAll(skip, take);
+  async businessBookings(@Args() paginationArgs: PaginationArgs) {
+    return this.service.findAll(paginationArgs);
   }
 
   @Query(() => BusinessBooking)

@@ -2,6 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service';
 import { Prisma, User, UserReview } from '@prisma/client';
 import { ServiceErrorHandler } from 'src/common/decorators/ServiceErrorHandler';
+import { PaginationArgs } from 'src/graphql/pagination-args-types';
 
 @Injectable()
 export class UserReviewService {
@@ -15,16 +16,11 @@ export class UserReviewService {
   }
 
   @ServiceErrorHandler('find all user reviews')
-  async findAll({
-    page,
-    limit,
-  }: {
-    page: number;
-    limit: number;
-  }): Promise<UserReview[]> {
+  async findAll(paginationArgs: PaginationArgs): Promise<UserReview[]> {
+    const { take, skip } = paginationArgs;
     return this.prisma.userReview.findMany({
-      skip: (page - 1) * limit,
-      take: limit,
+      skip,
+      take,
     });
   }
 

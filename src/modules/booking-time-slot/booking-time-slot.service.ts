@@ -2,14 +2,20 @@ import { Injectable } from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service';
 import { Prisma, BookingTimeSlot } from '@prisma/client';
 import { ServiceErrorHandler } from 'src/common/decorators/ServiceErrorHandler';
+import { PaginationArgs } from 'src/graphql/pagination-args-types';
 
 @Injectable()
 export class BookingTimeSlotService {
   constructor(private prisma: PrismaService) {}
 
   @ServiceErrorHandler('find all booking time slots')
-  async findAll(): Promise<BookingTimeSlot[]> {
-    return this.prisma.bookingTimeSlot.findMany();
+  async findAll(paginationArgs: PaginationArgs): Promise<BookingTimeSlot[]> {
+    const { take, skip } = paginationArgs;
+
+    return this.prisma.bookingTimeSlot.findMany({
+      skip,
+      take,
+    });
   }
 
   @ServiceErrorHandler('find a booking time slot')

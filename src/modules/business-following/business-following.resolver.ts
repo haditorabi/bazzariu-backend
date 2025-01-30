@@ -15,17 +15,14 @@ import {
 import { Prisma } from '@prisma/client';
 import { CommonUser } from 'src/graphql/user.type';
 import { CommonBusiness } from 'src/graphql/business.type';
+import { PaginationArgs } from 'src/graphql/pagination-args-types';
 @Resolver(() => BusinessFollowing)
 export class BusinessFollowingResolver {
   constructor(private service: BusinessFollowingService) {}
 
   @Query(() => [BusinessFollowing])
-  async businessFollowings(
-    @Args('page', { type: () => Number, defaultValue: 1 }) page: number,
-    @Args('pageSize', { type: () => Number, defaultValue: 10 })
-    pageSize: number,
-  ) {
-    return this.service.findAll(page, pageSize);
+  async businessFollowings(@Args() paginationArgs: PaginationArgs) {
+    return this.service.findAll(paginationArgs);
   }
 
   @Query(() => BusinessFollowing)

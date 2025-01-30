@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service';
 import { Prisma, City } from '@prisma/client';
+import { PaginationArgs } from 'src/graphql/pagination-args-types';
 
 @Injectable()
 export class CityService {
@@ -12,8 +13,13 @@ export class CityService {
     });
   }
 
-  async findAll(): Promise<City[]> {
-    return this.prisma.city.findMany();
+  async findAll(paginationArgs: PaginationArgs): Promise<City[]> {
+    const { take, skip } = paginationArgs;
+
+    return this.prisma.city.findMany({
+      skip,
+      take,
+    });
   }
 
   async findOne(id: string): Promise<City | null> {

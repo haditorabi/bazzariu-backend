@@ -14,17 +14,15 @@ import {
 } from './user-action-log.graphql';
 import { Prisma } from '@prisma/client';
 import { CommonUser } from 'src/graphql/user.type';
+import { PaginationArgs } from 'src/graphql/pagination-args-types';
 
 @Resolver(() => UserActionLog)
 export class UserActionLogResolver {
   constructor(private service: UserActionLogService) {}
 
   @Query(() => [UserActionLog])
-  async userActionLogs(
-    @Args('skip', { type: () => Number, nullable: true }) skip?: number,
-    @Args('take', { type: () => Number, nullable: true }) take?: number,
-  ) {
-    return this.service.findAll({ skip, take });
+  async userActionLogs(@Args() paginationArgs: PaginationArgs) {
+    return this.service.findAll(paginationArgs);
   }
 
   @ResolveField(() => CommonUser)

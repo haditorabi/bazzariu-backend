@@ -20,6 +20,7 @@ import { CommonBusinessDeal } from 'src/graphql/business-deal.type';
 import { CommonBusinessProduct } from 'src/graphql/business-product.type';
 import { CommonBusinessHour } from 'src/graphql/business-hour.type';
 import { CommonBusinessLocation } from 'src/graphql/business-location.type';
+import { PaginationArgs } from 'src/graphql/pagination-args-types';
 
 @Resolver(() => Business)
 export class BusinessResolver {
@@ -27,11 +28,9 @@ export class BusinessResolver {
 
   @Query(() => [Business])
   async businesses(
-    @Args('page', { nullable: true, defaultValue: 1 }) page: number,
-    @Args('limit', { nullable: true, defaultValue: 10 }) limit: number,
+    @Args() paginationArgs: PaginationArgs,
   ): Promise<Business[]> {
-    const skip = (page - 1) * limit;
-    return this.service.findAll({ skip, take: limit });
+    return this.service.findAll(paginationArgs);
   }
 
   @Query(() => Int)

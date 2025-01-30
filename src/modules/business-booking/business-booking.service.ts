@@ -8,6 +8,7 @@ import {
   BookingTimeSlot,
 } from '@prisma/client';
 import { ServiceErrorHandler } from 'src/common/decorators/ServiceErrorHandler';
+import { PaginationArgs } from 'src/graphql/pagination-args-types';
 
 @Injectable()
 export class BusinessBookingService {
@@ -23,10 +24,9 @@ export class BusinessBookingService {
   }
 
   @ServiceErrorHandler('get all business bookings')
-  async findAll(
-    skip: number = 0,
-    take: number = 10,
-  ): Promise<BusinessBooking[]> {
+  async findAll(paginationArgs: PaginationArgs): Promise<BusinessBooking[]> {
+    const { take, skip } = paginationArgs;
+
     return this.prisma.businessBooking.findMany({
       skip,
       take,

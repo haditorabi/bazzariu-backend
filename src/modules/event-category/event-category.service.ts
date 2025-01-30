@@ -2,6 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service';
 import { Prisma, EventCategory, Event } from '@prisma/client';
 import { ServiceErrorHandler } from 'src/common/decorators/ServiceErrorHandler';
+import { PaginationArgs } from 'src/graphql/pagination-args-types';
 
 @Injectable()
 export class EventCategoryService {
@@ -15,16 +16,8 @@ export class EventCategoryService {
   }
 
   @ServiceErrorHandler('find all event categories')
-  async findAll({
-    page,
-    limit,
-  }: {
-    page: number;
-    limit: number;
-  }): Promise<EventCategory[]> {
-    const skip = (page - 1) * limit;
-    const take = limit;
-
+  async findAll(paginationArgs: PaginationArgs): Promise<EventCategory[]> {
+    const { take, skip } = paginationArgs;
     return this.prisma.eventCategory.findMany({
       skip,
       take,

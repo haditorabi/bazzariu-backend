@@ -14,14 +14,15 @@ import {
 } from './booking-time-slot.graphql';
 import { Prisma } from '@prisma/client';
 import { CommonBusinessBooking } from 'src/graphql/business-booking.type';
+import { PaginationArgs } from 'src/graphql/pagination-args-types';
 
 @Resolver(() => BookingTimeSlot)
 export class BookingTimeSlotResolver {
   constructor(private service: BookingTimeSlotService) {}
 
   @Query(() => [BookingTimeSlot])
-  async bookingTimeSlots() {
-    return this.service.findAll();
+  async bookingTimeSlots(@Args() paginationArgs: PaginationArgs) {
+    return this.service.findAll(paginationArgs);
   }
 
   @Query(() => BookingTimeSlot, { nullable: true })

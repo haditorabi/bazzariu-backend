@@ -2,6 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service';
 import { Prisma, UserWallet } from '@prisma/client';
 import { ServiceErrorHandler } from 'src/common/decorators/ServiceErrorHandler';
+import { PaginationArgs } from 'src/graphql/pagination-args-types';
 
 @Injectable()
 export class UserWalletService {
@@ -15,14 +16,11 @@ export class UserWalletService {
   }
 
   @ServiceErrorHandler('find all user wallets')
-  async findAll(params: {
-    skip: number;
-    limit: number;
-  }): Promise<UserWallet[]> {
-    const { skip, limit } = params;
+  async findAll(paginationArgs: PaginationArgs): Promise<UserWallet[]> {
+    const { take, skip } = paginationArgs;
     return this.prisma.userWallet.findMany({
       skip,
-      take: limit,
+      take,
     });
   }
 

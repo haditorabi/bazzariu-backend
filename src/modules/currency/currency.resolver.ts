@@ -6,19 +6,15 @@ import {
   UpdateCurrencyInput,
 } from './currency.graphql';
 import { Prisma } from '@prisma/client';
+import { PaginationArgs } from 'src/graphql/pagination-args-types';
 
 @Resolver(() => Currency)
 export class CurrencyResolver {
   constructor(private service: CurrencyService) {}
 
   @Query(() => [Currency])
-  async currencies(
-    @Args('page', { type: () => Number, nullable: true, defaultValue: 1 })
-    page: number,
-    @Args('limit', { type: () => Number, nullable: true, defaultValue: 10 })
-    limit: number,
-  ) {
-    return this.service.findAll(page, limit);
+  async currencies(@Args() paginationArgs: PaginationArgs) {
+    return this.service.findAll(paginationArgs);
   }
 
   @Query(() => Currency)

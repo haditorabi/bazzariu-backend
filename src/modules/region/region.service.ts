@@ -2,6 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service';
 import { City, Country, Prisma, Region } from '@prisma/client';
 import { ServiceErrorHandler } from 'src/common/decorators/ServiceErrorHandler';
+import { PaginationArgs } from 'src/graphql/pagination-args-types';
 
 @Injectable()
 export class RegionService {
@@ -15,11 +16,11 @@ export class RegionService {
   }
 
   @ServiceErrorHandler('find all regions')
-  async findAll(params: { page?: number; limit?: number }): Promise<Region[]> {
-    const { page = 1, limit = 10 } = params;
+  async findAll(paginationArgs: PaginationArgs): Promise<Region[]> {
+    const { take, skip } = paginationArgs;
     return this.prisma.region.findMany({
-      skip: (page - 1) * limit,
-      take: limit,
+      skip,
+      take,
     });
   }
 

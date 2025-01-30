@@ -2,6 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service';
 import { Prisma, User, UserActionLog } from '@prisma/client';
 import { ServiceErrorHandler } from 'src/common/decorators/ServiceErrorHandler';
+import { PaginationArgs } from 'src/graphql/pagination-args-types';
 
 @Injectable()
 export class UserActionLogService {
@@ -15,11 +16,8 @@ export class UserActionLogService {
   }
 
   @ServiceErrorHandler('find all user action logs')
-  async findAll(params: {
-    skip?: number;
-    take?: number;
-  }): Promise<UserActionLog[]> {
-    const { skip, take } = params;
+  async findAll(paginationArgs: PaginationArgs): Promise<UserActionLog[]> {
+    const { take, skip } = paginationArgs;
     return this.prisma.userActionLog.findMany({
       skip,
       take,

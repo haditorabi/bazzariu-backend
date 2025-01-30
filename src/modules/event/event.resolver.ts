@@ -10,18 +10,15 @@ import { EventService } from './event.service';
 import { Event, CreateEventInput, UpdateEventInput } from './event.graphql';
 import { Prisma } from '@prisma/client';
 import { CommonEventCategory } from 'src/graphql/event-category.type';
+import { PaginationArgs } from 'src/graphql/pagination-args-types';
 
 @Resolver(() => Event)
 export class EventResolver {
   constructor(private service: EventService) {}
 
   @Query(() => [Event])
-  async events(
-    @Args('page', { type: () => Number, defaultValue: 1 }) page: number,
-    @Args('limit', { type: () => Number, defaultValue: 10 })
-    limit: number,
-  ) {
-    return this.service.findAll({ page, limit });
+  async events(@Args() paginationArgs: PaginationArgs) {
+    return this.service.findAll(paginationArgs);
   }
 
   @Query(() => Event)

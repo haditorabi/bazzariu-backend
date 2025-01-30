@@ -16,19 +16,15 @@ import { Prisma } from '@prisma/client';
 import { CommonProductCategory } from 'src/graphql/product-category.type';
 import { CommonBusinessDeal } from 'src/graphql/business-deal.type';
 import { CommonBusinessProductPrice } from 'src/graphql/business-product-price.type';
+import { PaginationArgs } from 'src/graphql/pagination-args-types';
 
 @Resolver(() => BusinessProduct)
 export class BusinessProductResolver {
   constructor(private service: BusinessProductService) {}
 
   @Query(() => [BusinessProduct])
-  async businessProducts(
-    @Args('page', { type: () => Number, nullable: true, defaultValue: 1 })
-    page: number,
-    @Args('pageSize', { type: () => Number, nullable: true, defaultValue: 10 })
-    pageSize: number,
-  ) {
-    return this.service.findAll(page, pageSize);
+  async businessProducts(@Args() paginationArgs: PaginationArgs) {
+    return this.service.findAll(paginationArgs);
   }
 
   @Query(() => BusinessProduct)

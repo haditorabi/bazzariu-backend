@@ -2,6 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service';
 import { Prisma, User, UserVerification } from '@prisma/client';
 import { ServiceErrorHandler } from 'src/common/decorators/ServiceErrorHandler';
+import { PaginationArgs } from 'src/graphql/pagination-args-types';
 
 @Injectable()
 export class UserVerificationService {
@@ -17,14 +18,11 @@ export class UserVerificationService {
   }
 
   @ServiceErrorHandler('Get All User Verifications')
-  async findAll(params: {
-    skip: number;
-    limit: number;
-  }): Promise<UserVerification[]> {
-    const { skip, limit } = params;
+  async findAll(paginationArgs: PaginationArgs): Promise<UserVerification[]> {
+    const { take, skip } = paginationArgs;
     return this.prisma.userVerification.findMany({
       skip,
-      take: limit,
+      take,
     });
   }
 

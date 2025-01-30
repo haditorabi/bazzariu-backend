@@ -2,6 +2,7 @@ import { Injectable, NotFoundException } from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service';
 import { Prisma, Amenity } from '@prisma/client';
 import { ServiceErrorHandler } from 'src/common/decorators/ServiceErrorHandler';
+import { PaginationArgs } from 'src/graphql/pagination-args-types';
 
 @Injectable()
 export class AmenityService {
@@ -13,8 +14,12 @@ export class AmenityService {
   }
 
   @ServiceErrorHandler('find all amenities')
-  async findAll(): Promise<Amenity[]> {
-    return this.prisma.amenity.findMany();
+  async findAll(paginationArgs: PaginationArgs): Promise<Amenity[]> {
+    const { take, skip } = paginationArgs;
+    return this.prisma.amenity.findMany({
+      take,
+      skip,
+    });
   }
 
   @ServiceErrorHandler('find amenity by ID')

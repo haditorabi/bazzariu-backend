@@ -2,6 +2,7 @@ import { Resolver, Query, Mutation, Args } from '@nestjs/graphql';
 import { MediaService } from './media.service';
 import { Media, CreateMediaInput, UpdateMediaInput } from './media.graphql';
 import { Prisma } from '@prisma/client';
+import { PaginationArgs } from 'src/graphql/pagination-args-types';
 
 @Resolver(() => Media)
 export class MediaResolver {
@@ -13,11 +14,8 @@ export class MediaResolver {
   }
 
   @Query(() => [Media])
-  async mediaList(
-    @Args('page', { type: () => Number, defaultValue: 1 }) page: number,
-    @Args('limit', { type: () => Number, defaultValue: 10 }) limit: number,
-  ) {
-    return this.service.findAll(page, limit);
+  async mediaList(@Args() paginationArgs: PaginationArgs) {
+    return this.service.findAll(paginationArgs);
   }
 
   @Query(() => Media)

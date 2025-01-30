@@ -14,16 +14,14 @@ import {
 } from './user-score.graphql';
 import { Prisma } from '@prisma/client';
 import { User } from '../user/user.graphql';
+import { PaginationArgs } from 'src/graphql/pagination-args-types';
 @Resolver(() => UserScore)
 export class UserScoreResolver {
   constructor(private service: UserScoreService) {}
 
   @Query(() => [UserScore])
-  async userScores(
-    @Args('page', { type: () => Number, defaultValue: 1 }) page: number,
-    @Args('limit', { type: () => Number, defaultValue: 10 }) limit: number,
-  ) {
-    return this.service.findAll(page, limit);
+  async userScores(@Args() paginationArgs: PaginationArgs) {
+    return this.service.findAll(paginationArgs);
   }
 
   @Query(() => UserScore)

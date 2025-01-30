@@ -13,17 +13,15 @@ import {
   UpdateBusinessLocationInput,
 } from './business-location.graphql';
 import { Prisma } from '@prisma/client';
+import { PaginationArgs } from 'src/graphql/pagination-args-types';
 
 @Resolver(() => BusinessLocation)
 export class BusinessLocationResolver {
   constructor(private service: BusinessLocationService) {}
 
   @Query(() => [BusinessLocation])
-  async businessLocations(
-    @Args('skip', { type: () => Number, nullable: true }) skip?: number,
-    @Args('take', { type: () => Number, nullable: true }) take?: number,
-  ) {
-    return this.service.findAll({ skip, take });
+  async businessLocations(@Args() paginationArgs: PaginationArgs) {
+    return this.service.findAll(paginationArgs);
   }
 
   @Query(() => BusinessLocation)

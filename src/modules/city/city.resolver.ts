@@ -2,14 +2,15 @@ import { Resolver, Query, Mutation, Args } from '@nestjs/graphql';
 import { CityService } from './city.service';
 import { City, CreateCityInput, UpdateCityInput } from './city.graphql';
 import { Prisma } from '@prisma/client';
+import { PaginationArgs } from 'src/graphql/pagination-args-types';
 
 @Resolver(() => City)
 export class CityResolver {
   constructor(private service: CityService) {}
 
   @Query(() => [City])
-  async cities() {
-    return this.service.findAll();
+  async cities(@Args() paginationArgs: PaginationArgs) {
+    return this.service.findAll(paginationArgs);
   }
 
   @Query(() => City)

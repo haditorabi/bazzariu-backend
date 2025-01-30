@@ -14,17 +14,15 @@ import {
 } from './product-category.graphql';
 import { Prisma } from '@prisma/client';
 import { CommonBusinessProduct } from 'src/graphql/business-product.type';
+import { PaginationArgs } from 'src/graphql/pagination-args-types';
 
 @Resolver(() => ProductCategory)
 export class ProductCategoryResolver {
   constructor(private service: ProductCategoryService) {}
 
   @Query(() => [ProductCategory])
-  async productCategories(
-    @Args('page', { type: () => Number, nullable: true }) page?: number,
-    @Args('limit', { type: () => Number, nullable: true }) limit?: number,
-  ) {
-    return this.service.findAll({ page, limit });
+  async productCategories(@Args() paginationArgs: PaginationArgs) {
+    return this.service.findAll(paginationArgs);
   }
   @ResolveField(() => [CommonBusinessProduct])
   async BusinessProduct(@Parent() category: ProductCategory) {

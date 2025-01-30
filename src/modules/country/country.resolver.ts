@@ -15,6 +15,7 @@ import {
 import { PrismaService } from '../prisma/prisma.service';
 import { CommonProvince } from 'src/graphql/province.type';
 import { ServiceErrorHandler } from 'src/common/decorators/ServiceErrorHandler';
+import { PaginationArgs } from 'src/graphql/pagination-args-types';
 
 @Resolver(() => Country)
 export class CountryResolver {
@@ -25,12 +26,8 @@ export class CountryResolver {
 
   @Query(() => [Country])
   @ServiceErrorHandler('findAll countries') // Error handling
-  async countries(
-    @Args('page', { type: () => Number, nullable: true }) page: number = 1,
-    @Args('limit', { type: () => Number, nullable: true })
-    limit: number = 10,
-  ) {
-    return this.service.findAll({ page, limit });
+  async countries(@Args() paginationArgs: PaginationArgs) {
+    return this.service.findAll(paginationArgs);
   }
 
   @Query(() => Country)
@@ -72,9 +69,8 @@ export class CountryResolver {
   @ServiceErrorHandler('findAll provinces') // Error handling
   async provinces(
     @Args('countryId') countryId: string,
-    @Args('page', { nullable: true }) page: number = 1,
-    @Args('limit', { nullable: true }) limit: number = 10,
+    @Args() paginationArgs: PaginationArgs,
   ) {
-    return this.service.findProvincesByCountryId(countryId, { page, limit });
+    return this.service.findProvincesByCountryId(countryId, paginationArgs);
   }
 }

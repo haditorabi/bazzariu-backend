@@ -2,6 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service';
 import { Prisma, UserBlocked } from '@prisma/client';
 import { ServiceErrorHandler } from 'src/common/decorators/ServiceErrorHandler';
+import { PaginationArgs } from 'src/graphql/pagination-args-types';
 
 @Injectable()
 export class UserBlockedService {
@@ -15,7 +16,8 @@ export class UserBlockedService {
   }
 
   @ServiceErrorHandler('Find all user blocks')
-  async findAll(skip?: number, take?: number): Promise<UserBlocked[]> {
+  async findAll(paginationArgs: PaginationArgs): Promise<UserBlocked[]> {
+    const { take, skip } = paginationArgs;
     return this.prisma.userBlocked.findMany({
       skip,
       take,

@@ -6,17 +6,15 @@ import {
   UpdatePaymentMethodInput,
 } from './payment-method.graphql';
 import { Prisma } from '@prisma/client';
+import { PaginationArgs } from 'src/graphql/pagination-args-types';
 
 @Resolver(() => PaymentMethod)
 export class PaymentMethodResolver {
   constructor(private service: PaymentMethodService) {}
 
   @Query(() => [PaymentMethod])
-  async paymentMethods(
-    @Args('skip', { type: () => Number, nullable: true }) skip?: number,
-    @Args('limit', { type: () => Number, nullable: true }) limit?: number,
-  ) {
-    return this.service.findAll({ skip, limit });
+  async paymentMethods(@Args() paginationArgs: PaginationArgs) {
+    return this.service.findAll(paginationArgs);
   }
 
   @Query(() => PaymentMethod)

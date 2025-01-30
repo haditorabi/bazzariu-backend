@@ -5,14 +5,15 @@ import {
   CreateAmenityInput,
   UpdateAmenityInput,
 } from './amenity.graphql';
+import { PaginationArgs } from 'src/graphql/pagination-args-types';
 
 @Resolver(() => Amenity)
 export class AmenityResolver {
   constructor(private service: AmenityService) {}
 
   @Query(() => [Amenity])
-  async amenities() {
-    return this.service.findAll();
+  async amenities(@Args() paginationArgs: PaginationArgs) {
+    return this.service.findAll(paginationArgs);
   }
 
   @Query(() => Amenity)

@@ -15,17 +15,14 @@ import {
 import { Prisma } from '@prisma/client';
 import { CommonBookingTimeSlot } from 'src/graphql/booking-time-slot.type';
 import { CommonUser } from 'src/graphql/user.type';
+import { PaginationArgs } from 'src/graphql/pagination-args-types';
 @Resolver(() => UserBooking)
 export class UserBookingResolver {
   constructor(private service: UserBookingService) {}
 
   @Query(() => [UserBooking])
-  async userBookings(
-    @Args('page', { type: () => Number, nullable: true }) page: number = 1,
-    @Args('limit', { type: () => Number, nullable: true })
-    limit: number = 10,
-  ) {
-    return this.service.findAll({ page, limit });
+  async userBookings(@Args() paginationArgs: PaginationArgs) {
+    return this.service.findAll(paginationArgs);
   }
 
   @Query(() => UserBooking)

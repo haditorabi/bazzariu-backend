@@ -6,17 +6,15 @@ import {
   UpdateUserBookmarkInput,
 } from './user-bookmark.graphql';
 import { Prisma } from '@prisma/client';
+import { PaginationArgs } from 'src/graphql/pagination-args-types';
 
 @Resolver(() => UserBookmark)
 export class UserBookmarkResolver {
   constructor(private service: UserBookmarkService) {}
 
   @Query(() => [UserBookmark])
-  async userBookmarks(
-    @Args('page', { type: () => Number, defaultValue: 1 }) page: number,
-    @Args('limit', { type: () => Number, defaultValue: 10 }) limit: number,
-  ) {
-    return this.service.findAll(page, limit);
+  async userBookmarks(@Args() paginationArgs: PaginationArgs) {
+    return this.service.findAll(paginationArgs);
   }
 
   @Query(() => UserBookmark)

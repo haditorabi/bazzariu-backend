@@ -15,19 +15,15 @@ import {
 import { Prisma } from '@prisma/client';
 import { CommonBusiness } from 'src/graphql/business.type';
 import { CommonUser } from 'src/graphql/user.type';
+import { PaginationArgs } from 'src/graphql/pagination-args-types';
 
 @Resolver(() => UserCheckin)
 export class UserCheckinResolver {
   constructor(private service: UserCheckinService) {}
 
   @Query(() => [UserCheckin])
-  async userCheckeins(
-    @Args('page', { type: () => Number, nullable: true, defaultValue: 1 })
-    page: number,
-    @Args('limit', { type: () => Number, nullable: true, defaultValue: 10 })
-    limit: number,
-  ) {
-    return this.service.findAll(page, limit);
+  async userCheckeins(@Args() paginationArgs: PaginationArgs) {
+    return this.service.findAll(paginationArgs);
   }
 
   @Query(() => UserCheckin)

@@ -7,6 +7,7 @@ import {
   Business,
 } from '@prisma/client';
 import { ServiceErrorHandler } from 'src/common/decorators/ServiceErrorHandler';
+import { PaginationArgs } from 'src/graphql/pagination-args-types';
 
 @Injectable()
 export class BusinessDealService {
@@ -20,16 +21,12 @@ export class BusinessDealService {
   }
 
   @ServiceErrorHandler('Get all Business Deals')
-  async findAll({
-    page,
-    limit,
-  }: {
-    page: number;
-    limit: number;
-  }): Promise<BusinessDeal[]> {
+  async findAll(paginationArgs: PaginationArgs): Promise<BusinessDeal[]> {
+    const { take, skip } = paginationArgs;
+
     return this.prisma.businessDeal.findMany({
-      skip: (page - 1) * limit,
-      take: limit,
+      skip,
+      take,
     });
   }
 
