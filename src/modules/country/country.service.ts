@@ -34,14 +34,9 @@ export class CountryService {
   }
 
   @ServiceErrorHandler('findProvincesByCountryId') // Error handling
-  async findProvincesByCountryId(
-    countryId: string,
-    { page, limit }: { page: number; limit: number },
-  ): Promise<CommonProvince[]> {
+  async findProvincesByCountryId(countryId: string): Promise<CommonProvince[]> {
     return this.prisma.province.findMany({
       where: { countryId },
-      skip: (page - 1) * limit,
-      take: limit,
     });
   }
 

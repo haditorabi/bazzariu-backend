@@ -38,15 +38,8 @@ export class CountryResolver {
 
   @ResolveField(() => [CommonProvince], { nullable: true })
   @ServiceErrorHandler('findProvincesByCountryId') // Error handling
-  async province(
-    @Root() country: Country,
-    @Args('page', { nullable: true }) page: number = 1,
-    @Args('limit', { nullable: true }) limit: number = 10,
-  ): Promise<CommonProvince[] | null> {
-    return this.service.findProvincesByCountryId(country.id, {
-      page,
-      limit,
-    });
+  async province(@Root() country: Country): Promise<CommonProvince[] | null> {
+    return this.service.findProvincesByCountryId(country.id);
   }
 
   @Mutation(() => Country)
@@ -64,13 +57,13 @@ export class CountryResolver {
     const { ...rest } = data;
     return this.service.update(id, { ...rest });
   }
-
+  @Mutation(() => Country)
+  async deleteCountry(@Args('id') id: string) {
+    return this.service.delete(id);
+  }
   @Query(() => [CommonProvince])
   @ServiceErrorHandler('findAll provinces') // Error handling
-  async provinces(
-    @Args('countryId') countryId: string,
-    @Args() paginationArgs: PaginationArgs,
-  ) {
-    return this.service.findProvincesByCountryId(countryId, paginationArgs);
+  async provinces(@Args('countryId') countryId: string) {
+    return this.service.findProvincesByCountryId(countryId);
   }
 }

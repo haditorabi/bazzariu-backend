@@ -369,7 +369,7 @@ type Country {
   code: String!
   id: ID!
   name: String!
-  province(limit: Float, page: Float): [CommonProvince!]
+  province: [CommonProvince!]
   region: [CommonRegion!]
   status: String!
 }
@@ -793,6 +793,7 @@ type Mutation {
   deleteBusinessTag(id: String!): BusinessTag!
   deleteBusinessUpdate(id: String!): BusinessUpdate!
   deleteCity(id: String!): City!
+  deleteCountry(id: String!): Country!
   deleteDealsRedemption(id: String!): DealsRedemption!
   updateAmenity(data: UpdateAmenityInput!, id: String!): Amenity!
   updateBookingTimeSlot(data: UpdateBookingTimeSlotInput!, id: String!): BookingTimeSlot!
