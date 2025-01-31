@@ -68,7 +68,7 @@ export class UserBookmarkResolver {
     return this.service.delete(id);
   }
   @ResolveField(() => CommonUser)
-  async user(@Parent() boost: UserBookmark) {
-    return this.service.getUser(boost.userId);
+  async user(@Parent() userBookmark: UserBookmark) {
+    return this.service.getUser(userBookmark.userId);
   }
 }
