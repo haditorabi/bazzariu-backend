@@ -48,7 +48,6 @@ export class EventService {
   }
   @ServiceErrorHandler('Fetching event categories')
   async findCategories(categoryIds: string[]): Promise<EventCategory[]> {
-    console.log(categoryIds);
     return this.prisma.eventCategory.findMany({
       where: {
         id: { in: categoryIds },

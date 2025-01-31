@@ -32,7 +32,10 @@ export class MediaService {
   }
 
   @ServiceErrorHandler('Find Media by IDs')
-  async findManyByIDs(ids: string[]): Promise<Media[]> {
+  async findManyByIDs(ids: string[]): Promise<Media[] | []> {
+    if (!ids || ids.length === 0) {
+      return [];
+    }
     return this.prisma.media.findMany({
       where: { id: { in: ids } },
     });

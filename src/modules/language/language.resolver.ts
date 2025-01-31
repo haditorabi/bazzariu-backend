@@ -42,4 +42,8 @@ export class LanguageResolver {
 
     return this.service.update(id, prismaData);
   }
+  @Mutation(() => Language)
+  async deleteLangiage(@Args('id') id: string) {
+    return this.service.delete(id);
+  }
 }

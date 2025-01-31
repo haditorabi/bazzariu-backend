@@ -802,6 +802,7 @@ type Mutation {
   deleteDealsRedemption(id: String!): DealsRedemption!
   deleteEvent(id: String!): Event!
   deleteEventCategory(id: String!): EventCategory!
+  deleteLangiage(id: String!): Language!
   updateAmenity(data: UpdateAmenityInput!, id: String!): Amenity!
   updateBookingTimeSlot(data: UpdateBookingTimeSlotInput!, id: String!): BookingTimeSlot!
   updateBusiness(data: UpdateBusinessInput!, id: String!): Business!
@@ -1047,7 +1048,7 @@ type Query {
     page: Int! = 1
   ): [Language!]!
   media(id: String!): Media!
-  mediaByIDs(ids: [String!]!): Media!
+  mediaByIDs(ids: [String!]!): [Media!]!
   mediaList(
     """The number of items per page"""
     limit: Int! = 10
