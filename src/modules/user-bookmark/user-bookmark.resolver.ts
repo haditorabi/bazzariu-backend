@@ -1,4 +1,11 @@
-import { Resolver, Query, Mutation, Args } from '@nestjs/graphql';
+import {
+  Resolver,
+  Query,
+  Mutation,
+  Args,
+  Parent,
+  ResolveField,
+} from '@nestjs/graphql';
 import { UserBookmarkService } from './user-bookmark.service';
 import {
   UserBookmark,
@@ -7,6 +14,7 @@ import {
 } from './user-bookmark.graphql';
 import { Prisma } from '@prisma/client';
 import { PaginationArgs } from 'src/graphql/pagination-args-types';
+import { CommonUser } from 'src/graphql/user.type';
 
 @Resolver(() => UserBookmark)
 export class UserBookmarkResolver {
@@ -54,5 +62,13 @@ export class UserBookmarkResolver {
     };
 
     return this.service.update(id, prismaData);
+  }
+  @Mutation(() => UserBookmark)
+  async deleteUserBookmark(@Args('id') id: string) {
+    return this.service.delete(id);
+  }
+  @ResolveField(() => CommonUser)
+  async user(@Parent() boost: UserBookmark) {
+    return this.service.getUser(boost.userId);
   }
 }

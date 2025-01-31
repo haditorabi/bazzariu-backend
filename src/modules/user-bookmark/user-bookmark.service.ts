@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service';
-import { Prisma, UserBookmark } from '@prisma/client';
+import { Prisma, User, UserBookmark } from '@prisma/client';
 import { ServiceErrorHandler } from 'src/common/decorators/ServiceErrorHandler';
 import { PaginationArgs } from 'src/graphql/pagination-args-types';
 
@@ -46,6 +46,12 @@ export class UserBookmarkService {
   async delete(id: string): Promise<UserBookmark> {
     return this.prisma.userBookmark.delete({
       where: { id },
+    });
+  }
+  @ServiceErrorHandler('Get Business')
+  async getUser(userId: string): Promise<User | null> {
+    return this.prisma.user.findUnique({
+      where: { id: userId },
     });
   }
 }

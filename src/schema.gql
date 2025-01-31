@@ -820,6 +820,7 @@ type Mutation {
   deleteUserAction(id: String!): UserAction!
   deleteUserActionLog(id: String!): UserActionLog!
   deleteUserBlocked(id: String!): UserBlocked!
+  deleteUserBookmark(id: String!): UserBookmark!
   updateAmenity(data: UpdateAmenityInput!, id: String!): Amenity!
   updateBookingTimeSlot(data: UpdateBookingTimeSlotInput!, id: String!): BookingTimeSlot!
   updateBusiness(data: UpdateBusinessInput!, id: String!): Business!
@@ -1635,6 +1636,7 @@ type UserBookmark {
   targetId: ID!
   targetType: String!
   user: CommonUser!
+  userId: ID!
 }
 
 type UserCheckin {
