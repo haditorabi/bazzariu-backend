@@ -51,6 +51,14 @@ export class BusinessProductService {
   }
 
   @ServiceErrorHandler('Get Product Category')
+  async getBusiness(businessId: string | undefined) {
+    if (!businessId) return null;
+    return this.prisma.business.findUnique({
+      where: { id: businessId },
+    });
+  }
+
+  @ServiceErrorHandler('Get Product Category')
   async getProductCategory(categoryId: string | undefined) {
     if (!categoryId) return null;
     return this.prisma.productCategory.findUnique({

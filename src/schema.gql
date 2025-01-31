@@ -130,6 +130,9 @@ type BusinessLocation {
 type BusinessProduct {
   business: CommonBusiness!
   businessDeal: CommonBusinessDeal
+  businessDealId: ID
+  businessDealyId: ID
+  businessId: ID!
   businessProductPrice: CommonBusinessProductPrice
   createdAt: DateTime!
   description: String
@@ -782,6 +785,7 @@ type Mutation {
   deleteBusinessCategory(id: String!): BusinessCategory!
   deleteBusinessDeal(id: String!): BusinessDeal!
   deleteBusinessFollowing(id: String!): BusinessFollowing!
+  deleteBusinessProduct(id: String!): BusinessProduct!
   deleteDealsRedemption(id: String!): DealsRedemption!
   updateAmenity(data: UpdateAmenityInput!, id: String!): Amenity!
   updateBookingTimeSlot(data: UpdateBookingTimeSlotInput!, id: String!): BookingTimeSlot!

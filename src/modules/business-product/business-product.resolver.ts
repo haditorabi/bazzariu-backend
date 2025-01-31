@@ -17,6 +17,7 @@ import { CommonProductCategory } from 'src/graphql/product-category.type';
 import { CommonBusinessDeal } from 'src/graphql/business-deal.type';
 import { CommonBusinessProductPrice } from 'src/graphql/business-product-price.type';
 import { PaginationArgs } from 'src/graphql/pagination-args-types';
+import { CommonBusiness } from 'src/graphql/business.type';
 
 @Resolver(() => BusinessProduct)
 export class BusinessProductResolver {
@@ -75,7 +76,15 @@ export class BusinessProductResolver {
     return this.service.update(id, prismaData);
   }
 
-  // Resolve Fields for related entities
+  @Mutation(() => BusinessProduct)
+  async deleteBusinessProduct(@Args('id') id: string) {
+    return this.service.delete(id);
+  }
+
+  @ResolveField(() => CommonBusiness, { nullable: true })
+  async business(@Parent() businessProduct: BusinessProduct) {
+    return this.service.getBusiness(businessProduct.businessId);
+  }
 
   @ResolveField(() => CommonProductCategory, { nullable: true })
   async productCategroy(@Parent() businessProduct: BusinessProduct) {
@@ -84,7 +93,7 @@ export class BusinessProductResolver {
 
   @ResolveField(() => CommonBusinessDeal, { nullable: true })
   async businessDeal(@Parent() businessProduct: BusinessProduct) {
-    return this.service.getBusinessDeal([businessProduct.businessDeal.id]);
+    return this.service.getBusinessDeal([businessProduct.businessDealId]);
   }
 
   @ResolveField(() => CommonBusinessProductPrice, { nullable: true })

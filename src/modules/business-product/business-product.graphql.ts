@@ -13,6 +13,9 @@ export class BusinessProduct {
   @Field(() => CommonBusiness)
   business: CommonBusiness;
 
+  @Field(() => ID)
+  businessId: string;
+
   @Field(() => CommonProductCategory, { nullable: true })
   productCategroy?: CommonProductCategory;
 
@@ -40,8 +43,14 @@ export class BusinessProduct {
   @Field(() => CommonBusinessDeal, { nullable: true })
   businessDeal: CommonBusinessDeal;
 
+  @Field(() => ID, { nullable: true })
+  businessDealyId?: string;
+
   @Field(() => CommonBusinessProductPrice, { nullable: true })
   businessProductPrice: CommonBusinessProductPrice;
+
+  @Field(() => ID, { nullable: true })
+  businessDealId?: string;
 }
 
 @InputType()
