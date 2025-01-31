@@ -511,11 +511,11 @@ input CreateCurrencyInput {
 }
 
 input CreateDealsRedemptionInput {
-  businessDeal: ID!
+  businessDealId: ID!
   expiresAt: DateTime!
-  redeemedAt: DateTime!
+  redeemedAt: DateTime
   status: String!
-  user: ID!
+  userId: ID!
 }
 
 input CreateEventCategoryInput {
@@ -688,13 +688,15 @@ scalar DateTime
 
 type DealsRedemption {
   businessDeal: CommonBusinessDeal!
+  businessDealId: ID!
   createdAt: DateTime!
   expiresAt: DateTime!
   id: ID!
-  redeemedAt: DateTime!
+  redeemedAt: DateTime
   status: String!
   updatedAt: DateTime!
   user: CommonUser!
+  userId: ID!
 }
 
 type Event {
@@ -1364,11 +1366,11 @@ input UpdateCurrencyInput {
 }
 
 input UpdateDealsRedemptionInput {
-  businessDeal: ID
+  businessDealId: ID
   expiresAt: DateTime
   redeemedAt: DateTime
   status: String
-  user: ID
+  userId: ID
 }
 
 input UpdateEventCategoryInput {

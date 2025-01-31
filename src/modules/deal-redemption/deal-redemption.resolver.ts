@@ -37,15 +37,15 @@ export class DealsRedemptionResolver {
   @Mutation(() => DealsRedemption)
   @ServiceErrorHandler('create deal redemption')
   async createDealsRedemption(@Args('data') data: CreateDealsRedemptionInput) {
-    const { businessDeal, user, ...rest } = data;
+    const { businessDealId, userId, ...rest } = data;
 
     const prismaData: Prisma.DealsRedemptionCreateInput = {
       ...rest,
       businessDeal: {
-        connect: { id: businessDeal },
+        connect: { id: businessDealId },
       },
       user: {
-        connect: { id: user },
+        connect: { id: userId },
       },
     };
 
@@ -58,18 +58,18 @@ export class DealsRedemptionResolver {
     @Args('id') id: string,
     @Args('data') data: UpdateDealsRedemptionInput,
   ) {
-    const { businessDeal, user, ...rest } = data;
+    const { businessDealId, userId, ...rest } = data;
 
     const prismaData: Prisma.DealsRedemptionUpdateInput = {
       ...rest,
-      ...(businessDeal && {
+      ...(businessDealId && {
         businessDeal: {
-          connect: { id: businessDeal },
+          connect: { id: businessDealId },
         },
       }),
-      ...(user && {
+      ...(userId && {
         user: {
-          connect: { id: user },
+          connect: { id: userId },
         },
       }),
     };
@@ -83,12 +83,12 @@ export class DealsRedemptionResolver {
   // ResolveField for businessDeal
   @ResolveField(() => CommonBusinessDeal)
   async businessDeal(@Parent() dealRedemption: DealsRedemption) {
-    return this.service.getBusinessDeal(dealRedemption.businessDeal.id);
+    return this.service.getBusinessDeal(dealRedemption.businessDealId);
   }
 
   // ResolveField for user
   @ResolveField(() => CommonUser)
   async user(@Parent() dealRedemption: DealsRedemption) {
-    return this.service.getUser(dealRedemption.user.id);
+    return this.service.getUser(dealRedemption.userId);
   }
 }
