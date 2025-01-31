@@ -6,21 +6,21 @@ export class CommonUser {
   @Field(() => ID, { nullable: true })
   id?: string;
 
-  @Field()
-  email: string;
+  @Field({ nullable: true })
+  email?: string;
 
-  @Field()
-  name: string;
+  @Field({ nullable: true })
+  name?: string;
 
-  @Field()
-  firstName: string;
+  @Field({ nullable: true })
+  firstName?: string;
 
-  @Field()
-  lastName: string;
+  @Field({ nullable: true })
+  lastName?: string;
 
-  @Field()
-  status: UserStatus;
+  @Field({ nullable: true })
+  status?: UserStatus;
 
-  @Field()
-  createdAt: Date;
+  @Field({ nullable: true })
+  createdAt?: Date;
 }

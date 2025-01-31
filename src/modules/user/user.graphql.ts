@@ -14,8 +14,8 @@ export class User {
   @Field({ nullable: true })
   lastName?: string;
 
-  @Field()
-  email: string;
+  @Field({ nullable: true })
+  email?: string;
 
   @Field()
   createdAt: Date;

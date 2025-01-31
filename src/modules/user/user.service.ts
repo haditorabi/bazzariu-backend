@@ -1,7 +1,8 @@
 import { Injectable } from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service';
-import { UserRole, UserStatus } from '@prisma/client';
+import { Prisma, User, UserRole, UserStatus } from '@prisma/client';
 import { ServiceErrorHandler } from 'src/common/decorators/ServiceErrorHandler';
+import { PaginationArgs } from 'src/graphql/pagination-args-types';
 
 @Injectable()
 export class UserService {
@@ -25,20 +26,37 @@ export class UserService {
       throw error;
     }
   }
+  @ServiceErrorHandler('update a user')
+  async update(id: string, data: Prisma.UserUpdateInput): Promise<User> {
+    return this.prisma.user.update({
+      where: { id },
+      data,
+    });
+  }
   async findUserByEmail(email: string) {
     return this.prisma.user.findUnique({
       where: { email },
     });
   }
-  @ServiceErrorHandler('fetch users with pagination')
-  async getAllUsers(page: number, limit: number) {
-    const skip = (page - 1) * limit;
-    return this.prisma.user.findMany({
-      skip,
-      take: limit,
+  async findOne(userId: string) {
+    return this.prisma.user.findUnique({
+      where: { id: userId },
     });
   }
-
+  @ServiceErrorHandler('fetch users with pagination')
+  async getAllUsers(paginationArgs: PaginationArgs) {
+    const { take, skip } = paginationArgs;
+    return this.prisma.user.findMany({
+      skip,
+      take,
+    });
+  }
+  @ServiceErrorHandler('delete a user')
+  async delete(id: string): Promise<User> {
+    return this.prisma.user.delete({
+      where: { id },
+    });
+  }
   @ServiceErrorHandler('fetch BusinessFollowing')
   async getBusinessFollowing(userId: string) {
     return this.prisma.businessFollowing.findMany({

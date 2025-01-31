@@ -356,13 +356,13 @@ type CommonRegion {
 }
 
 type CommonUser {
-  createdAt: DateTime!
-  email: String!
-  firstName: String!
+  createdAt: DateTime
+  email: String
+  firstName: String
   id: ID
-  lastName: String!
-  name: String!
-  status: String!
+  lastName: String
+  name: String
+  status: String
 }
 
 type Country {
@@ -1166,6 +1166,7 @@ type Query {
     """The page number to fetch"""
     page: Int! = 1
   ): [Transaction!]!
+  user(id: String!): User!
   userAction(id: String!): UserAction!
   userActionLog(id: String!): UserActionLog!
   userActionLogs(
@@ -1262,6 +1263,13 @@ type Query {
     """The page number to fetch"""
     page: Int! = 1
   ): [UserWallet!]!
+  users(
+    """The number of items per page"""
+    limit: Int! = 10
+
+    """The page number to fetch"""
+    page: Int! = 1
+  ): [User!]!
 }
 
 type Region {
@@ -1614,6 +1622,36 @@ input UpdateUserWalletInput {
   balance: Float
   currencyId: ID
   user: ID
+}
+
+type User {
+  BlockedBy: [CommonUser!]!
+  BusinessFollowing: [BusinessFollowing!]!
+  DealsRedemption: [DealsRedemption!]!
+  Payment: [Payment!]!
+  PaymentMethod: [PaymentMethod!]!
+  Report: [Report!]!
+  Transaction: [Transaction!]!
+  UserAction: [UserAction!]!
+  UserActionLog: [UserActionLog!]!
+  UserBlocked: [UserBlocked!]!
+  UserBooking: [UserBooking!]!
+  UserBookmark: [UserBookmark!]!
+  UserCheckin: [UserCheckin!]!
+  UserFollowee: [CommonUser!]!
+  UserFollowing: [CommonUser!]!
+  UserPreference: [UserPreference!]!
+  UserReview: [UserReview!]!
+  UserScore: [UserScore!]!
+  UserVerification: [UserVerification!]!
+  UserWallet: [UserWallet!]!
+  createdAt: DateTime!
+  email: String
+  firstName: String
+  id: ID!
+  lastName: String
+  name: String!
+  updatedAt: DateTime!
 }
 
 type UserAction {
