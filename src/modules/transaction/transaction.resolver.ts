@@ -29,19 +29,17 @@ export class TransactionResolver {
 
   @ResolveField(() => CommonPayment)
   async payment(@Parent() transaction: Transaction) {
-    return this.service.getPayment(transaction.payment.id);
+    return this.service.getPayment(transaction.paymentId);
   }
 
   @ResolveField(() => CommonBusiness, { nullable: true })
   async business(@Parent() transaction: Transaction) {
-    return transaction.business.id
-      ? this.service.getBusiness(transaction.business.id)
-      : null;
+    return this.service.getBusiness(transaction.businessId);
   }
 
   @ResolveField(() => CommonUser)
   async user(@Parent() transaction: Transaction) {
-    return this.service.getUser(transaction.user.id);
+    return this.service.getUser(transaction.userId);
   }
 
   @Query(() => Transaction)
@@ -96,5 +94,9 @@ export class TransactionResolver {
     };
 
     return this.service.update(id, prismaData);
+  }
+  @Mutation(() => Transaction)
+  async deleteTransaction(@Args('id') id: string) {
+    return this.service.delete(id);
   }
 }

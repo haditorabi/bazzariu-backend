@@ -711,7 +711,7 @@ model UserAction {
   action        UserActionType
   targetId      String               @db.ObjectId
   targetType    UserActionTargetType
-  actionDetails Json?
+  actionDetails String?
   points        Int?                 @default(0)
   createdAt     DateTime             @default(now())
 }

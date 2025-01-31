@@ -62,9 +62,13 @@ export class UserActionResolver {
 
     return this.service.update(id, prismaData);
   }
+  @Mutation(() => UserAction)
+  async deleteUserAction(@Args('id') id: string) {
+    return this.service.delete(id);
+  }
+
   @ResolveField(() => CommonUser)
   async user(@Parent() userAction: UserAction): Promise<User> {
-    const { userId } = userAction;
-    return this.service.getUser(userId);
+    return this.service.getUser(userAction.userId);
   }
 }

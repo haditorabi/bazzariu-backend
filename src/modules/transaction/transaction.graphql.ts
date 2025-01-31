@@ -12,14 +12,23 @@ export class Transaction {
   @Field(() => CommonPayment)
   payment: CommonPayment;
 
+  @Field(() => ID)
+  paymentId: string;
+
   @Field(() => CommonBusiness)
   business: CommonBusiness;
+
+  @Field(() => ID)
+  businessId: string;
 
   @Field()
   currencyId: string;
 
   @Field(() => CommonUser)
   user: CommonUser;
+
+  @Field(() => ID)
+  userId: string;
 
   @Field()
   amount: number;

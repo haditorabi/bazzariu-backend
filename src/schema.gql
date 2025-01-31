@@ -606,8 +606,8 @@ input CreateTransactionInput {
 }
 
 input CreateUserActionInput {
-  accountDetails: String!
   action: String!
+  actionDetails: String
   points: Int!
   targetId: ID!
   targetType: String!
@@ -816,6 +816,9 @@ type Mutation {
   deleteProductCategory(id: String!): ProductCategory!
   deleteRegion(id: String!): Region!
   deleteReport(id: String!): Report!
+  deleteTransaction(id: String!): Transaction!
+  deleteUserAction(id: String!): UserAction!
+  deleteUserActionLog(id: String!): UserActionLog!
   updateAmenity(data: UpdateAmenityInput!, id: String!): Amenity!
   updateBookingTimeSlot(data: UpdateBookingTimeSlotInput!, id: String!): BookingTimeSlot!
   updateBusiness(data: UpdateBusinessInput!, id: String!): Business!
@@ -1264,14 +1267,17 @@ type Report {
 type Transaction {
   amount: Float!
   business: CommonBusiness!
+  businessId: ID!
   createdAt: DateTime!
   currencyId: String!
   description: String!
   id: ID!
   payment: CommonPayment!
+  paymentId: ID!
   status: String!
   updatedAt: DateTime!
   user: CommonUser!
+  userId: ID!
 }
 
 input UpdateAmenityInput {
@@ -1502,8 +1508,8 @@ input UpdateTransactionInput {
 }
 
 input UpdateUserActionInput {
-  accountDetails: String
   action: String
+  actionDetails: String
   points: Int
   targetId: ID
   targetType: String
@@ -1577,8 +1583,8 @@ input UpdateUserWalletInput {
 }
 
 type UserAction {
-  accountDetails: String!
   action: String!
+  actionDetails: String
   createdAt: DateTime!
   id: ID!
   points: Int!

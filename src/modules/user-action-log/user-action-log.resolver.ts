@@ -68,4 +68,8 @@ export class UserActionLogResolver {
 
     return this.service.update(id, prismaData);
   }
+  @Mutation(() => UserActionLog)
+  async deleteUserActionLog(@Args('id') id: string) {
+    return this.service.delete(id);
+  }
 }

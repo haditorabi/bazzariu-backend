@@ -22,8 +22,8 @@ export class UserAction {
   @Field()
   targetType: UserActionTargetType;
 
-  @Field()
-  accountDetails: string;
+  @Field({ nullable: true })
+  actionDetails?: string;
 
   @Field(() => Int)
   points: number;
@@ -46,8 +46,8 @@ export class CreateUserActionInput {
   @Field()
   targetType: UserActionTargetType;
 
-  @Field()
-  accountDetails: string;
+  @Field({ nullable: true })
+  actionDetails?: string;
 
   @Field(() => Int)
   points?: number;
@@ -68,7 +68,7 @@ export class UpdateUserActionInput {
   targetType?: UserActionTargetType;
 
   @Field({ nullable: true })
-  accountDetails?: string;
+  actionDetails?: string;
 
   @Field(() => Int, { nullable: true })
   points?: number;
