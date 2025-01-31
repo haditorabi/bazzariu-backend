@@ -48,6 +48,7 @@ import { UserPreferenceModule } from '../user-preference/user-preference.module'
 import { UserReviewModule } from '../user-review/user-review.module';
 import { UserScoreModule } from '../user-score/user-score.module';
 import { UserWalletModule } from '../user-wallet/user-wallet.module';
+import { UserVerificationModule } from '../user-verification/user-verification.module';
 
 @Module({
   imports: [
@@ -104,6 +105,7 @@ import { UserWalletModule } from '../user-wallet/user-wallet.module';
     UserReviewModule,
     UserScoreModule,
     UserActionModule,
+    UserVerificationModule,
     UserWalletModule,
   ],
   controllers: [AppController],

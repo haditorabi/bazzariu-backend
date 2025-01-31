@@ -10,6 +10,9 @@ export class UserVerification {
   @Field(() => CommonUser)
   user: CommonUser;
 
+  @Field(() => ID)
+  userId: string;
+
   @Field()
   type: UserVerificationType;
 

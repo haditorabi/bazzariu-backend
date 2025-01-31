@@ -63,8 +63,12 @@ export class UserVerificationResolver {
 
     return this.service.update(id, prismaData);
   }
+  @Mutation(() => UserVerification)
+  async deleteUserVerification(@Args('id') id: string) {
+    return this.service.delete(id);
+  }
   @ResolveField(() => CommonUser)
   async user(@Parent() userVerification: UserVerification) {
-    return this.service.getUserById(userVerification.user.id);
+    return this.service.getUserById(userVerification.userId);
   }
 }

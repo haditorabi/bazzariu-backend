@@ -674,6 +674,12 @@ input CreateUserScoreInput {
   user: ID!
 }
 
+input CreateUserVerificationInput {
+  status: String!
+  type: String!
+  user: ID!
+}
+
 input CreateUserWalletInput {
   balance: Float!
   currencyId: ID!
@@ -790,6 +796,7 @@ type Mutation {
   createUserPreference(data: CreateUserPreferenceInput!): UserPreference!
   createUserReview(data: CreateUserReviewInput!): UserReview!
   createUserScore(data: CreateUserScoreInput!): UserScore!
+  createUserVerification(data: CreateUserVerificationInput!): UserVerification!
   createUserWallet(data: CreateUserWalletInput!): UserWallet!
   deleteAmenity(id: String!): Amenity!
   deleteBookingTimeSlot(id: String!): Boolean!
@@ -826,6 +833,7 @@ type Mutation {
   deleteUserPreference(id: String!): UserPreference!
   deleteUserReview(id: String!): UserReview!
   deleteUserScore(id: String!): UserScore!
+  deleteUserVerification(id: String!): UserVerification!
   updateAmenity(data: UpdateAmenityInput!, id: String!): Amenity!
   updateBookingTimeSlot(data: UpdateBookingTimeSlotInput!, id: String!): BookingTimeSlot!
   updateBusiness(data: UpdateBusinessInput!, id: String!): Business!
@@ -865,6 +873,7 @@ type Mutation {
   updateUserPreference(data: UpdateUserPreferenceInput!, id: String!): UserPreference!
   updateUserReview(data: UpdateUserReviewInput!, id: String!): UserReview!
   updateUserScore(data: UpdateUserScoreInput!, id: String!): UserScore!
+  updateUserVerification(data: UpdateUserVerificationInput!, id: String!): UserVerification!
   updateUserWallet(data: UpdateUserWalletInput!, id: String!): UserWallet!
 }
 
@@ -1234,6 +1243,14 @@ type Query {
     """The page number to fetch"""
     page: Int! = 1
   ): [UserScore!]!
+  userVerification(id: String!): UserVerification!
+  userVerifications(
+    """The number of items per page"""
+    limit: Int! = 10
+
+    """The page number to fetch"""
+    page: Int! = 1
+  ): [UserVerification!]!
   userWallet(id: String!): UserWallet!
   userWallets(
     """The number of items per page"""
@@ -1583,6 +1600,12 @@ input UpdateUserScoreInput {
   user: ID
 }
 
+input UpdateUserVerificationInput {
+  status: String
+  type: String
+  user: ID
+}
+
 input UpdateUserWalletInput {
   balance: Float
   currencyId: ID
@@ -1690,6 +1713,16 @@ type UserScore {
   createdAt: DateTime!
   id: ID!
   score: String!
+  user: CommonUser!
+  userId: ID!
+}
+
+type UserVerification {
+  createdAt: DateTime!
+  id: ID!
+  status: String!
+  type: String!
+  updatedAt: DateTime!
   user: CommonUser!
   userId: ID!
 }
