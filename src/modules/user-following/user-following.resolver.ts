@@ -55,14 +55,17 @@ export class UserFollowingResolver {
     };
     return this.service.update(id, prismaData);
   }
-
+  @Mutation(() => UserFollowing)
+  async deleteUserFollowing(@Args('id') id: string) {
+    return this.service.delete(id);
+  }
   @ResolveField(() => CommonUser)
   async follower(@Parent() userFollowing: UserFollowing) {
-    return this.service.findUserById(userFollowing.follower.id);
+    return this.service.getUser(userFollowing.followerId);
   }
 
   @ResolveField(() => CommonUser)
   async followee(@Parent() userFollowing: UserFollowing) {
-    return this.service.findUserById(userFollowing.followee.id);
+    return this.service.getUser(userFollowing.followeeId);
   }
 }

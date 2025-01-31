@@ -9,8 +9,14 @@ export class UserFollowing {
   @Field(() => CommonUser)
   follower: CommonUser;
 
+  @Field(() => ID)
+  followerId: string;
+
   @Field(() => CommonUser)
   followee: CommonUser;
+
+  @Field(() => ID)
+  followeeId: string;
 
   @Field()
   createdAt: Date;
