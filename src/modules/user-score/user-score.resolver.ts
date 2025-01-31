@@ -61,9 +61,12 @@ export class UserScoreResolver {
 
     return this.service.update(id, prismaData);
   }
-
+  @Mutation(() => UserScore)
+  async deleteUserScore(@Args('id') id: string) {
+    return this.service.delete(id);
+  }
   @ResolveField(() => User)
   async user(@Parent() userScore: UserScore) {
-    return this.service.getUserById(userScore.user.id);
+    return this.service.getUserById(userScore.userId);
   }
 }

@@ -825,6 +825,7 @@ type Mutation {
   deleteUserFollowing(id: String!): UserFollowing!
   deleteUserPreference(id: String!): UserPreference!
   deleteUserReview(id: String!): UserReview!
+  deleteUserScore(id: String!): UserScore!
   updateAmenity(data: UpdateAmenityInput!, id: String!): Amenity!
   updateBookingTimeSlot(data: UpdateBookingTimeSlotInput!, id: String!): BookingTimeSlot!
   updateBusiness(data: UpdateBusinessInput!, id: String!): Business!
@@ -1690,6 +1691,7 @@ type UserScore {
   id: ID!
   score: String!
   user: CommonUser!
+  userId: ID!
 }
 
 type UserWallet {
