@@ -794,6 +794,7 @@ type Mutation {
   deleteBusinessUpdate(id: String!): BusinessUpdate!
   deleteCity(id: String!): City!
   deleteCountry(id: String!): Country!
+  deleteCurrency(id: String!): Currency!
   deleteDealsRedemption(id: String!): DealsRedemption!
   updateAmenity(data: UpdateAmenityInput!, id: String!): Amenity!
   updateBookingTimeSlot(data: UpdateBookingTimeSlotInput!, id: String!): BookingTimeSlot!

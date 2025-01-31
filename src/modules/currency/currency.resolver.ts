@@ -38,4 +38,8 @@ export class CurrencyResolver {
 
     return this.service.update(id, prismaData);
   }
+  @Mutation(() => Currency)
+  async deleteCurrency(@Args('id') id: string) {
+    return this.service.delete(id);
+  }
 }
