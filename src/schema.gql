@@ -177,13 +177,14 @@ type BusinessUpdate {
 }
 
 type City {
-  createdAt: DateTime!
+  createdAt: DateTime
   id: ID!
   name: String!
   province: CommonProvince!
-  region: CommonRegion!
+  provinceId: ID!
+  regionId: ID
   status: String!
-  updatedAt: DateTime!
+  updatedAt: DateTime
 }
 
 type CommonBookingTimeSlot {
@@ -493,7 +494,7 @@ input CreateBusinessUpdateInput {
 
 input CreateCityInput {
   name: String!
-  province: ID!
+  provinceId: ID!
   statusId: String!
 }
 
@@ -791,6 +792,7 @@ type Mutation {
   deleteBusinessProductPrice(id: String!): BusinessProductPrice!
   deleteBusinessTag(id: String!): BusinessTag!
   deleteBusinessUpdate(id: String!): BusinessUpdate!
+  deleteCity(id: String!): City!
   deleteDealsRedemption(id: String!): DealsRedemption!
   updateAmenity(data: UpdateAmenityInput!, id: String!): Amenity!
   updateBookingTimeSlot(data: UpdateBookingTimeSlotInput!, id: String!): BookingTimeSlot!
@@ -1343,7 +1345,7 @@ input UpdateBusinessUpdateInput {
 
 input UpdateCityInput {
   name: String
-  province: ID
+  provinceId: ID
   status: String
 }
 
