@@ -815,6 +815,7 @@ type Mutation {
   deletePaymentMethod(id: String!): PaymentMethod!
   deleteProductCategory(id: String!): ProductCategory!
   deleteRegion(id: String!): Region!
+  deleteReport(id: String!): Report!
   updateAmenity(data: UpdateAmenityInput!, id: String!): Amenity!
   updateBookingTimeSlot(data: UpdateBookingTimeSlotInput!, id: String!): BookingTimeSlot!
   updateBusiness(data: UpdateBusinessInput!, id: String!): Business!
@@ -1252,9 +1253,10 @@ enum RegionStatus {
 
 type Report {
   by: CommonUser!
+  byId: ID!
   createdAt: DateTime!
   id: ID!
-  reason: String!
+  reason: String
   targetId: String!
   targetType: String!
 }

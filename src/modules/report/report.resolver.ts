@@ -59,8 +59,12 @@ export class ReportResolver {
 
     return this.service.update(id, prismaData);
   }
+  @Mutation(() => Report)
+  async deleteReport(@Args('id') id: string) {
+    return this.service.delete(id);
+  }
   @ResolveField(() => CommonUser)
   async by(@Parent() report: Report) {
-    return this.service.getUserById(report.by.id);
+    return this.service.getUserById(report.byId);
   }
 }

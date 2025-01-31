@@ -10,14 +10,17 @@ export class Report {
   @Field(() => CommonUser)
   by: CommonUser;
 
+  @Field(() => ID)
+  byId: string;
+
   @Field()
   targetId: string;
 
   @Field()
   targetType: ReportTargetType;
 
-  @Field()
-  reason: ReportReasonType;
+  @Field({ nullable: true })
+  reason?: ReportReasonType;
 
   @Field()
   createdAt: Date;
