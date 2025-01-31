@@ -32,6 +32,7 @@ import { EventCategoryModule } from '../event-category/event-category.module';
 import { LanguageModule } from '../language/language.module';
 import { MediaModule } from '../media/media.module';
 import { PaymentModule } from '../payment/payment.module';
+import { PaymentMethodModule } from '../payment-method/payment-method.module';
 import { ProductCategoryModule } from '../product-category/product-category.module';
 import { RegionModule } from '../region/region.module';
 import { ReportModule } from '../report/report.module';
@@ -85,6 +86,7 @@ import { UserWalletModule } from '../user-wallet/user-wallet.module';
     LanguageModule,
     MediaModule,
     PaymentModule,
+    PaymentMethodModule,
     ProductCategoryModule,
     ProvinceModule,
     RegionModule,

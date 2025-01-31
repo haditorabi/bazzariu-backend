@@ -277,12 +277,10 @@ type CommonBusinessProductPrice {
 }
 
 type CommonCity {
-  createdAt: DateTime!
   id: ID!
   name: String!
   provinceId: ID!
   status: String!
-  updatedAt: DateTime!
 }
 
 type CommonCountry {
@@ -564,6 +562,13 @@ input CreatePaymentInput {
   userId: ID!
 }
 
+input CreatePaymentMethodInput {
+  details: String!
+  status: String!
+  type: String!
+  user: ID!
+}
+
 input CreateProductCategoryInput {
   name: String!
   status: String!
@@ -769,6 +774,7 @@ type Mutation {
   createLanguage(data: CreateLanguageInput!): Language!
   createMedia(data: CreateMediaInput!): Media!
   createPayment(data: CreatePaymentInput!): Payment!
+  createPaymentMethod(data: CreatePaymentMethodInput!): PaymentMethod!
   createProductCategory(data: CreateProductCategoryInput!): ProductCategory!
   createProvince(data: CreateProvinceInput!): Province!
   createRegion(data: CreateRegionInput!): Region!
@@ -798,6 +804,7 @@ type Mutation {
   deleteBusinessTag(id: String!): BusinessTag!
   deleteBusinessUpdate(id: String!): BusinessUpdate!
   deleteCity(id: String!): City!
+  deleteCommonCountry(id: String!): CommonCountry!
   deleteCountry(id: String!): Country!
   deleteCurrency(id: String!): Currency!
   deleteDealsRedemption(id: String!): DealsRedemption!
@@ -805,6 +812,7 @@ type Mutation {
   deleteEventCategory(id: String!): EventCategory!
   deleteLangiage(id: String!): Language!
   deletePayment(id: String!): Payment!
+  deleteProductCategory(id: String!): ProductCategory!
   updateAmenity(data: UpdateAmenityInput!, id: String!): Amenity!
   updateBookingTimeSlot(data: UpdateBookingTimeSlotInput!, id: String!): BookingTimeSlot!
   updateBusiness(data: UpdateBusinessInput!, id: String!): Business!
@@ -828,6 +836,7 @@ type Mutation {
   updateLanguage(data: UpdateLanguageInput!, id: String!): Language!
   updateMedia(data: UpdateMediaInput!, id: String!): Media!
   updatePayment(data: UpdatePaymentInput!, id: String!): Payment!
+  updatePaymentMethod(data: UpdatePaymentMethodInput!, id: String!): PaymentMethod!
   updateProductCategory(data: UpdateProductCategoryInput!, id: String!): ProductCategory!
   updateProvince(data: UpdateProvinceInput!, id: String!): Province!
   updateRegion(data: UpdateRegionInput!, id: String!): Region!
@@ -863,6 +872,16 @@ type Payment {
   updatedAt: DateTime!
   user: CommonUser!
   userId: ID!
+}
+
+type PaymentMethod {
+  createdAt: DateTime!
+  details: String!
+  id: ID!
+  payment: [CommonPayment!]!
+  status: String!
+  type: String!
+  user: CommonUser!
 }
 
 type ProductCategory {
@@ -1062,6 +1081,14 @@ type Query {
     page: Int! = 1
   ): [Media!]!
   payment(id: String!): Payment!
+  paymentMethod(id: String!): PaymentMethod!
+  paymentMethods(
+    """The number of items per page"""
+    limit: Int! = 10
+
+    """The page number to fetch"""
+    page: Int! = 1
+  ): [PaymentMethod!]!
   payments(
     """The number of items per page"""
     limit: Int! = 10
@@ -1421,6 +1448,13 @@ input UpdatePaymentInput {
   targetType: String
   transactionId: ID
   userId: ID
+}
+
+input UpdatePaymentMethodInput {
+  details: String
+  status: String
+  type: String
+  user: ID
 }
 
 input UpdateProductCategoryInput {

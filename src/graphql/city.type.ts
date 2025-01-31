@@ -14,10 +14,4 @@ export class CommonCity {
 
   @Field()
   status: CityStatus;
-
-  @Field()
-  createdAt: Date;
-
-  @Field()
-  updatedAt: Date;
 }

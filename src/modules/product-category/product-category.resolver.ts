@@ -59,4 +59,8 @@ export class ProductCategoryResolver {
 
     return this.service.update(id, prismaData);
   }
+  @Mutation(() => ProductCategory)
+  async deleteProductCategory(@Args('id') id: string) {
+    return this.service.delete(id);
+  }
 }
