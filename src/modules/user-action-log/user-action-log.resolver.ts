@@ -27,8 +27,7 @@ export class UserActionLogResolver {
 
   @ResolveField(() => CommonUser)
   async user(@Parent() userActionLog: UserActionLog) {
-    const { userId } = userActionLog;
-    return this.service.getUser(userId);
+    return this.service.getUser(userActionLog.userId);
   }
 
   @Query(() => UserActionLog)
@@ -38,12 +37,12 @@ export class UserActionLogResolver {
 
   @Mutation(() => UserActionLog)
   async createUserActionLog(@Args('data') data: CreateUserActionLogInput) {
-    const { user, ...rest } = data;
+    const { userId, ...rest } = data;
 
     const prismaData: Prisma.UserActionLogCreateInput = {
       ...rest,
       user: {
-        connect: { id: user },
+        connect: { id: userId },
       },
     };
 
@@ -55,13 +54,13 @@ export class UserActionLogResolver {
     @Args('id') id: string,
     @Args('data') data: UpdateUserActionLogInput,
   ) {
-    const { user, ...rest } = data;
+    const { userId, ...rest } = data;
 
     const prismaData: Prisma.UserActionLogUpdateInput = {
       ...rest,
-      ...(user && {
+      ...(userId && {
         user: {
-          connect: { id: user },
+          connect: { id: userId },
         },
       }),
     };

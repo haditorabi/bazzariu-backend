@@ -9,8 +9,14 @@ export class UserBlocked {
   @Field(() => CommonUser)
   user: CommonUser;
 
+  @Field(() => ID)
+  userId: string;
+
   @Field(() => CommonUser)
   blocked: CommonUser;
+
+  @Field(() => ID)
+  blockedId: string;
 
   @Field()
   createdAt: Date;

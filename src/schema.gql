@@ -622,7 +622,7 @@ input CreateUserActionLogInput {
   os: String
   targetId: ID!
   targetType: String!
-  user: ID!
+  userId: ID!
 }
 
 input CreateUserBlockedInput {
@@ -819,6 +819,7 @@ type Mutation {
   deleteTransaction(id: String!): Transaction!
   deleteUserAction(id: String!): UserAction!
   deleteUserActionLog(id: String!): UserActionLog!
+  deleteUserBlocked(id: String!): UserBlocked!
   updateAmenity(data: UpdateAmenityInput!, id: String!): Amenity!
   updateBookingTimeSlot(data: UpdateBookingTimeSlotInput!, id: String!): BookingTimeSlot!
   updateBusiness(data: UpdateBusinessInput!, id: String!): Business!
@@ -1524,7 +1525,7 @@ input UpdateUserActionLogInput {
   os: String
   targetId: ID
   targetType: String
-  user: ID
+  userId: ID
 }
 
 input UpdateUserBlockedInput {
@@ -1610,9 +1611,11 @@ type UserActionLog {
 
 type UserBlocked {
   blocked: CommonUser!
+  blockedId: ID!
   createdAt: DateTime!
   id: ID!
   user: CommonUser!
+  userId: ID!
 }
 
 type UserBooking {

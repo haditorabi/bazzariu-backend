@@ -26,7 +26,7 @@ model BusinessBooking {
   business          Business              @relation(fields: [businessId], references: [id])
   businessProductId String[]              @db.ObjectId
   businessProduct   BusinessProduct[]     @relation(fields: [businessProductId], references: [id])
-  maxAvailable       Int?
+  maxAvailable      Int?
   maxGuest          Int?
   mediaId           String[]              @db.ObjectId
   status            BusinessBookingStatus
@@ -171,17 +171,17 @@ enum BusinessLocationStatus {
 }
 
 model BusinessProduct {
-  id          String                @id @default(auto()) @map("_id") @db.ObjectId
-  businessId  String                @db.ObjectId
-  business    Business              @relation(fields: [businessId], references: [id])
-  productCategoryId  String?               @db.ObjectId
-  productCategory    ProductCategory?      @relation(fields: [productCategoryId], references: [id])
-  name        String
-  description String?
-  mediaId     String[]              @db.ObjectId
-  status      BusinessProductStatus
-  createdAt   DateTime              @default(now())
-  updatedAt   DateTime              @updatedAt
+  id                String                @id @default(auto()) @map("_id") @db.ObjectId
+  businessId        String                @db.ObjectId
+  business          Business              @relation(fields: [businessId], references: [id])
+  productCategoryId String?               @db.ObjectId
+  productCategory   ProductCategory?      @relation(fields: [productCategoryId], references: [id])
+  name              String
+  description       String?
+  mediaId           String[]              @db.ObjectId
+  status            BusinessProductStatus
+  createdAt         DateTime              @default(now())
+  updatedAt         DateTime              @updatedAt
 
   businessBookingId String[]          @db.ObjectId
   businessBooking   BusinessBooking[] @relation(fields: [businessBookingId], references: [id])
@@ -371,7 +371,7 @@ model DealsRedemption {
   businessDeal   BusinessDeal          @relation(fields: [businessDealId], references: [id])
   userId         String                @db.ObjectId
   user           User                  @relation(fields: [userId], references: [id])
-  redeemedAt     DateTime?              
+  redeemedAt     DateTime?
   expiresAt      DateTime?
   status         DealsRedemptionStatus
   createdAt      DateTime              @default(now())

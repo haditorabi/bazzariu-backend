@@ -41,7 +41,7 @@ export class UserActionLog {
 @InputType()
 export class CreateUserActionLogInput {
   @Field(() => ID)
-  user: string;
+  userId: string;
 
   @Field()
   action: UserActionType;
@@ -68,7 +68,7 @@ export class CreateUserActionLogInput {
 @InputType()
 export class UpdateUserActionLogInput {
   @Field(() => ID, { nullable: true })
-  user?: string;
+  userId?: string;
 
   @Field({ nullable: true })
   action?: UserActionType;

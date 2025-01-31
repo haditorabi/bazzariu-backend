@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service';
-import { Prisma, UserBlocked } from '@prisma/client';
+import { Prisma, User, UserBlocked } from '@prisma/client';
 import { ServiceErrorHandler } from 'src/common/decorators/ServiceErrorHandler';
 import { PaginationArgs } from 'src/graphql/pagination-args-types';
 
@@ -46,6 +46,12 @@ export class UserBlockedService {
   async delete(id: string): Promise<UserBlocked> {
     return this.prisma.userBlocked.delete({
       where: { id },
+    });
+  }
+  @ServiceErrorHandler('Get User')
+  async getUser(userId: string): Promise<User | null> {
+    return this.prisma.user.findUnique({
+      where: { id: userId },
     });
   }
 }

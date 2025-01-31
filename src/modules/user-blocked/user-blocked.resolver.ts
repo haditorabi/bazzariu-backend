@@ -15,6 +15,7 @@ import {
 import { Prisma } from '@prisma/client';
 import { ServiceErrorHandler } from 'src/common/decorators/ServiceErrorHandler';
 import { PaginationArgs } from 'src/graphql/pagination-args-types';
+import { CommonUser } from 'src/graphql/user.type';
 
 @Resolver(() => UserBlocked)
 export class UserBlockedResolver {
@@ -72,14 +73,18 @@ export class UserBlockedResolver {
 
     return this.service.update(id, prismaData);
   }
-
-  @ResolveField(() => UserBlocked)
-  async user(@Parent() userBlocked: UserBlocked) {
-    return this.service.findOne(userBlocked.user.id);
+  @Mutation(() => UserBlocked)
+  async deleteUserBlocked(@Args('id') id: string) {
+    return this.service.delete(id);
   }
 
-  @ResolveField(() => UserBlocked)
+  @ResolveField(() => CommonUser)
+  async user(@Parent() userBlocked: UserBlocked) {
+    return this.service.getUser(userBlocked.userId);
+  }
+
+  @ResolveField(() => CommonUser)
   async blocked(@Parent() userBlocked: UserBlocked) {
-    return this.service.findOne(userBlocked.blocked.id);
+    return this.service.getUser(userBlocked.blockedId);
   }
 }
