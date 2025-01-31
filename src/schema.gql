@@ -812,6 +812,7 @@ type Mutation {
   deleteEventCategory(id: String!): EventCategory!
   deleteLangiage(id: String!): Language!
   deletePayment(id: String!): Payment!
+  deletePaymentMethod(id: String!): PaymentMethod!
   deleteProductCategory(id: String!): ProductCategory!
   updateAmenity(data: UpdateAmenityInput!, id: String!): Amenity!
   updateBookingTimeSlot(data: UpdateBookingTimeSlotInput!, id: String!): BookingTimeSlot!
@@ -876,12 +877,14 @@ type Payment {
 
 type PaymentMethod {
   createdAt: DateTime!
-  details: String!
+  details: String
   id: ID!
-  payment: [CommonPayment!]!
+  payment: [CommonPayment!]
+  paymentId: ID!
   status: String!
   type: String!
   user: CommonUser!
+  userId: ID!
 }
 
 type ProductCategory {

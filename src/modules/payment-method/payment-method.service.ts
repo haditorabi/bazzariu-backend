@@ -1,10 +1,10 @@
 import { Injectable } from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service';
-import { Prisma, PaymentMethod } from '@prisma/client';
+import { Prisma, PaymentMethod, User, Payment } from '@prisma/client';
 import { ServiceErrorHandler } from 'src/common/decorators/ServiceErrorHandler';
 import { PaginationArgs } from 'src/graphql/pagination-args-types';
 
-Injectable();
+@Injectable()
 export class PaymentMethodService {
   constructor(private prisma: PrismaService) {}
 
@@ -46,6 +46,19 @@ export class PaymentMethodService {
   async delete(id: string): Promise<PaymentMethod> {
     return this.prisma.paymentMethod.delete({
       where: { id },
+    });
+  }
+
+  @ServiceErrorHandler('Get Payment')
+  async getPayments(paymentMethodId: string): Promise<Payment[] | null> {
+    return this.prisma.payment.findMany({
+      where: { paymentMethodId: paymentMethodId },
+    });
+  }
+  @ServiceErrorHandler('Get User')
+  async getUser(userId: string): Promise<User | null> {
+    return this.prisma.user.findUnique({
+      where: { id: userId },
     });
   }
 }

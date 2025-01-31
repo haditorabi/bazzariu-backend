@@ -11,8 +11,14 @@ export class PaymentMethod {
   @Field(() => CommonUser)
   user: CommonUser;
 
-  @Field()
-  details: string;
+  @Field(() => ID)
+  userId: string;
+
+  @Field(() => ID)
+  paymentId: string;
+
+  @Field({ nullable: true })
+  details?: string;
 
   @Field()
   type: PaymentMethodType;
@@ -23,8 +29,8 @@ export class PaymentMethod {
   @Field()
   createdAt: Date;
 
-  @Field(() => [CommonPayment])
-  payment: CommonPayment[];
+  @Field(() => [CommonPayment], { nullable: true })
+  payment?: CommonPayment[];
 }
 
 @InputType()

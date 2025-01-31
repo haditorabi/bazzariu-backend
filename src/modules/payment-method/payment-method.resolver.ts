@@ -1,4 +1,11 @@
-import { Resolver, Query, Mutation, Args } from '@nestjs/graphql';
+import {
+  Resolver,
+  Query,
+  Mutation,
+  Args,
+  Parent,
+  ResolveField,
+} from '@nestjs/graphql';
 import { PaymentMethodService } from './payment-method.service';
 import {
   PaymentMethod,
@@ -7,6 +14,8 @@ import {
 } from './payment-method.graphql';
 import { Prisma } from '@prisma/client';
 import { PaginationArgs } from 'src/graphql/pagination-args-types';
+import { CommonUser } from 'src/graphql/user.type';
+import { CommonPayment } from 'src/graphql/payment.type';
 
 @Resolver(() => PaymentMethod)
 export class PaymentMethodResolver {
@@ -53,5 +62,17 @@ export class PaymentMethodResolver {
     };
 
     return this.service.update(id, prismaData);
+  }
+  @Mutation(() => PaymentMethod)
+  async deletePaymentMethod(@Args('id') id: string) {
+    return this.service.delete(id);
+  }
+  @ResolveField(() => [CommonPayment])
+  async payment(@Parent() paymentMethod: PaymentMethod) {
+    return this.service.getPayments(paymentMethod.id);
+  }
+  @ResolveField(() => CommonUser)
+  async user(@Parent() paymentMethod: PaymentMethod) {
+    return this.service.getUser(paymentMethod.userId);
   }
 }
