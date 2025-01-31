@@ -18,6 +18,9 @@ export class CommonBusiness {
   isClaimed: boolean;
 
   @Field(() => [ID], { nullable: true })
+  amenityId?: string[];
+
+  @Field(() => [ID], { nullable: true })
   businessCategoryId?: string[];
 
   @Field(() => [ID], { nullable: true })

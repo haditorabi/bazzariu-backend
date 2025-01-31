@@ -5,6 +5,7 @@ import { CommonBusinessHour } from 'src/graphql/business-hour.type';
 import { CommonBusinessDeal } from 'src/graphql/business-deal.type';
 import { CommonBusinessProduct } from 'src/graphql/business-product.type';
 import { CommonBusinessLocation } from 'src/graphql/business-location.type';
+import { CommonRegion } from 'src/graphql/region.type';
 
 @ObjectType()
 export class Business {
@@ -14,11 +15,11 @@ export class Business {
   @Field()
   name: string;
 
-  @Field()
-  description: string;
+  @Field({ nullable: true })
+  description?: string;
 
-  @Field()
-  website: string;
+  @Field({ nullable: true })
+  website?: string;
 
   @Field()
   isClaimed: boolean;
@@ -35,17 +36,20 @@ export class Business {
   @Field(() => ID, { nullable: true })
   regionId?: string;
 
+  @Field(() => CommonRegion, { nullable: true })
+  region?: CommonRegion;
+
   @Field(() => [ID], { nullable: true })
   mediaId?: string[];
 
   @Field()
   status: BusinessStatus;
 
-  @Field()
-  createdAt: Date;
+  @Field({ nullable: true })
+  createdAt?: Date;
 
-  @Field()
-  updatedAt: Date;
+  @Field({ nullable: true })
+  updatedAt?: Date;
 
   @Field(() => [CommonBusinessBooking], { nullable: true })
   businessBooking?: CommonBusinessBooking[];
@@ -78,13 +82,16 @@ export class CreateBusinessInput {
   isClaimed: boolean;
 
   @Field(() => [ID], { nullable: true })
-  businessCategory?: string[];
+  businessCategoryId?: string[];
 
   @Field(() => [ID], { nullable: true })
-  amenity?: string[];
+  amenityId?: string[];
 
-  @Field(() => ID)
-  region: string;
+  @Field(() => [ID], { nullable: true })
+  languageId?: string[];
+
+  @Field(() => ID, { nullable: true })
+  regionId?: string;
 
   @Field(() => [ID], { nullable: true })
   mediaId?: string[];
@@ -108,13 +115,16 @@ export class UpdateBusinessInput {
   isClaimed?: boolean;
 
   @Field(() => [ID], { nullable: true })
-  businessCategory?: string[];
+  languageId?: string[];
 
   @Field(() => [ID], { nullable: true })
-  amenity?: string[];
+  businessCategoryId?: string[];
+
+  @Field(() => [ID], { nullable: true })
+  amenityId?: string[];
 
   @Field(() => ID, { nullable: true })
-  region?: string;
+  regionId?: string;
 
   @Field(() => [ID], { nullable: true })
   mediaId?: string[];

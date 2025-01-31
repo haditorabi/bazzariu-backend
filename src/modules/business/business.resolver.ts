@@ -45,23 +45,13 @@ export class BusinessResolver {
 
   @Mutation(() => Business)
   async createBusiness(@Args('data') data: CreateBusinessInput) {
-    const { amenity, businessCategory, region, ...rest } = data;
+    const { regionId, ...rest } = data;
 
     const prismaData: Prisma.BusinessCreateInput = {
       ...rest,
       region: {
-        connect: { id: region },
+        connect: { id: regionId },
       },
-      ...(businessCategory && {
-        businessCategory: {
-          connect: businessCategory.map((id) => ({ id })),
-        },
-      }),
-      ...(amenity && {
-        amenity: {
-          connect: amenity.map((id) => ({ id })),
-        },
-      }),
     };
 
     return this.service.create(prismaData);
@@ -72,23 +62,13 @@ export class BusinessResolver {
     @Args('id') id: string,
     @Args('data') data: UpdateBusinessInput,
   ) {
-    const { amenity, businessCategory, region, ...rest } = data;
+    const { regionId, ...rest } = data;
 
     const prismaData: Prisma.BusinessUpdateInput = {
       ...rest,
-      ...(region && {
+      ...(regionId && {
         region: {
-          connect: { id: region },
-        },
-      }),
-      ...(businessCategory && {
-        businessCategory: {
-          connect: businessCategory.map((id) => ({ id })),
-        },
-      }),
-      ...(amenity && {
-        amenity: {
-          connect: amenity.map((id) => ({ id })),
+          connect: { id: regionId },
         },
       }),
     };
@@ -102,7 +82,7 @@ export class BusinessResolver {
   }
   @ResolveField(() => CommonRegion, { nullable: true })
   async region(@Parent() business: Business): Promise<CommonRegion | null> {
-    return this.service.getRegion(business.id);
+    return this.service.getRegion(business.regionId);
   }
 
   @ResolveField(() => [CommonBusinessBooking], { nullable: true })

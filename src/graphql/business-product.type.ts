@@ -9,7 +9,7 @@ export class CommonBusinessProduct {
   @Field(() => ID)
   businessId: string;
 
-  @Field(() => ID)
+  @Field(() => ID, { nullable: true })
   categoryId?: string;
 
   @Field()

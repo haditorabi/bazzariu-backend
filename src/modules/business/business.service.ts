@@ -63,12 +63,10 @@ export class BusinessService {
     });
   }
   @ServiceErrorHandler('retrieve region of a business')
-  async getRegion(businessId: string): Promise<CommonRegion | null> {
-    const business = await this.prisma.business.findUnique({
-      where: { id: businessId },
-      include: { region: true },
+  async getRegion(regionId: string): Promise<CommonRegion | null> {
+    return this.prisma.region.findUnique({
+      where: { id: regionId },
     });
-    return business?.region || null;
   }
 
   @ServiceErrorHandler('retrieve bookings of a business')

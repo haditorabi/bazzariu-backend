@@ -26,8 +26,8 @@ type Business {
   businessHour: [CommonBusinessHour!]
   businessLocation: [CommonBusinessLocation!]
   businessProduct: [CommonBusinessProduct!]
-  createdAt: DateTime!
-  description: String!
+  createdAt: DateTime
+  description: String
   id: ID!
   isClaimed: Boolean!
   languageId: [ID!]
@@ -36,8 +36,8 @@ type Business {
   region: CommonRegion
   regionId: ID
   status: String!
-  updatedAt: DateTime!
-  website: String!
+  updatedAt: DateTime
+  website: String
 }
 
 type BusinessBooking {
@@ -197,6 +197,7 @@ type CommonBookingTimeSlot {
 }
 
 type CommonBusiness {
+  amenityId: [ID!]
   businessCategoryId: [ID!]
   createdAt: DateTime!
   description: String
@@ -214,8 +215,8 @@ type CommonBusiness {
 type CommonBusinessBooking {
   createdAt: DateTime!
   id: ID!
-  maxAvailable: Int!
-  maxGuest: Int!
+  maxAvailable: Int
+  maxGuest: Int
   mediaId: [ID!]
   status: String!
   updatedAt: DateTime!
@@ -262,7 +263,7 @@ type CommonBusinessLocation {
 
 type CommonBusinessProduct {
   businessId: ID!
-  categoryId: ID!
+  categoryId: ID
   description: String
   id: ID!
   mediaId: [ID!]
@@ -438,13 +439,14 @@ input CreateBusinessHourInput {
 }
 
 input CreateBusinessInput {
-  amenity: [ID!]
-  businessCategory: [ID!]
+  amenityId: [ID!]
+  businessCategoryId: [ID!]
   description: String
   isClaimed: Boolean!
+  languageId: [ID!]
   mediaId: [ID!]
   name: String!
-  region: ID!
+  regionId: ID
   status: String!
   website: String
 }
@@ -1370,13 +1372,14 @@ input UpdateBusinessHourInput {
 }
 
 input UpdateBusinessInput {
-  amenity: [ID!]
-  businessCategory: [ID!]
+  amenityId: [ID!]
+  businessCategoryId: [ID!]
   description: String
   isClaimed: Boolean
+  languageId: [ID!]
   mediaId: [ID!]
   name: String
-  region: ID
+  regionId: ID
   status: String
   website: String
 }
