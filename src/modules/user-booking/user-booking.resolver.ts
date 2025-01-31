@@ -84,7 +84,7 @@ export class UserBookingResolver {
   // ResolveField for user
   @ResolveField(() => CommonUser)
   async user(@Parent() userBooking: UserBooking) {
-    return this.service.getUser(userBooking.user.id);
+    return this.service.getUser(userBooking.userId);
   }
 
   // ResolveField for businessProductId
@@ -96,6 +96,6 @@ export class UserBookingResolver {
   // ResolveField for bookingTimeSlotId
   @ResolveField(() => CommonBookingTimeSlot)
   async bookingTimeSlotId(@Parent() userBooking: UserBooking) {
-    return this.service.getBookingTimeSlot(userBooking.bookingTimeSlot.id);
+    return this.service.getBookingTimeSlot(userBooking.bookingTimeSlotId);
   }
 }

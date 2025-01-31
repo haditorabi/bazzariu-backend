@@ -1621,13 +1621,14 @@ type UserBlocked {
 
 type UserBooking {
   bookingTimeSlot: CommonBookingTimeSlot!
-  bookingTimeSlotId: CommonBookingTimeSlot!
+  bookingTimeSlotId: ID!
   businessProductId: [String!]
   createdAt: DateTime!
   id: ID!
   status: String!
   updatedAt: DateTime!
   user: CommonUser!
+  userId: ID!
 }
 
 type UserBookmark {

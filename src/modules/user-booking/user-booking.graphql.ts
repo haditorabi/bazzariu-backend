@@ -11,11 +11,17 @@ export class UserBooking {
   @Field(() => CommonUser)
   user: CommonUser;
 
+  @Field(() => ID)
+  userId: string;
+
   @Field(() => [String], { nullable: true })
   businessProductId?: string[];
 
   @Field(() => CommonBookingTimeSlot)
   bookingTimeSlot: CommonBookingTimeSlot;
+
+  @Field(() => ID)
+  bookingTimeSlotId: string;
 
   @Field()
   status: UserBookingStatus;
