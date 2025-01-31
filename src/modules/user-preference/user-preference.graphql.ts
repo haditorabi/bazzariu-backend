@@ -9,6 +9,9 @@ export class UserPreference {
   @Field(() => CommonUser)
   user: CommonUser;
 
+  @Field(() => ID)
+  userId: string;
+
   @Field()
   key: string;
 

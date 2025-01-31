@@ -1,4 +1,11 @@
-import { Resolver, Query, Mutation, Args } from '@nestjs/graphql';
+import {
+  Resolver,
+  Query,
+  Mutation,
+  Args,
+  ResolveField,
+  Parent,
+} from '@nestjs/graphql';
 import { UserPreferenceService } from './user-preference.service';
 import {
   UserPreference,
@@ -7,6 +14,7 @@ import {
 } from './user-preference.graphql';
 import { Prisma } from '@prisma/client';
 import { PaginationArgs } from 'src/graphql/pagination-args-types';
+import { CommonUser } from 'src/graphql/user.type';
 
 @Resolver(() => UserPreference)
 export class UserPreferenceResolver {
@@ -53,5 +61,13 @@ export class UserPreferenceResolver {
     };
 
     return this.service.update(id, prismaData);
+  }
+  @Mutation(() => UserPreference)
+  async deleteUserPreference(@Args('id') id: string) {
+    return this.service.delete(id);
+  }
+  @ResolveField(() => CommonUser)
+  async user(@Parent() userPreference: UserPreference) {
+    return this.service.getUser(userPreference.userId);
   }
 }
