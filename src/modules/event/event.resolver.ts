@@ -28,7 +28,13 @@ export class EventResolver {
 
   @Mutation(() => Event)
   async createEvent(@Args('data') data: CreateEventInput) {
-    const prismaData: Prisma.EventCreateInput = data;
+    const { categoryId, ...rest } = data;
+    const prismaData: Prisma.EventCreateInput = {
+      ...rest,
+      category: {
+        connect: categoryId.map((id) => ({ id })),
+      },
+    };
     return this.service.create(prismaData);
   }
 
@@ -37,12 +43,24 @@ export class EventResolver {
     @Args('id') id: string,
     @Args('data') data: UpdateEventInput,
   ) {
-    const { ...rest } = data;
-    const prismaData: Prisma.EventUpdateInput = { ...rest };
+    const { categoryId, ...rest } = data;
+    const prismaData: Prisma.EventUpdateInput = {
+      ...rest,
+      ...(categoryId && {
+        category: {
+          connect: categoryId.map((id) => ({ id })),
+        },
+      }),
+    };
     return this.service.update(id, prismaData);
+  }
+
+  @Mutation(() => Event)
+  async deleteEvent(@Args('id') id: string) {
+    return this.service.delete(id);
   }
   @ResolveField(() => [CommonEventCategory], { nullable: true })
   async category(@Parent() event: Event) {
-    return this.service.findCategories(event.id);
+    return this.service.findCategories(event.categoryId);
   }
 }

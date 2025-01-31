@@ -292,8 +292,8 @@ type CommonCountry {
 }
 
 type CommonEvent {
-  categoryId: [ID!]!
-  createdAt: DateTime!
+  categoryId: [ID!]
+  createdAt: DateTime
   description: String
   endDate: DateTime!
   id: ID!
@@ -301,7 +301,7 @@ type CommonEvent {
   name: String!
   startDate: DateTime!
   status: String!
-  updatedAt: DateTime!
+  updatedAt: DateTime
 }
 
 type CommonEventCategory {
@@ -701,6 +701,7 @@ type DealsRedemption {
 
 type Event {
   category: [CommonEventCategory!]
+  categoryId: [ID!]
   createdAt: DateTime!
   description: String!
   endDate: DateTime!
@@ -715,6 +716,7 @@ type Event {
 type EventCategory {
   createdAt: DateTime!
   event: [CommonEvent!]
+  eventId: [ID!]!
   id: ID!
   name: String!
   status: String!
@@ -798,6 +800,8 @@ type Mutation {
   deleteCountry(id: String!): Country!
   deleteCurrency(id: String!): Currency!
   deleteDealsRedemption(id: String!): DealsRedemption!
+  deleteEvent(id: String!): Event!
+  deleteEventCategory(id: String!): EventCategory!
   updateAmenity(data: UpdateAmenityInput!, id: String!): Amenity!
   updateBookingTimeSlot(data: UpdateBookingTimeSlotInput!, id: String!): BookingTimeSlot!
   updateBusiness(data: UpdateBusinessInput!, id: String!): Business!

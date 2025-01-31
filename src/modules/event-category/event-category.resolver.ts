@@ -27,8 +27,10 @@ export class EventCategoryResolver {
 
   @ResolveField(() => [CommonEvent], { nullable: true })
   async event(@Parent() eventCategory: EventCategory) {
-    const { id } = eventCategory;
-    return this.service.getEventsForCategory(id);
+    if (!eventCategory.eventId || !eventCategory.eventId.length) {
+      return null;
+    }
+    return this.service.getEvents(eventCategory.eventId);
   }
 
   @Query(() => EventCategory)
@@ -53,5 +55,9 @@ export class EventCategoryResolver {
     const prismaData: Prisma.EventCategoryUpdateInput = { ...rest };
 
     return this.service.update(id, prismaData);
+  }
+  @Mutation(() => EventCategory)
+  async deleteEventCategory(@Args('id') id: string) {
+    return this.service.delete(id);
   }
 }

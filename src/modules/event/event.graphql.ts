@@ -23,6 +23,9 @@ export class Event {
   category?: CommonEventCategory[];
 
   @Field(() => [ID], { nullable: true })
+  categoryId?: string[];
+
+  @Field(() => [ID], { nullable: true })
   mediaId?: string[];
 
   @Field()

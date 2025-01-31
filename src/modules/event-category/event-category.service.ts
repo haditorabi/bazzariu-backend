@@ -50,9 +50,9 @@ export class EventCategoryService {
   }
 
   @ServiceErrorHandler('get events for category')
-  async getEventsForCategory(categoryId: string): Promise<Event[]> {
+  async getEvents(eventId: string[]): Promise<Event[]> {
     return this.prisma.event.findMany({
-      where: { categoryId: { has: categoryId } },
+      where: { id: { in: eventId } },
     });
   }
 }

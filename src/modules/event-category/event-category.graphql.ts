@@ -13,6 +13,9 @@ export class EventCategory {
   @Field()
   status: EventCategoryStatus;
 
+  @Field(() => [ID])
+  eventId: string[];
+
   @Field()
   createdAt: Date;
 

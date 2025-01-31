@@ -18,8 +18,8 @@ export class CommonEvent {
   @Field()
   endDate: Date;
 
-  @Field(() => [ID])
-  categoryId: string[];
+  @Field(() => [ID], { nullable: true })
+  categoryId?: string[];
 
   @Field()
   status: EventStatus;
@@ -27,9 +27,9 @@ export class CommonEvent {
   @Field(() => ID, { nullable: true })
   mediaId?: string;
 
-  @Field()
-  createdAt: Date;
+  @Field({ nullable: true })
+  createdAt?: Date;
 
-  @Field()
-  updatedAt: Date;
+  @Field({ nullable: true })
+  updatedAt?: Date;
 }
