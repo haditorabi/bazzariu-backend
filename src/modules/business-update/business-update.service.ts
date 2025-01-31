@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service';
-import { Prisma, BusinessUpdate } from '@prisma/client';
+import { Prisma, BusinessUpdate, Business } from '@prisma/client';
 import { ServiceErrorHandler } from 'src/common/decorators/ServiceErrorHandler';
 import { PaginationArgs } from 'src/graphql/pagination-args-types';
 
@@ -53,7 +53,7 @@ export class BusinessUpdateService {
 
   // New method to retrieve related Business
   @ServiceErrorHandler('get Business') // Applying error handler decorator
-  async getBusiness(businessId: string) {
+  async getBusiness(businessId: string): Promise<Business> {
     return this.prisma.business.findUnique({
       where: { id: businessId },
     });

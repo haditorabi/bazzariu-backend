@@ -62,10 +62,14 @@ export class BusinessUpdateResolver {
 
     return this.service.update(id, prismaData);
   }
+  @Mutation(() => BusinessUpdate)
+  async deleteBusinessUpdate(@Args('id') id: string) {
+    return this.service.delete(id);
+  }
 
   // Resolve related fields (e.g., business)
   @ResolveField(() => CommonBusiness)
   async business(@Parent() businessUpdate: BusinessUpdate) {
-    return this.service.getBusiness(businessUpdate.business.id);
+    return this.service.getBusiness(businessUpdate.businessId);
   }
 }

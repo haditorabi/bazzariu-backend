@@ -12,7 +12,7 @@ import {
   CreatePaymentInput,
   UpdatePaymentInput,
 } from './payment.graphql';
-import { Prisma } from '@prisma/client';
+import { Business, Prisma } from '@prisma/client';
 import { CommonPaymentMethod } from 'src/graphql/payment-method.type';
 import { CommonBusiness } from 'src/graphql/business.type';
 import { CommonUser } from 'src/graphql/user.type';
@@ -87,7 +87,7 @@ export class PaymentResolver {
   }
 
   @ResolveField(() => CommonBusiness, { nullable: true })
-  async business(@Parent() payment: Payment): Promise<CommonBusiness | null> {
+  async business(@Parent() payment: Payment): Promise<Business | null> {
     return this.service.findBusinessById(payment.business.id);
   }
 

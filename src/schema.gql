@@ -19,9 +19,9 @@ type BookingTimeSlot {
 }
 
 type Business {
-  amenity: [ID!]
+  amenityId: [ID!]
   businessBooking: [CommonBusinessBooking!]
-  businessCategory: [ID!]
+  businessCategoryId: [ID!]
   businessDeal: [CommonBusinessDeal!]
   businessHour: [CommonBusinessHour!]
   businessLocation: [CommonBusinessLocation!]
@@ -30,10 +30,11 @@ type Business {
   description: String!
   id: ID!
   isClaimed: Boolean!
-  language: [ID!]
+  languageId: [ID!]
   mediaId: [ID!]
   name: String!
   region: CommonRegion
+  regionId: ID
   status: String!
   updatedAt: DateTime!
   website: String!
@@ -164,6 +165,7 @@ type BusinessTag {
 
 type BusinessUpdate {
   business: CommonBusiness!
+  businessId: ID!
   context: String!
   createdAt: DateTime!
   endAt: DateTime!
@@ -194,15 +196,15 @@ type CommonBookingTimeSlot {
 }
 
 type CommonBusiness {
-  businessCategory: [ID!]
+  businessCategoryId: [ID!]
   createdAt: DateTime!
   description: String
   id: ID!
   isClaimed: Boolean!
-  language: [ID!]
+  languageId: [ID!]
   mediaId: [ID!]
   name: String!
-  region: CommonRegion
+  regionId: ID
   status: String!
   updatedAt: DateTime!
   website: String
@@ -787,6 +789,8 @@ type Mutation {
   deleteBusinessFollowing(id: String!): BusinessFollowing!
   deleteBusinessProduct(id: String!): BusinessProduct!
   deleteBusinessProductPrice(id: String!): BusinessProductPrice!
+  deleteBusinessTag(id: String!): BusinessTag!
+  deleteBusinessUpdate(id: String!): BusinessUpdate!
   deleteDealsRedemption(id: String!): DealsRedemption!
   updateAmenity(data: UpdateAmenityInput!, id: String!): Amenity!
   updateBookingTimeSlot(data: UpdateBookingTimeSlotInput!, id: String!): BookingTimeSlot!

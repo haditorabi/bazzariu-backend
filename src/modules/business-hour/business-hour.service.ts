@@ -1,9 +1,8 @@
 import { Injectable } from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service';
-import { Prisma, BusinessHour } from '@prisma/client';
+import { Prisma, BusinessHour, Business } from '@prisma/client';
 import { ServiceErrorHandler } from 'src/common/decorators/ServiceErrorHandler';
 import { PaginationArgs } from 'src/graphql/pagination-args-types';
-import { CommonBusiness } from 'src/graphql/business.type';
 
 @Injectable()
 export class BusinessHourService {
@@ -52,7 +51,7 @@ export class BusinessHourService {
   }
 
   @ServiceErrorHandler('Get Business')
-  async getBusiness(businessId: string): Promise<CommonBusiness | null> {
+  async getBusiness(businessId: string): Promise<Business | null> {
     return this.prisma.business.findUnique({
       where: { id: businessId },
     });

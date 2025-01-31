@@ -1,6 +1,5 @@
 import { Field, ID, ObjectType } from '@nestjs/graphql';
 import { BusinessStatus } from '@prisma/client';
-import { CommonRegion } from './region.type';
 @ObjectType()
 export class CommonBusiness {
   @Field(() => ID)
@@ -19,13 +18,13 @@ export class CommonBusiness {
   isClaimed: boolean;
 
   @Field(() => [ID], { nullable: true })
-  businessCategory?: string[];
+  businessCategoryId?: string[];
 
   @Field(() => [ID], { nullable: true })
-  language?: string[];
+  languageId?: string[];
 
-  @Field(() => CommonRegion, { nullable: true })
-  region?: CommonRegion;
+  @Field(() => ID, { nullable: true })
+  regionId?: string;
 
   @Field(() => [ID], { nullable: true })
   mediaId?: string[];

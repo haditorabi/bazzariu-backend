@@ -36,4 +36,8 @@ export class BusinessTagResolver {
     const prismaData: Prisma.BusinessTagUpdateInput = data;
     return this.service.update(id, prismaData);
   }
+  @Mutation(() => BusinessTag)
+  async deleteBusinessTag(@Args('id') id: string) {
+    return this.service.delete(id);
+  }
 }

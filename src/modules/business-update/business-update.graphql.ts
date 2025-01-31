@@ -10,6 +10,9 @@ export class BusinessUpdate {
   @Field(() => CommonBusiness)
   business: CommonBusiness;
 
+  @Field(() => ID)
+  businessId: string;
+
   @Field()
   context: string;
 

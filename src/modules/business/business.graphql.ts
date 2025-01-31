@@ -3,7 +3,6 @@ import { BusinessStatus } from '@prisma/client';
 import { CommonBusinessBooking } from 'src/graphql/business-booking.type';
 import { CommonBusinessHour } from 'src/graphql/business-hour.type';
 import { CommonBusinessDeal } from 'src/graphql/business-deal.type';
-import { CommonRegion } from 'src/graphql/region.type';
 import { CommonBusinessProduct } from 'src/graphql/business-product.type';
 import { CommonBusinessLocation } from 'src/graphql/business-location.type';
 
@@ -25,16 +24,16 @@ export class Business {
   isClaimed: boolean;
 
   @Field(() => [ID], { nullable: true })
-  businessCategory?: string[];
+  businessCategoryId?: string[];
 
   @Field(() => [ID], { nullable: true })
-  amenity?: string[];
+  amenityId?: string[];
 
   @Field(() => [ID], { nullable: true })
-  language?: string[];
+  languageId?: string[];
 
-  @Field(() => CommonRegion, { nullable: true })
-  region?: CommonRegion;
+  @Field(() => ID, { nullable: true })
+  regionId?: string;
 
   @Field(() => [ID], { nullable: true })
   mediaId?: string[];
