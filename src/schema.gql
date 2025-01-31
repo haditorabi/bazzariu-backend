@@ -824,6 +824,7 @@ type Mutation {
   deleteUserCheckin(id: String!): UserCheckin!
   deleteUserFollowing(id: String!): UserFollowing!
   deleteUserPreference(id: String!): UserPreference!
+  deleteUserReview(id: String!): UserReview!
   updateAmenity(data: UpdateAmenityInput!, id: String!): Amenity!
   updateBookingTimeSlot(data: UpdateBookingTimeSlotInput!, id: String!): BookingTimeSlot!
   updateBusiness(data: UpdateBusinessInput!, id: String!): Business!

@@ -58,6 +58,10 @@ export class UserReviewResolver {
     };
     return this.service.update(id, prismaData);
   }
+  @Mutation(() => UserReview)
+  async deleteUserReview(@Args('id') id: string) {
+    return this.service.delete(id);
+  }
   @ResolveField(() => CommonUser)
   async user(@Parent() userReview: UserReview): Promise<User> {
     const { userId } = userReview; // Assuming userId is part of the UserReview model
