@@ -14,8 +14,8 @@ export class DealsRedemption {
   @Field(() => CommonUser)
   user: CommonUser;
 
-  @Field()
-  redeemedAt: Date;
+  @Field({ nullable: true })
+  redeemedAt?: Date;
 
   @Field()
   expiresAt: Date;
@@ -38,8 +38,8 @@ export class CreateDealsRedemptionInput {
   @Field(() => ID)
   user: string;
 
-  @Field()
-  redeemedAt: Date;
+  @Field({ nullable: true })
+  redeemedAt?: Date;
 
   @Field()
   expiresAt: Date;
