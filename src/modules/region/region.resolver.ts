@@ -24,12 +24,12 @@ export class RegionResolver {
 
   @ResolveField(() => CommonCountry)
   async country(@Parent() region: Region) {
-    return this.service.getCountry(region.country.id);
+    return this.service.getCountry(region.countryId);
   }
 
   @ResolveField(() => CommonCity)
   async city(@Parent() region: Region) {
-    return this.service.getCity(region.city.id);
+    return this.service.getCity(region.cityId);
   }
 
   @Query(() => Region)
@@ -81,5 +81,9 @@ export class RegionResolver {
     };
 
     return this.service.update(id, prismaData);
+  }
+  @Mutation(() => Region)
+  async deleteRegion(@Args('id') id: string) {
+    return this.service.delete(id);
   }
 }

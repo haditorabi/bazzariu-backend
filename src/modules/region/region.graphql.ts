@@ -24,8 +24,14 @@ export class Region {
   @Field(() => CommonCountry)
   country: CommonCountry;
 
+  @Field(() => ID)
+  countryId: string;
+
   @Field(() => CommonCity)
   city: CommonCity;
+
+  @Field(() => ID)
+  cityId: string;
 
   @Field(() => RegionStatus)
   status: RegionStatus;

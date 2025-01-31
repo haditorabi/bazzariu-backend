@@ -814,6 +814,7 @@ type Mutation {
   deletePayment(id: String!): Payment!
   deletePaymentMethod(id: String!): PaymentMethod!
   deleteProductCategory(id: String!): ProductCategory!
+  deleteRegion(id: String!): Region!
   updateAmenity(data: UpdateAmenityInput!, id: String!): Amenity!
   updateBookingTimeSlot(data: UpdateBookingTimeSlotInput!, id: String!): BookingTimeSlot!
   updateBusiness(data: UpdateBusinessInput!, id: String!): Business!
@@ -1235,7 +1236,9 @@ type Query {
 type Region {
   boundry: String!
   city: CommonCity!
+  cityId: ID!
   country: CommonCountry!
+  countryId: ID!
   id: ID!
   name: String!
   status: RegionStatus!
