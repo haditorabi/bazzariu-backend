@@ -147,6 +147,7 @@ type BusinessProduct {
 
 type BusinessProductPrice {
   businessProduct: CommonBusinessProduct!
+  businessProductId: ID!
   createdAt: DateTime!
   currency: Currency!
   id: ID!
@@ -786,6 +787,7 @@ type Mutation {
   deleteBusinessDeal(id: String!): BusinessDeal!
   deleteBusinessFollowing(id: String!): BusinessFollowing!
   deleteBusinessProduct(id: String!): BusinessProduct!
+  deleteBusinessProductPrice(id: String!): BusinessProductPrice!
   deleteDealsRedemption(id: String!): DealsRedemption!
   updateAmenity(data: UpdateAmenityInput!, id: String!): Amenity!
   updateBookingTimeSlot(data: UpdateBookingTimeSlotInput!, id: String!): BookingTimeSlot!
@@ -1319,7 +1321,6 @@ input UpdateBusinessProductInput {
 input UpdateBusinessProductPriceInput {
   businessProduct: ID
   currency: ID
-  name: String
   price: Float
 }
 

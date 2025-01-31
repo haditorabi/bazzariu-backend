@@ -10,6 +10,9 @@ export class BusinessProductPrice {
   @Field(() => CommonBusinessProduct)
   businessProduct: CommonBusinessProduct;
 
+  @Field(() => ID)
+  businessProductId: string;
+
   @Field(() => Currency)
   currency: Currency;
 
@@ -37,9 +40,6 @@ export class CreateBusinessProductPriceInput {
 
 @InputType()
 export class UpdateBusinessProductPriceInput {
-  @Field({ nullable: true })
-  name?: string;
-
   @Field(() => ID, { nullable: true })
   businessProduct?: string;
 

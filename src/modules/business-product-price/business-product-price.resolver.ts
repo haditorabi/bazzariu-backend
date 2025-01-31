@@ -66,8 +66,15 @@ export class BusinessProductPriceResolver {
 
     return this.service.update(id, prismaData);
   }
+  @Mutation(() => BusinessProductPrice)
+  async deleteBusinessProductPrice(@Args('id') id: string) {
+    return this.service.delete(id);
+  }
+
   @ResolveField(() => CommonBusinessProduct)
   async businessProduct(@Parent() businessProductPrice: BusinessProductPrice) {
-    return this.service.findOne(businessProductPrice.businessProduct.id);
+    return this.service.getBusinessProduct(
+      businessProductPrice.businessProductId,
+    );
   }
 }

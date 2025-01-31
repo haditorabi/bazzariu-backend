@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service';
-import { Prisma, BusinessProductPrice } from '@prisma/client';
+import { Prisma, BusinessProductPrice, BusinessProduct } from '@prisma/client';
 import { ServiceErrorHandler } from 'src/common/decorators/ServiceErrorHandler';
 import { PaginationArgs } from 'src/graphql/pagination-args-types';
 
@@ -52,6 +52,14 @@ export class BusinessProductPriceService {
   async delete(id: string): Promise<BusinessProductPrice> {
     return this.prisma.businessProductPrice.delete({
       where: { id },
+    });
+  }
+  @ServiceErrorHandler('Get BusinessProduct')
+  async getBusinessProduct(
+    businessProductId: string,
+  ): Promise<BusinessProduct | null> {
+    return this.prisma.businessProduct.findUnique({
+      where: { id: businessProductId },
     });
   }
 }
