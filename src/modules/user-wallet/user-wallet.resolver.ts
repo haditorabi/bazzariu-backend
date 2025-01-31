@@ -56,9 +56,12 @@ export class UserWalletResolver {
     };
     return this.service.update(id, prismaData);
   }
-
+  @Mutation(() => UserWallet)
+  async deleteUserWallet(@Args('id') id: string) {
+    return this.service.delete(id);
+  }
   @ResolveField()
   async user(@Parent() userWallet: UserWallet) {
-    return this.service.findUser(userWallet.user.id);
+    return this.service.findUser(userWallet.userId);
   }
 }

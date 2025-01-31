@@ -834,6 +834,7 @@ type Mutation {
   deleteUserReview(id: String!): UserReview!
   deleteUserScore(id: String!): UserScore!
   deleteUserVerification(id: String!): UserVerification!
+  deleteUserWallet(id: String!): UserWallet!
   updateAmenity(data: UpdateAmenityInput!, id: String!): Amenity!
   updateBookingTimeSlot(data: UpdateBookingTimeSlotInput!, id: String!): BookingTimeSlot!
   updateBusiness(data: UpdateBusinessInput!, id: String!): Business!
@@ -1734,4 +1735,5 @@ type UserWallet {
   id: ID!
   updatedAt: DateTime!
   user: CommonUser!
+  userId: ID!
 }
