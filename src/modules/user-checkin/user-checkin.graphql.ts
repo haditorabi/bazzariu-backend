@@ -10,8 +10,14 @@ export class UserCheckin {
   @Field(() => CommonUser)
   user: CommonUser;
 
+  @Field(() => ID)
+  userId: string;
+
   @Field(() => CommonBusiness)
   business: CommonBusiness;
+
+  @Field(() => ID)
+  businessId: string;
 
   @Field()
   createdAt: Date;

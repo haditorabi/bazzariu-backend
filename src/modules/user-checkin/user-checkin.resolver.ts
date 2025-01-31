@@ -71,15 +71,18 @@ export class UserCheckinResolver {
 
     return this.service.update(id, prismaData);
   }
-
+  @Mutation(() => UserCheckin)
+  async deleteUserCheckin(@Args('id') id: string) {
+    return this.service.delete(id);
+  }
   // Optional: Add ResolveFields to resolve nested data for `user` and `business`
   @ResolveField(() => CommonUser)
   async user(@Parent() userCheckin: UserCheckin) {
-    return this.service.findUser(userCheckin.user.id);
+    return this.service.findUser(userCheckin.userId);
   }
 
   @ResolveField(() => CommonBusiness)
   async business(@Parent() userCheckin: UserCheckin) {
-    return this.service.findBusiness(userCheckin.business.id);
+    return this.service.findBusiness(userCheckin.businessId);
   }
 }
