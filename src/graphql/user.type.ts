@@ -1,10 +1,13 @@
 import { ObjectType, Field, ID } from '@nestjs/graphql';
-import { DiscountType, UserStatus } from '@prisma/client';
+import { UserStatus } from '@prisma/client';
 
 @ObjectType()
 export class CommonUser {
   @Field(() => ID, { nullable: true })
   id?: string;
+
+  @Field()
+  email: string;
 
   @Field()
   name: string;
@@ -13,7 +16,7 @@ export class CommonUser {
   firstName: string;
 
   @Field()
-  lastName: DiscountType;
+  lastName: string;
 
   @Field()
   status: UserStatus;

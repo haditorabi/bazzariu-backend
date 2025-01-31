@@ -358,6 +358,7 @@ type CommonRegion {
 
 type CommonUser {
   createdAt: DateTime!
+  email: String!
   firstName: String!
   id: ID
   lastName: String!
@@ -552,15 +553,15 @@ input CreateMediaInput {
 
 input CreatePaymentInput {
   amount: Float!
-  business: ID
+  businessId: ID
   currencyId: ID!
   description: String
-  paymentMethod: ID!
+  paymentMethodId: ID!
   status: String!
   targetId: ID!
   targetType: String!
   transactionId: ID!
-  user: ID!
+  userId: ID!
 }
 
 input CreateProductCategoryInput {
@@ -803,6 +804,7 @@ type Mutation {
   deleteEvent(id: String!): Event!
   deleteEventCategory(id: String!): EventCategory!
   deleteLangiage(id: String!): Language!
+  deletePayment(id: String!): Payment!
   updateAmenity(data: UpdateAmenityInput!, id: String!): Amenity!
   updateBookingTimeSlot(data: UpdateBookingTimeSlotInput!, id: String!): BookingTimeSlot!
   updateBusiness(data: UpdateBusinessInput!, id: String!): Business!
@@ -847,17 +849,20 @@ type Mutation {
 type Payment {
   amount: Float!
   business: CommonBusiness!
+  businessId: ID!
   createdAt: DateTime!
   currencyId: ID!
   description: String
   id: ID!
   paymentMethod: CommonPaymentMethod!
+  paymentMethodId: ID!
   status: String!
   targetId: ID!
   targetType: String!
-  transactionId: ID!
+  transactionId: ID
   updatedAt: DateTime!
   user: CommonUser!
+  userId: ID!
 }
 
 type ProductCategory {
@@ -1407,15 +1412,15 @@ input UpdateMediaInput {
 
 input UpdatePaymentInput {
   amount: Float
-  business: ID
+  businessId: ID
   currencyId: String
   description: String
-  paymentMethod: ID
+  paymentMethodId: ID
   status: String
   targetId: ID
   targetType: String
   transactionId: ID
-  user: ID
+  userId: ID
 }
 
 input UpdateProductCategoryInput {

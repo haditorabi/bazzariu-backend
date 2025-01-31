@@ -12,7 +12,7 @@ import {
   CreatePaymentInput,
   UpdatePaymentInput,
 } from './payment.graphql';
-import { Business, Prisma } from '@prisma/client';
+import { Business, Prisma, User } from '@prisma/client';
 import { CommonPaymentMethod } from 'src/graphql/payment-method.type';
 import { CommonBusiness } from 'src/graphql/business.type';
 import { CommonUser } from 'src/graphql/user.type';
@@ -33,23 +33,22 @@ export class PaymentResolver {
 
   @Mutation(() => Payment)
   async createPayment(@Args('data') data: CreatePaymentInput) {
-    const { user, business, paymentMethod, ...rest } = data;
+    const { userId, businessId, paymentMethodId, ...rest } = data;
 
     const prismaData: Prisma.PaymentCreateInput = {
       ...rest,
       user: {
-        connect: { id: user },
+        connect: { id: userId },
       },
       paymentMethod: {
-        connect: { id: paymentMethod },
+        connect: { id: paymentMethodId },
       },
-      ...(business && {
+      ...(businessId && {
         business: {
-          connect: { id: business },
+          connect: { id: businessId },
         },
       }),
     };
-
     return this.service.create(prismaData);
   }
 
@@ -58,43 +57,47 @@ export class PaymentResolver {
     @Args('id') id: string,
     @Args('data') data: UpdatePaymentInput,
   ) {
-    const { user, business, paymentMethod, ...rest } = data;
+    const { userId, businessId, paymentMethodId, ...rest } = data;
 
     const prismaData: Prisma.PaymentUpdateInput = {
       ...rest,
-      ...(user && {
+      ...(userId && {
         user: {
-          connect: { id: user },
+          connect: { id: userId },
         },
       }),
-      ...(paymentMethod && {
+      ...(paymentMethodId && {
         paymentMethod: {
-          connect: { id: paymentMethod },
+          connect: { id: paymentMethodId },
         },
       }),
-      ...(business && {
+      ...(businessId && {
         business: {
-          connect: { id: business },
+          connect: { id: businessId },
         },
       }),
     };
 
     return this.service.update(id, prismaData);
   }
+  @Mutation(() => Payment)
+  async deletePayment(@Args('id') id: string) {
+    return this.service.delete(id);
+  }
   @ResolveField(() => CommonUser)
-  async user(@Parent() payment: Payment): Promise<CommonUser> {
-    return payment.user;
+  async user(@Parent() payment: Payment): Promise<User> {
+    return this.service.findUserById(payment.userId);
   }
 
   @ResolveField(() => CommonBusiness, { nullable: true })
   async business(@Parent() payment: Payment): Promise<Business | null> {
-    return this.service.findBusinessById(payment.business.id);
+    return this.service.findBusinessById(payment.businessId);
   }
 
   @ResolveField(() => CommonPaymentMethod)
   async paymentMethod(
     @Parent() payment: Payment,
   ): Promise<CommonPaymentMethod> {
-    return this.service.findPaymentMethodById(payment.paymentMethod.id);
+    return this.service.findPaymentMethodById(payment.paymentMethodId);
   }
 }
