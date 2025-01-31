@@ -258,9 +258,8 @@ type CommonBusinessLocation {
 }
 
 type CommonBusinessProduct {
-  business: ID!
   businessId: ID!
-  category: ID!
+  categoryId: ID!
   description: String
   id: ID!
   mediaId: [ID!]

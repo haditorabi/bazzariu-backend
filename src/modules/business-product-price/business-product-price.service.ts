@@ -1,8 +1,9 @@
 import { Injectable } from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service';
-import { Prisma, BusinessProductPrice, BusinessProduct } from '@prisma/client';
+import { Prisma, BusinessProductPrice } from '@prisma/client';
 import { ServiceErrorHandler } from 'src/common/decorators/ServiceErrorHandler';
 import { PaginationArgs } from 'src/graphql/pagination-args-types';
+import { CommonBusinessProduct } from 'src/graphql/business-product.type';
 
 @Injectable()
 export class BusinessProductPriceService {
@@ -57,7 +58,7 @@ export class BusinessProductPriceService {
   @ServiceErrorHandler('Get BusinessProduct')
   async getBusinessProduct(
     businessProductId: string,
-  ): Promise<BusinessProduct | null> {
+  ): Promise<CommonBusinessProduct | null> {
     return this.prisma.businessProduct.findUnique({
       where: { id: businessProductId },
     });

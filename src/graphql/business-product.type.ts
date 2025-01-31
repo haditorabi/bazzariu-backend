@@ -7,13 +7,10 @@ export class CommonBusinessProduct {
   id: string;
 
   @Field(() => ID)
-  business: string;
-
-  @Field(() => ID)
   businessId: string;
 
   @Field(() => ID)
-  category?: string;
+  categoryId?: string;
 
   @Field()
   name: string;
