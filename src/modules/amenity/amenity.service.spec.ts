@@ -46,7 +46,12 @@ describe('AmenityService', () => {
 
   describe('findAll', () => {
     it('should return all amenities', async () => {
-      const result = await service.findAll();
+      const result = await service.findAll({
+        page: 1,
+        limit: 10,
+        skip: 1,
+        take: 10,
+      });
       expect(result).toEqual(mockAmenityArray);
       expect(prisma.amenity.findMany).toHaveBeenCalled();
     });

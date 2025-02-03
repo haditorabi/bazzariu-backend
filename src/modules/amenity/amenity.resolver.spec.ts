@@ -52,7 +52,12 @@ describe('AmenityResolver', () => {
 
   describe('amenities', () => {
     it('should return an array of amenities', async () => {
-      const result = await resolver.amenities();
+      const result = await resolver.amenities({
+        page: 1,
+        limit: 10,
+        skip: 1,
+        take: 10,
+      });
       expect(result).toEqual(mockAmenityArray);
       expect(mockPrismaService.amenity.findMany).toHaveBeenCalled();
     });
