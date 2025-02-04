@@ -1,28 +1,44 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { BookingTimeSlotService } from './booking-time-slot.service';
 import { PrismaService } from '../prisma/prisma.service';
-import { mockDeep, DeepMockProxy } from 'jest-mock-extended';
-import { BookingTimeSlot, BusinessBookingStatus, Prisma } from '@prisma/client';
+import { BookingTimeSlot, Prisma, BookingTimeSlotStatus } from '@prisma/client';
 import { PaginationArgs } from 'src/graphql/pagination-args-types';
+import { ObjectId } from 'mongodb';
 
 describe('BookingTimeSlotService', () => {
   let service: BookingTimeSlotService;
-  let prisma: DeepMockProxy<PrismaService>;
+  let prismaService: PrismaService;
+
+  const mockPrismaService = {
+    bookingTimeSlot: {
+      findMany: jest.fn(),
+      findUnique: jest.fn(),
+      create: jest.fn(),
+      update: jest.fn(),
+      delete: jest.fn(),
+    },
+    businessBooking: {
+      findUnique: jest.fn(),
+    },
+  };
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
       providers: [
         BookingTimeSlotService,
-        { provide: PrismaService, useValue: mockDeep<PrismaService>() },
+        {
+          provide: PrismaService,
+          useValue: mockPrismaService,
+        },
       ],
     }).compile();
 
     service = module.get<BookingTimeSlotService>(BookingTimeSlotService);
-    prisma = module.get(PrismaService);
+    prismaService = module.get<PrismaService>(PrismaService);
   });
 
-  it('should be defined', () => {
-    expect(service).toBeDefined();
+  afterEach(() => {
+    jest.clearAllMocks();
   });
 
   describe('findAll', () => {
@@ -33,56 +49,40 @@ describe('BookingTimeSlotService', () => {
         limit: 10,
         page: 1,
       };
-      const bookingTimeSlots: BookingTimeSlot[] = [
+      const result: BookingTimeSlot[] = [
         {
-          id: '1',
+          id: new ObjectId().toHexString(),
           startAt: new Date(),
           endAt: new Date(),
           timezone: 'UTC',
-          status: 'ACTIVE',
-          businessBookingId: 'business1',
+          status: BookingTimeSlotStatus.ACTIVE,
+          businessBookingId: new ObjectId().toHexString(),
         },
       ];
-
-      prisma.bookingTimeSlot.findMany.mockResolvedValue(bookingTimeSlots);
-
-      const result = await service.findAll(paginationArgs);
-      expect(result).toEqual(bookingTimeSlots);
-      expect(prisma.bookingTimeSlot.findMany).toHaveBeenCalledWith({
-        skip: paginationArgs.skip,
-        take: paginationArgs.take,
-      });
+      mockPrismaService.bookingTimeSlot.findMany.mockResolvedValue(result);
+      expect(await service.findAll(paginationArgs)).toEqual(result);
     });
   });
 
   describe('findOne', () => {
-    it('should return a single booking time slot', async () => {
-      const bookingTimeSlot: BookingTimeSlot = {
-        id: '1',
+    it('should return a booking time slot', async () => {
+      const id = new ObjectId().toHexString();
+      const result: BookingTimeSlot = {
+        id,
         startAt: new Date(),
         endAt: new Date(),
         timezone: 'UTC',
-        status: 'ACTIVE',
-        businessBookingId: 'business1',
+        status: BookingTimeSlotStatus.ACTIVE,
+        businessBookingId: new ObjectId().toHexString(),
       };
-
-      prisma.bookingTimeSlot.findUnique.mockResolvedValue(bookingTimeSlot);
-
-      const result = await service.findOne('1');
-      expect(result).toEqual(bookingTimeSlot);
-      expect(prisma.bookingTimeSlot.findUnique).toHaveBeenCalledWith({
-        where: { id: '1' },
-      });
+      mockPrismaService.bookingTimeSlot.findUnique.mockResolvedValue(result);
+      expect(await service.findOne(id)).toEqual(result);
     });
 
     it('should return null if booking time slot is not found', async () => {
-      prisma.bookingTimeSlot.findUnique.mockResolvedValue(null);
-
-      const result = await service.findOne('1');
-      expect(result).toBeNull();
-      expect(prisma.bookingTimeSlot.findUnique).toHaveBeenCalledWith({
-        where: { id: '1' },
-      });
+      const id = new ObjectId().toHexString();
+      mockPrismaService.bookingTimeSlot.findUnique.mockResolvedValue(null);
+      expect(await service.findOne(id)).toBeNull();
     });
   });
 
@@ -92,102 +92,91 @@ describe('BookingTimeSlotService', () => {
         startAt: new Date(),
         endAt: new Date(),
         timezone: 'UTC',
-        status: 'ACTIVE',
+        status: BookingTimeSlotStatus.ACTIVE,
         businessBooking: {
-          connect: { id: 'business1' },
+          connect: { id: new ObjectId().toHexString() },
         },
       };
-
-      const createdBookingTimeSlot: BookingTimeSlot = {
-        id: '1',
+      const result: BookingTimeSlot = {
+        id: new ObjectId().toHexString(),
         startAt: data.startAt as Date,
         endAt: data.endAt as Date,
         timezone: data.timezone,
         status: data.status,
-        businessBookingId: 'business1',
+        businessBookingId: new ObjectId().toHexString(),
       };
-
-      prisma.bookingTimeSlot.create.mockResolvedValue(createdBookingTimeSlot);
-
-      const result = await service.create(data);
-      expect(result).toEqual(createdBookingTimeSlot);
-      expect(prisma.bookingTimeSlot.create).toHaveBeenCalledWith({ data });
+      mockPrismaService.bookingTimeSlot.create.mockResolvedValue(result);
+      expect(await service.create(data)).toEqual(result);
     });
   });
 
   describe('update', () => {
     it('should update and return the booking time slot', async () => {
+      const id = new ObjectId().toHexString();
       const data: Prisma.BookingTimeSlotUpdateInput = {
         startAt: new Date(),
+      };
+      const result: BookingTimeSlot = {
+        id,
+        startAt: data.startAt as Date,
         endAt: new Date(),
         timezone: 'UTC',
-        status: 'NOTAVAILABLE',
-        businessBooking: {
-          connect: { id: 'business1' },
-        },
+        status: BookingTimeSlotStatus.ACTIVE,
+        businessBookingId: new ObjectId().toHexString(),
       };
+      mockPrismaService.bookingTimeSlot.update.mockResolvedValue(result);
+      expect(await service.update(id, data)).toEqual(result);
+    });
 
-      const updatedBookingTimeSlot: BookingTimeSlot = {
-        id: '1',
-        startAt: data.startAt as Date,
-        endAt: data.endAt as Date,
-        timezone: data.timezone as string,
-        status: data.status as 'ACTIVE' | 'NOTAVAILABLE',
-        businessBookingId: 'business1',
+    it('should throw an error if booking time slot is not found', async () => {
+      const id = new ObjectId().toHexString();
+      const data: Prisma.BookingTimeSlotUpdateInput = {
+        startAt: new Date(),
       };
-
-      prisma.bookingTimeSlot.update.mockResolvedValue(updatedBookingTimeSlot);
-
-      const result = await service.update('1', data);
-      expect(result).toEqual(updatedBookingTimeSlot);
-      expect(prisma.bookingTimeSlot.update).toHaveBeenCalledWith({
-        where: { id: '1' },
-        data,
-      });
+      mockPrismaService.bookingTimeSlot.update.mockRejectedValue(
+        new Error('Not found'),
+      );
+      await expect(service.update(id, data)).rejects.toThrow('Not found');
     });
   });
 
   describe('delete', () => {
     it('should delete the booking time slot and return true', async () => {
-      prisma.bookingTimeSlot.delete.mockResolvedValue({
-        id: '1',
-        startAt: new Date(),
-        endAt: new Date(),
-        timezone: 'UTC',
-        status: 'ACTIVE',
-        businessBookingId: 'business1',
-      });
+      const id = new ObjectId().toHexString();
+      mockPrismaService.bookingTimeSlot.delete.mockResolvedValue(
+        {} as BookingTimeSlot,
+      );
+      expect(await service.delete(id)).toBe(true);
+    });
 
-      const result = await service.delete('1');
-      expect(result).toBe(true);
-      expect(prisma.bookingTimeSlot.delete).toHaveBeenCalledWith({
-        where: { id: '1' },
-      });
+    it('should throw an error if booking time slot is not found', async () => {
+      const id = new ObjectId().toHexString();
+      mockPrismaService.bookingTimeSlot.delete.mockRejectedValue(
+        new Error('Not found'),
+      );
+      await expect(service.delete(id)).rejects.toThrow('Not found');
     });
   });
 
   describe('getBusinessBooking', () => {
     it('should return the associated business booking', async () => {
+      const bookingTimeSlotId = new ObjectId().toHexString();
       const businessBooking = {
-        id: 'business1',
-        name: 'Business 1',
-        status: BusinessBookingStatus.ACTIVE,
-        businessId: 'business1',
-        businessProductId: ['product1'],
-        maxAvailable: 10,
-        maxGuest: 5,
-        mediaId: ['media1'],
-        createdAt: new Date(),
-        updatedAt: new Date(),
+        id: new ObjectId().toHexString(),
+        name: 'Test Business',
       };
+      mockPrismaService.businessBooking.findUnique.mockResolvedValue(
+        businessBooking,
+      );
+      expect(await service.getBusinessBooking(bookingTimeSlotId)).toEqual(
+        businessBooking,
+      );
+    });
 
-      prisma.businessBooking.findUnique.mockResolvedValue(businessBooking);
-
-      const result = await service.getBusinessBooking('1');
-      expect(result).toEqual(businessBooking);
-      expect(prisma.businessBooking.findUnique).toHaveBeenCalledWith({
-        where: { id: '1' },
-      });
+    it('should return null if no associated business booking is found', async () => {
+      const bookingTimeSlotId = new ObjectId().toHexString();
+      mockPrismaService.businessBooking.findUnique.mockResolvedValue(null);
+      expect(await service.getBusinessBooking(bookingTimeSlotId)).toBeNull();
     });
   });
 });

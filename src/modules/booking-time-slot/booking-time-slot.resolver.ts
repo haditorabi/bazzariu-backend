@@ -44,7 +44,11 @@ export class BookingTimeSlotResolver {
       },
     };
 
-    return this.service.create(prismaData);
+    const createdBookingTimeSlot = await this.service.create(prismaData);
+    if (!createdBookingTimeSlot) {
+      throw new Error(`BookingTimeSlot Creation Error`);
+    }
+    return createdBookingTimeSlot;
   }
 
   @Mutation(() => BookingTimeSlot)
@@ -63,7 +67,11 @@ export class BookingTimeSlotResolver {
       }),
     };
 
-    return this.service.update(id, prismaData);
+    const updatedBookingTimeSlot = await this.service.update(id, prismaData);
+    if (!updatedBookingTimeSlot) {
+      throw new Error(`BookingTimeSlot with id ${id} not found`);
+    }
+    return updatedBookingTimeSlot;
   }
   @Mutation(() => Boolean)
   async deleteBookingTimeSlot(@Args('id') id: string) {
