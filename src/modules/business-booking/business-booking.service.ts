@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service';
 import {
   Prisma,
@@ -38,16 +38,21 @@ export class BusinessBookingService {
     });
   }
 
-  @ServiceErrorHandler('get business booking by id')
   async findOne(id: string): Promise<BusinessBooking | null> {
-    return this.prisma.businessBooking.findUnique({
+    const businessBooking = await this.prisma.businessBooking.findUnique({
       where: { id },
       include: {
-        business: true, // Include business data
-        businessProduct: true, // Include associated products
-        BookingTimeSlot: true, // Include booking time slots
+        business: true,
+        businessProduct: true,
+        BookingTimeSlot: true,
       },
     });
+
+    if (!businessBooking) {
+      throw new NotFoundException('BusinessBooking not found');
+    }
+
+    return businessBooking;
   }
 
   @ServiceErrorHandler('update business booking')

@@ -12,8 +12,14 @@ export class BusinessBooking {
   @Field(() => CommonBusiness)
   business: CommonBusiness;
 
+  @Field(() => ID)
+  businessId: string;
+
   @Field(() => [CommonBusinessProduct], { nullable: true })
   businessProduct?: CommonBusinessProduct[];
+
+  @Field(() => [ID])
+  businessProductId: string[];
 
   @Field(() => Int)
   maxAvailable: number;

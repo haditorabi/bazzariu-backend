@@ -17,6 +17,7 @@ import { CommonBusiness } from 'src/graphql/business.type';
 import { CommonBusinessProduct } from 'src/graphql/business-product.type';
 import { CommonBookingTimeSlot } from 'src/graphql/booking-time-slot.type';
 import { PaginationArgs } from 'src/graphql/pagination-args-types';
+import { NotFoundException } from '@nestjs/common';
 
 @Resolver(() => BusinessBooking)
 export class BusinessBookingResolver {
@@ -29,7 +30,13 @@ export class BusinessBookingResolver {
 
   @Query(() => BusinessBooking)
   async businessBooking(@Args('id') id: string) {
-    return this.service.findOne(id);
+    const businessBooking = await this.service.findOne(id);
+
+    if (!businessBooking) {
+      throw new NotFoundException('BusinessBooking not found');
+    }
+
+    return businessBooking;
   }
 
   @Mutation(() => BusinessBooking)
@@ -81,13 +88,13 @@ export class BusinessBookingResolver {
 
   @ResolveField(() => CommonBusiness)
   async business(@Parent() businessBooking: BusinessBooking) {
-    return this.service.getBusiness(businessBooking.business.id);
+    return this.service.getBusiness(businessBooking.businessId);
   }
 
   @ResolveField(() => [CommonBusinessProduct], { nullable: 'items' })
   async businessProduct(@Parent() businessBooking: BusinessBooking) {
     return this.service.getBusinessProducts(
-      businessBooking.businessProduct.map((product) => product.id),
+      businessBooking.businessProductId.map((product) => product),
     );
   }
 
