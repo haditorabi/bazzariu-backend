@@ -1,15 +1,17 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import { BusinessesResolver } from './businesses.resolver';
+import { BusinessResolver } from './business.resolver';
+import { PrismaService } from '../prisma/prisma.service';
+import { BusinessService } from './business.service';
 
-describe('BusinessesResolver', () => {
-  let resolver: BusinessesResolver;
+describe('BusinessResolver', () => {
+  let resolver: BusinessResolver;
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
-      providers: [BusinessesResolver],
+      providers: [BusinessResolver, BusinessService, PrismaService],
     }).compile();
 
-    resolver = module.get<BusinessesResolver>(BusinessesResolver);
+    resolver = module.get<BusinessResolver>(BusinessResolver);
   });
 
   it('should be defined', () => {
