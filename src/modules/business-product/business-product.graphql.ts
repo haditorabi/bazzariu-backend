@@ -41,13 +41,13 @@ export class BusinessProduct {
   updatedAt: Date;
 
   @Field(() => CommonBusinessDeal, { nullable: true })
-  businessDeal: CommonBusinessDeal;
+  businessDeal?: CommonBusinessDeal;
 
   @Field(() => ID, { nullable: true })
   businessDealyId?: string;
 
   @Field(() => CommonBusinessProductPrice, { nullable: true })
-  businessProductPrice: CommonBusinessProductPrice;
+  businessProductPrice?: CommonBusinessProductPrice;
 
   @Field(() => ID, { nullable: true })
   businessDealId?: string;
