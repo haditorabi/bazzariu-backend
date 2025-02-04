@@ -15,6 +15,7 @@ import {
 import { Prisma } from '@prisma/client';
 import { CommonBusinessBooking } from 'src/graphql/business-booking.type';
 import { PaginationArgs } from 'src/graphql/pagination-args-types';
+import { NotFoundException } from '@nestjs/common';
 
 @Resolver(() => BookingTimeSlot)
 export class BookingTimeSlotResolver {
@@ -27,7 +28,12 @@ export class BookingTimeSlotResolver {
 
   @Query(() => BookingTimeSlot, { nullable: true })
   async bookingTimeSlot(@Args('id') id: string) {
-    return this.service.findOne(id);
+    const bookingTimeSlot = await this.service.findOne(id);
+    if (!bookingTimeSlot) {
+      throw new NotFoundException('bookingTimeSlot not found');
+    }
+
+    return bookingTimeSlot;
   }
   @ResolveField(() => CommonBusinessBooking)
   async businessBooking(@Root() bookingTimeSlot: BookingTimeSlot) {

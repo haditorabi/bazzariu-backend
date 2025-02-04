@@ -6,6 +6,7 @@ import {
   UpdateBusinessCategoryInput,
 } from './business-category.graphql';
 import { PaginationArgs } from 'src/graphql/pagination-args-types';
+import { NotFoundException } from '@nestjs/common';
 
 @Resolver(() => BusinessCategory)
 export class BusinessCategoryResolver {
@@ -18,7 +19,12 @@ export class BusinessCategoryResolver {
 
   @Query(() => BusinessCategory)
   async businessCategory(@Args('id') id: string) {
-    return this.service.findOne(id);
+    const bookingTimeSlot = await this.service.findOne(id);
+    if (!bookingTimeSlot) {
+      throw new NotFoundException('bookingTimeSlot not found');
+    }
+
+    return bookingTimeSlot;
   }
 
   @Mutation(() => BusinessCategory)

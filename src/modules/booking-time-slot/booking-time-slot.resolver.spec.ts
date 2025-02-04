@@ -77,10 +77,10 @@ describe('BookingTimeSlotResolver', () => {
       expect(await resolver.bookingTimeSlot(id)).toEqual(result);
     });
 
-    it('should return null if booking time slot is not found', async () => {
+    it('should throw error if booking time slot is not found', async () => {
       const id = new ObjectId().toHexString();
       mockBookingTimeSlotService.findOne.mockResolvedValue(null);
-      expect(await resolver.bookingTimeSlot(id)).toBeNull();
+      await expect(resolver.bookingTimeSlot(id)).rejects.toThrow();
     });
   });
 
