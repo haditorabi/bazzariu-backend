@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service';
 import { Prisma, BusinessBoost, Business } from '@prisma/client';
 import { ServiceErrorHandler } from 'src/common/decorators/ServiceErrorHandler';
@@ -26,12 +26,17 @@ export class BusinessBoostService {
 
   @ServiceErrorHandler('Find One Business Boost')
   async findOne(id: string): Promise<BusinessBoost | null> {
-    return this.prisma.businessBoost.findUnique({
+    const businessBoost = await this.prisma.businessBoost.findUnique({
       where: { id },
       include: {
         business: true,
       },
     });
+    if (!businessBoost) {
+      throw new NotFoundException('businessBoost not found');
+    }
+
+    return businessBoost;
   }
 
   @ServiceErrorHandler('Update Business Boost')

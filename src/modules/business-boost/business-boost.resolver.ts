@@ -15,6 +15,7 @@ import {
 import { Prisma } from '@prisma/client';
 import { CommonBusiness } from 'src/graphql/business.type';
 import { PaginationArgs } from 'src/graphql/pagination-args-types';
+import { NotFoundException } from '@nestjs/common';
 
 @Resolver(() => BusinessBoost)
 export class BusinessBoostResolver {
@@ -27,7 +28,12 @@ export class BusinessBoostResolver {
 
   @Query(() => BusinessBoost)
   async businessBoost(@Args('id') id: string) {
-    return this.service.findOne(id);
+    const businessBoost = await this.service.findOne(id);
+    if (!businessBoost) {
+      throw new NotFoundException('businessBoost not found');
+    }
+
+    return businessBoost;
   }
 
   @Mutation(() => BusinessBoost)

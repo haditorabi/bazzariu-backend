@@ -9,13 +9,13 @@ export class BusinessBoost {
   id: string;
 
   @Field(() => CommonBusiness)
-  business: CommonBusiness;
+  business?: CommonBusiness;
 
   @Field(() => ID)
   businessId: string;
 
-  @Field()
-  type: BusinessBoostType;
+  @Field({ nullable: true })
+  type?: BusinessBoostType;
 
   @Field()
   startAt: Date;
