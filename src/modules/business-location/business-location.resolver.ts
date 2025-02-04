@@ -14,6 +14,7 @@ import {
 } from './business-location.graphql';
 import { Prisma } from '@prisma/client';
 import { PaginationArgs } from 'src/graphql/pagination-args-types';
+import { NotFoundException } from '@nestjs/common';
 
 @Resolver(() => BusinessLocation)
 export class BusinessLocationResolver {
@@ -26,7 +27,12 @@ export class BusinessLocationResolver {
 
   @Query(() => BusinessLocation)
   async businessLocation(@Args('id') id: string) {
-    return this.service.findOne(id);
+    const businessLocation = await this.service.findOne(id);
+    if (!businessLocation) {
+      throw new NotFoundException('businessLocation not found');
+    }
+
+    return businessLocation;
   }
 
   @Mutation(() => BusinessLocation)

@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service';
 import { Prisma, BusinessLocation, Business } from '@prisma/client';
 import { ServiceErrorHandler } from 'src/common/decorators/ServiceErrorHandler';
@@ -29,9 +29,13 @@ export class BusinessLocationService {
 
   @ServiceErrorHandler('Find Business Location by ID')
   async findOne(id: string): Promise<BusinessLocation | null> {
-    return this.prisma.businessLocation.findUnique({
+    const location = await this.prisma.businessLocation.findUnique({
       where: { id },
     });
+    if (!location) {
+      throw new Error('Business Location not found');
+    }
+    return location;
   }
 
   @ServiceErrorHandler('Update Business Location')
