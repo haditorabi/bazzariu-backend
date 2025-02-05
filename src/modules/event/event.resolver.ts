@@ -31,9 +31,11 @@ export class EventResolver {
     const { categoryId, ...rest } = data;
     const prismaData: Prisma.EventCreateInput = {
       ...rest,
-      category: {
-        connect: categoryId.map((id) => ({ id })),
-      },
+      ...(categoryId && {
+        category: {
+          connect: categoryId.map((id) => ({ id })),
+        },
+      }),
     };
     return this.service.create(prismaData);
   }

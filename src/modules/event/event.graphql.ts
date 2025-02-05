@@ -53,7 +53,7 @@ export class CreateEventInput {
   endDate: Date;
 
   @Field(() => [ID], { nullable: true })
-  categoryId: string[];
+  categoryId?: string[];
 
   @Field(() => [ID], { nullable: true })
   mediaId?: string[];
