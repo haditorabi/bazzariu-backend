@@ -43,7 +43,7 @@ describe('BusinessTagService', () => {
   });
 
   describe('findAll', () => {
-    it('should return an array of business tags', async () => {
+    it('should return an array of business-tags', async () => {
       const paginationArgs: PaginationArgs = {
         skip: 0,
         take: 10,
@@ -64,7 +64,7 @@ describe('BusinessTagService', () => {
   });
 
   describe('findOne', () => {
-    it('should return a single business tag by ID', async () => {
+    it('should return a single business-tag by ID', async () => {
       const id = '1';
 
       // Call the service method
@@ -79,7 +79,7 @@ describe('BusinessTagService', () => {
   });
 
   describe('update', () => {
-    it('should update and return the modified business tag', async () => {
+    it('should update and return the modified business-tag', async () => {
       const id = '1';
       const updateData: Prisma.BusinessTagUpdateInput = { name: 'Updated Tag' };
 
@@ -96,7 +96,7 @@ describe('BusinessTagService', () => {
   });
 
   describe('delete', () => {
-    it('should delete a business tag and return it', async () => {
+    it('should delete a business-tag and return it', async () => {
       const id = '1';
 
       // Call the service method

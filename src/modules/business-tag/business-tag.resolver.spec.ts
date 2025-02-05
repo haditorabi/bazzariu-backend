@@ -41,7 +41,7 @@ describe('BusinessTagResolver', () => {
   });
 
   describe('businessTags (findAll)', () => {
-    it('should return an array of business tags', async () => {
+    it('should return an array of business-tags', async () => {
       const paginationArgs: PaginationArgs = {
         skip: 0,
         take: 10,
@@ -59,7 +59,7 @@ describe('BusinessTagResolver', () => {
   });
 
   describe('businessTag (findOne)', () => {
-    it('should return a single business tag by ID', async () => {
+    it('should return a single business-tag by ID', async () => {
       const id = '1';
 
       // Call the resolver method
@@ -72,7 +72,7 @@ describe('BusinessTagResolver', () => {
   });
 
   describe('updateBusinessTag (update)', () => {
-    it('should update and return the modified business tag', async () => {
+    it('should update and return the modified business-tag', async () => {
       const id = '1';
       const updateData = { name: 'Updated Tag' };
 
@@ -86,7 +86,7 @@ describe('BusinessTagResolver', () => {
   });
 
   describe('deleteBusinessTag (delete)', () => {
-    it('should delete a business tag and return it', async () => {
+    it('should delete a business-tag and return it', async () => {
       const id = '1';
 
       // Call the resolver method
