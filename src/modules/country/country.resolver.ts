@@ -12,17 +12,13 @@ import {
   CreateCountryInput,
   UpdateCountryInput,
 } from './country.graphql';
-import { PrismaService } from '../prisma/prisma.service';
 import { CommonProvince } from 'src/graphql/province.type';
 import { ServiceErrorHandler } from 'src/common/decorators/ServiceErrorHandler';
 import { PaginationArgs } from 'src/graphql/pagination-args-types';
 
 @Resolver(() => Country)
 export class CountryResolver {
-  constructor(
-    private service: CountryService,
-    private readonly prisma: PrismaService,
-  ) {}
+  constructor(private service: CountryService) {}
 
   @Query(() => [Country])
   @ServiceErrorHandler('findAll countries') // Error handling
