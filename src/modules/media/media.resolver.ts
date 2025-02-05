@@ -47,4 +47,9 @@ export class MediaResolver {
 
     return this.service.update(id, prismaData);
   }
+
+  @Mutation(() => Media)
+  async deleteMedia(@Args('id') id: string) {
+    return this.service.delete(id);
+  }
 }
