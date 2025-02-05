@@ -1,18 +1,126 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { LanguageService } from './language.service';
+import { PrismaService } from '../prisma/prisma.service';
+import { Language, LanguageStatus } from '@prisma/client';
+import { PaginationArgs } from 'src/graphql/pagination-args-types';
+import { Prisma } from '@prisma/client';
+
+// Mock data for testing
+const mockLanguage: Language = {
+  id: '1',
+  name: 'Sample',
+  status: LanguageStatus.ACTIVE,
+  code: 'FA',
+};
+
+// Mock implementation of the PrismaService
+const mockPrismaService = {
+  language: {
+    create: jest.fn().mockResolvedValue(mockLanguage),
+    findMany: jest.fn().mockResolvedValue([mockLanguage]),
+    findUnique: jest.fn().mockResolvedValue(mockLanguage),
+    update: jest.fn().mockResolvedValue(mockLanguage),
+    delete: jest.fn().mockResolvedValue(mockLanguage),
+  },
+};
 
 describe('LanguageService', () => {
   let service: LanguageService;
+  let prisma: PrismaService;
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
-      providers: [LanguageService],
+      providers: [
+        LanguageService,
+        {
+          provide: PrismaService,
+          useValue: mockPrismaService, // Inject the mocked PrismaService
+        },
+      ],
     }).compile();
 
     service = module.get<LanguageService>(LanguageService);
+    prisma = module.get<PrismaService>(PrismaService);
+  });
+  describe('create', () => {
+    it('should create and return a language', async () => {
+      const input: Prisma.LanguageCreateInput = {
+        ...mockLanguage,
+      };
+
+      const result = await service.create(input);
+      expect(prisma.language.create).toHaveBeenCalledWith({
+        data: input,
+      });
+      expect(result).toEqual(mockLanguage);
+    });
   });
 
-  it('should be defined', () => {
-    expect(service).toBeDefined();
+  describe('findAll', () => {
+    it('should return an array of languages', async () => {
+      const paginationArgs: PaginationArgs = {
+        skip: 0,
+        take: 10,
+        limit: 10,
+        page: 1,
+      };
+
+      // Call the service method
+      const result = await service.findAll(paginationArgs);
+
+      // Expect the prisma method to have been called
+      expect(prisma.language.findMany).toHaveBeenCalledWith({
+        skip: paginationArgs.skip,
+        take: paginationArgs.take,
+      });
+      expect(result).toEqual([mockLanguage]);
+    });
+  });
+
+  describe('findOne', () => {
+    it('should return a single language by ID', async () => {
+      const id = '1';
+
+      // Call the service method
+      const result = await service.findOne(id);
+
+      // Expect the prisma method to have been called
+      expect(prisma.language.findUnique).toHaveBeenCalledWith({
+        where: { id },
+      });
+      expect(result).toEqual(mockLanguage);
+    });
+  });
+
+  describe('update', () => {
+    it('should update and return the modified language', async () => {
+      const id = '1';
+      const updateData: Prisma.LanguageUpdateInput = { name: 'Updated' };
+
+      // Call the service method
+      const result = await service.update(id, updateData);
+
+      // Expect the prisma method to have been called with correct arguments
+      expect(prisma.language.update).toHaveBeenCalledWith({
+        where: { id },
+        data: updateData,
+      });
+      expect(result).toEqual(mockLanguage);
+    });
+  });
+
+  describe('delete', () => {
+    it('should delete a language and return it', async () => {
+      const id = '1';
+
+      // Call the service method
+      const result = await service.delete(id);
+
+      // Expect the prisma method to have been called
+      expect(prisma.language.delete).toHaveBeenCalledWith({
+        where: { id },
+      });
+      expect(result).toEqual(mockLanguage);
+    });
   });
 });
