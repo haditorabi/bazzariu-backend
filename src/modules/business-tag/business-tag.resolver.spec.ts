@@ -1,7 +1,11 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { BusinessTagResolver } from './business-tag.resolver';
 import { BusinessTagService } from './business-tag.service';
-import { BusinessTag } from './business-tag.graphql';
+import {
+  BusinessTag,
+  CreateBusinessTagInput,
+  UpdateBusinessTagInput,
+} from './business-tag.graphql';
 import { PaginationArgs } from 'src/graphql/pagination-args-types';
 import { BusinessTagStatus } from '@prisma/client';
 
@@ -15,6 +19,7 @@ const mockBusinessTag: BusinessTag = {
 
 // Mock implementation of the BusinessTagService
 const mockBusinessTagService = {
+  create: jest.fn().mockResolvedValue(mockBusinessTag),
   findAll: jest.fn().mockResolvedValue([mockBusinessTag]),
   findOne: jest.fn().mockResolvedValue(mockBusinessTag),
   update: jest.fn().mockResolvedValue(mockBusinessTag),
@@ -38,6 +43,17 @@ describe('BusinessTagResolver', () => {
 
     resolver = module.get<BusinessTagResolver>(BusinessTagResolver);
     service = module.get<BusinessTagService>(BusinessTagService);
+  });
+  describe('createBusinessTag', () => {
+    it('should create and return a business-tags', async () => {
+      const input: CreateBusinessTagInput = {
+        ...mockBusinessTag,
+      };
+
+      const result = await resolver.createBusinessTag(input);
+      expect(service.create).toHaveBeenCalledWith(input);
+      expect(result).toEqual(mockBusinessTag);
+    });
   });
 
   describe('businessTags (findAll)', () => {
@@ -75,9 +91,12 @@ describe('BusinessTagResolver', () => {
     it('should update and return the modified business-tag', async () => {
       const id = '1';
       const updateData = { name: 'Updated' };
+      const input: UpdateBusinessTagInput = {
+        ...updateData,
+      };
 
       // Call the resolver method
-      const result = await resolver.updateBusinessTag(id, updateData);
+      const result = await resolver.updateBusinessTag(id, input);
 
       // Expect the service method to have been called with correct arguments
       expect(service.update).toHaveBeenCalledWith(id, updateData);

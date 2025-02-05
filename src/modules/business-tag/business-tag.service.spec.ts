@@ -16,6 +16,7 @@ const mockBusinessTag: BusinessTag = {
 // Mock implementation of the PrismaService
 const mockPrismaService = {
   businessTag: {
+    create: jest.fn().mockResolvedValue(mockBusinessTag),
     findMany: jest.fn().mockResolvedValue([mockBusinessTag]),
     findUnique: jest.fn().mockResolvedValue(mockBusinessTag),
     update: jest.fn().mockResolvedValue(mockBusinessTag),
@@ -40,6 +41,19 @@ describe('BusinessTagService', () => {
 
     service = module.get<BusinessTagService>(BusinessTagService);
     prisma = module.get<PrismaService>(PrismaService);
+  });
+  describe('create', () => {
+    it('should create and return a business-tag', async () => {
+      const input: Prisma.BusinessTagCreateInput = {
+        ...mockBusinessTag,
+      };
+
+      const result = await service.create(input);
+      expect(prisma.businessTag.create).toHaveBeenCalledWith({
+        data: input,
+      });
+      expect(result).toEqual(mockBusinessTag);
+    });
   });
 
   describe('findAll', () => {
