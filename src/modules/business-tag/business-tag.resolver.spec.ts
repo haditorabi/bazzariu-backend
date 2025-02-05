@@ -8,7 +8,7 @@ import { BusinessTagStatus } from '@prisma/client';
 // Mock data for testing
 const mockBusinessTag: BusinessTag = {
   id: '1',
-  name: 'Sample Tag',
+  name: 'Sample',
   status: BusinessTagStatus.ACTIVE,
   createdAt: new Date(),
 };
@@ -74,7 +74,7 @@ describe('BusinessTagResolver', () => {
   describe('updateBusinessTag (update)', () => {
     it('should update and return the modified business-tag', async () => {
       const id = '1';
-      const updateData = { name: 'Updated Tag' };
+      const updateData = { name: 'Updated' };
 
       // Call the resolver method
       const result = await resolver.updateBusinessTag(id, updateData);

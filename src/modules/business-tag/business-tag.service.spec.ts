@@ -8,7 +8,7 @@ import { Prisma } from '@prisma/client';
 // Mock data for testing
 const mockBusinessTag: BusinessTag = {
   id: '1',
-  name: 'Sample Tag',
+  name: 'Sample',
   status: 'ACTIVE', // Prisma enum value
   createdAt: new Date(),
 };
@@ -81,7 +81,7 @@ describe('BusinessTagService', () => {
   describe('update', () => {
     it('should update and return the modified business-tag', async () => {
       const id = '1';
-      const updateData: Prisma.BusinessTagUpdateInput = { name: 'Updated Tag' };
+      const updateData: Prisma.BusinessTagUpdateInput = { name: 'Updated' };
 
       // Call the service method
       const result = await service.update(id, updateData);
