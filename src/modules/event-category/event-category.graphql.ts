@@ -13,8 +13,8 @@ export class EventCategory {
   @Field()
   status: EventCategoryStatus;
 
-  @Field(() => [ID])
-  eventId: string[];
+  @Field(() => [ID], { nullable: true })
+  eventId?: string[];
 
   @Field()
   createdAt: Date;
