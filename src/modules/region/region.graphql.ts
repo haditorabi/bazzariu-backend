@@ -22,13 +22,13 @@ export class Region {
   name: string;
 
   @Field(() => CommonCountry)
-  country: CommonCountry;
+  country?: CommonCountry;
 
   @Field(() => ID)
   countryId: string;
 
   @Field(() => CommonCity)
-  city: CommonCity;
+  city?: CommonCity;
 
   @Field(() => ID)
   cityId: string;
