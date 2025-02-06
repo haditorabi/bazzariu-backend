@@ -38,8 +38,8 @@ export class CreatePaymentMethodInput {
   @Field(() => ID)
   user: string;
 
-  @Field()
-  details: string;
+  @Field({ nullable: true })
+  details?: string;
 
   @Field()
   type: PaymentMethodType;
