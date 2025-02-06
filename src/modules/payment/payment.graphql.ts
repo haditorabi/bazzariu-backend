@@ -9,8 +9,8 @@ export class Payment {
   @Field(() => ID)
   id: string;
 
-  @Field(() => ID, { nullable: true })
-  transactionId?: string;
+  @Field(() => ID)
+  transactionId: string;
 
   @Field({ nullable: true })
   description?: string;
@@ -21,20 +21,20 @@ export class Payment {
   @Field()
   targetType: PaymentTargetType;
 
-  @Field(() => CommonUser)
-  user: CommonUser;
+  @Field(() => CommonUser, { nullable: true })
+  user?: CommonUser;
 
   @Field(() => ID)
   userId: string;
 
   @Field(() => CommonBusiness)
-  business: CommonBusiness;
+  business?: CommonBusiness;
 
   @Field(() => ID)
   businessId: string;
 
-  @Field(() => CommonPaymentMethod)
-  paymentMethod: CommonPaymentMethod;
+  @Field(() => CommonPaymentMethod, { nullable: true })
+  paymentMethod?: CommonPaymentMethod;
 
   @Field(() => ID)
   paymentMethodId: string;
@@ -76,7 +76,7 @@ export class CreatePaymentInput {
   businessId?: string;
 
   @Field(() => ID)
-  paymentMethodId?: string;
+  paymentMethodId: string;
 
   @Field()
   amount: number;
