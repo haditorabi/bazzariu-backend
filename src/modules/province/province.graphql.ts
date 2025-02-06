@@ -11,8 +11,8 @@ export class Province {
   @Field()
   name: string;
 
-  @Field(() => CommonCountry)
-  country: CommonCountry;
+  @Field(() => CommonCountry, { nullable: true })
+  country?: CommonCountry;
 
   @Field()
   status: ProvinceStatus;

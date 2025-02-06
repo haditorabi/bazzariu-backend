@@ -75,7 +75,7 @@ export class ProvinceResolver {
     return this.service.getCountry(country.id);
   }
   @Mutation(() => CommonCountry)
-  async deleteCommonCountry(@Args('id') id: string) {
+  async deleteProvince(@Args('id') id: string) {
     return this.service.delete(id);
   }
 }
