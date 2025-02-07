@@ -8,7 +8,7 @@ export class UserReview {
   id: string;
 
   @Field(() => CommonUser)
-  user: CommonUser;
+  user?: CommonUser;
 
   @Field(() => ID)
   userId: string;
@@ -41,7 +41,7 @@ export class UserReview {
 @InputType()
 export class CreateUserReviewInput {
   @Field(() => ID)
-  user: string;
+  userId: string;
 
   @Field(() => ID, { nullable: true })
   targetId: string;
@@ -65,7 +65,7 @@ export class CreateUserReviewInput {
 @InputType()
 export class UpdateUserReviewInput {
   @Field(() => ID, { nullable: true })
-  user?: string;
+  userId?: string;
 
   @Field(() => ID, { nullable: true })
   targetId?: string;

@@ -32,11 +32,11 @@ export class UserReviewResolver {
 
   @Mutation(() => UserReview)
   async createUserReview(@Args('data') data: CreateUserReviewInput) {
-    const { user, ...rest } = data;
+    const { userId, ...rest } = data;
     const prismaData: Prisma.UserReviewCreateInput = {
       ...rest,
       user: {
-        connect: { id: user },
+        connect: { id: userId },
       },
     };
     return this.service.create(prismaData);
@@ -47,12 +47,12 @@ export class UserReviewResolver {
     @Args('id') id: string,
     @Args('data') data: UpdateUserReviewInput,
   ) {
-    const { user, ...rest } = data;
+    const { userId, ...rest } = data;
     const prismaData: Prisma.UserReviewUpdateInput = {
       ...rest,
-      ...(user && {
+      ...(userId && {
         user: {
-          connect: { id: user },
+          connect: { id: userId },
         },
       }),
     };
