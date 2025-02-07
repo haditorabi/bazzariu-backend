@@ -7,13 +7,13 @@ export class UserFollowing {
   id: string;
 
   @Field(() => CommonUser)
-  follower: CommonUser;
+  follower?: CommonUser;
 
   @Field(() => ID)
   followerId: string;
 
   @Field(() => CommonUser)
-  followee: CommonUser;
+  followee?: CommonUser;
 
   @Field(() => ID)
   followeeId: string;
