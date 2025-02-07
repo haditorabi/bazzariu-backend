@@ -10,13 +10,13 @@ export class Transaction {
   id: string;
 
   @Field(() => CommonPayment)
-  payment: CommonPayment;
+  payment?: CommonPayment;
 
   @Field(() => ID)
   paymentId: string;
 
   @Field(() => CommonBusiness)
-  business: CommonBusiness;
+  business?: CommonBusiness;
 
   @Field(() => ID)
   businessId: string;
@@ -25,7 +25,7 @@ export class Transaction {
   currencyId: string;
 
   @Field(() => CommonUser)
-  user: CommonUser;
+  user?: CommonUser;
 
   @Field(() => ID)
   userId: string;
