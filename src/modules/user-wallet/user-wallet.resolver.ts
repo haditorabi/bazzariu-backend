@@ -30,11 +30,11 @@ export class UserWalletResolver {
 
   @Mutation(() => UserWallet)
   async createUserWallet(@Args('data') data: CreateUserWalletInput) {
-    const { user, ...rest } = data;
+    const { userId, ...rest } = data;
     const prismaData: Prisma.UserWalletCreateInput = {
       ...rest,
       user: {
-        connect: { id: user },
+        connect: { id: userId },
       },
     };
     return this.service.create(prismaData);
@@ -45,12 +45,12 @@ export class UserWalletResolver {
     @Args('id') id: string,
     @Args('data') data: UpdateUserWalletInput,
   ) {
-    const { user, ...rest } = data;
+    const { userId, ...rest } = data;
     const prismaData: Prisma.UserWalletUpdateInput = {
       ...rest,
-      ...(user && {
+      ...(userId && {
         user: {
-          connect: { id: user },
+          connect: { id: userId },
         },
       }),
     };

@@ -7,7 +7,7 @@ export class UserWallet {
   id: string;
 
   @Field(() => CommonUser)
-  user: CommonUser;
+  user?: CommonUser;
 
   @Field(() => ID)
   userId: string;
@@ -28,7 +28,7 @@ export class UserWallet {
 @InputType()
 export class CreateUserWalletInput {
   @Field(() => ID)
-  user: string;
+  userId: string;
 
   @Field()
   balance: number;
@@ -40,7 +40,7 @@ export class CreateUserWalletInput {
 @InputType()
 export class UpdateUserWalletInput {
   @Field(() => ID, { nullable: true })
-  user?: string;
+  userId?: string;
 
   @Field({ nullable: true })
   balance?: number;
