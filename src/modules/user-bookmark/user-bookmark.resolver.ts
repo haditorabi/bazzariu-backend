@@ -32,12 +32,12 @@ export class UserBookmarkResolver {
 
   @Mutation(() => UserBookmark)
   async createUserBookmark(@Args('data') data: CreateUserBookmarkInput) {
-    const { user, ...rest } = data;
+    const { userId, ...rest } = data;
 
     const prismaData: Prisma.UserBookmarkCreateInput = {
       ...rest,
       user: {
-        connect: { id: user },
+        connect: { id: userId },
       },
     };
 

@@ -8,7 +8,7 @@ export class UserBookmark {
   id: string;
 
   @Field(() => CommonUser)
-  user: CommonUser;
+  user?: CommonUser;
 
   @Field(() => ID)
   userId: string;
@@ -26,7 +26,7 @@ export class UserBookmark {
 @InputType()
 export class CreateUserBookmarkInput {
   @Field(() => ID)
-  user: string;
+  userId: string;
 
   @Field(() => ID)
   targetId: string;
