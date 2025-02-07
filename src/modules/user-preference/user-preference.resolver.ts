@@ -32,12 +32,12 @@ export class UserPreferenceResolver {
 
   @Mutation(() => UserPreference)
   async createUserPreference(@Args('data') data: CreateUserPreferenceInput) {
-    const { user, ...rest } = data;
+    const { userId, ...rest } = data;
 
     const prismaData: Prisma.UserPreferenceCreateInput = {
       ...rest,
       user: {
-        connect: { id: user },
+        connect: { id: userId },
       },
     };
 
@@ -49,13 +49,13 @@ export class UserPreferenceResolver {
     @Args('id') id: string,
     @Args('data') data: UpdateUserPreferenceInput,
   ) {
-    const { user, ...rest } = data;
+    const { userId, ...rest } = data;
 
     const prismaData: Prisma.UserPreferenceUpdateInput = {
       ...rest,
-      ...(user && {
+      ...(userId && {
         user: {
-          connect: { id: user },
+          connect: { id: userId },
         },
       }),
     };

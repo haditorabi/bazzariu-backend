@@ -7,7 +7,7 @@ export class UserPreference {
   id: string;
 
   @Field(() => CommonUser)
-  user: CommonUser;
+  user?: CommonUser;
 
   @Field(() => ID)
   userId: string;
@@ -25,7 +25,7 @@ export class UserPreference {
 @InputType()
 export class CreateUserPreferenceInput {
   @Field(() => ID)
-  user: string;
+  userId: string;
 
   @Field()
   key: string;
@@ -37,7 +37,7 @@ export class CreateUserPreferenceInput {
 @InputType()
 export class UpdateUserPreferenceInput {
   @Field(() => ID, { nullable: true })
-  user?: string;
+  userId?: string;
 
   @Field({ nullable: true })
   key?: string;
