@@ -31,12 +31,12 @@ export class UserScoreResolver {
 
   @Mutation(() => UserScore)
   async createUserScore(@Args('data') data: CreateUserScoreInput) {
-    const { user, ...rest } = data;
+    const { userId, ...rest } = data;
 
     const prismaData: Prisma.UserScoreCreateInput = {
       ...rest,
       user: {
-        connect: { id: user },
+        connect: { id: userId },
       },
     };
 
@@ -48,13 +48,13 @@ export class UserScoreResolver {
     @Args('id') id: string,
     @Args('data') data: UpdateUserScoreInput,
   ) {
-    const { user, ...rest } = data;
+    const { userId, ...rest } = data;
 
     const prismaData: Prisma.UserScoreUpdateInput = {
       ...rest,
-      ...(user && {
+      ...(userId && {
         user: {
-          connect: { id: user },
+          connect: { id: userId },
         },
       }),
     };

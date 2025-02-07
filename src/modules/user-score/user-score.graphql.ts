@@ -7,13 +7,13 @@ export class UserScore {
   id: string;
 
   @Field(() => CommonUser)
-  user: CommonUser;
+  user?: CommonUser;
 
   @Field(() => ID)
   userId: string;
 
   @Field()
-  score: string;
+  score: number;
 
   @Field()
   createdAt: Date;
@@ -22,7 +22,7 @@ export class UserScore {
 @InputType()
 export class CreateUserScoreInput {
   @Field(() => ID)
-  user: string;
+  userId: string;
 
   @Field(() => Int)
   score: number;
@@ -31,7 +31,7 @@ export class CreateUserScoreInput {
 @InputType()
 export class UpdateUserScoreInput {
   @Field(() => ID, { nullable: true })
-  user?: string;
+  userId?: string;
 
   @Field(() => Int, { nullable: true })
   score?: number;
