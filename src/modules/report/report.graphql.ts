@@ -8,7 +8,7 @@ export class Report {
   id: string;
 
   @Field(() => CommonUser)
-  by: CommonUser;
+  by?: CommonUser;
 
   @Field(() => ID)
   byId: string;
