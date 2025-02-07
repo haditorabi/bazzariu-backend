@@ -8,13 +8,13 @@ export class UserCheckin {
   id: string;
 
   @Field(() => CommonUser)
-  user: CommonUser;
+  user?: CommonUser;
 
   @Field(() => ID)
   userId: string;
 
   @Field(() => CommonBusiness)
-  business: CommonBusiness;
+  business?: CommonBusiness;
 
   @Field(() => ID)
   businessId: string;
@@ -26,17 +26,17 @@ export class UserCheckin {
 @InputType()
 export class CreateUserCheckinInput {
   @Field(() => ID)
-  user: string;
+  userId: string;
 
   @Field(() => ID)
-  business: string;
+  businessId: string;
 }
 
 @InputType()
 export class UpdateUserCheckinInput {
   @Field(() => ID, { nullable: true })
-  user?: string;
+  userId?: string;
 
   @Field(() => ID, { nullable: true })
-  business?: string;
+  businessId?: string;
 }

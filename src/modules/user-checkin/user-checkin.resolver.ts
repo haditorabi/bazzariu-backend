@@ -22,26 +22,26 @@ export class UserCheckinResolver {
   constructor(private service: UserCheckinService) {}
 
   @Query(() => [UserCheckin])
-  async userCheckeins(@Args() paginationArgs: PaginationArgs) {
+  async userCheckins(@Args() paginationArgs: PaginationArgs) {
     return this.service.findAll(paginationArgs);
   }
 
   @Query(() => UserCheckin)
-  async userCheckein(@Args('id') id: string) {
+  async userCheckin(@Args('id') id: string) {
     return this.service.findOne(id);
   }
 
   @Mutation(() => UserCheckin)
   async createUserCheckin(@Args('data') data: CreateUserCheckinInput) {
-    const { user, business, ...rest } = data;
+    const { userId, businessId, ...rest } = data;
 
     const prismaData: Prisma.UserCheckinCreateInput = {
       ...rest,
       user: {
-        connect: { id: user },
+        connect: { id: userId },
       },
       business: {
-        connect: { id: business },
+        connect: { id: businessId },
       },
     };
 
@@ -53,18 +53,18 @@ export class UserCheckinResolver {
     @Args('id') id: string,
     @Args('data') data: UpdateUserCheckinInput,
   ) {
-    const { user, business, ...rest } = data;
+    const { userId, businessId, ...rest } = data;
 
     const prismaData: Prisma.UserCheckinUpdateInput = {
       ...rest,
-      ...(business && {
+      ...(businessId && {
         business: {
-          connect: { id: business },
+          connect: { id: businessId },
         },
       }),
-      ...(user && {
+      ...(userId && {
         user: {
-          connect: { id: user },
+          connect: { id: userId },
         },
       }),
     };
