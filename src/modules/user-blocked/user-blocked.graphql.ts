@@ -7,13 +7,13 @@ export class UserBlocked {
   id: string;
 
   @Field(() => CommonUser)
-  user: CommonUser;
+  user?: CommonUser;
 
   @Field(() => ID)
   userId: string;
 
   @Field(() => CommonUser)
-  blocked: CommonUser;
+  blocked?: CommonUser;
 
   @Field(() => ID)
   blockedId: string;
