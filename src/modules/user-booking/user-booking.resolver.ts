@@ -32,15 +32,15 @@ export class UserBookingResolver {
 
   @Mutation(() => UserBooking)
   async createUserBooking(@Args('data') data: CreateUserBookingInput) {
-    const { user, bookingTimeSlot, businessProduct, ...rest } = data;
+    const { userId, bookingTimeSlotId, businessProduct, ...rest } = data;
 
     const prismaData: Prisma.UserBookingCreateInput = {
       ...rest,
       user: {
-        connect: { id: user },
+        connect: { id: userId },
       },
       bookingTimeSlot: {
-        connect: { id: bookingTimeSlot },
+        connect: { id: bookingTimeSlotId },
       },
       ...(businessProduct && {
         businessProduct: {
@@ -57,18 +57,18 @@ export class UserBookingResolver {
     @Args('id') id: string,
     @Args('data') data: UpdateUserBookingInput,
   ) {
-    const { user, bookingTimeSlot, businessProduct, ...rest } = data;
+    const { userId, bookingTimeSlotId, businessProduct, ...rest } = data;
 
     const prismaData: Prisma.UserBookingUpdateInput = {
       ...rest,
-      ...(user && {
+      ...(userId && {
         user: {
-          connect: { id: user },
+          connect: { id: userId },
         },
       }),
-      ...(bookingTimeSlot && {
+      ...(bookingTimeSlotId && {
         bookingTimeSlot: {
-          connect: { id: bookingTimeSlot },
+          connect: { id: bookingTimeSlotId },
         },
       }),
       ...(businessProduct && {
@@ -80,7 +80,10 @@ export class UserBookingResolver {
 
     return this.service.update(id, prismaData);
   }
-
+  @Mutation(() => UserBooking)
+  async deleteUserBooking(@Args('id') id: string) {
+    return this.service.delete(id);
+  }
   // ResolveField for user
   @ResolveField(() => CommonUser)
   async user(@Parent() userBooking: UserBooking) {
