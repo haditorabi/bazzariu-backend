@@ -8,7 +8,7 @@ export class UserAction {
   id: string;
 
   @Field(() => CommonUser)
-  user: CommonUser;
+  user?: CommonUser;
 
   @Field(() => ID)
   userId: string;
