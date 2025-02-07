@@ -33,12 +33,12 @@ export class UserVerificationResolver {
   async createUserVerification(
     @Args('data') data: CreateUserVerificationInput,
   ) {
-    const { user, ...rest } = data;
+    const { userId, ...rest } = data;
 
     const prismaData: Prisma.UserVerificationCreateInput = {
       ...rest,
       user: {
-        connect: { id: user },
+        connect: { id: userId },
       },
     };
 
@@ -50,13 +50,13 @@ export class UserVerificationResolver {
     @Args('id') id: string,
     @Args('data') data: UpdateUserVerificationInput,
   ) {
-    const { user, ...rest } = data;
+    const { userId, ...rest } = data;
 
     const prismaData: Prisma.UserVerificationUpdateInput = {
       ...rest,
-      ...(user && {
+      ...(userId && {
         user: {
-          connect: { id: user },
+          connect: { id: userId },
         },
       }),
     };

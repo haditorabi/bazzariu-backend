@@ -8,7 +8,7 @@ export class UserVerification {
   id: string;
 
   @Field(() => CommonUser)
-  user: CommonUser;
+  user?: CommonUser;
 
   @Field(() => ID)
   userId: string;
@@ -29,7 +29,7 @@ export class UserVerification {
 @InputType()
 export class CreateUserVerificationInput {
   @Field(() => ID)
-  user: string;
+  userId: string;
 
   @Field()
   type: UserVerificationType;
@@ -41,7 +41,7 @@ export class CreateUserVerificationInput {
 @InputType()
 export class UpdateUserVerificationInput {
   @Field(() => ID, { nullable: true })
-  user?: string;
+  userId?: string;
 
   @Field({ nullable: true })
   type?: UserVerificationType;
