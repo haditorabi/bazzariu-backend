@@ -21,15 +21,9 @@ async function bootstrap() {
         const formattedErrors = errors.map((err) => ({
           [err.property]: Object.values(err.constraints).join(', '),
         }));
-
-        if (process.env.NODE_ENV === 'production') {
-          return new BadRequestException({
-            message: JSON.stringify(formattedErrors),
-          });
-        }
-
         return new BadRequestException({
           message: JSON.stringify(formattedErrors),
+          status: 400,
           stack: new Error().stack, // Only include stack trace in development
         });
       },

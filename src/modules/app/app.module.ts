@@ -49,6 +49,7 @@ import { UserReviewModule } from '../user-review/user-review.module';
 import { UserScoreModule } from '../user-score/user-score.module';
 import { UserWalletModule } from '../user-wallet/user-wallet.module';
 import { UserVerificationModule } from '../user-verification/user-verification.module';
+import { GraphQLError } from 'graphql';
 
 @Module({
   imports: [
@@ -62,6 +63,9 @@ import { UserVerificationModule } from '../user-verification/user-verification.m
       driver: ApolloDriver,
       autoSchemaFile: join(process.cwd(), 'src/schema.gql'), // Generates schema.gql automatically
       sortSchema: true, // Optional: Sorts fields in schema alphabetically
+      formatError: (error: GraphQLError) => {
+        return error;
+      },
     }),
     AuthModule,
     AmenityModule,
