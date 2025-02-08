@@ -31,7 +31,6 @@ const mockPrismaService = {
 
 describe('AmenityResolver', () => {
   let resolver: AmenityResolver;
-  let service: AmenityService;
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
@@ -43,7 +42,6 @@ describe('AmenityResolver', () => {
     }).compile();
 
     resolver = module.get<AmenityResolver>(AmenityResolver);
-    service = module.get<AmenityService>(AmenityService);
   });
 
   it('should be defined', () => {
