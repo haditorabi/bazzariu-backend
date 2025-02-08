@@ -44,11 +44,15 @@ export class AllExceptionsFilter
       exception = new InternalServerErrorException();
     }
 
-    response.status(status).json({
-      statusCode: status,
-      message,
-      timestamp: new Date().toISOString(),
-      path: request.url,
-    });
+    if (typeof response.status === 'function') {
+      response.status(status).json({
+        statusCode: status,
+        message,
+        timestamp: new Date().toISOString(),
+        path: request.url,
+      });
+    } else {
+      this.logger.error('Response object does not have a status function');
+    }
   }
 }

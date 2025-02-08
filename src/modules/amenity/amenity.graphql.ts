@@ -1,4 +1,5 @@
 import { Field, ObjectType, InputType, ID } from '@nestjs/graphql';
+import { IsMongoId, IsNotEmpty, Length } from 'class-validator';
 
 @ObjectType()
 export class Amenity {
@@ -18,9 +19,12 @@ export class Amenity {
 @InputType()
 export class CreateAmenityInput {
   @Field()
+  @IsNotEmpty({ message: 'Name is required' })
+  @Length(3, 50, { message: 'Name must be between 3 and 50 characters' })
   name: string;
 
   @Field(() => ID, { nullable: true })
+  @IsMongoId()
   mediaId?: string;
 }
 
