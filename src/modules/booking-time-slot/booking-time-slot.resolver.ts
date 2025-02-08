@@ -41,12 +41,12 @@ export class BookingTimeSlotResolver {
   }
   @Mutation(() => BookingTimeSlot)
   async createBookingTimeSlot(@Args('data') data: CreateBookingTimeSlotInput) {
-    const { businessBooking, ...rest } = data;
+    const { businessBookingId, ...rest } = data;
 
     const prismaData: Prisma.BookingTimeSlotCreateInput = {
       ...rest,
       businessBooking: {
-        connect: { id: businessBooking },
+        connect: { id: businessBookingId },
       },
     };
 
@@ -62,13 +62,13 @@ export class BookingTimeSlotResolver {
     @Args('id') id: string,
     @Args('data') data: UpdateBookingTimeSlotInput,
   ) {
-    const { businessBooking, ...rest } = data;
+    const { businessBookingId, ...rest } = data;
 
     const prismaData: Prisma.BookingTimeSlotUpdateInput = {
       ...rest,
-      ...(businessBooking && {
+      ...(businessBookingId && {
         businessBooking: {
-          connect: { id: businessBooking },
+          connect: { id: businessBookingId },
         },
       }),
     };

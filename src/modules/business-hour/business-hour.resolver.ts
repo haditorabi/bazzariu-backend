@@ -38,12 +38,12 @@ export class BusinessHourResolver {
 
   @Mutation(() => BusinessHour)
   async createBusinessHour(@Args('data') data: CreateBusinessHourInput) {
-    const { business, ...rest } = data;
+    const { businessId, ...rest } = data;
 
     const prismaData: Prisma.BusinessHourCreateInput = {
       ...rest,
       business: {
-        connect: { id: business },
+        connect: { id: businessId },
       },
     };
 
@@ -55,13 +55,13 @@ export class BusinessHourResolver {
     @Args('id') id: string,
     @Args('data') data: UpdateBusinessHourInput,
   ) {
-    const { business, ...rest } = data;
+    const { businessId, ...rest } = data;
 
     const prismaData: Prisma.BusinessHourUpdateInput = {
       ...rest,
-      ...(business && {
+      ...(businessId && {
         businessBooking: {
-          connect: { id: business },
+          connect: { id: businessId },
         },
       }),
     };

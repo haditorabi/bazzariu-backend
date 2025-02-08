@@ -39,15 +39,15 @@ export class RegionResolver {
 
   @Mutation(() => Region)
   async createRegion(@Args('data') data: CreateRegionInput) {
-    const { country, city, ...rest } = data;
+    const { countryId, cityId, ...rest } = data;
 
     const prismaData: Prisma.RegionCreateInput = {
       ...rest,
       country: {
-        connect: { id: country },
+        connect: { id: countryId },
       },
       city: {
-        connect: { id: city },
+        connect: { id: cityId },
       },
       boundry: rest.boundry as string,
     };
@@ -61,18 +61,18 @@ export class RegionResolver {
 
     @Args('data') data: UpdateRegionInput,
   ) {
-    const { country, city, boundry, ...rest } = data;
+    const { countryId, cityId, boundry, ...rest } = data;
 
     const prismaData: Prisma.RegionUpdateInput = {
       ...rest,
-      ...(country && {
+      ...(countryId && {
         country: {
-          connect: { id: country },
+          connect: { id: countryId },
         },
       }),
-      ...(city && {
+      ...(cityId && {
         city: {
-          connect: { id: city },
+          connect: { id: cityId },
         },
       }),
       ...(boundry && {

@@ -75,14 +75,14 @@ describe('BusinessFollowingResolver', () => {
   describe('createBusinessFollowing', () => {
     it('should create a new business following', async () => {
       const input: CreateBusinessFollowingInput = {
-        business: mockBusinessFollowing.businessId,
-        user: mockBusinessFollowing.userId,
+        businessId: mockBusinessFollowing.businessId,
+        userId: mockBusinessFollowing.userId,
       };
       const result = await resolver.createBusinessFollowing(input);
       expect(result).toEqual(mockBusinessFollowing);
       expect(service.create).toHaveBeenCalledWith({
-        business: { connect: { id: input.business } },
-        user: { connect: { id: input.user } },
+        business: { connect: { id: input.businessId } },
+        user: { connect: { id: input.userId } },
       });
     });
   });
@@ -90,8 +90,8 @@ describe('BusinessFollowingResolver', () => {
   describe('updateBusinessFollowing', () => {
     it('should update an existing business following', async () => {
       const input: UpdateBusinessFollowingInput = {
-        business: mockBusinessFollowing.businessId,
-        user: mockBusinessFollowing.userId,
+        businessId: mockBusinessFollowing.businessId,
+        userId: mockBusinessFollowing.userId,
       };
       const result = await resolver.updateBusinessFollowing(
         mockBusinessFollowing.id,
@@ -99,8 +99,8 @@ describe('BusinessFollowingResolver', () => {
       );
       expect(result).toEqual(mockBusinessFollowing);
       expect(service.update).toHaveBeenCalledWith(mockBusinessFollowing.id, {
-        business: { connect: { id: input.business } },
-        user: { connect: { id: input.user } },
+        business: { connect: { id: input.businessId } },
+        user: { connect: { id: input.userId } },
       });
     });
   });

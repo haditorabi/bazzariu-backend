@@ -27,7 +27,7 @@ export class CreateProvinceInput {
   name: string;
 
   @Field(() => ID)
-  country: string;
+  countryId: string;
 
   @Field()
   status: ProvinceStatus;
@@ -39,7 +39,7 @@ export class UpdateProvinceInput {
   name?: string;
 
   @Field(() => ID, { nullable: true })
-  country?: string;
+  countryId?: string;
 
   @Field({ nullable: true })
   status?: ProvinceStatus;

@@ -22,7 +22,7 @@ export class CommonPayment {
   userId: string;
 
   @Field(() => ID, { nullable: true })
-  business?: string;
+  businessId?: string;
 
   @Field(() => ID)
   paymentMethodId: string;

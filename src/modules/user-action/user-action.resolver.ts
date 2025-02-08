@@ -32,12 +32,12 @@ export class UserActionResolver {
 
   @Mutation(() => UserAction)
   async createUserAction(@Args('data') data: CreateUserActionInput) {
-    const { user, ...rest } = data;
+    const { userId, ...rest } = data;
 
     const prismaData: Prisma.UserActionCreateInput = {
       ...rest,
       user: {
-        connect: { id: user },
+        connect: { id: userId },
       },
     };
 
@@ -49,13 +49,13 @@ export class UserActionResolver {
     @Args('id') id: string,
     @Args('data') data: UpdateUserActionInput,
   ) {
-    const { user, ...rest } = data;
+    const { userId, ...rest } = data;
 
     const prismaData: Prisma.UserActionUpdateInput = {
       ...rest,
-      ...(user && {
+      ...(userId && {
         user: {
-          connect: { id: user },
+          connect: { id: userId },
         },
       }),
     };

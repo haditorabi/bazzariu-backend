@@ -11,7 +11,6 @@ import { ObjectId } from 'mongodb';
 
 describe('BookingTimeSlotResolver', () => {
   let resolver: BookingTimeSlotResolver;
-  let service: BookingTimeSlotService;
 
   const mockBookingTimeSlotService = {
     findAll: jest.fn(),
@@ -34,7 +33,6 @@ describe('BookingTimeSlotResolver', () => {
     }).compile();
 
     resolver = module.get<BookingTimeSlotResolver>(BookingTimeSlotResolver);
-    service = module.get<BookingTimeSlotService>(BookingTimeSlotService);
   });
 
   afterEach(() => {
@@ -87,7 +85,7 @@ describe('BookingTimeSlotResolver', () => {
   describe('createBookingTimeSlot', () => {
     it('should create and return a booking time slot', async () => {
       const input: CreateBookingTimeSlotInput = {
-        businessBooking: new ObjectId().toHexString(),
+        businessBookingId: new ObjectId().toHexString(),
         startAt: new Date(),
         endAt: new Date(),
         timezone: 'UTC',

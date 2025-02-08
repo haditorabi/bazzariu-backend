@@ -63,10 +63,10 @@ export class CreateBusinessDealInput {
   description?: string;
 
   @Field(() => ID)
-  business: string;
+  businessId: string;
 
   @Field(() => [ID], { nullable: true })
-  businessProduct?: string[];
+  businessProductId?: string[];
 
   @Field()
   discountType: DiscountType;
@@ -102,10 +102,10 @@ export class UpdateBusinessDealInput {
   description?: string;
 
   @Field(() => ID, { nullable: true })
-  business?: string;
+  businessId?: string;
 
   @Field(() => [ID], { nullable: true })
-  businessProduct?: string[];
+  businessProductId?: string[];
 
   @Field({ nullable: true })
   discountType?: DiscountType;

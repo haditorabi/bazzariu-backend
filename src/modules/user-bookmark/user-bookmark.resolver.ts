@@ -50,13 +50,13 @@ export class UserBookmarkResolver {
     @Args('data')
     data: UpdateUserBookmarkInput,
   ) {
-    const { user, ...rest } = data;
+    const { userId, ...rest } = data;
 
     const prismaData: Prisma.UserBookmarkUpdateInput = {
       ...rest,
-      ...(user && {
+      ...(userId && {
         user: {
-          connect: { id: user },
+          connect: { id: userId },
         },
       }),
     };

@@ -51,7 +51,7 @@ describe('UserActionResolver', () => {
     it('should create and return a user-actions', async () => {
       const input: CreateUserActionInput = {
         ...mockUserAction,
-        user: '1',
+        userId: '1',
       };
 
       const result = await resolver.createUserAction(input);

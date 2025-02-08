@@ -36,7 +36,7 @@ export class PaymentMethod {
 @InputType()
 export class CreatePaymentMethodInput {
   @Field(() => ID)
-  user: string;
+  userId: string;
 
   @Field({ nullable: true })
   details?: string;
@@ -51,7 +51,7 @@ export class CreatePaymentMethodInput {
 @InputType()
 export class UpdatePaymentMethodInput {
   @Field(() => ID, { nullable: true })
-  user?: string;
+  userId?: string;
 
   @Field({ nullable: true })
   details?: string;

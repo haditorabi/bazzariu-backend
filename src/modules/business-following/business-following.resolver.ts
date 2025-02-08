@@ -34,12 +34,12 @@ export class BusinessFollowingResolver {
   async createBusinessFollowing(
     @Args('data') data: CreateBusinessFollowingInput,
   ) {
-    const { business, user, ...rest } = data;
+    const { businessId, userId, ...rest } = data;
 
     const prismaData: Prisma.BusinessFollowingCreateInput = {
       ...rest,
-      business: { connect: { id: business } },
-      user: { connect: { id: user } },
+      business: { connect: { id: businessId } },
+      user: { connect: { id: userId } },
     };
 
     return this.service.create(prismaData);
@@ -51,12 +51,12 @@ export class BusinessFollowingResolver {
 
     @Args('data') data: UpdateBusinessFollowingInput,
   ) {
-    const { business, user, ...rest } = data;
+    const { businessId, userId, ...rest } = data;
 
     const prismaData: Prisma.BusinessFollowingUpdateInput = {
       ...rest,
-      ...(business && { business: { connect: { id: business } } }),
-      ...(user && { user: { connect: { id: user } } }),
+      ...(businessId && { business: { connect: { id: businessId } } }),
+      ...(userId && { user: { connect: { id: userId } } }),
     };
 
     return this.service.update(id, prismaData);

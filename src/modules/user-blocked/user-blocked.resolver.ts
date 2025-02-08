@@ -34,15 +34,15 @@ export class UserBlockedResolver {
   @Mutation(() => UserBlocked)
   @ServiceErrorHandler('Create user block')
   async createUserBlocked(@Args('data') data: CreateUserBlockedInput) {
-    const { user, blocked, ...rest } = data;
+    const { userId, blockedId, ...rest } = data;
 
     const prismaData: Prisma.UserBlockedCreateInput = {
       ...rest,
       user: {
-        connect: { id: user },
+        connect: { id: userId },
       },
       blocked: {
-        connect: { id: blocked },
+        connect: { id: blockedId },
       },
     };
 
@@ -55,18 +55,18 @@ export class UserBlockedResolver {
     @Args('id') id: string,
     @Args('data') data: UpdateUserBlockedInput,
   ) {
-    const { user, blocked, ...rest } = data;
+    const { userId, blockedId, ...rest } = data;
 
     const prismaData: Prisma.UserBlockedUpdateInput = {
       ...rest,
-      ...(user && {
+      ...(userId && {
         user: {
-          connect: { id: user },
+          connect: { id: userId },
         },
       }),
-      ...(blocked && {
+      ...(blockedId && {
         blocked: {
-          connect: { id: blocked },
+          connect: { id: blockedId },
         },
       }),
     };

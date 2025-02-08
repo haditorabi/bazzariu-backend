@@ -188,7 +188,7 @@ describe('BusinessBookingResolver', () => {
 
   describe('createBusinessBooking', () => {
     const createInput: CreateBusinessBookingInput = {
-      business: mockBusiness.id,
+      businessId: mockBusiness.id,
       maxAvailable: 10,
       maxGuest: 5,
       mediaId: [new ObjectId().toString()],

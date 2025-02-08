@@ -45,8 +45,8 @@ describe('RegionResolver', () => {
     it('should create and return a regions', async () => {
       const input: CreateRegionInput = {
         name: mockRegion.name,
-        country: '1',
-        city: '1',
+        countryId: '1',
+        cityId: '1',
         status: CountryStatus.ACTIVE,
       };
 

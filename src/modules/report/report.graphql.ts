@@ -29,7 +29,7 @@ export class Report {
 @InputType()
 export class CreateReportInput {
   @Field(() => ID)
-  by: string;
+  byId: string;
 
   @Field(() => ID)
   targetId: string;
@@ -44,7 +44,7 @@ export class CreateReportInput {
 @InputType()
 export class UpdateReportInput {
   @Field(() => ID, { nullable: true })
-  by?: string;
+  byId?: string;
 
   @Field(() => ID, { nullable: true })
   targetId?: string;

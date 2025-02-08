@@ -47,8 +47,8 @@ describe('UserFollowingResolver', () => {
     it('should create and return a user-followings', async () => {
       const input: CreateUserFollowingInput = {
         ...mockUserFollowing,
-        followee: '1',
-        follower: '1',
+        followeeId: '1',
+        followerId: '1',
       };
 
       const result = await resolver.createUserFollowing(input);
@@ -91,7 +91,7 @@ describe('UserFollowingResolver', () => {
   describe('updateUserFollowing (update)', () => {
     it('should update and return the modified user-following', async () => {
       const id = '1';
-      const updateData = { follower: '2' };
+      const updateData = { followerId: '2' };
       const input: UpdateUserFollowingInput = {
         ...updateData,
       };

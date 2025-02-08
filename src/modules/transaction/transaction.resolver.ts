@@ -49,18 +49,18 @@ export class TransactionResolver {
 
   @Mutation(() => Transaction)
   async createTransaction(@Args('data') data: CreateTransactionInput) {
-    const { payment, business, user, ...rest } = data;
+    const { paymentId, businessId, userId, ...rest } = data;
 
     const prismaData: Prisma.TransactionCreateInput = {
       ...rest,
       payment: {
-        connect: { id: payment },
+        connect: { id: paymentId },
       },
       business: {
-        connect: { id: business },
+        connect: { id: businessId },
       },
       user: {
-        connect: { id: user },
+        connect: { id: userId },
       },
     };
 
@@ -72,23 +72,23 @@ export class TransactionResolver {
     @Args('id') id: string,
     @Args('data') data: UpdateTransactionInput,
   ) {
-    const { payment, business, user, ...rest } = data;
+    const { paymentId, businessId, userId, ...rest } = data;
 
     const prismaData: Prisma.TransactionUpdateInput = {
       ...rest,
-      ...(payment && {
+      ...(paymentId && {
         payment: {
-          connect: { id: payment },
+          connect: { id: paymentId },
         },
       }),
-      ...(business && {
+      ...(businessId && {
         business: {
-          connect: { id: business },
+          connect: { id: businessId },
         },
       }),
-      ...(user && {
+      ...(userId && {
         user: {
-          connect: { id: user },
+          connect: { id: userId },
         },
       }),
     };

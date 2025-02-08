@@ -47,7 +47,7 @@ describe('ProvinceResolver', () => {
     it('should create and return a provinces', async () => {
       const input: CreateProvinceInput = {
         ...mockProvince,
-        country: 'dddd',
+        countryId: 'dddd',
       };
 
       const result = await resolver.createProvince(input);

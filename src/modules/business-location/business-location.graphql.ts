@@ -47,7 +47,7 @@ export class BusinessLocation {
 @InputType()
 export class CreateBusinessLocationInput {
   @Field(() => ID)
-  business: string;
+  businessId: string;
 
   @Field({ nullable: true })
   address?: string;
@@ -80,7 +80,7 @@ export class CreateBusinessLocationInput {
 @InputType()
 export class UpdateBusinessLocationInput {
   @Field(() => ID, { nullable: true })
-  business: string;
+  businessId: string;
 
   @Field({ nullable: true })
   address?: string;

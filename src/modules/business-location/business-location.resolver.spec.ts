@@ -89,7 +89,7 @@ describe('BusinessLocationResolver', () => {
 
   it('should create a business location', async () => {
     const input: CreateBusinessLocationInput = {
-      business: '507f1f77bcf86cd799439012',
+      businessId: '507f1f77bcf86cd799439012',
       address: '123 Test St',
       latitude: 40.7128,
       longitude: -74.006,
@@ -108,7 +108,7 @@ describe('BusinessLocationResolver', () => {
   it('should update a business location', async () => {
     const input: UpdateBusinessLocationInput = {
       address: '456 New St',
-      business: '',
+      businessId: '',
     };
     await expect(
       resolver.updateBusinessLocation('507f1f77bcf86cd799439011', input),

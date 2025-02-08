@@ -41,16 +41,16 @@ export class BusinessBookingResolver {
 
   @Mutation(() => BusinessBooking)
   async createBusinessBooking(@Args('data') data: CreateBusinessBookingInput) {
-    const { business, businessProduct, ...rest } = data;
+    const { businessId, businessProductId, ...rest } = data;
 
     const prismaData: Prisma.BusinessBookingCreateInput = {
       ...rest,
       business: {
-        connect: { id: business },
+        connect: { id: businessId },
       },
-      ...(businessProduct && {
+      ...(businessProductId && {
         businessProduct: {
-          connect: businessProduct.map((id) => ({ id })),
+          connect: businessProductId.map((id) => ({ id })),
         },
       }),
     };
@@ -63,18 +63,18 @@ export class BusinessBookingResolver {
     @Args('id') id: string,
     @Args('data') data: UpdateBusinessBookingInput,
   ) {
-    const { business, businessProduct, ...rest } = data;
+    const { businessId, businessProductId, ...rest } = data;
 
     const prismaData: Prisma.BusinessBookingUpdateInput = {
       ...rest,
-      ...(business && {
+      ...(businessId && {
         business: {
-          connect: { id: business },
+          connect: { id: businessId },
         },
       }),
-      ...(businessProduct && {
+      ...(businessProductId && {
         businessProduct: {
-          connect: businessProduct.map((id) => ({ id })),
+          connect: businessProductId.map((id) => ({ id })),
         },
       }),
     };

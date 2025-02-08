@@ -39,12 +39,12 @@ export class BusinessLocationResolver {
   async createBusinessLocation(
     @Args('data') data: CreateBusinessLocationInput,
   ) {
-    const { business, ...rest } = data;
+    const { businessId, ...rest } = data;
 
     const prismaData: Prisma.BusinessLocationCreateInput = {
       ...rest,
       business: {
-        connect: { id: business },
+        connect: { id: businessId },
       },
     };
 
@@ -56,13 +56,13 @@ export class BusinessLocationResolver {
     @Args('id') id: string,
     @Args('data') data: UpdateBusinessLocationInput,
   ) {
-    const { business, ...rest } = data;
+    const { businessId, ...rest } = data;
 
     const prismaData: Prisma.BusinessLocationUpdateInput = {
       ...rest,
-      ...(business && {
+      ...(businessId && {
         business: {
-          connect: { id: business },
+          connect: { id: businessId },
         },
       }),
     };

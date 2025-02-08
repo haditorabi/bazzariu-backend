@@ -23,17 +23,17 @@ export class BusinessFollowing {
 @InputType()
 export class CreateBusinessFollowingInput {
   @Field(() => ID)
-  business: string;
+  businessId: string;
 
   @Field(() => ID)
-  user: string;
+  userId: string;
 }
 
 @InputType()
 export class UpdateBusinessFollowingInput {
   @Field(() => ID, { nullable: true })
-  business?: string;
+  businessId?: string;
 
   @Field(() => ID, { nullable: true })
-  user?: string;
+  userId?: string;
 }

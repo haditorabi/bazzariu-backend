@@ -52,7 +52,7 @@ describe('PaymentMethodResolver', () => {
     it('should create and return a payment-methods', async () => {
       const input: CreatePaymentMethodInput = {
         ...mockPaymentMethod,
-        user: mockPaymentMethod.user.id,
+        userId: mockPaymentMethod.user.id,
       };
 
       const result = await resolver.createPaymentMethod(input);

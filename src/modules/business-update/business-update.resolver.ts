@@ -32,12 +32,12 @@ export class BusinessUpdateResolver {
 
   @Mutation(() => BusinessUpdate)
   async createBusinessUpdate(@Args('data') data: CreateBusinessUpdateInput) {
-    const { business, ...rest } = data;
+    const { businessId, ...rest } = data;
 
     const prismaData: Prisma.BusinessUpdateCreateInput = {
       ...rest,
       business: {
-        connect: { id: business },
+        connect: { id: businessId },
       },
     };
 
@@ -49,13 +49,13 @@ export class BusinessUpdateResolver {
     @Args('id') id: string,
     @Args('data') data: UpdateBusinessUpdateInput,
   ) {
-    const { business, ...rest } = data;
+    const { businessId, ...rest } = data;
 
     const prismaData: Prisma.BusinessUpdateUpdateInput = {
       ...rest,
-      ...(business && {
+      ...(businessId && {
         business: {
-          connect: { id: business },
+          connect: { id: businessId },
         },
       }),
     };

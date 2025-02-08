@@ -36,7 +36,7 @@ export class BusinessBoost {
 @InputType()
 export class CreateBusinessBoostInput {
   @Field(() => ID)
-  business: string;
+  businessId: string;
 
   @Field()
   type: BusinessBoostType;
@@ -56,7 +56,7 @@ export class CreateBusinessBoostInput {
 @InputType()
 export class UpdateBusinessBoostInput {
   @Field(() => ID, { nullable: true })
-  business?: string;
+  businessId?: string;
 
   @Field({ nullable: true })
   type?: BusinessBoostType;

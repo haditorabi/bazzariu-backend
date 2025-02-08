@@ -39,16 +39,16 @@ export class BusinessDealResolver {
 
   @Mutation(() => BusinessDeal)
   async createBusinessDeal(@Args('data') data: CreateBusinessDealInput) {
-    const { business, businessProduct, ...rest } = data;
+    const { businessId, businessProductId, ...rest } = data;
 
     const prismaData: Prisma.BusinessDealCreateInput = {
       ...rest,
       business: {
-        connect: { id: business },
+        connect: { id: businessId },
       },
-      ...(businessProduct && {
+      ...(businessProductId && {
         businessProduct: {
-          connect: businessProduct.map((id) => ({ id })),
+          connect: businessProductId.map((id) => ({ id })),
         },
       }),
     };
@@ -61,16 +61,16 @@ export class BusinessDealResolver {
     @Args('id') id: string,
     @Args('data') data: UpdateBusinessDealInput,
   ) {
-    const { businessProduct, business, ...rest } = data;
+    const { businessProductId, businessId, ...rest } = data;
 
     const prismaData: Prisma.BusinessDealUpdateInput = {
       ...rest,
       business: {
-        connect: { id: business },
+        connect: { id: businessId },
       },
-      ...(businessProduct && {
+      ...(businessProductId && {
         businessProduct: {
-          connect: businessProduct.map((id) => ({ id })),
+          connect: businessProductId.map((id) => ({ id })),
         },
       }),
     };

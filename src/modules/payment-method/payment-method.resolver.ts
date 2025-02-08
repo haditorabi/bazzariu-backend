@@ -33,12 +33,12 @@ export class PaymentMethodResolver {
 
   @Mutation(() => PaymentMethod)
   async createPaymentMethod(@Args('data') data: CreatePaymentMethodInput) {
-    const { user, ...rest } = data;
+    const { userId, ...rest } = data;
 
     const prismaData: Prisma.PaymentMethodCreateInput = {
       ...rest,
       user: {
-        connect: { id: user },
+        connect: { id: userId },
       },
     };
 
@@ -50,13 +50,13 @@ export class PaymentMethodResolver {
     @Args('id') id: string,
     @Args('data') data: UpdatePaymentMethodInput,
   ) {
-    const { user, ...rest } = data;
+    const { userId, ...rest } = data;
 
     const prismaData: Prisma.PaymentMethodUpdateInput = {
       ...rest,
-      ...(user && {
+      ...(userId && {
         businessBooking: {
-          connect: { id: user },
+          connect: { id: userId },
         },
       }),
     };

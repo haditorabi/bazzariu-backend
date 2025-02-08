@@ -39,7 +39,7 @@ export class CreateUserBookingInput {
   userId: string;
 
   @Field(() => [ID], { nullable: true })
-  businessProduct?: string[];
+  businessProductId?: string[];
 
   @Field(() => ID)
   bookingTimeSlotId: string;
@@ -54,7 +54,7 @@ export class UpdateUserBookingInput {
   userId?: string;
 
   @Field(() => [ID], { nullable: true })
-  businessProduct?: string[];
+  businessProductId?: string[];
 
   @Field(() => ID, { nullable: true })
   bookingTimeSlotId?: string;

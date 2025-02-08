@@ -29,12 +29,12 @@ export class ReportResolver {
 
   @Mutation(() => Report)
   async createReport(@Args('data') data: CreateReportInput) {
-    const { by, ...rest } = data;
+    const { byId, ...rest } = data;
 
     const prismaData: Prisma.ReportCreateInput = {
       ...rest,
       by: {
-        connect: { id: by },
+        connect: { id: byId },
       },
     };
 
@@ -46,13 +46,13 @@ export class ReportResolver {
     @Args('id') id: string,
     @Args('data') data: UpdateReportInput,
   ) {
-    const { by, ...rest } = data;
+    const { byId, ...rest } = data;
 
     const prismaData: Prisma.ReportUpdateInput = {
       ...rest,
-      ...(by && {
+      ...(byId && {
         by: {
-          connect: { id: by },
+          connect: { id: byId },
         },
       }),
     };

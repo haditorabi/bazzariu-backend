@@ -47,8 +47,8 @@ describe('UserBlockedResolver', () => {
     it('should create and return a user-blockeds', async () => {
       const input: CreateUserBlockedInput = {
         ...mockUserBlocked,
-        user: '1',
-        blocked: '1',
+        userId: '1',
+        blockedId: '1',
       };
 
       const result = await resolver.createUserBlocked(input);
@@ -78,7 +78,7 @@ describe('UserBlockedResolver', () => {
   describe('updateUserBlocked (update)', () => {
     it('should update and return the modified user-blocked', async () => {
       const id = '1';
-      const updateData = { user: '1' };
+      const updateData = { userId: '1' };
       const input: UpdateUserBlockedInput = {
         ...updateData,
       };

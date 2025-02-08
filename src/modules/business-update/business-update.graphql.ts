@@ -38,7 +38,7 @@ export class BusinessUpdate {
 @InputType()
 export class CreateBusinessUpdateInput {
   @Field(() => ID)
-  business: string;
+  businessId: string;
 
   @Field()
   context: string;
@@ -59,7 +59,7 @@ export class CreateBusinessUpdateInput {
 @InputType()
 export class UpdateBusinessUpdateInput {
   @Field(() => ID, { nullable: true })
-  business?: string;
+  businessId?: string;
 
   @Field({ nullable: true })
   context?: string;

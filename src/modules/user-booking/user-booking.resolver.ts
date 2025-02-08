@@ -32,7 +32,7 @@ export class UserBookingResolver {
 
   @Mutation(() => UserBooking)
   async createUserBooking(@Args('data') data: CreateUserBookingInput) {
-    const { userId, bookingTimeSlotId, businessProduct, ...rest } = data;
+    const { userId, bookingTimeSlotId, businessProductId, ...rest } = data;
 
     const prismaData: Prisma.UserBookingCreateInput = {
       ...rest,
@@ -42,9 +42,9 @@ export class UserBookingResolver {
       bookingTimeSlot: {
         connect: { id: bookingTimeSlotId },
       },
-      ...(businessProduct && {
+      ...(businessProductId && {
         businessProduct: {
-          connect: businessProduct.map((id) => ({ id })),
+          connect: businessProductId.map((id) => ({ id })),
         },
       }),
     };
@@ -57,7 +57,7 @@ export class UserBookingResolver {
     @Args('id') id: string,
     @Args('data') data: UpdateUserBookingInput,
   ) {
-    const { userId, bookingTimeSlotId, businessProduct, ...rest } = data;
+    const { userId, bookingTimeSlotId, businessProductId, ...rest } = data;
 
     const prismaData: Prisma.UserBookingUpdateInput = {
       ...rest,
@@ -71,9 +71,9 @@ export class UserBookingResolver {
           connect: { id: bookingTimeSlotId },
         },
       }),
-      ...(businessProduct && {
+      ...(businessProductId && {
         businessProduct: {
-          connect: businessProduct.map((id) => ({ id })),
+          connect: businessProductId.map((id) => ({ id })),
         },
       }),
     };

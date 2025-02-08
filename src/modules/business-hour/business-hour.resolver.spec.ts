@@ -84,7 +84,7 @@ describe('BusinessHourResolver', () => {
   describe('createBusinessHour', () => {
     it('should create and return a business hour', async () => {
       const input: CreateBusinessHourInput = {
-        business: 'someBusinessId',
+        businessId: 'someBusinessId',
         dayOfWeek: 'Monday',
         openTime: '09:00',
         closeTime: '17:00',
@@ -109,7 +109,7 @@ describe('BusinessHourResolver', () => {
 
     it('should throw an error if creation fails', async () => {
       const input: CreateBusinessHourInput = {
-        business: 'someBusinessId',
+        businessId: 'someBusinessId',
         dayOfWeek: 'Monday',
         openTime: '09:00',
         closeTime: '17:00',

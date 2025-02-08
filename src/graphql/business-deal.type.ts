@@ -16,7 +16,7 @@ export class CommonBusinessDeal {
   businessId: string;
 
   @Field(() => [ID], { nullable: true })
-  businessProduct?: string[];
+  businessProductId?: string[];
 
   @Field()
   discountType: DiscountType;

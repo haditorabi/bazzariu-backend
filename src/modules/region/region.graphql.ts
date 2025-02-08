@@ -46,10 +46,10 @@ export class CreateRegionInput {
   name: string;
 
   @Field(() => ID)
-  country: string;
+  countryId: string;
 
   @Field(() => ID)
-  city: string;
+  cityId: string;
 
   @Field(() => RegionStatus)
   status: RegionStatus;
@@ -64,10 +64,10 @@ export class UpdateRegionInput {
   name?: string;
 
   @Field(() => ID, { nullable: true })
-  country?: string;
+  countryId?: string;
 
   @Field(() => ID, { nullable: true })
-  city?: string;
+  cityId?: string;
 
   @Field({ nullable: true })
   boundry?: string;

@@ -35,16 +35,16 @@ export class BusinessProductResolver {
 
   @Mutation(() => BusinessProduct)
   async createBusinessProduct(@Args('data') data: CreateBusinessProductInput) {
-    const { business, productCategroy, ...rest } = data;
+    const { businessId, productCategroyId, ...rest } = data;
 
     const prismaData: Prisma.BusinessProductCreateInput = {
       ...rest,
       business: {
-        connect: { id: business },
+        connect: { id: businessId },
       },
-      ...(productCategroy && {
+      ...(productCategroyId && {
         productCategroy: {
-          connect: productCategroy.map((id) => ({ id })),
+          connect: productCategroyId.map((id) => ({ id })),
         },
       }),
     };
@@ -57,18 +57,18 @@ export class BusinessProductResolver {
     @Args('id') id: string,
     @Args('data') data: UpdateBusinessProductInput,
   ) {
-    const { business, productCategroy, ...rest } = data;
+    const { businessId, productCategroyId, ...rest } = data;
 
     const prismaData: Prisma.BusinessProductUpdateInput = {
       ...rest,
-      ...(business && {
+      ...(businessId && {
         business: {
-          connect: { id: business },
+          connect: { id: businessId },
         },
       }),
-      ...(productCategroy && {
+      ...(productCategroyId && {
         productCategroy: {
-          connect: productCategroy.map((id) => ({ id })),
+          connect: productCategroyId.map((id) => ({ id })),
         },
       }),
     };

@@ -38,11 +38,11 @@ export class BusinessBoostResolver {
 
   @Mutation(() => BusinessBoost)
   async createBusinessBoost(@Args('data') data: CreateBusinessBoostInput) {
-    const { business, ...rest } = data;
+    const { businessId, ...rest } = data;
     const prismaData: Prisma.BusinessBoostCreateInput = {
       ...rest,
       business: {
-        connect: { id: business },
+        connect: { id: businessId },
       },
     };
     return this.service.create(prismaData);
@@ -53,12 +53,12 @@ export class BusinessBoostResolver {
     @Args('id') id: string,
     @Args('data') data: UpdateBusinessBoostInput,
   ) {
-    const { business, ...rest } = data;
+    const { businessId, ...rest } = data;
     const prismaData: Prisma.BusinessBoostUpdateInput = {
       ...rest,
-      ...(business && {
+      ...(businessId && {
         business: {
-          connect: { id: business },
+          connect: { id: businessId },
         },
       }),
     };

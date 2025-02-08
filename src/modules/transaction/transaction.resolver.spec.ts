@@ -55,9 +55,9 @@ describe('TransactionResolver', () => {
         currencyId: mockTransaction.currencyId,
         amount: mockTransaction.amount,
         status: mockTransaction.status,
-        payment: '1',
-        business: '1',
-        user: '1',
+        paymentId: '1',
+        businessId: '1',
+        userId: '1',
       };
 
       const result = await resolver.createTransaction(input);

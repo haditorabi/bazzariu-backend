@@ -33,12 +33,12 @@ export class ProvinceResolver {
 
   @Mutation(() => Province)
   async createProvince(@Args('data') data: CreateProvinceInput) {
-    const { country, ...rest } = data;
+    const { countryId, ...rest } = data;
 
     const prismaData: Prisma.ProvinceCreateInput = {
       ...rest,
       country: {
-        connect: { id: country },
+        connect: { id: countryId },
       },
     };
 
@@ -50,13 +50,13 @@ export class ProvinceResolver {
     @Args('id') id: string,
     @Args('data') data: UpdateProvinceInput,
   ) {
-    const { country, ...rest } = data;
+    const { countryId, ...rest } = data;
 
     const prismaData: Prisma.ProvinceUpdateInput = {
       ...rest,
-      ...(country && {
+      ...(countryId && {
         country: {
-          connect: { id: country },
+          connect: { id: countryId },
         },
       }),
     };

@@ -45,7 +45,7 @@ describe('ReportResolver', () => {
     it('should create and return a reports', async () => {
       const input: CreateReportInput = {
         ...mockReport,
-        by: mockReport.byId,
+        byId: mockReport.byId,
         reason: ReportReasonType.ABUSE,
       };
 

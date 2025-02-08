@@ -32,11 +32,11 @@ export class UserFollowingResolver {
 
   @Mutation(() => UserFollowing)
   async createUserFollowing(@Args('data') data: CreateUserFollowingInput) {
-    const { follower, followee, ...rest } = data;
+    const { followerId, followeeId, ...rest } = data;
     const prismaData: Prisma.UserFollowingCreateInput = {
       ...rest,
-      followee: { connect: { id: followee } },
-      follower: { connect: { id: follower } },
+      followee: { connect: { id: followeeId } },
+      follower: { connect: { id: followerId } },
     };
     return this.service.create(prismaData);
   }
@@ -47,11 +47,11 @@ export class UserFollowingResolver {
 
     @Args('data') data: UpdateUserFollowingInput,
   ) {
-    const { follower, followee, ...rest } = data;
+    const { followerId, followeeId, ...rest } = data;
     const prismaData: Prisma.UserFollowingUpdateInput = {
       ...rest,
-      ...(follower && { follower: { connect: { id: follower } } }),
-      ...(followee && { followee: { connect: { id: followee } } }),
+      ...(followerId && { follower: { connect: { id: followerId } } }),
+      ...(followeeId && { followee: { connect: { id: followeeId } } }),
     };
     return this.service.update(id, prismaData);
   }

@@ -18,7 +18,6 @@ const mockBusinessProductService = {
 
 describe('BusinessProductResolver', () => {
   let resolver: BusinessProductResolver;
-  let service: BusinessProductService;
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
@@ -32,7 +31,6 @@ describe('BusinessProductResolver', () => {
     }).compile();
 
     resolver = module.get<BusinessProductResolver>(BusinessProductResolver);
-    service = module.get<BusinessProductService>(BusinessProductService);
   });
 
   afterEach(() => {
@@ -286,7 +284,7 @@ describe('BusinessProductResolver', () => {
   describe('Error Handling', () => {
     it('should throw error if create fails', async () => {
       const createInput = {
-        business: '1',
+        businessId: '1',
         name: 'Product 1',
         status: BusinessProductStatus.ACTIVE,
       };

@@ -101,8 +101,8 @@ describe('BusinessDealResolver', () => {
     it('should create and return a new business deal', async () => {
       const input: CreateBusinessDealInput = {
         name: 'New Deal',
-        business: '1',
-        businessProduct: ['1'],
+        businessId: '1',
+        businessProductId: ['1'],
         discountType: 'FLAT',
         value: 10,
         startDate: new Date(),
