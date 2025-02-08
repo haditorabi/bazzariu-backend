@@ -34,14 +34,14 @@ export class BusinessProductPriceResolver {
   async createBusinessProductPrice(
     @Args('data') data: CreateBusinessProductPriceInput,
   ) {
-    const { businessProduct, currency, ...rest } = data;
+    const { businessProductId, currencyId, ...rest } = data;
 
     const prismaData: Prisma.BusinessProductPriceCreateInput = {
       ...rest,
       businessProduct: {
-        connect: { id: businessProduct },
+        connect: { id: businessProductId },
       },
-      currencyId: currency ? currency : undefined,
+      currencyId: currencyId ? currencyId : undefined,
     };
 
     return this.service.create(prismaData);
@@ -52,15 +52,15 @@ export class BusinessProductPriceResolver {
     @Args('id') id: string,
     @Args('data') data: UpdateBusinessProductPriceInput,
   ) {
-    const { businessProduct, currency, ...rest } = data;
+    const { businessProductId, currencyId, ...rest } = data;
 
     const prismaData: Prisma.BusinessProductPriceUpdateInput = {
       ...rest,
-      ...(businessProduct && {
-        businessBooking: {
-          connect: { id: businessProduct },
+      ...(businessProductId && {
+        businessProduct: {
+          connect: { id: businessProductId },
         },
-        currencyId: currency ? currency : undefined,
+        currencyId: currencyId ? currencyId : undefined,
       }),
     };
 

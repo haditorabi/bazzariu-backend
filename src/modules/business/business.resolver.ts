@@ -39,7 +39,7 @@ export class BusinessResolver {
   }
 
   @Query(() => Business)
-  async busienss(@Args('id') id: string) {
+  async business(@Args('id') id: string) {
     return this.service.findOne(id);
   }
 
@@ -75,10 +75,9 @@ export class BusinessResolver {
 
     return this.service.update(id, prismaData);
   }
-  @Mutation(() => Boolean)
-  async deleteBusiness(@Args('id') id: string): Promise<boolean> {
-    await this.service.delete(id);
-    return true;
+  @Mutation(() => Business)
+  async deleteBusiness(@Args('id') id: string): Promise<Business> {
+    return this.service.delete(id);
   }
   @ResolveField(() => CommonRegion, { nullable: true })
   async region(@Parent() business: Business): Promise<CommonRegion | null> {
