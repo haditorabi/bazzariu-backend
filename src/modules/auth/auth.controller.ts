@@ -22,7 +22,7 @@ export class AuthController {
     },
   ) {
     const hashedPassword = await this.authService.hashPassword(body.password);
-    const user = await this.userService.createUser({
+    const user = await this.userService.create({
       email: body.email,
       password: hashedPassword,
       name: body.name,

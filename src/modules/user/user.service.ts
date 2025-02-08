@@ -6,11 +6,9 @@ import { PaginationArgs } from 'src/graphql/pagination-args-types';
 
 @Injectable()
 export class UserService {
-  constructor(private readonly prisma: PrismaService) {
-    console.log('PrismaService injected into UserService:', prisma !== null);
-  }
+  constructor(private readonly prisma: PrismaService) {}
 
-  async createUser(data: { email: string; password: string; name: string }) {
+  async create(data: { email: string; password: string; name: string }) {
     try {
       return await this.prisma.user.create({
         data: {
@@ -44,7 +42,7 @@ export class UserService {
     });
   }
   @ServiceErrorHandler('fetch users with pagination')
-  async getAllUsers(paginationArgs: PaginationArgs) {
+  async findAll(paginationArgs: PaginationArgs) {
     const { take, skip } = paginationArgs;
     return this.prisma.user.findMany({
       skip,
