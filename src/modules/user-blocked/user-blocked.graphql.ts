@@ -6,20 +6,20 @@ export class UserBlocked {
   @Field(() => ID)
   id: string;
 
-  @Field(() => CommonUser)
+  @Field(() => CommonUser, { nullable: true })
   user?: CommonUser;
 
   @Field(() => ID)
   userId: string;
 
-  @Field(() => CommonUser)
+  @Field(() => CommonUser, { nullable: true })
   blocked?: CommonUser;
 
   @Field(() => ID)
   blockedId: string;
 
-  @Field()
-  createdAt: Date;
+  @Field({ nullable: true })
+  createdAt?: Date;
 }
 
 @InputType()

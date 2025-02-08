@@ -8,8 +8,8 @@ export class PaymentMethod {
   @Field(() => ID)
   id: string;
 
-  @Field(() => CommonUser)
-  user: CommonUser;
+  @Field(() => CommonUser, { nullable: true })
+  user?: CommonUser;
 
   @Field(() => ID)
   userId: string;
@@ -26,8 +26,8 @@ export class PaymentMethod {
   @Field()
   status: PaymentMethodStatus;
 
-  @Field()
-  createdAt: Date;
+  @Field({ nullable: true })
+  createdAt?: Date;
 
   @Field(() => [CommonPayment], { nullable: true })
   payment?: CommonPayment[];

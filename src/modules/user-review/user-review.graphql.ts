@@ -7,7 +7,7 @@ export class UserReview {
   @Field(() => ID)
   id: string;
 
-  @Field(() => CommonUser)
+  @Field(() => CommonUser, { nullable: true })
   user?: CommonUser;
 
   @Field(() => ID)
@@ -31,11 +31,11 @@ export class UserReview {
   @Field()
   status: UserReviewStatus;
 
-  @Field()
-  createdAt: Date;
+  @Field({ nullable: true })
+  createdAt?: Date;
 
-  @Field()
-  updatedAt: Date;
+  @Field({ nullable: true })
+  updatedAt?: Date;
 }
 
 @InputType()

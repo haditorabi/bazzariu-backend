@@ -17,7 +17,7 @@ export class Province {
   @Field()
   status: ProvinceStatus;
 
-  @Field(() => [CommonCity])
+  @Field(() => [CommonCity], { nullable: true })
   city?: CommonCity[];
 }
 

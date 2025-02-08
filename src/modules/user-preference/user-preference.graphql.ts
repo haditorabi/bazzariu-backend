@@ -6,7 +6,7 @@ export class UserPreference {
   @Field(() => ID)
   id: string;
 
-  @Field(() => CommonUser)
+  @Field(() => CommonUser, { nullable: true })
   user?: CommonUser;
 
   @Field(() => ID)
@@ -18,8 +18,8 @@ export class UserPreference {
   @Field()
   value: string;
 
-  @Field()
-  updatedAt: Date;
+  @Field({ nullable: true })
+  updatedAt?: Date;
 }
 
 @InputType()

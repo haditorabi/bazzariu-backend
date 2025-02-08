@@ -7,7 +7,7 @@ export class UserVerification {
   @Field(() => ID)
   id: string;
 
-  @Field(() => CommonUser)
+  @Field(() => CommonUser, { nullable: true })
   user?: CommonUser;
 
   @Field(() => ID)
@@ -19,11 +19,11 @@ export class UserVerification {
   @Field()
   status: UserVerificationStatus;
 
-  @Field()
-  createdAt: Date;
+  @Field({ nullable: true })
+  createdAt?: Date;
 
-  @Field()
-  updatedAt: Date;
+  @Field({ nullable: true })
+  updatedAt?: Date;
 }
 
 @InputType()

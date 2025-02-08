@@ -8,7 +8,7 @@ export class BusinessBoost {
   @Field(() => ID)
   id: string;
 
-  @Field(() => CommonBusiness)
+  @Field(() => CommonBusiness, { nullable: true })
   business?: CommonBusiness;
 
   @Field(() => ID)
@@ -26,11 +26,11 @@ export class BusinessBoost {
   @Field()
   status: BusinessBoostStatus;
 
-  @Field()
+  @Field({ nullable: true })
   createdAt: Date;
 
-  @Field()
-  updatedAt: Date;
+  @Field({ nullable: true })
+  updatedAt?: Date;
 }
 
 @InputType()

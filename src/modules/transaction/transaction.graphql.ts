@@ -9,13 +9,13 @@ export class Transaction {
   @Field(() => ID)
   id: string;
 
-  @Field(() => CommonPayment)
+  @Field(() => CommonPayment, { nullable: true })
   payment?: CommonPayment;
 
   @Field(() => ID)
   paymentId: string;
 
-  @Field(() => CommonBusiness)
+  @Field(() => CommonBusiness, { nullable: true })
   business?: CommonBusiness;
 
   @Field(() => ID)
@@ -24,7 +24,7 @@ export class Transaction {
   @Field()
   currencyId: string;
 
-  @Field(() => CommonUser)
+  @Field(() => CommonUser, { nullable: true })
   user?: CommonUser;
 
   @Field(() => ID)
@@ -39,11 +39,11 @@ export class Transaction {
   @Field()
   status: TransactionStatus;
 
-  @Field()
-  createdAt: Date;
+  @Field({ nullable: true })
+  createdAt?: Date;
 
-  @Field()
-  updatedAt: Date;
+  @Field({ nullable: true })
+  updatedAt?: Date;
 }
 
 @InputType()

@@ -9,8 +9,8 @@ export class BusinessBooking {
   @Field(() => ID)
   id: string;
 
-  @Field(() => CommonBusiness)
-  business: CommonBusiness;
+  @Field(() => CommonBusiness, { nullable: true })
+  business?: CommonBusiness;
 
   @Field(() => ID)
   businessId: string;
@@ -36,11 +36,11 @@ export class BusinessBooking {
   @Field()
   status: BusinessBookingStatus;
 
-  @Field()
-  createdAt: Date;
+  @Field({ nullable: true })
+  createdAt?: Date;
 
-  @Field()
-  updatedAt: Date;
+  @Field({ nullable: true })
+  updatedAt?: Date;
 }
 
 @InputType()

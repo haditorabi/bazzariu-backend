@@ -7,14 +7,14 @@ export class BusinessFollowing {
   @Field(() => ID)
   id: string;
 
-  @Field(() => CommonBusiness)
-  business: CommonBusiness;
+  @Field(() => CommonBusiness, { nullable: true })
+  business?: CommonBusiness;
 
   @Field(() => ID)
   businessId: string;
 
-  @Field(() => CommonUser)
-  user: CommonUser;
+  @Field(() => CommonUser, { nullable: true })
+  user?: CommonUser;
 
   @Field(() => ID)
   userId: string;

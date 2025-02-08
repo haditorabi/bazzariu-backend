@@ -3,7 +3,7 @@
 # ------------------------------------------------------
 
 type Amenity {
-  createdAt: DateTime!
+  createdAt: DateTime
   id: ID!
   mediaId: ID
   name: String!
@@ -15,7 +15,7 @@ type BookingTimeSlot {
   id: ID!
   startAt: DateTime!
   status: String!
-  timezone: String!
+  timezone: String
 }
 
 type Business {
@@ -42,38 +42,38 @@ type Business {
 
 type BusinessBooking {
   bookingTimeSlot: [BookingTimeSlot!]
-  business: CommonBusiness!
+  business: CommonBusiness
   businessId: ID!
   businessProduct: [CommonBusinessProduct!]
   businessProductId: [ID!]!
-  createdAt: DateTime!
+  createdAt: DateTime
   id: ID!
   maxAvailable: Int!
   maxGuest: Int!
   mediaId: [ID!]
   status: String!
-  updatedAt: DateTime!
+  updatedAt: DateTime
 }
 
 type BusinessBoost {
-  business: CommonBusiness!
+  business: CommonBusiness
   businessId: ID!
-  createdAt: DateTime!
+  createdAt: DateTime
   endAt: DateTime!
   id: ID!
   startAt: DateTime!
   status: String!
   type: String
-  updatedAt: DateTime!
+  updatedAt: DateTime
 }
 
 type BusinessCategory {
-  createdAt: DateTime!
+  createdAt: DateTime
   id: ID!
   mediaId: ID
   name: String!
   status: String!
-  updatedAt: DateTime!
+  updatedAt: DateTime
 }
 
 type BusinessDeal {
@@ -96,18 +96,18 @@ type BusinessDeal {
 }
 
 type BusinessFollowing {
-  business: CommonBusiness!
+  business: CommonBusiness
   businessId: ID!
   id: ID!
-  user: CommonUser!
+  user: CommonUser
   userId: ID!
 }
 
 type BusinessHour {
-  business: CommonBusiness!
+  business: CommonBusiness
   businessId: ID!
   closeTime: String!
-  createdAt: DateTime!
+  createdAt: DateTime
   dayOfWeek: String!
   id: ID!
   openTime: String!
@@ -131,7 +131,7 @@ type BusinessLocation {
 }
 
 type BusinessProduct {
-  business: CommonBusiness!
+  business: CommonBusiness
   businessDeal: CommonBusinessDeal
   businessDealId: ID
   businessId: ID!
@@ -148,18 +148,18 @@ type BusinessProduct {
 }
 
 type BusinessProductPrice {
-  businessProduct: CommonBusinessProduct!
+  businessProduct: CommonBusinessProduct
   businessProductId: ID!
-  createdAt: DateTime!
-  currency: Currency!
-  currencyId: ID!
+  createdAt: DateTime
+  currency: Currency
+  currencyId: ID
   id: ID!
   price: Float!
-  updatedAt: DateTime!
+  updatedAt: DateTime
 }
 
 type BusinessTag {
-  createdAt: DateTime!
+  createdAt: DateTime
   id: ID!
   name: String!
   status: String!
@@ -703,22 +703,22 @@ A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date
 scalar DateTime
 
 type DealsRedemption {
-  businessDeal: CommonBusinessDeal!
+  businessDeal: CommonBusinessDeal
   businessDealId: ID!
-  createdAt: DateTime!
+  createdAt: DateTime
   expiresAt: DateTime!
   id: ID!
   redeemedAt: DateTime
   status: String!
-  updatedAt: DateTime!
-  user: CommonUser!
+  updatedAt: DateTime
+  user: CommonUser
   userId: ID!
 }
 
 type Event {
   category: [CommonEventCategory!]
   categoryId: [ID!]
-  createdAt: DateTime!
+  createdAt: DateTime
   description: String!
   endDate: DateTime!
   id: ID!
@@ -726,11 +726,11 @@ type Event {
   name: String!
   startDate: DateTime!
   status: String!
-  updatedAt: DateTime!
+  updatedAt: DateTime
 }
 
 type EventCategory {
-  createdAt: DateTime!
+  createdAt: DateTime
   event: [CommonEvent!]
   eventId: [ID!]
   id: ID!
@@ -752,7 +752,7 @@ type Language {
 }
 
 type Media {
-  createdAt: DateTime!
+  createdAt: DateTime
   id: ID!
   moduleType: String!
   type: String!
@@ -888,9 +888,9 @@ type Mutation {
 
 type Payment {
   amount: Float!
-  business: CommonBusiness!
+  business: CommonBusiness
   businessId: ID!
-  createdAt: DateTime!
+  createdAt: DateTime
   currencyId: ID!
   description: String
   id: ID!
@@ -900,33 +900,33 @@ type Payment {
   targetId: ID!
   targetType: String!
   transactionId: ID!
-  updatedAt: DateTime!
+  updatedAt: DateTime
   user: CommonUser
   userId: ID!
 }
 
 type PaymentMethod {
-  createdAt: DateTime!
+  createdAt: DateTime
   details: String
   id: ID!
   payment: [CommonPayment!]
   paymentId: ID!
   status: String!
   type: String!
-  user: CommonUser!
+  user: CommonUser
   userId: ID!
 }
 
 type ProductCategory {
   BusinessProduct: [CommonBusinessProduct!]!
-  createdAt: DateTime!
+  createdAt: DateTime
   id: ID!
   name: String!
   status: String!
 }
 
 type Province {
-  city: [CommonCity!]!
+  city: [CommonCity!]
   country: CommonCountry
   id: ID!
   name: String!
@@ -1307,17 +1307,17 @@ type Report {
 
 type Transaction {
   amount: Float!
-  business: CommonBusiness!
+  business: CommonBusiness
   businessId: ID!
-  createdAt: DateTime!
+  createdAt: DateTime
   currencyId: String!
   description: String!
   id: ID!
-  payment: CommonPayment!
+  payment: CommonPayment
   paymentId: ID!
   status: String!
-  updatedAt: DateTime!
-  user: CommonUser!
+  updatedAt: DateTime
+  user: CommonUser
   userId: ID!
 }
 
@@ -1658,13 +1658,13 @@ type User {
   UserScore: [UserScore!]!
   UserVerification: [UserVerification!]!
   UserWallet: [UserWallet!]!
-  createdAt: DateTime!
+  createdAt: DateTime
   email: String
   firstName: String
   id: ID!
   lastName: String
   name: String!
-  updatedAt: DateTime!
+  updatedAt: DateTime
 }
 
 type UserAction {
@@ -1682,61 +1682,61 @@ type UserAction {
 type UserActionLog {
   action: String!
   actionDetails: String
-  createdAt: DateTime!
+  createdAt: DateTime
   device: String
   id: ID!
   ipAddress: String!
   os: String
   targetId: ID!
   targetType: String!
-  user: CommonUser!
+  user: CommonUser
   userId: ID!
 }
 
 type UserBlocked {
-  blocked: CommonUser!
+  blocked: CommonUser
   blockedId: ID!
-  createdAt: DateTime!
+  createdAt: DateTime
   id: ID!
-  user: CommonUser!
+  user: CommonUser
   userId: ID!
 }
 
 type UserBooking {
-  bookingTimeSlot: CommonBookingTimeSlot!
+  bookingTimeSlot: CommonBookingTimeSlot
   bookingTimeSlotId: ID!
   businessProductId: [String!]
-  createdAt: DateTime!
+  createdAt: DateTime
   id: ID!
   status: String!
-  updatedAt: DateTime!
-  user: CommonUser!
+  updatedAt: DateTime
+  user: CommonUser
   userId: ID!
 }
 
 type UserBookmark {
-  createdAt: DateTime!
+  createdAt: DateTime
   id: ID!
   targetId: ID!
   targetType: String!
-  user: CommonUser!
+  user: CommonUser
   userId: ID!
 }
 
 type UserCheckin {
-  business: CommonBusiness!
+  business: CommonBusiness
   businessId: ID!
-  createdAt: DateTime!
+  createdAt: DateTime
   id: ID!
-  user: CommonUser!
+  user: CommonUser
   userId: ID!
 }
 
 type UserFollowing {
-  createdAt: DateTime!
-  followee: CommonUser!
+  createdAt: DateTime
+  followee: CommonUser
   followeeId: ID!
-  follower: CommonUser!
+  follower: CommonUser
   followerId: ID!
   id: ID!
 }
@@ -1744,50 +1744,50 @@ type UserFollowing {
 type UserPreference {
   id: ID!
   key: String!
-  updatedAt: DateTime!
-  user: CommonUser!
+  updatedAt: DateTime
+  user: CommonUser
   userId: ID!
   value: String!
 }
 
 type UserReview {
   content: String
-  createdAt: DateTime!
+  createdAt: DateTime
   id: ID!
   mediaId: [ID!]
   rating: Float!
   status: String!
   targetId: ID!
   targetType: String!
-  updatedAt: DateTime!
-  user: CommonUser!
+  updatedAt: DateTime
+  user: CommonUser
   userId: ID!
 }
 
 type UserScore {
-  createdAt: DateTime!
+  createdAt: DateTime
   id: ID!
   score: Float!
-  user: CommonUser!
+  user: CommonUser
   userId: ID!
 }
 
 type UserVerification {
-  createdAt: DateTime!
+  createdAt: DateTime
   id: ID!
   status: String!
   type: String!
-  updatedAt: DateTime!
-  user: CommonUser!
+  updatedAt: DateTime
+  user: CommonUser
   userId: ID!
 }
 
 type UserWallet {
   balance: Float!
-  createdAt: DateTime!
+  createdAt: DateTime
   currencyId: ID!
   id: ID!
-  updatedAt: DateTime!
-  user: CommonUser!
+  updatedAt: DateTime
+  user: CommonUser
   userId: ID!
 }

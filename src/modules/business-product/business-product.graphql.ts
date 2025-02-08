@@ -10,8 +10,8 @@ export class BusinessProduct {
   @Field(() => ID)
   id: string;
 
-  @Field(() => CommonBusiness)
-  business: CommonBusiness;
+  @Field(() => CommonBusiness, { nullable: true })
+  business?: CommonBusiness;
 
   @Field(() => ID)
   businessId: string;

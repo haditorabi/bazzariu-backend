@@ -6,20 +6,20 @@ export class UserFollowing {
   @Field(() => ID)
   id: string;
 
-  @Field(() => CommonUser)
+  @Field(() => CommonUser, { nullable: true })
   follower?: CommonUser;
 
   @Field(() => ID)
   followerId: string;
 
-  @Field(() => CommonUser)
+  @Field(() => CommonUser, { nullable: true })
   followee?: CommonUser;
 
   @Field(() => ID)
   followeeId: string;
 
-  @Field()
-  createdAt: Date;
+  @Field({ nullable: true })
+  createdAt?: Date;
 }
 
 @InputType()

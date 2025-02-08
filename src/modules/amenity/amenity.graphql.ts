@@ -12,8 +12,8 @@ export class Amenity {
   @Field(() => ID, { nullable: true })
   mediaId?: string;
 
-  @Field()
-  createdAt: Date;
+  @Field({ nullable: true })
+  createdAt?: Date;
 }
 
 @InputType()

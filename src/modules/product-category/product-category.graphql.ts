@@ -12,8 +12,8 @@ export class ProductCategory {
   @Field()
   status: ProductCategoryStatus;
 
-  @Field()
-  createdAt: Date;
+  @Field({ nullable: true })
+  createdAt?: Date;
 }
 
 @InputType()

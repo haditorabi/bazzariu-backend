@@ -16,13 +16,13 @@ export class BusinessCategory {
   @Field()
   status: BusinessCategoryStatus;
 
-  @Field()
+  @Field({ nullable: true })
   @IsDate()
-  createdAt: Date;
+  createdAt?: Date;
 
-  @Field()
+  @Field({ nullable: true })
   @IsDate()
-  updatedAt: Date;
+  updatedAt?: Date;
 }
 
 @InputType()

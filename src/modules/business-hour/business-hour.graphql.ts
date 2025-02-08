@@ -7,8 +7,8 @@ export class BusinessHour {
   @Field(() => ID)
   id: string;
 
-  @Field(() => CommonBusiness)
-  business: CommonBusiness;
+  @Field(() => CommonBusiness, { nullable: true })
+  business?: CommonBusiness;
 
   @Field(() => ID)
   businessId: string;
@@ -25,8 +25,8 @@ export class BusinessHour {
   @Field()
   status: BusinessHourStatus;
 
-  @Field()
-  createdAt: Date;
+  @Field({ nullable: true })
+  createdAt?: Date;
 }
 
 @InputType()

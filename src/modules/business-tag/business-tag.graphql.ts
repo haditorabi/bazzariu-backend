@@ -12,8 +12,8 @@ export class BusinessTag {
   @Field()
   status: BusinessTagStatus;
 
-  @Field()
-  createdAt: Date;
+  @Field({ nullable: true })
+  createdAt?: Date;
 }
 
 @InputType()

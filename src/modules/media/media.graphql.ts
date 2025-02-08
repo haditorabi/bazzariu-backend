@@ -15,8 +15,8 @@ export class Media {
   @Field()
   moduleType: ModuleType;
 
-  @Field()
-  createdAt: Date;
+  @Field({ nullable: true })
+  createdAt?: Date;
 }
 
 @InputType()

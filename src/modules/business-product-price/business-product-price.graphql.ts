@@ -7,26 +7,26 @@ export class BusinessProductPrice {
   @Field(() => ID)
   id: string;
 
-  @Field(() => CommonBusinessProduct)
+  @Field(() => CommonBusinessProduct, { nullable: true })
   businessProduct?: CommonBusinessProduct;
 
   @Field(() => ID)
   businessProductId: string;
 
-  @Field(() => Currency)
+  @Field(() => Currency, { nullable: true })
   currency?: Currency;
 
-  @Field(() => ID)
+  @Field(() => ID, { nullable: true })
   currencyId?: string;
 
   @Field()
   price: number;
 
-  @Field()
-  createdAt: Date;
+  @Field({ nullable: true })
+  createdAt?: Date;
 
-  @Field()
-  updatedAt: Date;
+  @Field({ nullable: true })
+  updatedAt?: Date;
 }
 
 @InputType()

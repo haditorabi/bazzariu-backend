@@ -7,20 +7,20 @@ export class UserCheckin {
   @Field(() => ID)
   id: string;
 
-  @Field(() => CommonUser)
+  @Field(() => CommonUser, { nullable: true })
   user?: CommonUser;
 
   @Field(() => ID)
   userId: string;
 
-  @Field(() => CommonBusiness)
+  @Field(() => CommonBusiness, { nullable: true })
   business?: CommonBusiness;
 
   @Field(() => ID)
   businessId: string;
 
-  @Field()
-  createdAt: Date;
+  @Field({ nullable: true })
+  createdAt?: Date;
 }
 
 @InputType()

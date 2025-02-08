@@ -8,7 +8,7 @@ export class UserBooking {
   @Field(() => ID)
   id: string;
 
-  @Field(() => CommonUser)
+  @Field(() => CommonUser, { nullable: true })
   user?: CommonUser;
 
   @Field(() => ID)
@@ -17,7 +17,7 @@ export class UserBooking {
   @Field(() => [String], { nullable: true })
   businessProductId?: string[];
 
-  @Field(() => CommonBookingTimeSlot)
+  @Field(() => CommonBookingTimeSlot, { nullable: true })
   bookingTimeSlot?: CommonBookingTimeSlot;
 
   @Field(() => ID)
@@ -26,11 +26,11 @@ export class UserBooking {
   @Field()
   status: UserBookingStatus;
 
-  @Field()
-  createdAt: Date;
+  @Field({ nullable: true })
+  createdAt?: Date;
 
-  @Field()
-  updatedAt: Date;
+  @Field({ nullable: true })
+  updatedAt?: Date;
 }
 
 @InputType()

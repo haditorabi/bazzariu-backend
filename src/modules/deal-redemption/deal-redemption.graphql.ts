@@ -8,14 +8,14 @@ export class DealsRedemption {
   @Field(() => ID)
   id: string;
 
-  @Field(() => CommonBusinessDeal)
-  businessDeal: CommonBusinessDeal;
+  @Field(() => CommonBusinessDeal, { nullable: true })
+  businessDeal?: CommonBusinessDeal;
 
   @Field(() => ID)
   businessDealId: string;
 
-  @Field(() => CommonUser)
-  user: CommonUser;
+  @Field(() => CommonUser, { nullable: true })
+  user?: CommonUser;
 
   @Field(() => ID)
   userId: string;
@@ -29,11 +29,11 @@ export class DealsRedemption {
   @Field()
   status: DealsRedemptionStatus;
 
-  @Field()
-  createdAt: Date;
+  @Field({ nullable: true })
+  createdAt?: Date;
 
-  @Field()
-  updatedAt: Date;
+  @Field({ nullable: true })
+  updatedAt?: Date;
 }
 
 @InputType()

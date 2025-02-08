@@ -7,7 +7,7 @@ export class UserBookmark {
   @Field(() => ID)
   id: string;
 
-  @Field(() => CommonUser)
+  @Field(() => CommonUser, { nullable: true })
   user?: CommonUser;
 
   @Field(() => ID)
@@ -19,8 +19,8 @@ export class UserBookmark {
   @Field()
   targetType: UserBookmarkType;
 
-  @Field()
-  createdAt: Date;
+  @Field({ nullable: true })
+  createdAt?: Date;
 }
 
 @InputType()

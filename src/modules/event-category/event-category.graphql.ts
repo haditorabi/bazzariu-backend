@@ -16,8 +16,8 @@ export class EventCategory {
   @Field(() => [ID], { nullable: true })
   eventId?: string[];
 
-  @Field()
-  createdAt: Date;
+  @Field({ nullable: true })
+  createdAt?: Date;
 
   @Field(() => [CommonEvent], { nullable: true })
   event?: CommonEvent[];

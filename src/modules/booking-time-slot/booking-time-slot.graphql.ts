@@ -16,8 +16,8 @@ export class BookingTimeSlot {
   @Field()
   endAt: Date;
 
-  @Field()
-  timezone: string;
+  @Field({ nullable: true })
+  timezone?: string;
 
   @Field()
   status: BookingTimeSlotStatus;

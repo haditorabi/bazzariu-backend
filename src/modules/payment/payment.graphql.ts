@@ -27,7 +27,7 @@ export class Payment {
   @Field(() => ID)
   userId: string;
 
-  @Field(() => CommonBusiness)
+  @Field(() => CommonBusiness, { nullable: true })
   business?: CommonBusiness;
 
   @Field(() => ID)
@@ -48,11 +48,11 @@ export class Payment {
   @Field()
   status: PaymentStatus;
 
-  @Field()
-  createdAt: Date;
+  @Field({ nullable: true })
+  createdAt?: Date;
 
-  @Field()
-  updatedAt: Date;
+  @Field({ nullable: true })
+  updatedAt?: Date;
 }
 
 @InputType()
