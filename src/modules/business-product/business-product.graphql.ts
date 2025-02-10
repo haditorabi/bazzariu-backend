@@ -19,6 +19,8 @@ import {
   Length,
   IsEnum,
 } from 'class-validator';
+import { ValidationMessages } from '../../common/messages/validation-messages';
+
 registerEnumType(BusinessProductStatus, {
   name: 'BusinessProductStatus',
 });
@@ -70,73 +72,73 @@ export class BusinessProduct {
 @InputType()
 export class CreateBusinessProductInput {
   @Field(() => ID, { nullable: true })
-  @IsNotEmpty()
-  @IsMongoId()
+  @IsNotEmpty({ message: ValidationMessages.IS_NOT_EMPTY })
+  @IsMongoId({ message: ValidationMessages.IS_MONGO_ID })
   businessId: string;
 
   @Field(() => [ID], { nullable: true })
-  @IsOptional()
-  @IsArray()
-  @IsMongoId({ each: true })
+  @IsOptional({ message: ValidationMessages.IS_OPTIONAL })
+  @IsArray({ message: ValidationMessages.IS_ARRAY })
+  @IsMongoId({ each: true, message: ValidationMessages.IS_MONGO_ID })
   productCategroyId?: string[];
 
   @Field({ nullable: true })
-  @IsNotEmpty()
-  @IsString()
-  @Length(3, 50)
+  @IsNotEmpty({ message: ValidationMessages.IS_NOT_EMPTY })
+  @IsString({ message: ValidationMessages.IS_STRING })
+  @Length(3, 50, { message: ValidationMessages.LENGTH })
   name: string;
 
   @Field({ nullable: true })
-  @IsOptional()
-  @IsString()
-  @Length(5, 250)
+  @IsOptional({ message: ValidationMessages.IS_OPTIONAL })
+  @IsString({ message: ValidationMessages.IS_STRING })
+  @Length(5, 250, { message: ValidationMessages.LENGTH })
   description?: string;
 
   @Field(() => [ID], { nullable: true })
-  @IsOptional()
-  @IsArray()
-  @IsMongoId({ each: true })
+  @IsOptional({ message: ValidationMessages.IS_OPTIONAL })
+  @IsArray({ message: ValidationMessages.IS_ARRAY })
+  @IsMongoId({ each: true, message: ValidationMessages.IS_MONGO_ID })
   mediaId?: string[];
 
   @Field(() => BusinessProductStatus, { nullable: true })
-  @IsNotEmpty()
-  @IsEnum(BusinessProductStatus)
+  @IsNotEmpty({ message: ValidationMessages.IS_NOT_EMPTY })
+  @IsEnum(BusinessProductStatus, { message: ValidationMessages.IS_ENUM })
   status: BusinessProductStatus;
 }
 
 @InputType()
 export class UpdateBusinessProductInput {
   @Field(() => ID, { nullable: true })
-  @IsOptional()
-  @IsMongoId()
+  @IsOptional({ message: ValidationMessages.IS_OPTIONAL })
+  @IsMongoId({ message: ValidationMessages.IS_MONGO_ID })
   businessId?: string;
 
   @Field(() => [ID], { nullable: true })
-  @IsOptional()
-  @IsArray()
-  @IsMongoId({ each: true })
+  @IsOptional({ message: ValidationMessages.IS_OPTIONAL })
+  @IsArray({ message: ValidationMessages.IS_ARRAY })
+  @IsMongoId({ each: true, message: ValidationMessages.IS_MONGO_ID })
   productCategroyId?: string[];
 
   @Field({ nullable: true })
-  @IsOptional()
-  @IsString()
-  @Length(3, 50)
+  @IsOptional({ message: ValidationMessages.IS_OPTIONAL })
+  @IsString({ message: ValidationMessages.IS_STRING })
+  @Length(3, 50, { message: ValidationMessages.LENGTH })
   name?: string;
 
   @Field({ nullable: true })
-  @IsOptional()
-  @IsString()
-  @Length(5, 250)
+  @IsOptional({ message: ValidationMessages.IS_OPTIONAL })
+  @IsString({ message: ValidationMessages.IS_STRING })
+  @Length(5, 250, { message: ValidationMessages.LENGTH })
   description?: string;
 
   @Field(() => [ID], { nullable: true })
-  @IsOptional()
-  @IsArray()
-  @IsMongoId({ each: true })
+  @IsOptional({ message: ValidationMessages.IS_OPTIONAL })
+  @IsArray({ message: ValidationMessages.IS_ARRAY })
+  @IsMongoId({ each: true, message: ValidationMessages.IS_MONGO_ID })
   mediaId?: string[];
 
   @Field(() => BusinessProductStatus, { nullable: true })
-  @IsOptional()
-  @IsEnum(BusinessProductStatus)
+  @IsOptional({ message: ValidationMessages.IS_OPTIONAL })
+  @IsEnum(BusinessProductStatus, { message: ValidationMessages.IS_ENUM })
   status?: BusinessProductStatus;
 }

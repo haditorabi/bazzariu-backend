@@ -13,6 +13,8 @@ import {
   IsEnum,
   IsOptional,
 } from 'class-validator';
+import { ValidationMessages } from '../../common/messages/validation-messages';
+
 registerEnumType(ProductCategoryStatus, {
   name: 'ProductCategoryStatus',
 });
@@ -34,27 +36,27 @@ export class ProductCategory {
 @InputType()
 export class CreateProductCategoryInput {
   @Field({ nullable: true })
-  @IsNotEmpty()
-  @IsString()
-  @Length(3, 30)
+  @IsNotEmpty({ message: ValidationMessages.IS_NOT_EMPTY })
+  @IsString({ message: ValidationMessages.IS_STRING })
+  @Length(3, 30, { message: ValidationMessages.LENGTH })
   name: string;
 
   @Field(() => ProductCategoryStatus, { nullable: true })
-  @IsNotEmpty()
-  @IsEnum(ProductCategoryStatus)
+  @IsNotEmpty({ message: ValidationMessages.IS_NOT_EMPTY })
+  @IsEnum(ProductCategoryStatus, { message: ValidationMessages.IS_ENUM })
   status: ProductCategoryStatus;
 }
 
 @InputType()
 export class UpdateProductCategoryInput {
   @Field({ nullable: true })
-  @IsOptional()
-  @IsString()
-  @Length(3, 30)
+  @IsOptional({ message: ValidationMessages.IS_OPTIONAL })
+  @IsString({ message: ValidationMessages.IS_STRING })
+  @Length(3, 30, { message: ValidationMessages.LENGTH })
   name?: string;
 
   @Field(() => ProductCategoryStatus, { nullable: true })
-  @IsOptional()
-  @IsEnum(ProductCategoryStatus)
+  @IsOptional({ message: ValidationMessages.IS_OPTIONAL })
+  @IsEnum(ProductCategoryStatus, { message: ValidationMessages.IS_ENUM })
   status?: ProductCategoryStatus;
 }

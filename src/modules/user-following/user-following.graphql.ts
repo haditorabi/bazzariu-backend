@@ -1,6 +1,7 @@
 import { Field, ObjectType, InputType, ID } from '@nestjs/graphql';
 import { IsNotEmpty, IsMongoId, IsOptional } from 'class-validator';
 import { CommonUser } from 'src/graphql/user.type';
+import { ValidationMessages } from '../../common/messages/validation-messages';
 
 @ObjectType()
 export class UserFollowing {
@@ -26,25 +27,25 @@ export class UserFollowing {
 @InputType()
 export class CreateUserFollowingInput {
   @Field(() => ID, { nullable: true })
-  @IsNotEmpty()
-  @IsMongoId()
+  @IsNotEmpty({ message: ValidationMessages.IS_NOT_EMPTY })
+  @IsMongoId({ message: ValidationMessages.IS_MONGO_ID })
   followerId: string;
 
   @Field(() => ID, { nullable: true })
-  @IsNotEmpty()
-  @IsMongoId()
+  @IsNotEmpty({ message: ValidationMessages.IS_NOT_EMPTY })
+  @IsMongoId({ message: ValidationMessages.IS_MONGO_ID })
   followeeId: string;
 }
 
 @InputType()
 export class UpdateUserFollowingInput {
   @Field(() => ID, { nullable: true })
-  @IsOptional()
-  @IsMongoId()
+  @IsOptional({ message: ValidationMessages.IS_OPTIONAL })
+  @IsMongoId({ message: ValidationMessages.IS_MONGO_ID })
   followerId?: string;
 
   @Field(() => ID, { nullable: true })
-  @IsOptional()
-  @IsMongoId()
+  @IsOptional({ message: ValidationMessages.IS_OPTIONAL })
+  @IsMongoId({ message: ValidationMessages.IS_MONGO_ID })
   followeeId?: string;
 }

@@ -7,6 +7,8 @@ import {
 } from '@nestjs/graphql';
 import { MediaType, ModuleType } from '@prisma/client';
 import { IsNotEmpty, IsUrl, IsEnum, IsOptional } from 'class-validator';
+import { ValidationMessages } from '../../common/messages/validation-messages';
+
 registerEnumType(MediaType, {
   name: 'MediaType',
 });
@@ -34,35 +36,35 @@ export class Media {
 @InputType()
 export class CreateMediaInput {
   @Field({ nullable: true })
-  @IsNotEmpty()
-  @IsUrl()
+  @IsNotEmpty({ message: ValidationMessages.IS_NOT_EMPTY })
+  @IsUrl({}, { message: ValidationMessages.IS_URL })
   url: string;
 
   @Field(() => MediaType, { nullable: true })
-  @IsNotEmpty()
-  @IsEnum(MediaType)
+  @IsNotEmpty({ message: ValidationMessages.IS_NOT_EMPTY })
+  @IsEnum(MediaType, { message: ValidationMessages.IS_ENUM })
   type: MediaType;
 
   @Field(() => ModuleType, { nullable: true })
-  @IsNotEmpty()
-  @IsEnum(ModuleType)
+  @IsNotEmpty({ message: ValidationMessages.IS_NOT_EMPTY })
+  @IsEnum(ModuleType, { message: ValidationMessages.IS_ENUM })
   moduleType: ModuleType;
 }
 
 @InputType()
 export class UpdateMediaInput {
   @Field({ nullable: true })
-  @IsOptional()
-  @IsUrl()
+  @IsOptional({ message: ValidationMessages.IS_OPTIONAL })
+  @IsUrl({}, { message: ValidationMessages.IS_URL })
   url?: string;
 
   @Field(() => MediaType, { nullable: true })
-  @IsOptional()
-  @IsEnum(MediaType)
+  @IsOptional({ message: ValidationMessages.IS_OPTIONAL })
+  @IsEnum(MediaType, { message: ValidationMessages.IS_ENUM })
   type?: MediaType;
 
   @Field(() => ModuleType, { nullable: true })
-  @IsOptional()
-  @IsEnum(ModuleType)
+  @IsOptional({ message: ValidationMessages.IS_OPTIONAL })
+  @IsEnum(ModuleType, { message: ValidationMessages.IS_ENUM })
   moduleType?: ModuleType;
 }

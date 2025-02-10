@@ -16,6 +16,8 @@ import {
   IsEnum,
 } from 'class-validator';
 import { CommonBusinessBooking } from 'src/graphql/business-booking.type';
+import { ValidationMessages } from '../../common/messages/validation-messages';
+
 registerEnumType(BookingTimeSlotStatus, {
   name: 'BookingTimeSlotStatus',
 });
@@ -43,56 +45,56 @@ export class BookingTimeSlot {
 @InputType()
 export class CreateBookingTimeSlotInput {
   @Field(() => ID, { nullable: true })
-  @IsNotEmpty()
-  @IsMongoId()
+  @IsNotEmpty({ message: ValidationMessages.IS_NOT_EMPTY })
+  @IsMongoId({ message: ValidationMessages.IS_MONGO_ID })
   businessBookingId?: string;
 
   @Field({ nullable: true })
-  @IsNotEmpty()
-  @IsDate()
+  @IsNotEmpty({ message: ValidationMessages.IS_NOT_EMPTY })
+  @IsDate({ message: ValidationMessages.IS_DATE })
   startAt: Date;
 
   @Field({ nullable: true })
-  @IsNotEmpty()
-  @IsDate()
+  @IsNotEmpty({ message: ValidationMessages.IS_NOT_EMPTY })
+  @IsDate({ message: ValidationMessages.IS_DATE })
   endAt: Date;
 
   @Field({ nullable: true })
-  @IsString()
-  @IsNotEmpty()
-  @Length(3, 3)
+  @IsString({ message: ValidationMessages.IS_STRING })
+  @IsNotEmpty({ message: ValidationMessages.IS_NOT_EMPTY })
+  @Length(3, 3, { message: ValidationMessages.LENGTH })
   timezone: string;
 
   @Field(() => BookingTimeSlotStatus, { nullable: true })
-  @IsNotEmpty()
-  @IsEnum(BookingTimeSlotStatus)
+  @IsNotEmpty({ message: ValidationMessages.IS_NOT_EMPTY })
+  @IsEnum(BookingTimeSlotStatus, { message: ValidationMessages.IS_ENUM })
   status: BookingTimeSlotStatus;
 }
 
 @InputType()
 export class UpdateBookingTimeSlotInput {
   @Field(() => ID, { nullable: true })
-  @IsOptional()
-  @IsMongoId()
+  @IsOptional({ message: ValidationMessages.IS_OPTIONAL })
+  @IsMongoId({ message: ValidationMessages.IS_MONGO_ID })
   businessBookingId?: string;
 
   @Field({ nullable: true })
-  @IsOptional()
-  @IsDate()
+  @IsOptional({ message: ValidationMessages.IS_OPTIONAL })
+  @IsDate({ message: ValidationMessages.IS_DATE })
   startAt?: Date;
 
   @Field({ nullable: true })
-  @IsOptional()
-  @IsDate()
+  @IsOptional({ message: ValidationMessages.IS_OPTIONAL })
+  @IsDate({ message: ValidationMessages.IS_DATE })
   endAt?: Date;
 
   @Field({ nullable: true })
-  @Length(3, 3)
-  @IsOptional()
+  @Length(3, 3, { message: ValidationMessages.LENGTH })
+  @IsOptional({ message: ValidationMessages.IS_OPTIONAL })
   timezone?: string;
 
   @Field(() => BookingTimeSlotStatus, { nullable: true })
-  @IsOptional()
-  @IsEnum(BookingTimeSlotStatus)
+  @IsOptional({ message: ValidationMessages.IS_OPTIONAL })
+  @IsEnum(BookingTimeSlotStatus, { message: ValidationMessages.IS_ENUM })
   status?: BookingTimeSlotStatus;
 }

@@ -16,6 +16,8 @@ import {
   IsOptional,
 } from 'class-validator';
 import { CommonBusiness } from 'src/graphql/business.type';
+import { ValidationMessages } from '../../common/messages/validation-messages';
+
 registerEnumType(BusinessUpdateType, {
   name: 'BusinessUpdateType',
 });
@@ -58,67 +60,67 @@ export class BusinessUpdate {
 @InputType()
 export class CreateBusinessUpdateInput {
   @Field(() => ID, { nullable: true })
-  @IsNotEmpty()
-  @IsMongoId()
+  @IsNotEmpty({ message: ValidationMessages.IS_NOT_EMPTY })
+  @IsMongoId({ message: ValidationMessages.IS_MONGO_ID })
   businessId: string;
 
   @Field({ nullable: true })
-  @IsNotEmpty()
-  @IsString()
-  @Length(10, 70)
+  @IsNotEmpty({ message: ValidationMessages.IS_NOT_EMPTY })
+  @IsString({ message: ValidationMessages.IS_STRING })
+  @Length(10, 70, { message: ValidationMessages.LENGTH })
   context: string;
 
   @Field(() => BusinessUpdateType, { nullable: true })
-  @IsNotEmpty()
-  @IsEnum(BusinessUpdateType)
+  @IsNotEmpty({ message: ValidationMessages.IS_NOT_EMPTY })
+  @IsEnum(BusinessUpdateType, { message: ValidationMessages.IS_ENUM })
   type: BusinessUpdateType;
 
   @Field({ nullable: true })
-  @IsNotEmpty()
-  @IsDate()
+  @IsNotEmpty({ message: ValidationMessages.IS_NOT_EMPTY })
+  @IsDate({ message: ValidationMessages.IS_DATE })
   startAt: Date;
 
   @Field({ nullable: true })
-  @IsNotEmpty()
-  @IsDate()
+  @IsNotEmpty({ message: ValidationMessages.IS_NOT_EMPTY })
+  @IsDate({ message: ValidationMessages.IS_DATE })
   endAt: Date;
 
   @Field(() => BusinessUpdateStatus, { nullable: true })
-  @IsNotEmpty()
-  @IsEnum(BusinessUpdateStatus)
+  @IsNotEmpty({ message: ValidationMessages.IS_NOT_EMPTY })
+  @IsEnum(BusinessUpdateStatus, { message: ValidationMessages.IS_ENUM })
   status: BusinessUpdateStatus;
 }
 
 @InputType()
 export class UpdateBusinessUpdateInput {
   @Field(() => ID, { nullable: true })
-  @IsOptional()
-  @IsMongoId()
+  @IsOptional({ message: ValidationMessages.IS_OPTIONAL })
+  @IsMongoId({ message: ValidationMessages.IS_MONGO_ID })
   businessId?: string;
 
   @Field({ nullable: true })
-  @IsOptional()
-  @IsString()
-  @Length(10, 70)
+  @IsOptional({ message: ValidationMessages.IS_OPTIONAL })
+  @IsString({ message: ValidationMessages.IS_STRING })
+  @Length(10, 70, { message: ValidationMessages.LENGTH })
   context?: string;
 
   @Field({ nullable: true })
-  @IsOptional()
-  @IsEnum(BusinessUpdateType)
+  @IsOptional({ message: ValidationMessages.IS_OPTIONAL })
+  @IsEnum(BusinessUpdateType, { message: ValidationMessages.IS_ENUM })
   type?: BusinessUpdateType;
 
   @Field({ nullable: true })
-  @IsOptional()
-  @IsDate()
+  @IsOptional({ message: ValidationMessages.IS_OPTIONAL })
+  @IsDate({ message: ValidationMessages.IS_DATE })
   startAt?: Date;
 
   @Field({ nullable: true })
-  @IsOptional()
-  @IsDate()
+  @IsOptional({ message: ValidationMessages.IS_OPTIONAL })
+  @IsDate({ message: ValidationMessages.IS_DATE })
   endAt?: Date;
 
   @Field({ nullable: true })
-  @IsOptional()
-  @IsEnum(BusinessUpdateStatus)
+  @IsOptional({ message: ValidationMessages.IS_OPTIONAL })
+  @IsEnum(BusinessUpdateStatus, { message: ValidationMessages.IS_ENUM })
   status?: BusinessUpdateStatus;
 }

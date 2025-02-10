@@ -8,6 +8,8 @@ import {
 import { EventCategoryStatus } from '@prisma/client';
 import { IsNotEmpty, Length, IsEnum, IsOptional } from 'class-validator';
 import { CommonEvent } from 'src/graphql/event.type';
+import { ValidationMessages } from '../../common/messages/validation-messages';
+
 registerEnumType(EventCategoryStatus, {
   name: 'EventCategoryStatus',
 });
@@ -35,25 +37,25 @@ export class EventCategory {
 @InputType()
 export class CreateEventCategoryInput {
   @Field({ nullable: true })
-  @IsNotEmpty()
-  @Length(3, 50)
+  @IsNotEmpty({ message: ValidationMessages.IS_NOT_EMPTY })
+  @Length(3, 50, { message: ValidationMessages.LENGTH })
   name: string;
 
   @Field(() => EventCategoryStatus, { nullable: true })
-  @IsNotEmpty()
-  @IsEnum(EventCategoryStatus)
+  @IsNotEmpty({ message: ValidationMessages.IS_NOT_EMPTY })
+  @IsEnum(EventCategoryStatus, { message: ValidationMessages.IS_ENUM })
   status: EventCategoryStatus;
 }
 
 @InputType()
 export class UpdateEventCategoryInput {
   @Field({ nullable: true })
-  @IsOptional()
-  @Length(3, 50)
+  @IsOptional({ message: ValidationMessages.IS_OPTIONAL })
+  @Length(3, 50, { message: ValidationMessages.LENGTH })
   name?: string;
 
   @Field(() => EventCategoryStatus, { nullable: true })
-  @IsOptional()
-  @IsEnum(EventCategoryStatus)
+  @IsOptional({ message: ValidationMessages.IS_OPTIONAL })
+  @IsEnum(EventCategoryStatus, { message: ValidationMessages.IS_ENUM })
   status?: EventCategoryStatus;
 }

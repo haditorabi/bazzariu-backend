@@ -16,6 +16,8 @@ import {
   MaxLength,
 } from 'class-validator';
 import { CommonUser } from 'src/graphql/user.type';
+import { ValidationMessages } from '../../common/messages/validation-messages';
+
 registerEnumType(UserActionLogTargetType, {
   name: 'UserActionLogTargetType',
 });
@@ -61,91 +63,91 @@ export class UserActionLog {
 @InputType()
 export class CreateUserActionLogInput {
   @Field(() => ID, { nullable: true })
-  @IsNotEmpty()
-  @IsMongoId()
+  @IsNotEmpty({ message: ValidationMessages.IS_NOT_EMPTY })
+  @IsMongoId({ message: ValidationMessages.IS_MONGO_ID })
   userId: string;
 
   @Field(() => UserActionLogType, { nullable: true })
-  @IsNotEmpty()
-  @IsEnum(UserActionLogType)
+  @IsNotEmpty({ message: ValidationMessages.IS_NOT_EMPTY })
+  @IsEnum(UserActionLogType, { message: ValidationMessages.IS_ENUM })
   action: UserActionLogType;
 
   @Field({ nullable: true })
-  @IsOptional()
-  @IsString()
-  @MaxLength(1000)
+  @IsOptional({ message: ValidationMessages.IS_OPTIONAL })
+  @IsString({ message: ValidationMessages.IS_STRING })
+  @MaxLength(1000, { message: ValidationMessages.MAX_LENGTH })
   actionDetails?: string;
 
   @Field(() => ID, { nullable: true })
-  @IsNotEmpty()
-  @IsMongoId()
+  @IsNotEmpty({ message: ValidationMessages.IS_NOT_EMPTY })
+  @IsMongoId({ message: ValidationMessages.IS_MONGO_ID })
   targetId: string;
 
   @Field(() => UserActionLogTargetType, { nullable: true })
-  @IsNotEmpty()
-  @IsEnum(UserActionLogTargetType)
+  @IsNotEmpty({ message: ValidationMessages.IS_NOT_EMPTY })
+  @IsEnum(UserActionLogTargetType, { message: ValidationMessages.IS_ENUM })
   targetType: UserActionLogTargetType;
 
   @Field({ nullable: true })
-  @IsNotEmpty()
-  @IsIP('4')
+  @IsNotEmpty({ message: ValidationMessages.IS_NOT_EMPTY })
+  @IsIP('4', { message: ValidationMessages.IS_IP })
   ipAddress: string;
 
   @Field({ nullable: true })
-  @IsOptional()
-  @IsString()
-  @MaxLength(100)
+  @IsOptional({ message: ValidationMessages.IS_OPTIONAL })
+  @IsString({ message: ValidationMessages.IS_STRING })
+  @MaxLength(100, { message: ValidationMessages.MAX_LENGTH })
   device?: string;
 
   @Field({ nullable: true })
-  @IsOptional()
-  @IsString()
-  @MaxLength(100)
+  @IsOptional({ message: ValidationMessages.IS_OPTIONAL })
+  @IsString({ message: ValidationMessages.IS_STRING })
+  @MaxLength(100, { message: ValidationMessages.MAX_LENGTH })
   os?: string;
 }
 
 @InputType()
 export class UpdateUserActionLogInput {
   @Field(() => ID, { nullable: true })
-  @IsOptional()
-  @IsMongoId()
+  @IsOptional({ message: ValidationMessages.IS_OPTIONAL })
+  @IsMongoId({ message: ValidationMessages.IS_MONGO_ID })
   userId?: string;
 
   @Field(() => UserActionLogType, { nullable: true })
-  @IsOptional()
-  @IsEnum(UserActionLogType)
+  @IsOptional({ message: ValidationMessages.IS_OPTIONAL })
+  @IsEnum(UserActionLogType, { message: ValidationMessages.IS_ENUM })
   action?: UserActionLogType;
 
   @Field({ nullable: true })
-  @IsOptional()
-  @IsString()
-  @MaxLength(1000)
+  @IsOptional({ message: ValidationMessages.IS_OPTIONAL })
+  @IsString({ message: ValidationMessages.IS_STRING })
+  @MaxLength(1000, { message: ValidationMessages.MAX_LENGTH })
   actionDetails?: string;
 
   @Field(() => ID, { nullable: true })
-  @IsOptional()
-  @IsMongoId()
+  @IsOptional({ message: ValidationMessages.IS_OPTIONAL })
+  @IsMongoId({ message: ValidationMessages.IS_MONGO_ID })
   targetId?: string;
 
   @Field(() => UserActionLogTargetType, { nullable: true })
-  @IsOptional()
-  @IsEnum(UserActionLogTargetType)
+  @IsOptional({ message: ValidationMessages.IS_OPTIONAL })
+  @IsEnum(UserActionLogTargetType, { message: ValidationMessages.IS_ENUM })
   targetType?: UserActionLogTargetType;
 
   @Field({ nullable: true })
-  @IsOptional()
-  @IsIP('4')
+  @IsOptional({ message: ValidationMessages.IS_OPTIONAL })
+  @IsIP('4', { message: ValidationMessages.IS_IP })
   ipAddress?: string;
 
   @Field({ nullable: true })
-  @IsOptional()
-  @IsString()
-  @MaxLength(100)
+  @IsOptional({ message: ValidationMessages.IS_OPTIONAL })
+  @IsString({ message: ValidationMessages.IS_STRING })
+  @MaxLength(100, { message: ValidationMessages.MAX_LENGTH })
   device?: string;
 
   @Field({ nullable: true })
-  @IsOptional()
-  @IsString()
-  @MaxLength(100)
+  @IsOptional({ message: ValidationMessages.IS_OPTIONAL })
+  @IsString({ message: ValidationMessages.IS_STRING })
+  @MaxLength(100, { message: ValidationMessages.MAX_LENGTH })
   os?: string;
 }

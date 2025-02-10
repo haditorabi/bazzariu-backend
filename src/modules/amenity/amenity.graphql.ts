@@ -25,7 +25,7 @@ export class CreateAmenityInput {
   name: string;
 
   @Field(() => ID, { nullable: true })
-  @IsOptional()
+  @IsOptional({ message: ValidationMessages.IS_OPTIONAL })
   @IsMongoId({ message: ValidationMessages.IS_MONGO_ID })
   mediaId?: string;
 }
@@ -33,12 +33,12 @@ export class CreateAmenityInput {
 @InputType()
 export class UpdateAmenityInput {
   @Field({ nullable: true })
-  @IsOptional()
-  @Length(3, 50)
+  @IsOptional({ message: ValidationMessages.IS_OPTIONAL })
+  @Length(3, 50, { message: ValidationMessages.LENGTH })
   name?: string;
 
   @Field(() => ID, { nullable: true })
-  @IsOptional()
-  @IsMongoId()
+  @IsOptional({ message: ValidationMessages.IS_OPTIONAL })
+  @IsMongoId({ message: ValidationMessages.IS_MONGO_ID })
   mediaId?: string;
 }

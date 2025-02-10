@@ -8,6 +8,7 @@ import {
   Min,
   IsOptional,
 } from 'class-validator';
+import { ValidationMessages } from '../../common/messages/validation-messages';
 
 @ObjectType()
 export class BusinessProductPrice {
@@ -39,37 +40,37 @@ export class BusinessProductPrice {
 @InputType()
 export class CreateBusinessProductPriceInput {
   @Field(() => ID, { nullable: true })
-  @IsNotEmpty()
-  @IsMongoId()
+  @IsNotEmpty({ message: ValidationMessages.IS_NOT_EMPTY })
+  @IsMongoId({ message: ValidationMessages.IS_MONGO_ID })
   businessProductId: string;
 
   @Field(() => ID, { nullable: true })
-  @IsNotEmpty()
-  @IsMongoId()
+  @IsNotEmpty({ message: ValidationMessages.IS_NOT_EMPTY })
+  @IsMongoId({ message: ValidationMessages.IS_MONGO_ID })
   currencyId: string;
 
   @Field({ nullable: true })
-  @IsNotEmpty()
-  @IsDecimal()
-  @Min(1)
+  @IsNotEmpty({ message: ValidationMessages.IS_NOT_EMPTY })
+  @IsDecimal({}, { message: ValidationMessages.IS_DECIMAL })
+  @Min(1, { message: ValidationMessages.MIN })
   price: number;
 }
 
 @InputType()
 export class UpdateBusinessProductPriceInput {
   @Field(() => ID, { nullable: true })
-  @IsOptional()
-  @IsMongoId()
+  @IsOptional({ message: ValidationMessages.IS_OPTIONAL })
+  @IsMongoId({ message: ValidationMessages.IS_MONGO_ID })
   businessProductId?: string;
 
   @Field(() => ID, { nullable: true })
-  @IsOptional()
-  @IsMongoId()
+  @IsOptional({ message: ValidationMessages.IS_OPTIONAL })
+  @IsMongoId({ message: ValidationMessages.IS_MONGO_ID })
   currencyId?: string;
 
   @Field({ nullable: true })
-  @IsOptional()
-  @IsDecimal()
-  @Min(1)
+  @IsOptional({ message: ValidationMessages.IS_OPTIONAL })
+  @IsDecimal({}, { message: ValidationMessages.IS_DECIMAL })
+  @Min(1, { message: ValidationMessages.MIN })
   price?: number;
 }

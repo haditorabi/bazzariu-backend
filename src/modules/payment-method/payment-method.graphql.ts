@@ -15,6 +15,8 @@ import {
 } from 'class-validator';
 import { CommonPayment } from 'src/graphql/payment.type';
 import { CommonUser } from 'src/graphql/user.type';
+import { ValidationMessages } from '../../common/messages/validation-messages';
+
 registerEnumType(PaymentMethodType, {
   name: 'PaymentMethodType',
 });
@@ -54,45 +56,45 @@ export class PaymentMethod {
 @InputType()
 export class CreatePaymentMethodInput {
   @Field(() => ID, { nullable: true })
-  @IsNotEmpty()
-  @IsMongoId()
+  @IsNotEmpty({ message: ValidationMessages.IS_NOT_EMPTY })
+  @IsMongoId({ message: ValidationMessages.IS_MONGO_ID })
   userId: string;
 
   @Field({ nullable: true })
-  @IsOptional()
-  @IsString()
+  @IsOptional({ message: ValidationMessages.IS_OPTIONAL })
+  @IsString({ message: ValidationMessages.IS_STRING })
   details?: string;
 
   @Field(() => PaymentMethodType, { nullable: true })
-  @IsNotEmpty()
-  @IsEnum(PaymentMethodType)
+  @IsNotEmpty({ message: ValidationMessages.IS_NOT_EMPTY })
+  @IsEnum(PaymentMethodType, { message: ValidationMessages.IS_ENUM })
   type: PaymentMethodType;
 
   @Field(() => PaymentMethodStatus, { nullable: true })
-  @IsNotEmpty()
-  @IsEnum(PaymentMethodStatus)
+  @IsNotEmpty({ message: ValidationMessages.IS_NOT_EMPTY })
+  @IsEnum(PaymentMethodStatus, { message: ValidationMessages.IS_ENUM })
   status: PaymentMethodStatus;
 }
 
 @InputType()
 export class UpdatePaymentMethodInput {
   @Field(() => ID, { nullable: true })
-  @IsOptional()
-  @IsMongoId()
+  @IsOptional({ message: ValidationMessages.IS_OPTIONAL })
+  @IsMongoId({ message: ValidationMessages.IS_MONGO_ID })
   userId?: string;
 
   @Field({ nullable: true })
-  @IsOptional()
-  @IsString()
+  @IsOptional({ message: ValidationMessages.IS_OPTIONAL })
+  @IsString({ message: ValidationMessages.IS_STRING })
   details?: string;
 
   @Field(() => PaymentMethodType, { nullable: true })
-  @IsOptional()
-  @IsEnum(PaymentMethodType)
+  @IsOptional({ message: ValidationMessages.IS_OPTIONAL })
+  @IsEnum(PaymentMethodType, { message: ValidationMessages.IS_ENUM })
   type?: PaymentMethodType;
 
   @Field(() => PaymentMethodStatus, { nullable: true })
-  @IsOptional()
-  @IsEnum(PaymentMethodStatus)
+  @IsOptional({ message: ValidationMessages.IS_OPTIONAL })
+  @IsEnum(PaymentMethodStatus, { message: ValidationMessages.IS_ENUM })
   status?: PaymentMethodStatus;
 }

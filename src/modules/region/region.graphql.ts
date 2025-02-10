@@ -16,6 +16,7 @@ import {
 } from 'class-validator';
 import { CommonCity } from 'src/graphql/city.type';
 import { CommonCountry } from 'src/graphql/country.type';
+import { ValidationMessages } from '../../common/messages/validation-messages';
 
 registerEnumType(RegionStatus, {
   name: 'RegionStatus',
@@ -50,57 +51,57 @@ export class Region {
 @InputType()
 export class CreateRegionInput {
   @Field({ nullable: true })
-  @IsNotEmpty()
-  @IsString()
-  @Length(3, 30)
+  @IsNotEmpty({ message: ValidationMessages.IS_NOT_EMPTY })
+  @IsString({ message: ValidationMessages.IS_STRING })
+  @Length(3, 30, { message: ValidationMessages.LENGTH })
   name: string;
 
   @Field(() => ID, { nullable: true })
-  @IsNotEmpty()
-  @IsMongoId()
+  @IsNotEmpty({ message: ValidationMessages.IS_NOT_EMPTY })
+  @IsMongoId({ message: ValidationMessages.IS_MONGO_ID })
   countryId: string;
 
   @Field(() => ID, { nullable: true })
-  @IsNotEmpty()
-  @IsMongoId()
+  @IsNotEmpty({ message: ValidationMessages.IS_NOT_EMPTY })
+  @IsMongoId({ message: ValidationMessages.IS_MONGO_ID })
   cityId: string;
 
   @Field(() => RegionStatus, { nullable: true })
-  @IsNotEmpty()
-  @IsEnum(RegionStatus)
+  @IsNotEmpty({ message: ValidationMessages.IS_NOT_EMPTY })
+  @IsEnum(RegionStatus, { message: ValidationMessages.IS_ENUM })
   status: RegionStatus;
 
   @Field({ nullable: true })
-  @IsNotEmpty()
-  @IsString()
+  @IsNotEmpty({ message: ValidationMessages.IS_NOT_EMPTY })
+  @IsString({ message: ValidationMessages.IS_STRING })
   boundry?: string;
 }
 
 @InputType()
 export class UpdateRegionInput {
   @Field({ nullable: true })
-  @IsOptional()
-  @IsString()
-  @Length(3, 30)
+  @IsOptional({ message: ValidationMessages.IS_OPTIONAL })
+  @IsString({ message: ValidationMessages.IS_STRING })
+  @Length(3, 30, { message: ValidationMessages.LENGTH })
   name?: string;
 
   @Field(() => ID, { nullable: true })
-  @IsOptional()
-  @IsMongoId()
+  @IsOptional({ message: ValidationMessages.IS_OPTIONAL })
+  @IsMongoId({ message: ValidationMessages.IS_MONGO_ID })
   countryId?: string;
 
   @Field(() => ID, { nullable: true })
-  @IsOptional()
-  @IsMongoId()
+  @IsOptional({ message: ValidationMessages.IS_OPTIONAL })
+  @IsMongoId({ message: ValidationMessages.IS_MONGO_ID })
   cityId?: string;
 
   @Field({ nullable: true })
-  @IsOptional()
-  @IsString()
+  @IsOptional({ message: ValidationMessages.IS_OPTIONAL })
+  @IsString({ message: ValidationMessages.IS_STRING })
   boundry?: string;
 
   @Field(() => RegionStatus, { nullable: true })
-  @IsOptional()
-  @IsEnum(RegionStatus)
+  @IsOptional({ message: ValidationMessages.IS_OPTIONAL })
+  @IsEnum(RegionStatus, { message: ValidationMessages.IS_ENUM })
   status?: RegionStatus;
 }

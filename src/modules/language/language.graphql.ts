@@ -7,6 +7,8 @@ import {
 } from '@nestjs/graphql';
 import { LanguageStatus } from '@prisma/client';
 import { IsNotEmpty, Length, IsEnum, IsOptional } from 'class-validator';
+import { ValidationMessages } from '../../common/messages/validation-messages';
+
 registerEnumType(LanguageStatus, {
   name: 'LanguageStatus',
 });
@@ -28,35 +30,35 @@ export class Language {
 @InputType()
 export class CreateLanguageInput {
   @Field({ nullable: true })
-  @IsNotEmpty()
-  @Length(3, 30)
+  @IsNotEmpty({ message: ValidationMessages.IS_NOT_EMPTY })
+  @Length(3, 30, { message: ValidationMessages.LENGTH })
   name: string;
 
   @Field({ nullable: true })
-  @IsNotEmpty()
-  @Length(2, 2)
+  @IsNotEmpty({ message: ValidationMessages.IS_NOT_EMPTY })
+  @Length(2, 2, { message: ValidationMessages.LENGTH })
   code: string;
 
   @Field(() => LanguageStatus, { nullable: true })
-  @IsNotEmpty()
-  @IsEnum(LanguageStatus)
+  @IsNotEmpty({ message: ValidationMessages.IS_NOT_EMPTY })
+  @IsEnum(LanguageStatus, { message: ValidationMessages.IS_ENUM })
   status: LanguageStatus;
 }
 
 @InputType()
 export class UpdateLanguageInput {
   @Field({ nullable: true })
-  @IsOptional()
-  @Length(3, 30)
+  @IsOptional({ message: ValidationMessages.IS_OPTIONAL })
+  @Length(3, 30, { message: ValidationMessages.LENGTH })
   name?: string;
 
   @Field({ nullable: true })
-  @IsOptional()
-  @Length(2, 2)
+  @IsOptional({ message: ValidationMessages.IS_OPTIONAL })
+  @Length(2, 2, { message: ValidationMessages.LENGTH })
   code?: string;
 
   @Field(() => LanguageStatus, { nullable: true })
-  @IsOptional()
-  @IsEnum(LanguageStatus)
+  @IsOptional({ message: ValidationMessages.IS_OPTIONAL })
+  @IsEnum(LanguageStatus, { message: ValidationMessages.IS_ENUM })
   status?: LanguageStatus;
 }

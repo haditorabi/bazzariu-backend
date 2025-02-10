@@ -23,6 +23,8 @@ import {
   IsMongoId,
   IsEnum,
 } from 'class-validator';
+import { ValidationMessages } from '../../common/messages/validation-messages';
+
 registerEnumType(BusinessStatus, {
   name: 'BusinessStatus',
 });
@@ -90,117 +92,117 @@ export class Business {
 @InputType()
 export class CreateBusinessInput {
   @Field({ nullable: true })
-  @IsNotEmpty()
-  @IsString()
-  @Length(3, 50)
+  @IsNotEmpty({ message: ValidationMessages.IS_NOT_EMPTY })
+  @IsString({ message: ValidationMessages.IS_STRING })
+  @Length(3, 50, { message: ValidationMessages.LENGTH })
   name: string;
 
   @Field({ nullable: true })
-  @IsOptional()
-  @IsString()
-  @Length(20, 250)
+  @IsOptional({ message: ValidationMessages.IS_OPTIONAL })
+  @IsString({ message: ValidationMessages.IS_STRING })
+  @Length(20, 250, { message: ValidationMessages.LENGTH })
   description?: string;
 
   @Field({ nullable: true })
-  @IsOptional()
-  @IsUrl()
+  @IsOptional({ message: ValidationMessages.IS_OPTIONAL })
+  @IsUrl({}, { message: ValidationMessages.IS_URL })
   website?: string;
 
   @Field({ nullable: true })
-  @IsNotEmpty()
-  @IsBoolean()
+  @IsNotEmpty({ message: ValidationMessages.IS_NOT_EMPTY })
+  @IsBoolean({ message: ValidationMessages.IS_BOOLEAN })
   isClaimed: boolean;
 
   @Field(() => [ID], { nullable: true })
-  @IsOptional()
-  @IsArray()
-  @IsMongoId({ each: true })
+  @IsOptional({ message: ValidationMessages.IS_OPTIONAL })
+  @IsArray({ message: ValidationMessages.IS_ARRAY })
+  @IsMongoId({ each: true, message: ValidationMessages.IS_MONGO_ID })
   businessCategoryId?: string[];
 
   @Field(() => [ID], { nullable: true })
-  @IsOptional()
-  @IsArray()
-  @IsMongoId({ each: true })
+  @IsOptional({ message: ValidationMessages.IS_OPTIONAL })
+  @IsArray({ message: ValidationMessages.IS_ARRAY })
+  @IsMongoId({ each: true, message: ValidationMessages.IS_MONGO_ID })
   amenityId?: string[];
 
   @Field(() => [ID], { nullable: true })
-  @IsOptional()
-  @IsArray()
-  @IsMongoId({ each: true })
+  @IsOptional({ message: ValidationMessages.IS_OPTIONAL })
+  @IsArray({ message: ValidationMessages.IS_ARRAY })
+  @IsMongoId({ each: true, message: ValidationMessages.IS_MONGO_ID })
   languageId?: string[];
 
   @Field(() => ID, { nullable: true })
-  @IsOptional()
-  @IsMongoId()
+  @IsOptional({ message: ValidationMessages.IS_OPTIONAL })
+  @IsMongoId({ message: ValidationMessages.IS_MONGO_ID })
   regionId?: string;
 
   @Field(() => [ID], { nullable: true })
-  @IsOptional()
-  @IsArray()
-  @IsMongoId({ each: true })
+  @IsOptional({ message: ValidationMessages.IS_OPTIONAL })
+  @IsArray({ message: ValidationMessages.IS_ARRAY })
+  @IsMongoId({ each: true, message: ValidationMessages.IS_MONGO_ID })
   mediaId?: string[];
 
   @Field(() => BusinessStatus, { nullable: true })
-  @IsNotEmpty()
-  @IsEnum(BusinessStatus)
+  @IsNotEmpty({ message: ValidationMessages.IS_NOT_EMPTY })
+  @IsEnum(BusinessStatus, { message: ValidationMessages.IS_ENUM })
   status: BusinessStatus;
 }
 
 @InputType()
 export class UpdateBusinessInput {
   @Field({ nullable: true })
-  @IsOptional()
-  @IsString()
-  @Length(3, 50)
+  @IsOptional({ message: ValidationMessages.IS_OPTIONAL })
+  @IsString({ message: ValidationMessages.IS_STRING })
+  @Length(3, 50, { message: ValidationMessages.LENGTH })
   name?: string;
 
   @Field({ nullable: true })
-  @IsOptional()
-  @IsString()
-  @Length(20, 250)
+  @IsOptional({ message: ValidationMessages.IS_OPTIONAL })
+  @IsString({ message: ValidationMessages.IS_STRING })
+  @Length(20, 250, { message: ValidationMessages.LENGTH })
   description?: string;
 
   @Field({ nullable: true })
-  @IsOptional()
-  @IsUrl()
+  @IsOptional({ message: ValidationMessages.IS_OPTIONAL })
+  @IsUrl({}, { message: ValidationMessages.IS_URL })
   website?: string;
 
   @Field({ nullable: true })
-  @IsOptional()
-  @IsBoolean()
+  @IsOptional({ message: ValidationMessages.IS_OPTIONAL })
+  @IsBoolean({ message: ValidationMessages.IS_BOOLEAN })
   isClaimed?: boolean;
 
   @Field(() => [ID], { nullable: true })
-  @IsOptional()
-  @IsArray()
-  @IsMongoId({ each: true })
+  @IsOptional({ message: ValidationMessages.IS_OPTIONAL })
+  @IsArray({ message: ValidationMessages.IS_ARRAY })
+  @IsMongoId({ each: true, message: ValidationMessages.IS_MONGO_ID })
   languageId?: string[];
 
   @Field(() => [ID], { nullable: true })
-  @IsOptional()
-  @IsArray()
-  @IsMongoId({ each: true })
+  @IsOptional({ message: ValidationMessages.IS_OPTIONAL })
+  @IsArray({ message: ValidationMessages.IS_ARRAY })
+  @IsMongoId({ each: true, message: ValidationMessages.IS_MONGO_ID })
   businessCategoryId?: string[];
 
   @Field(() => [ID], { nullable: true })
-  @IsOptional()
-  @IsArray()
-  @IsMongoId({ each: true })
+  @IsOptional({ message: ValidationMessages.IS_OPTIONAL })
+  @IsArray({ message: ValidationMessages.IS_ARRAY })
+  @IsMongoId({ each: true, message: ValidationMessages.IS_MONGO_ID })
   amenityId?: string[];
 
   @Field(() => ID, { nullable: true })
-  @IsOptional()
-  @IsMongoId()
+  @IsOptional({ message: ValidationMessages.IS_OPTIONAL })
+  @IsMongoId({ message: ValidationMessages.IS_MONGO_ID })
   regionId?: string;
 
   @Field(() => [ID], { nullable: true })
-  @IsOptional()
-  @IsArray()
-  @IsMongoId({ each: true })
+  @IsOptional({ message: ValidationMessages.IS_OPTIONAL })
+  @IsArray({ message: ValidationMessages.IS_ARRAY })
+  @IsMongoId({ each: true, message: ValidationMessages.IS_MONGO_ID })
   mediaId?: string[];
 
   @Field(() => BusinessStatus, { nullable: true })
-  @IsOptional()
-  @IsEnum(BusinessStatus)
+  @IsOptional({ message: ValidationMessages.IS_OPTIONAL })
+  @IsEnum(BusinessStatus, { message: ValidationMessages.IS_ENUM })
   status?: BusinessStatus;
 }

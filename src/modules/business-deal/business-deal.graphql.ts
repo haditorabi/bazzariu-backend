@@ -23,6 +23,8 @@ import {
   IsDate,
   IsPositive,
 } from 'class-validator';
+import { ValidationMessages } from '../../common/messages/validation-messages';
+
 registerEnumType(BusinessDealStatus, {
   name: 'BusinessDealStatus',
 });
@@ -83,139 +85,139 @@ export class BusinessDeal {
 @InputType()
 export class CreateBusinessDealInput {
   @Field({ nullable: true })
-  @IsNotEmpty()
-  @IsString()
-  @Length(3, 80)
+  @IsNotEmpty({ message: ValidationMessages.IS_NOT_EMPTY })
+  @IsString({ message: ValidationMessages.IS_STRING })
+  @Length(3, 80, { message: ValidationMessages.LENGTH })
   name: string;
 
   @Field({ nullable: true })
-  @IsOptional()
-  @IsString()
-  @Length(10, 280)
+  @IsOptional({ message: ValidationMessages.IS_OPTIONAL })
+  @IsString({ message: ValidationMessages.IS_STRING })
+  @Length(10, 280, { message: ValidationMessages.LENGTH })
   description?: string;
 
   @Field(() => ID, { nullable: true })
-  @IsNotEmpty()
-  @IsMongoId()
+  @IsNotEmpty({ message: ValidationMessages.IS_NOT_EMPTY })
+  @IsMongoId({ message: ValidationMessages.IS_MONGO_ID })
   businessId: string;
 
   @Field(() => [ID], { nullable: true })
-  @IsOptional()
-  @IsArray()
-  @IsMongoId({ each: true })
+  @IsOptional({ message: ValidationMessages.IS_OPTIONAL })
+  @IsArray({ message: ValidationMessages.IS_ARRAY })
+  @IsMongoId({ each: true, message: ValidationMessages.IS_MONGO_ID })
   businessProductId?: string[];
 
   @Field(() => DiscountType, { nullable: true })
-  @IsNotEmpty()
-  @IsEnum(DiscountType)
+  @IsNotEmpty({ message: ValidationMessages.IS_NOT_EMPTY })
+  @IsEnum(DiscountType, { message: ValidationMessages.IS_ENUM })
   discountType: DiscountType;
 
   @Field({ nullable: true })
-  @IsNotEmpty()
-  @IsInt()
-  @IsPositive()
+  @IsNotEmpty({ message: ValidationMessages.IS_NOT_EMPTY })
+  @IsInt({ message: ValidationMessages.IS_INT })
+  @IsPositive({ message: ValidationMessages.IS_POSITIVE })
   value: number;
 
   @Field(() => Int, { nullable: true })
-  @IsOptional()
-  @IsInt()
-  @Min(1)
+  @IsOptional({ message: ValidationMessages.IS_OPTIONAL })
+  @IsInt({ message: ValidationMessages.IS_INT })
+  @Min(1, { message: ValidationMessages.MIN })
   maxRedemption?: number;
 
   @Field(() => Int, { nullable: true })
-  @IsOptional()
-  @IsInt()
-  @Min(1)
+  @IsOptional({ message: ValidationMessages.IS_OPTIONAL })
+  @IsInt({ message: ValidationMessages.IS_INT })
+  @Min(1, { message: ValidationMessages.MIN })
   maxPerUser?: number;
 
   @Field({ nullable: true })
-  @IsNotEmpty()
-  @IsDate()
+  @IsNotEmpty({ message: ValidationMessages.IS_NOT_EMPTY })
+  @IsDate({ message: ValidationMessages.IS_DATE })
   startDate: Date;
 
   @Field({ nullable: true })
-  @IsNotEmpty()
-  @IsDate()
+  @IsNotEmpty({ message: ValidationMessages.IS_NOT_EMPTY })
+  @IsDate({ message: ValidationMessages.IS_DATE })
   endDate: Date;
 
   @Field(() => [ID], { nullable: true })
-  @IsOptional()
-  @IsArray()
-  @IsMongoId({ each: true })
+  @IsOptional({ message: ValidationMessages.IS_OPTIONAL })
+  @IsArray({ message: ValidationMessages.IS_ARRAY })
+  @IsMongoId({ each: true, message: ValidationMessages.IS_MONGO_ID })
   mediaId?: string[];
 
   @Field(() => BusinessDealStatus, { nullable: true })
-  @IsNotEmpty()
-  @IsEnum(BusinessDealStatus)
+  @IsNotEmpty({ message: ValidationMessages.IS_NOT_EMPTY })
+  @IsEnum(BusinessDealStatus, { message: ValidationMessages.IS_ENUM })
   status: BusinessDealStatus;
 }
 
 @InputType()
 export class UpdateBusinessDealInput {
   @Field({ nullable: true })
-  @IsOptional()
-  @IsString()
-  @Length(3, 80)
+  @IsOptional({ message: ValidationMessages.IS_OPTIONAL })
+  @IsString({ message: ValidationMessages.IS_STRING })
+  @Length(3, 80, { message: ValidationMessages.LENGTH })
   name?: string;
 
   @Field({ nullable: true })
-  @IsOptional()
-  @IsString()
-  @Length(10, 280)
+  @IsOptional({ message: ValidationMessages.IS_OPTIONAL })
+  @IsString({ message: ValidationMessages.IS_STRING })
+  @Length(10, 280, { message: ValidationMessages.LENGTH })
   description?: string;
 
   @Field(() => ID, { nullable: true })
-  @IsOptional()
-  @IsMongoId()
+  @IsOptional({ message: ValidationMessages.IS_OPTIONAL })
+  @IsMongoId({ message: ValidationMessages.IS_MONGO_ID })
   businessId?: string;
 
   @Field(() => [ID], { nullable: true })
-  @IsOptional()
-  @IsArray()
-  @IsMongoId({ each: true })
+  @IsOptional({ message: ValidationMessages.IS_OPTIONAL })
+  @IsArray({ message: ValidationMessages.IS_ARRAY })
+  @IsMongoId({ each: true, message: ValidationMessages.IS_MONGO_ID })
   businessProductId?: string[];
 
   @Field(() => DiscountType, { nullable: true })
-  @IsOptional()
-  @IsEnum(DiscountType)
+  @IsOptional({ message: ValidationMessages.IS_OPTIONAL })
+  @IsEnum(DiscountType, { message: ValidationMessages.IS_ENUM })
   discountType?: DiscountType;
 
   @Field(() => Int || Float, { nullable: true })
-  @IsOptional()
-  @IsInt()
-  @IsPositive()
+  @IsOptional({ message: ValidationMessages.IS_OPTIONAL })
+  @IsInt({ message: ValidationMessages.IS_INT })
+  @IsPositive({ message: ValidationMessages.IS_POSITIVE })
   value?: number;
 
   @Field(() => Int, { nullable: true })
-  @IsOptional()
-  @IsInt()
-  @Min(1)
+  @IsOptional({ message: ValidationMessages.IS_OPTIONAL })
+  @IsInt({ message: ValidationMessages.IS_INT })
+  @Min(1, { message: ValidationMessages.MIN })
   maxRedemption?: number;
 
   @Field(() => Int, { nullable: true })
-  @IsOptional()
-  @IsInt()
-  @Min(1)
+  @IsOptional({ message: ValidationMessages.IS_OPTIONAL })
+  @IsInt({ message: ValidationMessages.IS_INT })
+  @Min(1, { message: ValidationMessages.MIN })
   maxPerUser?: number;
 
   @Field({ nullable: true })
-  @IsOptional()
-  @IsDate()
+  @IsOptional({ message: ValidationMessages.IS_OPTIONAL })
+  @IsDate({ message: ValidationMessages.IS_DATE })
   startDate?: Date;
 
   @Field({ nullable: true })
-  @IsOptional()
-  @IsDate()
+  @IsOptional({ message: ValidationMessages.IS_OPTIONAL })
+  @IsDate({ message: ValidationMessages.IS_DATE })
   endDate?: Date;
 
   @Field(() => [ID], { nullable: true })
-  @IsOptional()
-  @IsArray()
-  @IsMongoId({ each: true })
+  @IsOptional({ message: ValidationMessages.IS_OPTIONAL })
+  @IsArray({ message: ValidationMessages.IS_ARRAY })
+  @IsMongoId({ each: true, message: ValidationMessages.IS_MONGO_ID })
   mediaId?: string[];
 
   @Field(() => BusinessDealStatus, { nullable: true })
-  @IsOptional()
-  @IsEnum(BusinessDealStatus)
+  @IsOptional({ message: ValidationMessages.IS_OPTIONAL })
+  @IsEnum(BusinessDealStatus, { message: ValidationMessages.IS_ENUM })
   status?: BusinessDealStatus;
 }

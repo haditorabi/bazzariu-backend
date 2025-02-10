@@ -18,6 +18,8 @@ import {
 import { CommonBusiness } from 'src/graphql/business.type';
 import { CommonPaymentMethod } from 'src/graphql/payment-method.type';
 import { CommonUser } from 'src/graphql/user.type';
+import { ValidationMessages } from '../../common/messages/validation-messages';
+
 registerEnumType(PaymentStatus, {
   name: 'PaymentStatus',
 });
@@ -78,105 +80,105 @@ export class Payment {
 @InputType()
 export class CreatePaymentInput {
   @Field(() => ID, { nullable: true })
-  @IsNotEmpty()
+  @IsNotEmpty({ message: ValidationMessages.IS_NOT_EMPTY })
   transactionId: string;
 
   @Field({ nullable: true })
-  @IsOptional()
-  @IsString()
+  @IsOptional({ message: ValidationMessages.IS_OPTIONAL })
+  @IsString({ message: ValidationMessages.IS_STRING })
   description?: string;
 
   @Field(() => ID, { nullable: true })
-  @IsNotEmpty()
-  @IsMongoId()
+  @IsNotEmpty({ message: ValidationMessages.IS_NOT_EMPTY })
+  @IsMongoId({ message: ValidationMessages.IS_MONGO_ID })
   targetId: string;
 
   @Field(() => PaymentTargetType, { nullable: true })
-  @IsNotEmpty()
-  @IsEnum(PaymentTargetType)
+  @IsNotEmpty({ message: ValidationMessages.IS_NOT_EMPTY })
+  @IsEnum(PaymentTargetType, { message: ValidationMessages.IS_ENUM })
   targetType: PaymentTargetType;
 
   @Field(() => ID, { nullable: true })
-  @IsNotEmpty()
-  @IsMongoId()
+  @IsNotEmpty({ message: ValidationMessages.IS_NOT_EMPTY })
+  @IsMongoId({ message: ValidationMessages.IS_MONGO_ID })
   userId: string;
 
   @Field(() => ID, { nullable: true })
-  @IsOptional()
-  @IsMongoId()
+  @IsOptional({ message: ValidationMessages.IS_OPTIONAL })
+  @IsMongoId({ message: ValidationMessages.IS_MONGO_ID })
   businessId?: string;
 
   @Field(() => ID, { nullable: true })
-  @IsNotEmpty()
-  @IsMongoId()
+  @IsNotEmpty({ message: ValidationMessages.IS_NOT_EMPTY })
+  @IsMongoId({ message: ValidationMessages.IS_MONGO_ID })
   paymentMethodId: string;
 
   @Field({ nullable: true })
-  @IsNotEmpty()
-  @IsDecimal()
-  @IsPositive()
+  @IsNotEmpty({ message: ValidationMessages.IS_NOT_EMPTY })
+  @IsDecimal({}, { message: ValidationMessages.IS_DECIMAL })
+  @IsPositive({ message: ValidationMessages.IS_POSITIVE })
   amount: number;
 
   @Field(() => ID, { nullable: true })
-  @IsNotEmpty()
-  @IsMongoId()
+  @IsNotEmpty({ message: ValidationMessages.IS_NOT_EMPTY })
+  @IsMongoId({ message: ValidationMessages.IS_MONGO_ID })
   currencyId: string;
 
   @Field(() => PaymentStatus, { nullable: true })
-  @IsNotEmpty()
-  @IsEnum(PaymentStatus)
+  @IsNotEmpty({ message: ValidationMessages.IS_NOT_EMPTY })
+  @IsEnum(PaymentStatus, { message: ValidationMessages.IS_ENUM })
   status: PaymentStatus;
 }
 
 @InputType()
 export class UpdatePaymentInput {
   @Field(() => ID, { nullable: true })
-  @IsOptional()
+  @IsOptional({ message: ValidationMessages.IS_OPTIONAL })
   transactionId?: string;
 
   @Field({ nullable: true })
-  @IsOptional()
-  @IsString()
+  @IsOptional({ message: ValidationMessages.IS_OPTIONAL })
+  @IsString({ message: ValidationMessages.IS_STRING })
   description?: string;
 
   @Field(() => ID, { nullable: true })
-  @IsOptional()
-  @IsMongoId()
+  @IsOptional({ message: ValidationMessages.IS_OPTIONAL })
+  @IsMongoId({ message: ValidationMessages.IS_MONGO_ID })
   targetId?: string;
 
   @Field(() => PaymentTargetType, { nullable: true })
-  @IsOptional()
-  @IsEnum(PaymentTargetType)
+  @IsOptional({ message: ValidationMessages.IS_OPTIONAL })
+  @IsEnum(PaymentTargetType, { message: ValidationMessages.IS_ENUM })
   targetType?: PaymentTargetType;
 
   @Field(() => ID, { nullable: true })
-  @IsOptional()
-  @IsMongoId()
+  @IsOptional({ message: ValidationMessages.IS_OPTIONAL })
+  @IsMongoId({ message: ValidationMessages.IS_MONGO_ID })
   userId?: string;
 
   @Field(() => ID, { nullable: true })
-  @IsOptional()
-  @IsMongoId()
+  @IsOptional({ message: ValidationMessages.IS_OPTIONAL })
+  @IsMongoId({ message: ValidationMessages.IS_MONGO_ID })
   businessId?: string;
 
   @Field(() => ID, { nullable: true })
-  @IsOptional()
-  @IsMongoId()
+  @IsOptional({ message: ValidationMessages.IS_OPTIONAL })
+  @IsMongoId({ message: ValidationMessages.IS_MONGO_ID })
   paymentMethodId?: string;
 
   @Field({ nullable: true })
-  @IsOptional()
-  @IsDecimal()
-  @IsPositive()
+  @IsOptional({ message: ValidationMessages.IS_OPTIONAL })
+  @IsDecimal({}, { message: ValidationMessages.IS_DECIMAL })
+  @IsPositive({ message: ValidationMessages.IS_POSITIVE })
   amount?: number;
 
   @Field({ nullable: true })
-  @IsOptional()
-  @IsMongoId()
+  @IsOptional({ message: ValidationMessages.IS_OPTIONAL })
+  @IsMongoId({ message: ValidationMessages.IS_MONGO_ID })
   currencyId?: string;
 
   @Field(() => PaymentStatus, { nullable: true })
-  @IsOptional()
-  @IsEnum(PaymentStatus)
+  @IsOptional({ message: ValidationMessages.IS_OPTIONAL })
+  @IsEnum(PaymentStatus, { message: ValidationMessages.IS_ENUM })
   status?: PaymentStatus;
 }

@@ -1,6 +1,7 @@
 import { Field, ObjectType, InputType, ID } from '@nestjs/graphql';
 import { IsNotEmpty, IsMongoId, IsString, IsOptional } from 'class-validator';
 import { CommonUser } from 'src/graphql/user.type';
+import { ValidationMessages } from '../../common/messages/validation-messages';
 
 @ObjectType()
 export class UserPreference {
@@ -26,35 +27,35 @@ export class UserPreference {
 @InputType()
 export class CreateUserPreferenceInput {
   @Field(() => ID, { nullable: true })
-  @IsNotEmpty()
-  @IsMongoId()
+  @IsNotEmpty({ message: ValidationMessages.IS_NOT_EMPTY })
+  @IsMongoId({ message: ValidationMessages.IS_MONGO_ID })
   userId: string;
 
   @Field({ nullable: true })
-  @IsNotEmpty()
-  @IsString()
+  @IsNotEmpty({ message: ValidationMessages.IS_NOT_EMPTY })
+  @IsString({ message: ValidationMessages.IS_STRING })
   key: string;
 
   @Field({ nullable: true })
-  @IsNotEmpty()
-  @IsString()
+  @IsNotEmpty({ message: ValidationMessages.IS_NOT_EMPTY })
+  @IsString({ message: ValidationMessages.IS_STRING })
   value: string;
 }
 
 @InputType()
 export class UpdateUserPreferenceInput {
   @Field(() => ID, { nullable: true })
-  @IsOptional()
-  @IsMongoId()
+  @IsOptional({ message: ValidationMessages.IS_OPTIONAL })
+  @IsMongoId({ message: ValidationMessages.IS_MONGO_ID })
   userId?: string;
 
   @Field({ nullable: true })
-  @IsOptional()
-  @IsString()
+  @IsOptional({ message: ValidationMessages.IS_OPTIONAL })
+  @IsString({ message: ValidationMessages.IS_STRING })
   key?: string;
 
   @Field({ nullable: true })
-  @IsOptional()
-  @IsString()
+  @IsOptional({ message: ValidationMessages.IS_OPTIONAL })
+  @IsString({ message: ValidationMessages.IS_STRING })
   value?: string;
 }

@@ -15,6 +15,8 @@ import {
 } from 'class-validator';
 import { CommonProvince } from 'src/graphql/province.type';
 import { CommonRegion } from 'src/graphql/region.type';
+import { ValidationMessages } from '../../common/messages/validation-messages';
+
 registerEnumType(CountryStatus, {
   name: 'CountryStatus',
 });
@@ -42,39 +44,39 @@ export class Country {
 @InputType()
 export class CreateCountryInput {
   @Field({ nullable: true })
-  @IsNotEmpty()
-  @IsString()
-  @Length(3, 100)
+  @IsNotEmpty({ message: ValidationMessages.IS_NOT_EMPTY })
+  @IsString({ message: ValidationMessages.IS_STRING })
+  @Length(3, 100, { message: ValidationMessages.LENGTH })
   name: string;
 
   @Field({ nullable: true })
-  @IsNotEmpty()
-  @IsString()
-  @Length(3, 3)
+  @IsNotEmpty({ message: ValidationMessages.IS_NOT_EMPTY })
+  @IsString({ message: ValidationMessages.IS_STRING })
+  @Length(3, 3, { message: ValidationMessages.LENGTH })
   code: string;
 
   @Field(() => CountryStatus, { nullable: true })
-  @IsNotEmpty()
-  @IsEnum(CountryStatus)
+  @IsNotEmpty({ message: ValidationMessages.IS_NOT_EMPTY })
+  @IsEnum(CountryStatus, { message: ValidationMessages.IS_ENUM })
   status: CountryStatus;
 }
 
 @InputType()
 export class UpdateCountryInput {
   @Field({ nullable: true })
-  @IsOptional()
-  @IsString()
-  @Length(3, 100)
+  @IsOptional({ message: ValidationMessages.IS_OPTIONAL })
+  @IsString({ message: ValidationMessages.IS_STRING })
+  @Length(3, 100, { message: ValidationMessages.LENGTH })
   name?: string;
 
   @Field({ nullable: true })
-  @IsOptional()
-  @IsString()
-  @Length(3, 3)
+  @IsOptional({ message: ValidationMessages.IS_OPTIONAL })
+  @IsString({ message: ValidationMessages.IS_STRING })
+  @Length(3, 3, { message: ValidationMessages.LENGTH })
   code?: string;
 
   @Field(() => CountryStatus, { nullable: true })
-  @IsOptional()
-  @IsEnum(CountryStatus)
+  @IsOptional({ message: ValidationMessages.IS_OPTIONAL })
+  @IsEnum(CountryStatus, { message: ValidationMessages.IS_ENUM })
   status?: CountryStatus;
 }

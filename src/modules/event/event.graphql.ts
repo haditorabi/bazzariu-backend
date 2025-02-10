@@ -15,6 +15,8 @@ import {
   IsEnum,
 } from 'class-validator';
 import { CommonEventCategory } from 'src/graphql/event-category.type';
+import { ValidationMessages } from '../../common/messages/validation-messages';
+
 registerEnumType(EventStatus, {
   name: 'EventStatus',
 });
@@ -57,75 +59,75 @@ export class Event {
 @InputType()
 export class CreateEventInput {
   @Field({ nullable: true })
-  @IsNotEmpty()
-  @Length(3, 30)
+  @IsNotEmpty({ message: ValidationMessages.IS_NOT_EMPTY })
+  @Length(3, 30, { message: ValidationMessages.LENGTH })
   name: string;
 
   @Field({ nullable: true })
-  @IsOptional()
-  @Length(10, 300)
+  @IsOptional({ message: ValidationMessages.IS_OPTIONAL })
+  @Length(10, 300, { message: ValidationMessages.LENGTH })
   description?: string;
 
   @Field({ nullable: true })
-  @IsNotEmpty()
-  @IsDate()
+  @IsNotEmpty({ message: ValidationMessages.IS_NOT_EMPTY })
+  @IsDate({ message: ValidationMessages.IS_DATE })
   startDate: Date;
 
   @Field({ nullable: true })
-  @IsNotEmpty()
-  @IsDate()
+  @IsNotEmpty({ message: ValidationMessages.IS_NOT_EMPTY })
+  @IsDate({ message: ValidationMessages.IS_DATE })
   endDate: Date;
 
   @Field(() => [ID], { nullable: true })
-  @IsOptional()
-  @IsMongoId({ each: true })
+  @IsOptional({ message: ValidationMessages.IS_OPTIONAL })
+  @IsMongoId({ each: true, message: ValidationMessages.IS_MONGO_ID })
   categoryId?: string[];
 
   @Field(() => [ID], { nullable: true })
-  @IsOptional()
-  @IsMongoId({ each: true })
+  @IsOptional({ message: ValidationMessages.IS_OPTIONAL })
+  @IsMongoId({ each: true, message: ValidationMessages.IS_MONGO_ID })
   mediaId?: string[];
 
   @Field(() => EventStatus, { nullable: true })
-  @IsNotEmpty()
-  @IsEnum(EventStatus)
+  @IsNotEmpty({ message: ValidationMessages.IS_NOT_EMPTY })
+  @IsEnum(EventStatus, { message: ValidationMessages.IS_ENUM })
   status: EventStatus;
 }
 
 @InputType()
 export class UpdateEventInput {
   @Field({ nullable: true })
-  @IsOptional()
-  @Length(3, 30)
+  @IsOptional({ message: ValidationMessages.IS_OPTIONAL })
+  @Length(3, 30, { message: ValidationMessages.LENGTH })
   name?: string;
 
   @Field({ nullable: true })
-  @IsOptional()
-  @Length(10, 300)
+  @IsOptional({ message: ValidationMessages.IS_OPTIONAL })
+  @Length(10, 300, { message: ValidationMessages.LENGTH })
   description?: string;
 
   @Field({ nullable: true })
-  @IsOptional()
-  @IsDate()
+  @IsOptional({ message: ValidationMessages.IS_OPTIONAL })
+  @IsDate({ message: ValidationMessages.IS_DATE })
   startDate?: Date;
 
   @Field({ nullable: true })
-  @IsOptional()
-  @IsDate()
+  @IsOptional({ message: ValidationMessages.IS_OPTIONAL })
+  @IsDate({ message: ValidationMessages.IS_DATE })
   endDate?: Date;
 
   @Field(() => [ID], { nullable: true })
-  @IsOptional()
-  @IsMongoId({ each: true })
+  @IsOptional({ message: ValidationMessages.IS_OPTIONAL })
+  @IsMongoId({ each: true, message: ValidationMessages.IS_MONGO_ID })
   categoryId?: string[];
 
   @Field(() => [ID], { nullable: true })
-  @IsOptional()
-  @IsMongoId({ each: true })
+  @IsOptional({ message: ValidationMessages.IS_OPTIONAL })
+  @IsMongoId({ each: true, message: ValidationMessages.IS_MONGO_ID })
   mediaId?: string[];
 
   @Field(() => EventStatus, { nullable: true })
-  @IsOptional()
-  @IsEnum(EventStatus)
+  @IsOptional({ message: ValidationMessages.IS_OPTIONAL })
+  @IsEnum(EventStatus, { message: ValidationMessages.IS_ENUM })
   status?: EventStatus;
 }

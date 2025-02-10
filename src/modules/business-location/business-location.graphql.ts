@@ -17,6 +17,8 @@ import {
   IsEnum,
 } from 'class-validator';
 import { CommonBusiness } from 'src/graphql/business.type';
+import { ValidationMessages } from '../../common/messages/validation-messages';
+
 registerEnumType(BusinessLocationStatus, {
   name: 'BusinessLocationStatus',
 });
@@ -65,106 +67,106 @@ export class BusinessLocation {
 @InputType()
 export class CreateBusinessLocationInput {
   @Field(() => ID, { nullable: true })
-  @IsNotEmpty()
-  @IsMongoId()
+  @IsNotEmpty({ message: ValidationMessages.IS_NOT_EMPTY })
+  @IsMongoId({ message: ValidationMessages.IS_MONGO_ID })
   businessId: string;
 
   @Field({ nullable: true })
-  @IsOptional()
-  @IsString()
-  @Length(5, 330)
+  @IsOptional({ message: ValidationMessages.IS_OPTIONAL })
+  @IsString({ message: ValidationMessages.IS_STRING })
+  @Length(5, 330, { message: ValidationMessages.LENGTH })
   address?: string;
 
   @Field({ nullable: true })
-  @IsOptional()
-  @IsDecimal()
+  @IsOptional({ message: ValidationMessages.IS_OPTIONAL })
+  @IsDecimal({}, { message: ValidationMessages.IS_DECIMAL })
   latitude?: number;
 
   @Field({ nullable: true })
-  @IsOptional()
-  @IsDecimal()
+  @IsOptional({ message: ValidationMessages.IS_OPTIONAL })
+  @IsDecimal({}, { message: ValidationMessages.IS_DECIMAL })
   longitude?: number;
 
   @Field(() => ID, { nullable: true })
-  @IsOptional()
-  @IsMongoId()
+  @IsOptional({ message: ValidationMessages.IS_OPTIONAL })
+  @IsMongoId({ message: ValidationMessages.IS_MONGO_ID })
   countryId?: string;
 
   @Field(() => ID, { nullable: true })
-  @IsOptional()
-  @IsMongoId()
+  @IsOptional({ message: ValidationMessages.IS_OPTIONAL })
+  @IsMongoId({ message: ValidationMessages.IS_MONGO_ID })
   provinceId?: string;
 
   @Field(() => ID, { nullable: true })
-  @IsOptional()
-  @IsMongoId()
+  @IsOptional({ message: ValidationMessages.IS_OPTIONAL })
+  @IsMongoId({ message: ValidationMessages.IS_MONGO_ID })
   cityId?: string;
 
   @Field({ nullable: true })
-  @IsOptional()
-  @Length(3, 30)
+  @IsOptional({ message: ValidationMessages.IS_OPTIONAL })
+  @Length(3, 30, { message: ValidationMessages.LENGTH })
   zipCode?: string;
 
   @Field({ nullable: true })
-  @IsOptional()
-  @IsPhoneNumber()
+  @IsOptional({ message: ValidationMessages.IS_OPTIONAL })
+  @IsPhoneNumber(undefined, { message: ValidationMessages.IS_PHONE_NUMBER })
   phone?: string;
 
   @Field(() => BusinessLocationStatus, { nullable: true })
-  @IsNotEmpty()
-  @IsEnum(BusinessLocationStatus)
+  @IsNotEmpty({ message: ValidationMessages.IS_NOT_EMPTY })
+  @IsEnum(BusinessLocationStatus, { message: ValidationMessages.IS_ENUM })
   status: BusinessLocationStatus;
 }
 
 @InputType()
 export class UpdateBusinessLocationInput {
   @Field(() => ID, { nullable: true })
-  @IsOptional()
-  @IsMongoId()
+  @IsOptional({ message: ValidationMessages.IS_OPTIONAL })
+  @IsMongoId({ message: ValidationMessages.IS_MONGO_ID })
   businessId: string;
 
   @Field({ nullable: true })
-  @IsOptional()
-  @Length(5, 330)
+  @IsOptional({ message: ValidationMessages.IS_OPTIONAL })
+  @Length(5, 330, { message: ValidationMessages.LENGTH })
   address?: string;
 
   @Field({ nullable: true })
-  @IsOptional()
-  @IsDecimal()
+  @IsOptional({ message: ValidationMessages.IS_OPTIONAL })
+  @IsDecimal({}, { message: ValidationMessages.IS_DECIMAL })
   latitude?: number;
 
   @Field({ nullable: true })
-  @IsOptional()
-  @IsDecimal()
+  @IsOptional({ message: ValidationMessages.IS_OPTIONAL })
+  @IsDecimal({}, { message: ValidationMessages.IS_DECIMAL })
   longitude?: number;
 
   @Field(() => ID, { nullable: true })
-  @IsOptional()
-  @IsMongoId()
+  @IsOptional({ message: ValidationMessages.IS_OPTIONAL })
+  @IsMongoId({ message: ValidationMessages.IS_MONGO_ID })
   countryId?: string;
 
   @Field(() => ID, { nullable: true })
-  @IsOptional()
-  @IsMongoId()
+  @IsOptional({ message: ValidationMessages.IS_OPTIONAL })
+  @IsMongoId({ message: ValidationMessages.IS_MONGO_ID })
   provinceId?: string;
 
   @Field(() => ID, { nullable: true })
-  @IsOptional()
-  @IsMongoId()
+  @IsOptional({ message: ValidationMessages.IS_OPTIONAL })
+  @IsMongoId({ message: ValidationMessages.IS_MONGO_ID })
   cityId?: string;
 
   @Field({ nullable: true })
-  @IsOptional()
-  @Length(3, 30)
+  @IsOptional({ message: ValidationMessages.IS_OPTIONAL })
+  @Length(3, 30, { message: ValidationMessages.LENGTH })
   zipCode?: string;
 
   @Field({ nullable: true })
-  @IsOptional()
-  @IsPhoneNumber()
+  @IsOptional({ message: ValidationMessages.IS_OPTIONAL })
+  @IsPhoneNumber(undefined, { message: ValidationMessages.IS_PHONE_NUMBER })
   phone?: string;
 
   @Field(() => BusinessLocationStatus, { nullable: true })
-  @IsOptional()
-  @IsEnum(BusinessLocationStatus)
+  @IsOptional({ message: ValidationMessages.IS_OPTIONAL })
+  @IsEnum(BusinessLocationStatus, { message: ValidationMessages.IS_ENUM })
   status?: BusinessLocationStatus;
 }

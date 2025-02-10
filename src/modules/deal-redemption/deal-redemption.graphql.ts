@@ -15,6 +15,8 @@ import {
 } from 'class-validator';
 import { CommonBusinessDeal } from 'src/graphql/business-deal.type';
 import { CommonUser } from 'src/graphql/user.type';
+import { ValidationMessages } from '../../common/messages/validation-messages';
+
 registerEnumType(DealsRedemptionStatus, {
   name: 'DealsRedemptionStatus',
 });
@@ -54,53 +56,53 @@ export class DealsRedemption {
 @InputType()
 export class CreateDealsRedemptionInput {
   @Field(() => ID, { nullable: true })
-  @IsNotEmpty()
-  @IsMongoId()
+  @IsNotEmpty({ message: ValidationMessages.IS_NOT_EMPTY })
+  @IsMongoId({ message: ValidationMessages.IS_MONGO_ID })
   businessDealId: string;
 
   @Field(() => ID, { nullable: true })
-  @IsNotEmpty()
+  @IsNotEmpty({ message: ValidationMessages.IS_NOT_EMPTY })
   userId: string;
 
   @Field({ nullable: true })
-  @IsOptional()
-  @IsDate()
+  @IsOptional({ message: ValidationMessages.IS_OPTIONAL })
+  @IsDate({ message: ValidationMessages.IS_DATE })
   redeemedAt?: Date;
 
   @Field({ nullable: true })
-  @IsNotEmpty()
-  @IsDate()
+  @IsNotEmpty({ message: ValidationMessages.IS_NOT_EMPTY })
+  @IsDate({ message: ValidationMessages.IS_DATE })
   expiresAt: Date;
 
   @Field(() => DealsRedemptionStatus, { nullable: true })
-  @IsNotEmpty()
-  @IsEnum(DealsRedemptionStatus)
+  @IsNotEmpty({ message: ValidationMessages.IS_NOT_EMPTY })
+  @IsEnum(DealsRedemptionStatus, { message: ValidationMessages.IS_ENUM })
   status: DealsRedemptionStatus;
 }
 
 @InputType()
 export class UpdateDealsRedemptionInput {
   @Field(() => ID, { nullable: true })
-  @IsOptional()
-  @IsMongoId()
+  @IsOptional({ message: ValidationMessages.IS_OPTIONAL })
+  @IsMongoId({ message: ValidationMessages.IS_MONGO_ID })
   businessDealId?: string;
 
   @Field(() => ID, { nullable: true })
-  @IsOptional()
+  @IsOptional({ message: ValidationMessages.IS_OPTIONAL })
   userId?: string;
 
   @Field({ nullable: true })
-  @IsOptional()
-  @IsDate()
+  @IsOptional({ message: ValidationMessages.IS_OPTIONAL })
+  @IsDate({ message: ValidationMessages.IS_DATE })
   redeemedAt?: Date;
 
   @Field({ nullable: true })
-  @IsOptional()
-  @IsDate()
+  @IsOptional({ message: ValidationMessages.IS_OPTIONAL })
+  @IsDate({ message: ValidationMessages.IS_DATE })
   expiresAt?: Date;
 
   @Field(() => DealsRedemptionStatus, { nullable: true })
-  @IsOptional()
-  @IsEnum(DealsRedemptionStatus)
+  @IsOptional({ message: ValidationMessages.IS_OPTIONAL })
+  @IsEnum(DealsRedemptionStatus, { message: ValidationMessages.IS_ENUM })
   status?: DealsRedemptionStatus;
 }

@@ -8,6 +8,8 @@ import {
 import { UserVerificationStatus, UserVerificationType } from '@prisma/client';
 import { IsNotEmpty, IsMongoId, IsEnum, IsOptional } from 'class-validator';
 import { CommonUser } from 'src/graphql/user.type';
+import { ValidationMessages } from '../../common/messages/validation-messages';
+
 registerEnumType(UserVerificationStatus, {
   name: 'UserVerificationStatus',
 });
@@ -41,35 +43,35 @@ export class UserVerification {
 @InputType()
 export class CreateUserVerificationInput {
   @Field(() => ID, { nullable: true })
-  @IsNotEmpty()
-  @IsMongoId()
+  @IsNotEmpty({ message: ValidationMessages.IS_NOT_EMPTY })
+  @IsMongoId({ message: ValidationMessages.IS_MONGO_ID })
   userId: string;
 
   @Field(() => UserVerificationType, { nullable: true })
-  @IsNotEmpty()
-  @IsEnum(UserVerificationType)
+  @IsNotEmpty({ message: ValidationMessages.IS_NOT_EMPTY })
+  @IsEnum(UserVerificationType, { message: ValidationMessages.IS_ENUM })
   type: UserVerificationType;
 
   @Field(() => UserVerificationStatus, { nullable: true })
-  @IsNotEmpty()
-  @IsEnum(UserVerificationStatus)
+  @IsNotEmpty({ message: ValidationMessages.IS_NOT_EMPTY })
+  @IsEnum(UserVerificationStatus, { message: ValidationMessages.IS_ENUM })
   status: UserVerificationStatus;
 }
 
 @InputType()
 export class UpdateUserVerificationInput {
   @Field(() => ID, { nullable: true })
-  @IsOptional()
-  @IsMongoId()
+  @IsOptional({ message: ValidationMessages.IS_OPTIONAL })
+  @IsMongoId({ message: ValidationMessages.IS_MONGO_ID })
   userId?: string;
 
   @Field(() => UserVerificationType, { nullable: true })
-  @IsOptional()
-  @IsEnum(UserVerificationType)
+  @IsOptional({ message: ValidationMessages.IS_OPTIONAL })
+  @IsEnum(UserVerificationType, { message: ValidationMessages.IS_ENUM })
   type?: UserVerificationType;
 
   @Field(() => UserVerificationStatus, { nullable: true })
-  @IsOptional()
-  @IsEnum(UserVerificationStatus)
+  @IsOptional({ message: ValidationMessages.IS_OPTIONAL })
+  @IsEnum(UserVerificationStatus, { message: ValidationMessages.IS_ENUM })
   status?: UserVerificationStatus;
 }

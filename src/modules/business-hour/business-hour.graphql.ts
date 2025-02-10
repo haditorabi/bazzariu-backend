@@ -15,6 +15,8 @@ import {
   IsOptional,
 } from 'class-validator';
 import { CommonBusiness } from 'src/graphql/business.type';
+import { ValidationMessages } from '../../common/messages/validation-messages';
+
 registerEnumType(BusinessHourStatus, {
   name: 'BusinessHourStatus',
 });
@@ -48,61 +50,61 @@ export class BusinessHour {
 @InputType()
 export class CreateBusinessHourInput {
   @Field(() => ID, { nullable: true })
-  @IsNotEmpty()
-  @IsMongoId()
+  @IsNotEmpty({ message: ValidationMessages.IS_NOT_EMPTY })
+  @IsMongoId({ message: ValidationMessages.IS_MONGO_ID })
   businessId: string;
 
   @Field({ nullable: true })
-  @IsNotEmpty()
-  @IsString()
-  @Length(3, 3)
+  @IsNotEmpty({ message: ValidationMessages.IS_NOT_EMPTY })
+  @IsString({ message: ValidationMessages.IS_STRING })
+  @Length(3, 3, { message: ValidationMessages.LENGTH })
   dayOfWeek: string;
 
   @Field({ nullable: true })
-  @IsNotEmpty()
-  @IsString()
-  @Length(5, 5)
+  @IsNotEmpty({ message: ValidationMessages.IS_NOT_EMPTY })
+  @IsString({ message: ValidationMessages.IS_STRING })
+  @Length(5, 5, { message: ValidationMessages.LENGTH })
   openTime: string;
 
   @Field({ nullable: true })
-  @IsNotEmpty()
-  @IsString()
-  @Length(5, 5)
+  @IsNotEmpty({ message: ValidationMessages.IS_NOT_EMPTY })
+  @IsString({ message: ValidationMessages.IS_STRING })
+  @Length(5, 5, { message: ValidationMessages.LENGTH })
   closeTime: string;
 
   @Field(() => BusinessHourStatus, { nullable: true })
-  @IsNotEmpty()
-  @IsEnum(BusinessHourStatus)
+  @IsNotEmpty({ message: ValidationMessages.IS_NOT_EMPTY })
+  @IsEnum(BusinessHourStatus, { message: ValidationMessages.IS_ENUM })
   status: BusinessHourStatus;
 }
 
 @InputType()
 export class UpdateBusinessHourInput {
   @Field(() => ID, { nullable: true })
-  @IsOptional()
-  @IsMongoId()
+  @IsOptional({ message: ValidationMessages.IS_OPTIONAL })
+  @IsMongoId({ message: ValidationMessages.IS_MONGO_ID })
   businessId?: string;
 
   @Field({ nullable: true })
-  @IsOptional()
-  @IsString()
-  @Length(3, 3)
+  @IsOptional({ message: ValidationMessages.IS_OPTIONAL })
+  @IsString({ message: ValidationMessages.IS_STRING })
+  @Length(3, 3, { message: ValidationMessages.LENGTH })
   dayOfWeek?: string;
 
   @Field({ nullable: true })
-  @IsOptional()
-  @IsString()
-  @Length(5, 5)
+  @IsOptional({ message: ValidationMessages.IS_OPTIONAL })
+  @IsString({ message: ValidationMessages.IS_STRING })
+  @Length(5, 5, { message: ValidationMessages.LENGTH })
   openTime?: string;
 
   @Field({ nullable: true })
-  @IsOptional()
-  @IsString()
-  @Length(5, 5)
+  @IsOptional({ message: ValidationMessages.IS_OPTIONAL })
+  @IsString({ message: ValidationMessages.IS_STRING })
+  @Length(5, 5, { message: ValidationMessages.LENGTH })
   closeTime?: string;
 
   @Field({ nullable: true })
-  @IsOptional()
-  @IsEnum(BusinessHourStatus)
+  @IsOptional({ message: ValidationMessages.IS_OPTIONAL })
+  @IsEnum(BusinessHourStatus, { message: ValidationMessages.IS_ENUM })
   status?: BusinessHourStatus;
 }

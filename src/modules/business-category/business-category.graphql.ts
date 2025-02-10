@@ -15,6 +15,8 @@ import {
   IsString,
   Length,
 } from 'class-validator';
+import { ValidationMessages } from '../../common/messages/validation-messages';
+
 registerEnumType(BusinessCategoryStatus, {
   name: 'BusinessCategoryStatus',
 });
@@ -33,48 +35,48 @@ export class BusinessCategory {
   status: BusinessCategoryStatus;
 
   @Field({ nullable: true })
-  @IsDate()
+  @IsDate({ message: ValidationMessages.IS_DATE })
   createdAt?: Date;
 
   @Field({ nullable: true })
-  @IsDate()
+  @IsDate({ message: ValidationMessages.IS_DATE })
   updatedAt?: Date;
 }
 
 @InputType()
 export class CreateBusinessCategoryInput {
   @Field({ nullable: true })
-  @IsNotEmpty()
-  @IsString()
-  @Length(3, 30)
+  @IsNotEmpty({ message: ValidationMessages.IS_NOT_EMPTY })
+  @IsString({ message: ValidationMessages.IS_STRING })
+  @Length(3, 30, { message: ValidationMessages.LENGTH })
   name: string;
 
   @Field(() => ID, { nullable: true })
-  @IsOptional()
-  @IsMongoId()
+  @IsOptional({ message: ValidationMessages.IS_OPTIONAL })
+  @IsMongoId({ message: ValidationMessages.IS_MONGO_ID })
   mediaId?: string;
 
   @Field(() => BusinessCategoryStatus, { nullable: true })
-  @IsNotEmpty()
-  @IsEnum(BusinessCategoryStatus)
+  @IsNotEmpty({ message: ValidationMessages.IS_NOT_EMPTY })
+  @IsEnum(BusinessCategoryStatus, { message: ValidationMessages.IS_ENUM })
   status: BusinessCategoryStatus;
 }
 
 @InputType()
 export class UpdateBusinessCategoryInput {
   @Field({ nullable: true })
-  @IsOptional()
-  @IsString()
-  @Length(3, 30)
+  @IsOptional({ message: ValidationMessages.IS_OPTIONAL })
+  @IsString({ message: ValidationMessages.IS_STRING })
+  @Length(3, 30, { message: ValidationMessages.LENGTH })
   name?: string;
 
   @Field(() => ID, { nullable: true })
-  @IsOptional()
-  @IsMongoId()
+  @IsOptional({ message: ValidationMessages.IS_OPTIONAL })
+  @IsMongoId({ message: ValidationMessages.IS_MONGO_ID })
   mediaId?: string;
 
   @Field(() => BusinessCategoryStatus, { nullable: true })
-  @IsEnum(BusinessCategoryStatus)
-  @IsOptional()
+  @IsEnum(BusinessCategoryStatus, { message: ValidationMessages.IS_ENUM })
+  @IsOptional({ message: ValidationMessages.IS_OPTIONAL })
   status?: BusinessCategoryStatus;
 }

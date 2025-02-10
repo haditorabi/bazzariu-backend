@@ -15,6 +15,8 @@ import {
 } from 'class-validator';
 import { CommonBookingTimeSlot } from 'src/graphql/booking-time-slot.type';
 import { CommonUser } from 'src/graphql/user.type';
+import { ValidationMessages } from '../../common/messages/validation-messages';
+
 registerEnumType(UserBookingStatus, {
   name: 'UserBookingStatus',
 });
@@ -51,47 +53,47 @@ export class UserBooking {
 @InputType()
 export class CreateUserBookingInput {
   @Field(() => ID, { nullable: true })
-  @IsNotEmpty()
-  @IsMongoId()
+  @IsNotEmpty({ message: ValidationMessages.IS_NOT_EMPTY })
+  @IsMongoId({ message: ValidationMessages.IS_MONGO_ID })
   userId: string;
 
   @Field(() => [ID], { nullable: true })
-  @IsOptional()
-  @IsArray()
-  @IsMongoId({ each: true })
+  @IsOptional({ message: ValidationMessages.IS_OPTIONAL })
+  @IsArray({ message: ValidationMessages.IS_ARRAY })
+  @IsMongoId({ each: true, message: ValidationMessages.IS_MONGO_ID })
   businessProductId?: string[];
 
   @Field(() => ID, { nullable: true })
-  @IsNotEmpty()
-  @IsMongoId()
+  @IsNotEmpty({ message: ValidationMessages.IS_NOT_EMPTY })
+  @IsMongoId({ message: ValidationMessages.IS_MONGO_ID })
   bookingTimeSlotId: string;
 
   @Field(() => UserBookingStatus, { nullable: true })
-  @IsNotEmpty()
-  @IsEnum(UserBookingStatus)
+  @IsNotEmpty({ message: ValidationMessages.IS_NOT_EMPTY })
+  @IsEnum(UserBookingStatus, { message: ValidationMessages.IS_ENUM })
   status: UserBookingStatus;
 }
 
 @InputType()
 export class UpdateUserBookingInput {
   @Field(() => ID, { nullable: true })
-  @IsOptional()
-  @IsMongoId()
+  @IsOptional({ message: ValidationMessages.IS_OPTIONAL })
+  @IsMongoId({ message: ValidationMessages.IS_MONGO_ID })
   userId?: string;
 
   @Field(() => [ID], { nullable: true })
-  @IsOptional()
-  @IsArray()
-  @IsMongoId({ each: true })
+  @IsOptional({ message: ValidationMessages.IS_OPTIONAL })
+  @IsArray({ message: ValidationMessages.IS_ARRAY })
+  @IsMongoId({ each: true, message: ValidationMessages.IS_MONGO_ID })
   businessProductId?: string[];
 
   @Field(() => ID, { nullable: true })
-  @IsOptional()
-  @IsMongoId()
+  @IsOptional({ message: ValidationMessages.IS_OPTIONAL })
+  @IsMongoId({ message: ValidationMessages.IS_MONGO_ID })
   bookingTimeSlotId?: string;
 
   @Field(() => UserBookingStatus, { nullable: true })
-  @IsOptional()
-  @IsEnum(UserBookingStatus)
+  @IsOptional({ message: ValidationMessages.IS_OPTIONAL })
+  @IsEnum(UserBookingStatus, { message: ValidationMessages.IS_ENUM })
   status?: UserBookingStatus;
 }

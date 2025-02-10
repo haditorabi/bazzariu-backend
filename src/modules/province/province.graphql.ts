@@ -16,6 +16,8 @@ import {
 } from 'class-validator';
 import { CommonCity } from 'src/graphql/city.type';
 import { CommonCountry } from 'src/graphql/country.type';
+import { ValidationMessages } from '../../common/messages/validation-messages';
+
 registerEnumType(ProvinceStatus, {
   name: 'ProvinceStatus',
 });
@@ -40,37 +42,37 @@ export class Province {
 @InputType()
 export class CreateProvinceInput {
   @Field({ nullable: true })
-  @IsNotEmpty()
-  @IsString()
-  @Length(3, 100)
+  @IsNotEmpty({ message: ValidationMessages.IS_NOT_EMPTY })
+  @IsString({ message: ValidationMessages.IS_STRING })
+  @Length(3, 100, { message: ValidationMessages.LENGTH })
   name: string;
 
   @Field(() => ID, { nullable: true })
-  @IsNotEmpty()
-  @IsMongoId()
+  @IsNotEmpty({ message: ValidationMessages.IS_NOT_EMPTY })
+  @IsMongoId({ message: ValidationMessages.IS_MONGO_ID })
   countryId: string;
 
   @Field(() => ProvinceStatus, { nullable: true })
-  @IsNotEmpty()
-  @IsEnum(ProvinceStatus)
+  @IsNotEmpty({ message: ValidationMessages.IS_NOT_EMPTY })
+  @IsEnum(ProvinceStatus, { message: ValidationMessages.IS_ENUM })
   status: ProvinceStatus;
 }
 
 @InputType()
 export class UpdateProvinceInput {
   @Field({ nullable: true })
-  @IsOptional()
-  @IsString()
-  @Length(3, 100)
+  @IsOptional({ message: ValidationMessages.IS_OPTIONAL })
+  @IsString({ message: ValidationMessages.IS_STRING })
+  @Length(3, 100, { message: ValidationMessages.LENGTH })
   name?: string;
 
   @Field(() => ID, { nullable: true })
-  @IsOptional()
-  @IsMongoId()
+  @IsOptional({ message: ValidationMessages.IS_OPTIONAL })
+  @IsMongoId({ message: ValidationMessages.IS_MONGO_ID })
   countryId?: string;
 
   @Field(() => ProvinceStatus, { nullable: true })
-  @IsOptional()
-  @IsEnum(ProvinceStatus)
+  @IsOptional({ message: ValidationMessages.IS_OPTIONAL })
+  @IsEnum(ProvinceStatus, { message: ValidationMessages.IS_ENUM })
   status?: ProvinceStatus;
 }

@@ -8,6 +8,8 @@ import {
 import { ReportReasonType, ReportTargetType } from '@prisma/client';
 import { IsNotEmpty, IsMongoId, IsEnum, IsOptional } from 'class-validator';
 import { CommonUser } from 'src/graphql/user.type';
+import { ValidationMessages } from '../../common/messages/validation-messages';
+
 registerEnumType(ReportReasonType, {
   name: 'ReportReasonType',
 });
@@ -41,45 +43,45 @@ export class Report {
 @InputType()
 export class CreateReportInput {
   @Field(() => ID, { nullable: true })
-  @IsNotEmpty()
-  @IsMongoId()
+  @IsNotEmpty({ message: ValidationMessages.IS_NOT_EMPTY })
+  @IsMongoId({ message: ValidationMessages.IS_MONGO_ID })
   byId: string;
 
   @Field(() => ID, { nullable: true })
-  @IsNotEmpty()
-  @IsMongoId()
+  @IsNotEmpty({ message: ValidationMessages.IS_NOT_EMPTY })
+  @IsMongoId({ message: ValidationMessages.IS_MONGO_ID })
   targetId: string;
 
   @Field(() => ReportTargetType, { nullable: true })
-  @IsNotEmpty()
-  @IsEnum(ReportTargetType)
+  @IsNotEmpty({ message: ValidationMessages.IS_NOT_EMPTY })
+  @IsEnum(ReportTargetType, { message: ValidationMessages.IS_ENUM })
   targetType: ReportTargetType;
 
   @Field(() => ReportReasonType, { nullable: true })
-  @IsNotEmpty()
-  @IsEnum(ReportReasonType)
+  @IsNotEmpty({ message: ValidationMessages.IS_NOT_EMPTY })
+  @IsEnum(ReportReasonType, { message: ValidationMessages.IS_ENUM })
   reason: ReportReasonType;
 }
 
 @InputType()
 export class UpdateReportInput {
   @Field(() => ID, { nullable: true })
-  @IsOptional()
-  @IsMongoId()
+  @IsOptional({ message: ValidationMessages.IS_OPTIONAL })
+  @IsMongoId({ message: ValidationMessages.IS_MONGO_ID })
   byId?: string;
 
   @Field(() => ID, { nullable: true })
-  @IsOptional()
-  @IsMongoId()
+  @IsOptional({ message: ValidationMessages.IS_OPTIONAL })
+  @IsMongoId({ message: ValidationMessages.IS_MONGO_ID })
   targetId?: string;
 
   @Field(() => ReportTargetType, { nullable: true })
-  @IsOptional()
-  @IsEnum(ReportTargetType)
+  @IsOptional({ message: ValidationMessages.IS_OPTIONAL })
+  @IsEnum(ReportTargetType, { message: ValidationMessages.IS_ENUM })
   targetType?: ReportTargetType;
 
   @Field(() => ReportReasonType, { nullable: true })
-  @IsOptional()
-  @IsEnum(ReportReasonType)
+  @IsOptional({ message: ValidationMessages.IS_OPTIONAL })
+  @IsEnum(ReportReasonType, { message: ValidationMessages.IS_ENUM })
   reason?: ReportReasonType;
 }

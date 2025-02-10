@@ -13,6 +13,8 @@ import {
   IsEnum,
   IsOptional,
 } from 'class-validator';
+import { ValidationMessages } from '../../common/messages/validation-messages';
+
 registerEnumType(CurrencyStatus, {
   name: 'CurrencyStatus',
 });
@@ -34,39 +36,39 @@ export class Currency {
 @InputType()
 export class CreateCurrencyInput {
   @Field({ nullable: true })
-  @IsNotEmpty()
-  @IsString()
-  @Length(3, 100)
+  @IsNotEmpty({ message: ValidationMessages.IS_NOT_EMPTY })
+  @IsString({ message: ValidationMessages.IS_STRING })
+  @Length(3, 100, { message: ValidationMessages.LENGTH })
   name: string;
 
   @Field({ nullable: true })
-  @IsNotEmpty()
-  @IsString()
-  @Length(3, 3)
+  @IsNotEmpty({ message: ValidationMessages.IS_NOT_EMPTY })
+  @IsString({ message: ValidationMessages.IS_STRING })
+  @Length(3, 3, { message: ValidationMessages.LENGTH })
   code: string;
 
   @Field(() => CurrencyStatus, { nullable: true })
-  @IsNotEmpty()
-  @IsEnum(CurrencyStatus)
+  @IsNotEmpty({ message: ValidationMessages.IS_NOT_EMPTY })
+  @IsEnum(CurrencyStatus, { message: ValidationMessages.IS_ENUM })
   status: CurrencyStatus;
 }
 
 @InputType()
 export class UpdateCurrencyInput {
   @Field({ nullable: true })
-  @IsOptional()
-  @IsString()
-  @Length(3, 100)
+  @IsOptional({ message: ValidationMessages.IS_OPTIONAL })
+  @IsString({ message: ValidationMessages.IS_STRING })
+  @Length(3, 100, { message: ValidationMessages.LENGTH })
   name?: string;
 
   @Field({ nullable: true })
-  @IsOptional()
-  @IsString()
-  @Length(3, 3)
+  @IsOptional({ message: ValidationMessages.IS_OPTIONAL })
+  @IsString({ message: ValidationMessages.IS_STRING })
+  @Length(3, 3, { message: ValidationMessages.LENGTH })
   code?: string;
 
   @Field(() => CurrencyStatus, { nullable: true })
-  @IsOptional()
-  @IsEnum(CurrencyStatus)
+  @IsOptional({ message: ValidationMessages.IS_OPTIONAL })
+  @IsEnum(CurrencyStatus, { message: ValidationMessages.IS_ENUM })
   status?: CurrencyStatus;
 }

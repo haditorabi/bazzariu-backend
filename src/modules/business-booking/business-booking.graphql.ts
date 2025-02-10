@@ -19,6 +19,8 @@ import {
   Min,
   IsEnum,
 } from 'class-validator';
+import { ValidationMessages } from '../../common/messages/validation-messages';
+
 registerEnumType(BusinessBookingStatus, {
   name: 'BusinessBookingStatus',
 });
@@ -64,73 +66,73 @@ export class BusinessBooking {
 @InputType()
 export class CreateBusinessBookingInput {
   @Field(() => ID, { nullable: true })
-  @IsNotEmpty()
-  @IsMongoId()
+  @IsNotEmpty({ message: ValidationMessages.IS_NOT_EMPTY })
+  @IsMongoId({ message: ValidationMessages.IS_MONGO_ID })
   businessId: string;
 
   @Field(() => [ID], { nullable: true })
-  @IsOptional()
-  @IsArray()
-  @IsMongoId({ each: true })
+  @IsOptional({ message: ValidationMessages.IS_OPTIONAL })
+  @IsArray({ message: ValidationMessages.IS_ARRAY })
+  @IsMongoId({ each: true, message: ValidationMessages.IS_MONGO_ID })
   businessProductId?: string[];
 
   @Field(() => Int, { nullable: true })
-  @IsOptional()
-  @IsInt()
-  @Min(1)
+  @IsOptional({ message: ValidationMessages.IS_OPTIONAL })
+  @IsInt({ message: ValidationMessages.IS_INT })
+  @Min(1, { message: ValidationMessages.MIN })
   maxAvailable?: number;
 
   @Field(() => Int, { nullable: true })
-  @IsOptional()
-  @IsInt()
-  @Min(1)
+  @IsOptional({ message: ValidationMessages.IS_OPTIONAL })
+  @IsInt({ message: ValidationMessages.IS_INT })
+  @Min(1, { message: ValidationMessages.MIN })
   maxGuest?: number;
 
   @Field(() => [ID], { nullable: true })
-  @IsOptional()
-  @IsArray()
-  @IsMongoId({ each: true })
+  @IsOptional({ message: ValidationMessages.IS_OPTIONAL })
+  @IsArray({ message: ValidationMessages.IS_ARRAY })
+  @IsMongoId({ each: true, message: ValidationMessages.IS_MONGO_ID })
   mediaId?: string[];
 
   @Field(() => BusinessBookingStatus, { nullable: true })
-  @IsNotEmpty()
-  @IsEnum(BusinessBookingStatus)
+  @IsNotEmpty({ message: ValidationMessages.IS_NOT_EMPTY })
+  @IsEnum(BusinessBookingStatus, { message: ValidationMessages.IS_ENUM })
   status: BusinessBookingStatus;
 }
 
 @InputType()
 export class UpdateBusinessBookingInput {
   @Field(() => ID, { nullable: true })
-  @IsOptional()
-  @IsMongoId()
+  @IsOptional({ message: ValidationMessages.IS_OPTIONAL })
+  @IsMongoId({ message: ValidationMessages.IS_MONGO_ID })
   businessId?: string;
 
   @Field(() => [ID], { nullable: true })
-  @IsOptional()
-  @IsArray()
-  @IsMongoId({ each: true })
+  @IsOptional({ message: ValidationMessages.IS_OPTIONAL })
+  @IsArray({ message: ValidationMessages.IS_ARRAY })
+  @IsMongoId({ each: true, message: ValidationMessages.IS_MONGO_ID })
   businessProductId?: string[];
 
   @Field(() => Int, { nullable: true })
-  @IsOptional()
-  @IsInt()
-  @Min(1)
+  @IsOptional({ message: ValidationMessages.IS_OPTIONAL })
+  @IsInt({ message: ValidationMessages.IS_INT })
+  @Min(1, { message: ValidationMessages.MIN })
   maxAvailable?: number;
 
   @Field(() => Int, { nullable: true })
-  @IsOptional()
-  @IsInt()
-  @Min(1)
+  @IsOptional({ message: ValidationMessages.IS_OPTIONAL })
+  @IsInt({ message: ValidationMessages.IS_INT })
+  @Min(1, { message: ValidationMessages.MIN })
   maxGuest?: number;
 
   @Field(() => [ID], { nullable: true })
-  @IsOptional()
-  @IsArray()
-  @IsMongoId({ each: true })
+  @IsOptional({ message: ValidationMessages.IS_OPTIONAL })
+  @IsArray({ message: ValidationMessages.IS_ARRAY })
+  @IsMongoId({ each: true, message: ValidationMessages.IS_MONGO_ID })
   mediaId?: string[];
 
   @Field(() => BusinessBookingStatus, { nullable: true })
-  @IsOptional()
-  @IsEnum(BusinessBookingStatus)
+  @IsOptional({ message: ValidationMessages.IS_OPTIONAL })
+  @IsEnum(BusinessBookingStatus, { message: ValidationMessages.IS_ENUM })
   status?: BusinessBookingStatus;
 }
