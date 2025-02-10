@@ -752,17 +752,17 @@ enum UserActionTargetType {
 }
 
 model UserActionLog {
-  id            String               @id @default(auto()) @map("_id") @db.ObjectId
-  userId        String               @db.ObjectId
-  user          User                 @relation(fields: [userId], references: [id])
-  action        UserActionType
+  id            String                  @id @default(auto()) @map("_id") @db.ObjectId
+  userId        String                  @db.ObjectId
+  user          User                    @relation(fields: [userId], references: [id])
+  action        UserActionLogType
   actionDetails Json?
-  targetId      String               @db.ObjectId
-  targetType    UserActionTargetType
+  targetId      String                  @db.ObjectId
+  targetType    UserActionLogTargetType
   ipAddress     String?
   device        String?
   os            String?
-  createdAt     DateTime             @default(now())
+  createdAt     DateTime                @default(now())
 }
 
 enum UserActionLogType {
@@ -786,6 +786,17 @@ enum UserActionLogType {
   UPDATE
   DELETE
   CHECKIN
+}
+
+enum UserActionLogTargetType {
+  USER
+  BUSINESS
+  PRODUCT
+  DEAL
+  REVIEW
+  MEDIA
+  BOOKING
+  EVENT
 }
 
 model UserBlocked {

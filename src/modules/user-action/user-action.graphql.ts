@@ -25,13 +25,13 @@ export class UserAction {
   @Field(() => ID)
   userId: string;
 
-  @Field()
+  @Field(() => UserActionType)
   action: UserActionType;
 
   @Field(() => ID)
   targetId: string;
 
-  @Field()
+  @Field(() => UserActionTargetType)
   targetType: UserActionTargetType;
 
   @Field({ nullable: true })

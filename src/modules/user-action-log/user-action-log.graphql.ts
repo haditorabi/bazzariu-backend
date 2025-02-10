@@ -1,5 +1,5 @@
 import { Field, ObjectType, InputType, ID } from '@nestjs/graphql';
-import { UserActionTargetType, UserActionType } from '@prisma/client';
+import { UserActionLogTargetType, UserActionLogType } from '@prisma/client';
 import {
   IsNotEmpty,
   IsMongoId,
@@ -22,8 +22,8 @@ export class UserActionLog {
   @Field(() => ID)
   userId: string;
 
-  @Field()
-  action: UserActionType;
+  @Field(() => UserActionLogType)
+  action: UserActionLogType;
 
   @Field({ nullable: true })
   actionDetails?: string;
@@ -31,8 +31,8 @@ export class UserActionLog {
   @Field(() => ID)
   targetId: string;
 
-  @Field()
-  targetType: UserActionTargetType;
+  @Field(() => UserActionLogTargetType)
+  targetType: UserActionLogTargetType;
 
   @Field()
   ipAddress: string;
@@ -54,10 +54,10 @@ export class CreateUserActionLogInput {
   @IsMongoId()
   userId: string;
 
-  @Field(() => UserActionType)
+  @Field(() => UserActionLogType)
   @IsNotEmpty()
-  @IsEnum(UserActionType)
-  action: UserActionType;
+  @IsEnum(UserActionLogType)
+  action: UserActionLogType;
 
   @Field({ nullable: true })
   @IsOptional()
@@ -70,10 +70,10 @@ export class CreateUserActionLogInput {
   @IsMongoId()
   targetId: string;
 
-  @Field(() => UserActionTargetType)
+  @Field(() => UserActionLogTargetType)
   @IsNotEmpty()
-  @IsEnum(UserActionTargetType)
-  targetType: UserActionTargetType;
+  @IsEnum(UserActionLogTargetType)
+  targetType: UserActionLogTargetType;
 
   @Field()
   @IsNotEmpty()
@@ -100,10 +100,10 @@ export class UpdateUserActionLogInput {
   @IsMongoId()
   userId?: string;
 
-  @Field(() => UserActionType, { nullable: true })
+  @Field(() => UserActionLogType, { nullable: true })
   @IsOptional()
-  @IsEnum(UserActionType)
-  action?: UserActionType;
+  @IsEnum(UserActionLogType)
+  action?: UserActionLogType;
 
   @Field({ nullable: true })
   @IsOptional()
@@ -116,10 +116,10 @@ export class UpdateUserActionLogInput {
   @IsMongoId()
   targetId?: string;
 
-  @Field(() => UserActionTargetType, { nullable: true })
+  @Field(() => UserActionLogTargetType, { nullable: true })
   @IsOptional()
-  @IsEnum(UserActionTargetType)
-  targetType?: UserActionTargetType;
+  @IsEnum(UserActionLogTargetType)
+  targetType?: UserActionLogTargetType;
 
   @Field({ nullable: true })
   @IsOptional()
