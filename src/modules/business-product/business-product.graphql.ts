@@ -4,6 +4,15 @@ import { CommonBusiness } from 'src/graphql/business.type';
 import { CommonProductCategory } from 'src/graphql/product-category.type';
 import { CommonBusinessDeal } from 'src/graphql/business-deal.type';
 import { CommonBusinessProductPrice } from 'src/graphql/business-product-price.type';
+import {
+  IsNotEmpty,
+  IsMongoId,
+  IsOptional,
+  IsArray,
+  IsString,
+  Length,
+  IsEnum,
+} from 'class-validator';
 
 @ObjectType()
 export class BusinessProduct {
@@ -53,41 +62,73 @@ export class BusinessProduct {
 @InputType()
 export class CreateBusinessProductInput {
   @Field(() => ID)
+  @IsNotEmpty()
+  @IsMongoId()
   businessId: string;
 
   @Field(() => [ID], { nullable: true })
+  @IsOptional()
+  @IsArray()
+  @IsMongoId({ each: true })
   productCategroyId?: string[];
 
   @Field()
+  @IsNotEmpty()
+  @IsString()
+  @Length(3, 50)
   name: string;
 
   @Field({ nullable: true })
+  @IsOptional()
+  @IsString()
+  @Length(5, 250)
   description?: string;
 
   @Field(() => [ID], { nullable: true })
+  @IsOptional()
+  @IsArray()
+  @IsMongoId({ each: true })
   mediaId?: string[];
 
   @Field()
+  @IsNotEmpty()
+  @IsEnum(BusinessProductStatus)
   status: BusinessProductStatus;
 }
 
 @InputType()
 export class UpdateBusinessProductInput {
   @Field(() => ID, { nullable: true })
+  @IsOptional()
+  @IsMongoId()
   businessId?: string;
 
   @Field(() => [ID], { nullable: true })
+  @IsOptional()
+  @IsArray()
+  @IsMongoId({ each: true })
   productCategroyId?: string[];
 
   @Field({ nullable: true })
+  @IsOptional()
+  @IsString()
+  @Length(3, 50)
   name?: string;
 
   @Field({ nullable: true })
+  @IsOptional()
+  @IsString()
+  @Length(5, 250)
   description?: string;
 
   @Field(() => [ID], { nullable: true })
+  @IsOptional()
+  @IsArray()
+  @IsMongoId({ each: true })
   mediaId?: string[];
 
   @Field({ nullable: true })
+  @IsOptional()
+  @IsEnum(BusinessProductStatus)
   status?: BusinessProductStatus;
 }

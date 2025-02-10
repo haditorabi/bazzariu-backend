@@ -1,5 +1,14 @@
 import { Field, ObjectType, InputType, ID } from '@nestjs/graphql';
 import { TransactionStatus } from '@prisma/client';
+import {
+  IsNotEmpty,
+  IsMongoId,
+  IsDecimal,
+  IsPositive,
+  IsOptional,
+  IsString,
+  IsEnum,
+} from 'class-validator';
 import { CommonBusiness } from 'src/graphql/business.type';
 import { CommonPayment } from 'src/graphql/payment.type';
 import { CommonUser } from 'src/graphql/user.type';
@@ -49,47 +58,77 @@ export class Transaction {
 @InputType()
 export class CreateTransactionInput {
   @Field(() => ID)
+  @IsNotEmpty()
+  @IsMongoId()
   paymentId: string;
 
   @Field(() => ID)
+  @IsNotEmpty()
+  @IsMongoId()
   businessId: string;
 
   @Field(() => ID)
+  @IsNotEmpty()
+  @IsMongoId()
   currencyId: string;
 
   @Field(() => ID)
+  @IsNotEmpty()
+  @IsMongoId()
   userId: string;
 
   @Field()
+  @IsNotEmpty()
+  @IsDecimal()
+  @IsPositive()
   amount: number;
 
   @Field()
+  @IsOptional()
+  @IsString()
   description?: string;
 
   @Field()
+  @IsNotEmpty()
+  @IsEnum(TransactionStatus)
   status: TransactionStatus;
 }
 
 @InputType()
 export class UpdateTransactionInput {
   @Field(() => ID, { nullable: true })
+  @IsOptional()
+  @IsMongoId()
   paymentId?: string;
 
   @Field(() => ID, { nullable: true })
+  @IsOptional()
+  @IsMongoId()
   businessId?: string;
 
   @Field(() => ID, { nullable: true })
+  @IsOptional()
+  @IsMongoId()
   currencyId?: string;
 
   @Field(() => ID, { nullable: true })
+  @IsOptional()
+  @IsMongoId()
   userId?: string;
 
   @Field({ nullable: true })
+  @IsOptional()
+  @IsDecimal()
+  @IsPositive()
   amount?: number;
 
   @Field({ nullable: true })
+  @IsOptional()
+  @IsString()
   description?: string;
 
   @Field({ nullable: true })
+  @IsOptional()
+  @IsEnum(TransactionStatus)
   status?: TransactionStatus;
 }

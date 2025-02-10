@@ -1,4 +1,5 @@
 import { Field, ObjectType, InputType, ID } from '@nestjs/graphql';
+import { IsNotEmpty, IsMongoId, IsString, IsOptional } from 'class-validator';
 import { CommonUser } from 'src/graphql/user.type';
 
 @ObjectType()
@@ -25,23 +26,35 @@ export class UserPreference {
 @InputType()
 export class CreateUserPreferenceInput {
   @Field(() => ID)
+  @IsNotEmpty()
+  @IsMongoId()
   userId: string;
 
   @Field()
+  @IsNotEmpty()
+  @IsString()
   key: string;
 
   @Field()
+  @IsNotEmpty()
+  @IsString()
   value: string;
 }
 
 @InputType()
 export class UpdateUserPreferenceInput {
   @Field(() => ID, { nullable: true })
+  @IsOptional()
+  @IsMongoId()
   userId?: string;
 
   @Field({ nullable: true })
+  @IsOptional()
+  @IsString()
   key?: string;
 
   @Field({ nullable: true })
+  @IsOptional()
+  @IsString()
   value?: string;
 }

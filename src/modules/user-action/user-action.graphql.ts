@@ -1,5 +1,17 @@
 import { Field, ObjectType, InputType, ID, Int } from '@nestjs/graphql';
 import { UserActionTargetType, UserActionType } from '@prisma/client';
+import {
+  IsNotEmpty,
+  IsMongoId,
+  IsEnum,
+  IsOptional,
+  IsString,
+  Max,
+  Min,
+  IsPositive,
+  IsInt,
+  MaxLength,
+} from 'class-validator';
 import { CommonUser } from 'src/graphql/user.type';
 
 @ObjectType()
@@ -35,41 +47,72 @@ export class UserAction {
 @InputType()
 export class CreateUserActionInput {
   @Field(() => ID)
+  @IsNotEmpty()
+  @IsMongoId()
   userId: string;
 
-  @Field()
+  @Field(() => UserActionType)
+  @IsNotEmpty()
+  @IsEnum(UserActionType)
   action: UserActionType;
 
   @Field(() => ID)
+  @IsNotEmpty()
+  @IsMongoId()
   targetId: string;
 
-  @Field()
+  @Field(() => UserActionTargetType)
+  @IsNotEmpty()
+  @IsEnum(UserActionTargetType)
   targetType: UserActionTargetType;
 
   @Field({ nullable: true })
+  @IsOptional()
+  @IsString()
+  @MaxLength(1000)
   actionDetails?: string;
 
-  @Field(() => Int)
+  @Field()
+  @IsNotEmpty()
+  @Min(1)
+  @Max(100)
+  @IsPositive()
   points?: number;
 }
 
 @InputType()
 export class UpdateUserActionInput {
   @Field(() => ID, { nullable: true })
+  @IsOptional()
+  @IsMongoId()
   userId?: string;
 
-  @Field({ nullable: true })
+  @Field(() => UserActionType, { nullable: true })
+  @IsOptional()
+  @IsEnum(UserActionType)
   action?: UserActionType;
 
   @Field(() => ID, { nullable: true })
+  @IsOptional()
+  @IsMongoId()
   targetId?: string;
 
-  @Field({ nullable: true })
+  @Field(() => UserActionTargetType, { nullable: true })
+  @IsOptional()
+  @IsEnum(UserActionTargetType)
   targetType?: UserActionTargetType;
 
   @Field({ nullable: true })
+  @IsOptional()
+  @IsString()
+  @MaxLength(1000)
   actionDetails?: string;
 
   @Field(() => Int, { nullable: true })
+  @IsOptional()
+  @IsInt()
+  @Min(1)
+  @Max(100)
+  @IsPositive()
   points?: number;
 }

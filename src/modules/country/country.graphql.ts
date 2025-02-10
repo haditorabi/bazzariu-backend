@@ -1,5 +1,12 @@
 import { Field, ObjectType, InputType, ID } from '@nestjs/graphql';
 import { CountryStatus } from '@prisma/client';
+import {
+  IsNotEmpty,
+  IsString,
+  Length,
+  IsEnum,
+  IsOptional,
+} from 'class-validator';
 import { CommonProvince } from 'src/graphql/province.type';
 import { CommonRegion } from 'src/graphql/region.type';
 
@@ -27,23 +34,39 @@ export class Country {
 @InputType()
 export class CreateCountryInput {
   @Field()
+  @IsNotEmpty()
+  @IsString()
+  @Length(3, 100)
   name: string;
 
   @Field()
+  @IsNotEmpty()
+  @IsString()
+  @Length(3, 3)
   code: string;
 
   @Field()
+  @IsNotEmpty()
+  @IsEnum(CountryStatus)
   status: CountryStatus;
 }
 
 @InputType()
 export class UpdateCountryInput {
   @Field({ nullable: true })
+  @IsOptional()
+  @IsString()
+  @Length(3, 100)
   name?: string;
 
   @Field({ nullable: true })
+  @IsOptional()
+  @IsString()
+  @Length(3, 3)
   code?: string;
 
   @Field({ nullable: true })
+  @IsOptional()
+  @IsEnum(CountryStatus)
   status?: CountryStatus;
 }

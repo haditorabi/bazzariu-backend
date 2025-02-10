@@ -1,4 +1,5 @@
 import { Field, ObjectType, InputType, ID } from '@nestjs/graphql';
+import { IsNotEmpty, IsMongoId, IsOptional } from 'class-validator';
 import { CommonBusiness } from 'src/graphql/business.type';
 import { CommonUser } from 'src/graphql/user.type';
 
@@ -26,17 +27,25 @@ export class UserCheckin {
 @InputType()
 export class CreateUserCheckinInput {
   @Field(() => ID)
+  @IsNotEmpty()
+  @IsMongoId()
   userId: string;
 
   @Field(() => ID)
+  @IsNotEmpty()
+  @IsMongoId()
   businessId: string;
 }
 
 @InputType()
 export class UpdateUserCheckinInput {
   @Field(() => ID, { nullable: true })
+  @IsOptional()
+  @IsMongoId()
   userId?: string;
 
   @Field(() => ID, { nullable: true })
+  @IsOptional()
+  @IsMongoId()
   businessId?: string;
 }

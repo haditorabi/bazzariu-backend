@@ -19,8 +19,8 @@ export class Amenity {
 @InputType()
 export class CreateAmenityInput {
   @Field()
-  @IsNotEmpty({ message: 'Name is required' })
-  @Length(3, 50, { message: 'Name must be between 3 and 50 characters' })
+  @IsNotEmpty()
+  @Length(3, 50)
   name: string;
 
   @Field(() => ID, { nullable: true })
@@ -32,8 +32,12 @@ export class CreateAmenityInput {
 @InputType()
 export class UpdateAmenityInput {
   @Field({ nullable: true })
+  @IsOptional()
+  @Length(3, 50)
   name?: string;
 
   @Field(() => ID, { nullable: true })
+  @IsOptional()
+  @IsMongoId()
   mediaId?: string;
 }

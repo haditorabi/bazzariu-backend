@@ -1,5 +1,12 @@
 import { Field, ObjectType, InputType, ID } from '@nestjs/graphql';
 import { DealsRedemptionStatus } from '@prisma/client';
+import {
+  IsNotEmpty,
+  IsMongoId,
+  IsOptional,
+  IsDate,
+  IsEnum,
+} from 'class-validator';
 import { CommonBusinessDeal } from 'src/graphql/business-deal.type';
 import { CommonUser } from 'src/graphql/user.type';
 
@@ -39,35 +46,53 @@ export class DealsRedemption {
 @InputType()
 export class CreateDealsRedemptionInput {
   @Field(() => ID)
+  @IsNotEmpty()
+  @IsMongoId()
   businessDealId: string;
 
   @Field(() => ID)
+  @IsNotEmpty()
   userId: string;
 
   @Field({ nullable: true })
+  @IsOptional()
+  @IsDate()
   redeemedAt?: Date;
 
   @Field()
+  @IsNotEmpty()
+  @IsDate()
   expiresAt: Date;
 
   @Field()
+  @IsNotEmpty()
+  @IsEnum(DealsRedemptionStatus)
   status: DealsRedemptionStatus;
 }
 
 @InputType()
 export class UpdateDealsRedemptionInput {
   @Field(() => ID, { nullable: true })
+  @IsOptional()
+  @IsMongoId()
   businessDealId?: string;
 
   @Field(() => ID, { nullable: true })
+  @IsOptional()
   userId?: string;
 
   @Field({ nullable: true })
+  @IsOptional()
+  @IsDate()
   redeemedAt?: Date;
 
   @Field({ nullable: true })
+  @IsOptional()
+  @IsDate()
   expiresAt?: Date;
 
   @Field({ nullable: true })
+  @IsOptional()
+  @IsEnum(DealsRedemptionStatus)
   status?: DealsRedemptionStatus;
 }

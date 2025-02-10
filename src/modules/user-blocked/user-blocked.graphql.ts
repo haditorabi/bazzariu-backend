@@ -1,4 +1,5 @@
 import { Field, ObjectType, InputType, ID } from '@nestjs/graphql';
+import { IsNotEmpty, IsMongoId, IsOptional } from 'class-validator';
 import { CommonUser } from 'src/graphql/user.type';
 
 @ObjectType()
@@ -25,17 +26,25 @@ export class UserBlocked {
 @InputType()
 export class CreateUserBlockedInput {
   @Field(() => ID)
+  @IsNotEmpty()
+  @IsMongoId()
   userId: string;
 
   @Field(() => ID)
+  @IsNotEmpty()
+  @IsMongoId()
   blockedId: string;
 }
 
 @InputType()
 export class UpdateUserBlockedInput {
   @Field(() => ID, { nullable: true })
+  @IsOptional()
+  @IsMongoId()
   userId?: string;
 
   @Field(() => ID, { nullable: true })
+  @IsOptional()
+  @IsMongoId()
   blockedId?: string;
 }

@@ -1,4 +1,5 @@
 import { Field, ObjectType, InputType, ID, Int } from '@nestjs/graphql';
+import { IsNotEmpty, IsMongoId, IsInt, IsOptional } from 'class-validator';
 import { CommonUser } from 'src/graphql/user.type';
 
 @ObjectType()
@@ -22,17 +23,25 @@ export class UserScore {
 @InputType()
 export class CreateUserScoreInput {
   @Field(() => ID)
+  @IsNotEmpty()
+  @IsMongoId()
   userId: string;
 
   @Field(() => Int)
+  @IsNotEmpty()
+  @IsInt()
   score: number;
 }
 
 @InputType()
 export class UpdateUserScoreInput {
   @Field(() => ID, { nullable: true })
+  @IsOptional()
+  @IsMongoId()
   userId?: string;
 
   @Field(() => Int, { nullable: true })
+  @IsOptional()
+  @IsInt()
   score?: number;
 }

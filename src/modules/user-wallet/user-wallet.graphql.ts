@@ -1,4 +1,5 @@
 import { Field, ObjectType, InputType, ID } from '@nestjs/graphql';
+import { IsDecimal, IsMongoId, IsNotEmpty, IsOptional } from 'class-validator';
 import { CommonUser } from 'src/graphql/user.type';
 
 @ObjectType()
@@ -28,23 +29,35 @@ export class UserWallet {
 @InputType()
 export class CreateUserWalletInput {
   @Field(() => ID)
+  @IsNotEmpty()
+  @IsMongoId()
   userId: string;
 
   @Field()
+  @IsNotEmpty()
+  @IsDecimal()
   balance: number;
 
   @Field(() => ID)
+  @IsNotEmpty()
+  @IsMongoId()
   currencyId: string;
 }
 
 @InputType()
 export class UpdateUserWalletInput {
   @Field(() => ID, { nullable: true })
+  @IsOptional()
+  @IsMongoId()
   userId?: string;
 
   @Field({ nullable: true })
+  @IsOptional()
+  @IsDecimal()
   balance?: number;
 
   @Field(() => ID, { nullable: true })
+  @IsOptional()
+  @IsMongoId()
   currencyId?: string;
 }

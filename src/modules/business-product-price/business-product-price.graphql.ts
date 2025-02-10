@@ -1,6 +1,13 @@
 import { Field, ObjectType, InputType, ID } from '@nestjs/graphql';
 import { CommonBusinessProduct } from 'src/graphql/business-product.type';
 import { Currency } from '../currency/currency.graphql';
+import {
+  IsNotEmpty,
+  IsMongoId,
+  IsDecimal,
+  Min,
+  IsOptional,
+} from 'class-validator';
 
 @ObjectType()
 export class BusinessProductPrice {
@@ -32,23 +39,37 @@ export class BusinessProductPrice {
 @InputType()
 export class CreateBusinessProductPriceInput {
   @Field(() => ID, { nullable: true })
+  @IsNotEmpty()
+  @IsMongoId()
   businessProductId: string;
 
   @Field(() => ID)
+  @IsNotEmpty()
+  @IsMongoId()
   currencyId: string;
 
   @Field()
+  @IsNotEmpty()
+  @IsDecimal()
+  @Min(1)
   price: number;
 }
 
 @InputType()
 export class UpdateBusinessProductPriceInput {
   @Field(() => ID, { nullable: true })
+  @IsOptional()
+  @IsMongoId()
   businessProductId?: string;
 
   @Field(() => ID, { nullable: true })
+  @IsOptional()
+  @IsMongoId()
   currencyId?: string;
 
   @Field({ nullable: true })
+  @IsOptional()
+  @IsDecimal()
+  @Min(1)
   price?: number;
 }

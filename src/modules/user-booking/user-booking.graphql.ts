@@ -1,5 +1,12 @@
 import { Field, ObjectType, InputType, ID } from '@nestjs/graphql';
 import { UserBookingStatus } from '@prisma/client';
+import {
+  IsNotEmpty,
+  IsMongoId,
+  IsOptional,
+  IsEnum,
+  IsArray,
+} from 'class-validator';
 import { CommonBookingTimeSlot } from 'src/graphql/booking-time-slot.type';
 import { CommonUser } from 'src/graphql/user.type';
 
@@ -36,29 +43,47 @@ export class UserBooking {
 @InputType()
 export class CreateUserBookingInput {
   @Field(() => ID)
+  @IsNotEmpty()
+  @IsMongoId()
   userId: string;
 
   @Field(() => [ID], { nullable: true })
+  @IsOptional()
+  @IsArray()
+  @IsMongoId({ each: true })
   businessProductId?: string[];
 
   @Field(() => ID)
+  @IsNotEmpty()
+  @IsMongoId()
   bookingTimeSlotId: string;
 
-  @Field()
+  @Field(() => UserBookingStatus)
+  @IsNotEmpty()
+  @IsEnum(UserBookingStatus)
   status: UserBookingStatus;
 }
 
 @InputType()
 export class UpdateUserBookingInput {
   @Field(() => ID, { nullable: true })
+  @IsOptional()
+  @IsMongoId()
   userId?: string;
 
   @Field(() => [ID], { nullable: true })
+  @IsOptional()
+  @IsArray()
+  @IsMongoId({ each: true })
   businessProductId?: string[];
 
   @Field(() => ID, { nullable: true })
+  @IsOptional()
+  @IsMongoId()
   bookingTimeSlotId?: string;
 
-  @Field({ nullable: true })
+  @Field(() => UserBookingStatus, { nullable: true })
+  @IsOptional()
+  @IsEnum(UserBookingStatus)
   status?: UserBookingStatus;
 }

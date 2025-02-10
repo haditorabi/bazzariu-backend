@@ -1,5 +1,17 @@
 import { Field, ObjectType, InputType, ID, Int } from '@nestjs/graphql';
 import { UserReviewStatus, UserReviewType } from '@prisma/client';
+import {
+  IsNotEmpty,
+  IsMongoId,
+  IsOptional,
+  IsEnum,
+  IsInt,
+  Min,
+  Max,
+  IsString,
+  Length,
+  IsArray,
+} from 'class-validator';
 import { CommonUser } from 'src/graphql/user.type';
 
 @ObjectType()
@@ -41,47 +53,82 @@ export class UserReview {
 @InputType()
 export class CreateUserReviewInput {
   @Field(() => ID)
+  @IsNotEmpty()
+  @IsMongoId()
   userId: string;
 
   @Field(() => ID, { nullable: true })
+  @IsOptional()
+  @IsMongoId()
   targetId: string;
 
-  @Field()
+  @Field(() => UserReviewType)
+  @IsNotEmpty()
+  @IsEnum(UserReviewType)
   targetType: UserReviewType;
 
   @Field(() => [ID], { nullable: true })
+  @IsMongoId({ each: true })
+  @IsArray()
   mediaId?: string[];
 
   @Field(() => Int)
+  @IsNotEmpty()
+  @IsInt()
+  @Min(1)
+  @Max(5)
   rating: number;
 
   @Field({ nullable: true })
+  @IsOptional()
+  @IsString()
+  @Length(3, 3000)
   content?: string;
 
-  @Field()
+  @Field(() => UserReviewStatus)
+  @IsNotEmpty()
+  @IsEnum(UserReviewStatus)
   status: UserReviewStatus;
 }
 
 @InputType()
 export class UpdateUserReviewInput {
   @Field(() => ID, { nullable: true })
+  @IsOptional()
+  @IsMongoId()
   userId?: string;
 
   @Field(() => ID, { nullable: true })
+  @IsOptional()
+  @IsMongoId()
   targetId?: string;
 
-  @Field({ nullable: true })
+  @Field(() => UserReviewType, { nullable: true })
+  @IsOptional()
+  @IsEnum(UserReviewType)
   targetType?: UserReviewType;
 
   @Field(() => [ID], { nullable: true })
+  @IsOptional()
+  @IsArray()
+  @IsMongoId({ each: true })
   mediaId?: string[];
 
   @Field(() => Int, { nullable: true })
+  @IsOptional()
+  @IsInt()
+  @Min(1)
+  @Max(5)
   rating?: number;
 
   @Field({ nullable: true })
+  @IsOptional()
+  @IsString()
+  @Length(3, 3000)
   content?: string;
 
-  @Field({ nullable: true })
+  @Field(() => UserReviewStatus, { nullable: true })
+  @IsOptional()
+  @IsEnum(UserReviewStatus)
   status?: UserReviewStatus;
 }

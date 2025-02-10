@@ -1,7 +1,13 @@
 import { Field, ObjectType, InputType, ID } from '@nestjs/graphql';
 import { CommonBusiness } from 'src/graphql/business.type';
 import { BusinessBoostStatus, BusinessBoostType } from '@prisma/client';
-import { IsDate } from 'class-validator';
+import {
+  IsDate,
+  IsEnum,
+  IsMongoId,
+  IsNotEmpty,
+  IsOptional,
+} from 'class-validator';
 
 @ObjectType()
 export class BusinessBoost {
@@ -36,39 +42,55 @@ export class BusinessBoost {
 @InputType()
 export class CreateBusinessBoostInput {
   @Field(() => ID)
+  @IsNotEmpty()
+  @IsMongoId()
   businessId: string;
 
   @Field()
+  @IsNotEmpty()
+  @IsEnum(BusinessBoostType)
   type: BusinessBoostType;
 
-  @IsDate()
   @Field()
+  @IsDate()
+  @IsNotEmpty()
   startAt: Date;
 
-  @IsDate()
   @Field()
+  @IsDate()
+  @IsNotEmpty()
   endAt: Date;
 
   @Field()
+  @IsNotEmpty()
+  @IsEnum(BusinessBoostStatus)
   status: BusinessBoostStatus;
 }
 
 @InputType()
 export class UpdateBusinessBoostInput {
   @Field(() => ID, { nullable: true })
+  @IsOptional()
+  @IsMongoId()
   businessId?: string;
 
   @Field({ nullable: true })
+  @IsOptional()
+  @IsEnum(BusinessBoostType)
   type?: BusinessBoostType;
 
-  @IsDate()
   @Field({ nullable: true })
+  @IsDate()
+  @IsOptional()
   startAt?: Date;
 
-  @IsDate()
   @Field({ nullable: true })
+  @IsDate()
+  @IsOptional()
   endAt?: Date;
 
   @Field({ nullable: true })
+  @IsOptional()
+  @IsEnum(BusinessBoostStatus)
   status?: BusinessBoostStatus;
 }
