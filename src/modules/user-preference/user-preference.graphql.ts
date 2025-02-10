@@ -25,17 +25,17 @@ export class UserPreference {
 
 @InputType()
 export class CreateUserPreferenceInput {
-  @Field(() => ID)
+  @Field(() => ID, { nullable: true })
   @IsNotEmpty()
   @IsMongoId()
   userId: string;
 
-  @Field()
+  @Field({ nullable: true })
   @IsNotEmpty()
   @IsString()
   key: string;
 
-  @Field()
+  @Field({ nullable: true })
   @IsNotEmpty()
   @IsString()
   value: string;

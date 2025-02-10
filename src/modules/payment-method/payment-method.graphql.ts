@@ -53,7 +53,7 @@ export class PaymentMethod {
 
 @InputType()
 export class CreatePaymentMethodInput {
-  @Field(() => ID)
+  @Field(() => ID, { nullable: true })
   @IsNotEmpty()
   @IsMongoId()
   userId: string;
@@ -63,12 +63,12 @@ export class CreatePaymentMethodInput {
   @IsString()
   details?: string;
 
-  @Field(() => PaymentMethodType)
+  @Field(() => PaymentMethodType, { nullable: true })
   @IsNotEmpty()
   @IsEnum(PaymentMethodType)
   type: PaymentMethodType;
 
-  @Field(() => PaymentMethodStatus)
+  @Field(() => PaymentMethodStatus, { nullable: true })
   @IsNotEmpty()
   @IsEnum(PaymentMethodStatus)
   status: PaymentMethodStatus;

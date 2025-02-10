@@ -47,23 +47,23 @@ export class CreateBookingTimeSlotInput {
   @IsMongoId()
   businessBookingId?: string;
 
-  @Field()
+  @Field({ nullable: true })
   @IsNotEmpty()
   @IsDate()
   startAt: Date;
 
-  @Field()
+  @Field({ nullable: true })
   @IsNotEmpty()
   @IsDate()
   endAt: Date;
 
-  @Field()
+  @Field({ nullable: true })
   @IsString()
   @IsNotEmpty()
   @Length(3, 3)
   timezone: string;
 
-  @Field(() => BookingTimeSlotStatus)
+  @Field(() => BookingTimeSlotStatus, { nullable: true })
   @IsNotEmpty()
   @IsEnum(BookingTimeSlotStatus)
   status: BookingTimeSlotStatus;

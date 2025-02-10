@@ -25,12 +25,12 @@ export class UserFollowing {
 
 @InputType()
 export class CreateUserFollowingInput {
-  @Field(() => ID)
+  @Field(() => ID, { nullable: true })
   @IsNotEmpty()
   @IsMongoId()
   followerId: string;
 
-  @Field(() => ID)
+  @Field(() => ID, { nullable: true })
   @IsNotEmpty()
   @IsMongoId()
   followeeId: string;

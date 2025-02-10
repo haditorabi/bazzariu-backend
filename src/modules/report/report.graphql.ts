@@ -40,22 +40,22 @@ export class Report {
 
 @InputType()
 export class CreateReportInput {
-  @Field(() => ID)
+  @Field(() => ID, { nullable: true })
   @IsNotEmpty()
   @IsMongoId()
   byId: string;
 
-  @Field(() => ID)
+  @Field(() => ID, { nullable: true })
   @IsNotEmpty()
   @IsMongoId()
   targetId: string;
 
-  @Field(() => ReportTargetType)
+  @Field(() => ReportTargetType, { nullable: true })
   @IsNotEmpty()
   @IsEnum(ReportTargetType)
   targetType: ReportTargetType;
 
-  @Field(() => ReportReasonType)
+  @Field(() => ReportReasonType, { nullable: true })
   @IsNotEmpty()
   @IsEnum(ReportReasonType)
   reason: ReportReasonType;

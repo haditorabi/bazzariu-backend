@@ -25,12 +25,12 @@ export class UserBlocked {
 
 @InputType()
 export class CreateUserBlockedInput {
-  @Field(() => ID)
+  @Field(() => ID, { nullable: true })
   @IsNotEmpty()
   @IsMongoId()
   userId: string;
 
-  @Field(() => ID)
+  @Field(() => ID, { nullable: true })
   @IsNotEmpty()
   @IsMongoId()
   blockedId: string;

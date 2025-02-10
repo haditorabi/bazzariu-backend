@@ -23,12 +23,12 @@ export class BusinessFollowing {
 
 @InputType()
 export class CreateBusinessFollowingInput {
-  @Field(() => ID)
+  @Field(() => ID, { nullable: true })
   @IsNotEmpty()
   @IsMongoId()
   businessId: string;
 
-  @Field(() => ID)
+  @Field(() => ID, { nullable: true })
   @IsNotEmpty()
   @IsMongoId()
   userId: string;

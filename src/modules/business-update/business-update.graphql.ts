@@ -57,33 +57,33 @@ export class BusinessUpdate {
 
 @InputType()
 export class CreateBusinessUpdateInput {
-  @Field(() => ID)
+  @Field(() => ID, { nullable: true })
   @IsNotEmpty()
   @IsMongoId()
   businessId: string;
 
-  @Field()
+  @Field({ nullable: true })
   @IsNotEmpty()
   @IsString()
   @Length(10, 70)
   context: string;
 
-  @Field(() => BusinessUpdateType)
+  @Field(() => BusinessUpdateType, { nullable: true })
   @IsNotEmpty()
   @IsEnum(BusinessUpdateType)
   type: BusinessUpdateType;
 
-  @Field()
+  @Field({ nullable: true })
   @IsNotEmpty()
   @IsDate()
   startAt: Date;
 
-  @Field()
+  @Field({ nullable: true })
   @IsNotEmpty()
   @IsDate()
   endAt: Date;
 
-  @Field(() => BusinessUpdateStatus)
+  @Field(() => BusinessUpdateStatus, { nullable: true })
   @IsNotEmpty()
   @IsEnum(BusinessUpdateStatus)
   status: BusinessUpdateStatus;

@@ -89,7 +89,7 @@ export class Business {
 
 @InputType()
 export class CreateBusinessInput {
-  @Field()
+  @Field({ nullable: true })
   @IsNotEmpty()
   @IsString()
   @Length(3, 50)
@@ -106,7 +106,7 @@ export class CreateBusinessInput {
   @IsUrl()
   website?: string;
 
-  @Field()
+  @Field({ nullable: true })
   @IsNotEmpty()
   @IsBoolean()
   isClaimed: boolean;
@@ -140,7 +140,7 @@ export class CreateBusinessInput {
   @IsMongoId({ each: true })
   mediaId?: string[];
 
-  @Field(() => BusinessStatus)
+  @Field(() => BusinessStatus, { nullable: true })
   @IsNotEmpty()
   @IsEnum(BusinessStatus)
   status: BusinessStatus;

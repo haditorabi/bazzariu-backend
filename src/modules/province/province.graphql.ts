@@ -39,18 +39,18 @@ export class Province {
 
 @InputType()
 export class CreateProvinceInput {
-  @Field()
+  @Field({ nullable: true })
   @IsNotEmpty()
   @IsString()
   @Length(3, 100)
   name: string;
 
-  @Field(() => ID)
+  @Field(() => ID, { nullable: true })
   @IsNotEmpty()
   @IsMongoId()
   countryId: string;
 
-  @Field(() => ProvinceStatus)
+  @Field(() => ProvinceStatus, { nullable: true })
   @IsNotEmpty()
   @IsEnum(ProvinceStatus)
   status: ProvinceStatus;

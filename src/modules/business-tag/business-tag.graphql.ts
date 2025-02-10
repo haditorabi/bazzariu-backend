@@ -33,13 +33,13 @@ export class BusinessTag {
 
 @InputType()
 export class CreateBusinessTagInput {
-  @Field()
+  @Field({ nullable: true })
   @IsNotEmpty()
   @IsString()
   @Length(3, 30)
   name: string;
 
-  @Field(() => BusinessTagStatus)
+  @Field(() => BusinessTagStatus, { nullable: true })
   @IsNotEmpty()
   @IsEnum(BusinessTagStatus)
   status: BusinessTagStatus;

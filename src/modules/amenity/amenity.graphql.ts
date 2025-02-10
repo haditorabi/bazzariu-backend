@@ -1,5 +1,6 @@
 import { Field, ObjectType, InputType, ID } from '@nestjs/graphql';
 import { IsMongoId, IsNotEmpty, IsOptional, Length } from 'class-validator';
+import { ValidationMessages } from '../../common/messages/validation-messages';
 
 @ObjectType()
 export class Amenity {
@@ -18,14 +19,14 @@ export class Amenity {
 
 @InputType()
 export class CreateAmenityInput {
-  @Field()
-  @IsNotEmpty()
-  @Length(3, 50)
+  @Field({ nullable: true })
+  @IsNotEmpty({ message: ValidationMessages.IS_NOT_EMPTY })
+  @Length(3, 50, { message: ValidationMessages.LENGTH })
   name: string;
 
   @Field(() => ID, { nullable: true })
   @IsOptional()
-  @IsMongoId()
+  @IsMongoId({ message: ValidationMessages.IS_MONGO_ID })
   mediaId?: string;
 }
 

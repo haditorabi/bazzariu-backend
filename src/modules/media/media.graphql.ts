@@ -33,17 +33,17 @@ export class Media {
 
 @InputType()
 export class CreateMediaInput {
-  @Field()
+  @Field({ nullable: true })
   @IsNotEmpty()
   @IsUrl()
   url: string;
 
-  @Field(() => MediaType)
+  @Field(() => MediaType, { nullable: true })
   @IsNotEmpty()
   @IsEnum(MediaType)
   type: MediaType;
 
-  @Field(() => ModuleType)
+  @Field(() => ModuleType, { nullable: true })
   @IsNotEmpty()
   @IsEnum(ModuleType)
   moduleType: ModuleType;

@@ -82,7 +82,7 @@ export class BusinessDeal {
 
 @InputType()
 export class CreateBusinessDealInput {
-  @Field()
+  @Field({ nullable: true })
   @IsNotEmpty()
   @IsString()
   @Length(3, 80)
@@ -94,7 +94,7 @@ export class CreateBusinessDealInput {
   @Length(10, 280)
   description?: string;
 
-  @Field(() => ID)
+  @Field(() => ID, { nullable: true })
   @IsNotEmpty()
   @IsMongoId()
   businessId: string;
@@ -105,12 +105,12 @@ export class CreateBusinessDealInput {
   @IsMongoId({ each: true })
   businessProductId?: string[];
 
-  @Field(() => DiscountType)
+  @Field(() => DiscountType, { nullable: true })
   @IsNotEmpty()
   @IsEnum(DiscountType)
   discountType: DiscountType;
 
-  @Field()
+  @Field({ nullable: true })
   @IsNotEmpty()
   @IsInt()
   @IsPositive()
@@ -128,12 +128,12 @@ export class CreateBusinessDealInput {
   @Min(1)
   maxPerUser?: number;
 
-  @Field()
+  @Field({ nullable: true })
   @IsNotEmpty()
   @IsDate()
   startDate: Date;
 
-  @Field()
+  @Field({ nullable: true })
   @IsNotEmpty()
   @IsDate()
   endDate: Date;
@@ -144,7 +144,7 @@ export class CreateBusinessDealInput {
   @IsMongoId({ each: true })
   mediaId?: string[];
 
-  @Field(() => BusinessDealStatus)
+  @Field(() => BusinessDealStatus, { nullable: true })
   @IsNotEmpty()
   @IsEnum(BusinessDealStatus)
   status: BusinessDealStatus;

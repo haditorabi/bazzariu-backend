@@ -69,7 +69,7 @@ export class BusinessProduct {
 
 @InputType()
 export class CreateBusinessProductInput {
-  @Field(() => ID)
+  @Field(() => ID, { nullable: true })
   @IsNotEmpty()
   @IsMongoId()
   businessId: string;
@@ -80,7 +80,7 @@ export class CreateBusinessProductInput {
   @IsMongoId({ each: true })
   productCategroyId?: string[];
 
-  @Field()
+  @Field({ nullable: true })
   @IsNotEmpty()
   @IsString()
   @Length(3, 50)
@@ -98,7 +98,7 @@ export class CreateBusinessProductInput {
   @IsMongoId({ each: true })
   mediaId?: string[];
 
-  @Field(() => BusinessProductStatus)
+  @Field(() => BusinessProductStatus, { nullable: true })
   @IsNotEmpty()
   @IsEnum(BusinessProductStatus)
   status: BusinessProductStatus;

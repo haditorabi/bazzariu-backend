@@ -49,28 +49,28 @@ export class Region {
 
 @InputType()
 export class CreateRegionInput {
-  @Field()
+  @Field({ nullable: true })
   @IsNotEmpty()
   @IsString()
   @Length(3, 30)
   name: string;
 
-  @Field(() => ID)
+  @Field(() => ID, { nullable: true })
   @IsNotEmpty()
   @IsMongoId()
   countryId: string;
 
-  @Field(() => ID)
+  @Field(() => ID, { nullable: true })
   @IsNotEmpty()
   @IsMongoId()
   cityId: string;
 
-  @Field(() => RegionStatus)
+  @Field(() => RegionStatus, { nullable: true })
   @IsNotEmpty()
   @IsEnum(RegionStatus)
   status: RegionStatus;
 
-  @Field()
+  @Field({ nullable: true })
   @IsNotEmpty()
   @IsString()
   boundry?: string;

@@ -34,17 +34,17 @@ export class UserBookmark {
 
 @InputType()
 export class CreateUserBookmarkInput {
-  @Field(() => ID)
+  @Field(() => ID, { nullable: true })
   @IsNotEmpty()
   @IsMongoId()
   userId: string;
 
-  @Field(() => ID)
+  @Field(() => ID, { nullable: true })
   @IsNotEmpty()
   @IsMongoId()
   targetId: string;
 
-  @Field(() => UserBookmarkType)
+  @Field(() => UserBookmarkType, { nullable: true })
   @IsNotEmpty()
   @IsEnum(UserBookmarkType)
   targetType: UserBookmarkType;

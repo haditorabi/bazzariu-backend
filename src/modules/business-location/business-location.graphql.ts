@@ -64,7 +64,7 @@ export class BusinessLocation {
 
 @InputType()
 export class CreateBusinessLocationInput {
-  @Field(() => ID)
+  @Field(() => ID, { nullable: true })
   @IsNotEmpty()
   @IsMongoId()
   businessId: string;
@@ -110,7 +110,7 @@ export class CreateBusinessLocationInput {
   @IsPhoneNumber()
   phone?: string;
 
-  @Field(() => BusinessLocationStatus)
+  @Field(() => BusinessLocationStatus, { nullable: true })
   @IsNotEmpty()
   @IsEnum(BusinessLocationStatus)
   status: BusinessLocationStatus;

@@ -52,27 +52,27 @@ export class BusinessBoost {
 
 @InputType()
 export class CreateBusinessBoostInput {
-  @Field(() => ID)
+  @Field(() => ID, { nullable: true })
   @IsNotEmpty()
   @IsMongoId()
   businessId: string;
 
-  @Field(() => BusinessBoostType)
+  @Field(() => BusinessBoostType, { nullable: true })
   @IsNotEmpty()
   @IsEnum(BusinessBoostType)
   type: BusinessBoostType;
 
-  @Field()
+  @Field({ nullable: true })
   @IsDate()
   @IsNotEmpty()
   startAt: Date;
 
-  @Field()
+  @Field({ nullable: true })
   @IsDate()
   @IsNotEmpty()
   endAt: Date;
 
-  @Field(() => BusinessBoostStatus)
+  @Field(() => BusinessBoostStatus, { nullable: true })
   @IsNotEmpty()
   @IsEnum(BusinessBoostStatus)
   status: BusinessBoostStatus;

@@ -33,19 +33,19 @@ export class Currency {
 
 @InputType()
 export class CreateCurrencyInput {
-  @Field()
+  @Field({ nullable: true })
   @IsNotEmpty()
   @IsString()
   @Length(3, 100)
   name: string;
 
-  @Field()
+  @Field({ nullable: true })
   @IsNotEmpty()
   @IsString()
   @Length(3, 3)
   code: string;
 
-  @Field(() => CurrencyStatus)
+  @Field(() => CurrencyStatus, { nullable: true })
   @IsNotEmpty()
   @IsEnum(CurrencyStatus)
   status: CurrencyStatus;

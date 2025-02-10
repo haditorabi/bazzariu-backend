@@ -56,7 +56,7 @@ export class Event {
 
 @InputType()
 export class CreateEventInput {
-  @Field()
+  @Field({ nullable: true })
   @IsNotEmpty()
   @Length(3, 30)
   name: string;
@@ -66,12 +66,12 @@ export class CreateEventInput {
   @Length(10, 300)
   description?: string;
 
-  @Field()
+  @Field({ nullable: true })
   @IsNotEmpty()
   @IsDate()
   startDate: Date;
 
-  @Field()
+  @Field({ nullable: true })
   @IsNotEmpty()
   @IsDate()
   endDate: Date;
@@ -86,7 +86,7 @@ export class CreateEventInput {
   @IsMongoId({ each: true })
   mediaId?: string[];
 
-  @Field(() => EventStatus)
+  @Field(() => EventStatus, { nullable: true })
   @IsNotEmpty()
   @IsEnum(EventStatus)
   status: EventStatus;

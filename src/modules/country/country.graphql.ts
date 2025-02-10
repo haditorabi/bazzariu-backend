@@ -41,19 +41,19 @@ export class Country {
 
 @InputType()
 export class CreateCountryInput {
-  @Field()
+  @Field({ nullable: true })
   @IsNotEmpty()
   @IsString()
   @Length(3, 100)
   name: string;
 
-  @Field()
+  @Field({ nullable: true })
   @IsNotEmpty()
   @IsString()
   @Length(3, 3)
   code: string;
 
-  @Field(() => CountryStatus)
+  @Field(() => CountryStatus, { nullable: true })
   @IsNotEmpty()
   @IsEnum(CountryStatus)
   status: CountryStatus;

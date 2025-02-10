@@ -33,7 +33,7 @@ export class User {
 
 @InputType()
 export class CreateUserInput {
-  @Field()
+  @Field({ nullable: true })
   @IsNotEmpty()
   @IsString()
   @Length(3, 100)
@@ -51,7 +51,7 @@ export class CreateUserInput {
   @Length(3, 100)
   lastName?: string;
 
-  @Field()
+  @Field({ nullable: true })
   @IsNotEmpty()
   @IsEmail()
   email: string;

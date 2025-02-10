@@ -64,7 +64,7 @@ export class UserReview {
 
 @InputType()
 export class CreateUserReviewInput {
-  @Field(() => ID)
+  @Field(() => ID, { nullable: true })
   @IsNotEmpty()
   @IsMongoId()
   userId: string;
@@ -74,7 +74,7 @@ export class CreateUserReviewInput {
   @IsMongoId()
   targetId: string;
 
-  @Field(() => UserReviewType)
+  @Field(() => UserReviewType, { nullable: true })
   @IsNotEmpty()
   @IsEnum(UserReviewType)
   targetType: UserReviewType;
@@ -84,7 +84,7 @@ export class CreateUserReviewInput {
   @IsArray()
   mediaId?: string[];
 
-  @Field(() => Int)
+  @Field(() => Int, { nullable: true })
   @IsNotEmpty()
   @IsInt()
   @Min(1)
@@ -97,7 +97,7 @@ export class CreateUserReviewInput {
   @Length(3, 3000)
   content?: string;
 
-  @Field(() => UserReviewStatus)
+  @Field(() => UserReviewStatus, { nullable: true })
   @IsNotEmpty()
   @IsEnum(UserReviewStatus)
   status: UserReviewStatus;

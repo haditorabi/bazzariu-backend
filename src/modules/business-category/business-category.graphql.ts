@@ -43,7 +43,7 @@ export class BusinessCategory {
 
 @InputType()
 export class CreateBusinessCategoryInput {
-  @Field()
+  @Field({ nullable: true })
   @IsNotEmpty()
   @IsString()
   @Length(3, 30)
@@ -54,7 +54,7 @@ export class CreateBusinessCategoryInput {
   @IsMongoId()
   mediaId?: string;
 
-  @Field(() => BusinessCategoryStatus)
+  @Field(() => BusinessCategoryStatus, { nullable: true })
   @IsNotEmpty()
   @IsEnum(BusinessCategoryStatus)
   status: BusinessCategoryStatus;

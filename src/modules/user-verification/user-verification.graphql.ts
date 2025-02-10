@@ -40,17 +40,17 @@ export class UserVerification {
 
 @InputType()
 export class CreateUserVerificationInput {
-  @Field(() => ID)
+  @Field(() => ID, { nullable: true })
   @IsNotEmpty()
   @IsMongoId()
   userId: string;
 
-  @Field(() => UserVerificationType)
+  @Field(() => UserVerificationType, { nullable: true })
   @IsNotEmpty()
   @IsEnum(UserVerificationType)
   type: UserVerificationType;
 
-  @Field(() => UserVerificationStatus)
+  @Field(() => UserVerificationStatus, { nullable: true })
   @IsNotEmpty()
   @IsEnum(UserVerificationStatus)
   status: UserVerificationStatus;

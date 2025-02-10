@@ -33,13 +33,13 @@ export class ProductCategory {
 
 @InputType()
 export class CreateProductCategoryInput {
-  @Field()
+  @Field({ nullable: true })
   @IsNotEmpty()
   @IsString()
   @Length(3, 30)
   name: string;
 
-  @Field(() => ProductCategoryStatus)
+  @Field(() => ProductCategoryStatus, { nullable: true })
   @IsNotEmpty()
   @IsEnum(ProductCategoryStatus)
   status: ProductCategoryStatus;

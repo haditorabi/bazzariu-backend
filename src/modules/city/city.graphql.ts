@@ -43,18 +43,18 @@ export class City {
 
 @InputType()
 export class CreateCityInput {
-  @Field()
+  @Field({ nullable: true })
   @IsNotEmpty()
   @IsString()
   @Length(3, 100)
   name: string;
 
-  @Field(() => ID)
+  @Field(() => ID, { nullable: true })
   @IsNotEmpty()
   @IsMongoId()
   provinceId: string;
 
-  @Field(() => CityStatus)
+  @Field(() => CityStatus, { nullable: true })
   @IsNotEmpty()
   @IsEnum(CityStatus)
   statusId: CityStatus;

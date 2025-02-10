@@ -60,12 +60,12 @@ export class UserActionLog {
 
 @InputType()
 export class CreateUserActionLogInput {
-  @Field(() => ID)
+  @Field(() => ID, { nullable: true })
   @IsNotEmpty()
   @IsMongoId()
   userId: string;
 
-  @Field(() => UserActionLogType)
+  @Field(() => UserActionLogType, { nullable: true })
   @IsNotEmpty()
   @IsEnum(UserActionLogType)
   action: UserActionLogType;
@@ -76,17 +76,17 @@ export class CreateUserActionLogInput {
   @MaxLength(1000)
   actionDetails?: string;
 
-  @Field(() => ID)
+  @Field(() => ID, { nullable: true })
   @IsNotEmpty()
   @IsMongoId()
   targetId: string;
 
-  @Field(() => UserActionLogTargetType)
+  @Field(() => UserActionLogTargetType, { nullable: true })
   @IsNotEmpty()
   @IsEnum(UserActionLogTargetType)
   targetType: UserActionLogTargetType;
 
-  @Field()
+  @Field({ nullable: true })
   @IsNotEmpty()
   @IsIP('4')
   ipAddress: string;

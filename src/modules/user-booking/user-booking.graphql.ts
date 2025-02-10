@@ -50,7 +50,7 @@ export class UserBooking {
 
 @InputType()
 export class CreateUserBookingInput {
-  @Field(() => ID)
+  @Field(() => ID, { nullable: true })
   @IsNotEmpty()
   @IsMongoId()
   userId: string;
@@ -61,12 +61,12 @@ export class CreateUserBookingInput {
   @IsMongoId({ each: true })
   businessProductId?: string[];
 
-  @Field(() => ID)
+  @Field(() => ID, { nullable: true })
   @IsNotEmpty()
   @IsMongoId()
   bookingTimeSlotId: string;
 
-  @Field(() => UserBookingStatus)
+  @Field(() => UserBookingStatus, { nullable: true })
   @IsNotEmpty()
   @IsEnum(UserBookingStatus)
   status: UserBookingStatus;

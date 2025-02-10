@@ -34,12 +34,12 @@ export class EventCategory {
 
 @InputType()
 export class CreateEventCategoryInput {
-  @Field()
+  @Field({ nullable: true })
   @IsNotEmpty()
   @Length(3, 50)
   name: string;
 
-  @Field(() => EventCategoryStatus)
+  @Field(() => EventCategoryStatus, { nullable: true })
   @IsNotEmpty()
   @IsEnum(EventCategoryStatus)
   status: EventCategoryStatus;

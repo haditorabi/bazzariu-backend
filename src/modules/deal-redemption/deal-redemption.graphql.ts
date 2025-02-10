@@ -53,12 +53,12 @@ export class DealsRedemption {
 
 @InputType()
 export class CreateDealsRedemptionInput {
-  @Field(() => ID)
+  @Field(() => ID, { nullable: true })
   @IsNotEmpty()
   @IsMongoId()
   businessDealId: string;
 
-  @Field(() => ID)
+  @Field(() => ID, { nullable: true })
   @IsNotEmpty()
   userId: string;
 
@@ -67,12 +67,12 @@ export class CreateDealsRedemptionInput {
   @IsDate()
   redeemedAt?: Date;
 
-  @Field()
+  @Field({ nullable: true })
   @IsNotEmpty()
   @IsDate()
   expiresAt: Date;
 
-  @Field(() => DealsRedemptionStatus)
+  @Field(() => DealsRedemptionStatus, { nullable: true })
   @IsNotEmpty()
   @IsEnum(DealsRedemptionStatus)
   status: DealsRedemptionStatus;

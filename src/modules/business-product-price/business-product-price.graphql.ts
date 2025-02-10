@@ -43,12 +43,12 @@ export class CreateBusinessProductPriceInput {
   @IsMongoId()
   businessProductId: string;
 
-  @Field(() => ID)
+  @Field(() => ID, { nullable: true })
   @IsNotEmpty()
   @IsMongoId()
   currencyId: string;
 
-  @Field()
+  @Field({ nullable: true })
   @IsNotEmpty()
   @IsDecimal()
   @Min(1)

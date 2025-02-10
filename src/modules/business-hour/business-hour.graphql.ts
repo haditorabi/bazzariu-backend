@@ -47,30 +47,30 @@ export class BusinessHour {
 
 @InputType()
 export class CreateBusinessHourInput {
-  @Field(() => ID)
+  @Field(() => ID, { nullable: true })
   @IsNotEmpty()
   @IsMongoId()
   businessId: string;
 
-  @Field()
+  @Field({ nullable: true })
   @IsNotEmpty()
   @IsString()
   @Length(3, 3)
   dayOfWeek: string;
 
-  @Field()
+  @Field({ nullable: true })
   @IsNotEmpty()
   @IsString()
   @Length(5, 5)
   openTime: string;
 
-  @Field()
+  @Field({ nullable: true })
   @IsNotEmpty()
   @IsString()
   @Length(5, 5)
   closeTime: string;
 
-  @Field(() => BusinessHourStatus)
+  @Field(() => BusinessHourStatus, { nullable: true })
   @IsNotEmpty()
   @IsEnum(BusinessHourStatus)
   status: BusinessHourStatus;

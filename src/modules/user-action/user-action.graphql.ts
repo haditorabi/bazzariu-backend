@@ -58,22 +58,22 @@ export class UserAction {
 
 @InputType()
 export class CreateUserActionInput {
-  @Field(() => ID)
+  @Field(() => ID, { nullable: true })
   @IsNotEmpty()
   @IsMongoId()
   userId: string;
 
-  @Field(() => UserActionType)
+  @Field(() => UserActionType, { nullable: true })
   @IsNotEmpty()
   @IsEnum(UserActionType)
   action: UserActionType;
 
-  @Field(() => ID)
+  @Field(() => ID, { nullable: true })
   @IsNotEmpty()
   @IsMongoId()
   targetId: string;
 
-  @Field(() => UserActionTargetType)
+  @Field(() => UserActionTargetType, { nullable: true })
   @IsNotEmpty()
   @IsEnum(UserActionTargetType)
   targetType: UserActionTargetType;
@@ -84,7 +84,7 @@ export class CreateUserActionInput {
   @MaxLength(1000)
   actionDetails?: string;
 
-  @Field()
+  @Field({ nullable: true })
   @IsNotEmpty()
   @Min(1)
   @Max(100)

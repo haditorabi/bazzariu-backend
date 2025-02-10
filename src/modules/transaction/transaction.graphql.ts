@@ -65,27 +65,27 @@ export class Transaction {
 
 @InputType()
 export class CreateTransactionInput {
-  @Field(() => ID)
+  @Field(() => ID, { nullable: true })
   @IsNotEmpty()
   @IsMongoId()
   paymentId: string;
 
-  @Field(() => ID)
+  @Field(() => ID, { nullable: true })
   @IsNotEmpty()
   @IsMongoId()
   businessId: string;
 
-  @Field(() => ID)
+  @Field(() => ID, { nullable: true })
   @IsNotEmpty()
   @IsMongoId()
   currencyId: string;
 
-  @Field(() => ID)
+  @Field(() => ID, { nullable: true })
   @IsNotEmpty()
   @IsMongoId()
   userId: string;
 
-  @Field()
+  @Field({ nullable: true })
   @IsNotEmpty()
   @IsDecimal()
   @IsPositive()
@@ -96,7 +96,7 @@ export class CreateTransactionInput {
   @IsString()
   description?: string;
 
-  @Field(() => TransactionStatus)
+  @Field(() => TransactionStatus, { nullable: true })
   @IsNotEmpty()
   @IsEnum(TransactionStatus)
   status: TransactionStatus;

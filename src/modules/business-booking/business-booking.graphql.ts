@@ -63,7 +63,7 @@ export class BusinessBooking {
 
 @InputType()
 export class CreateBusinessBookingInput {
-  @Field(() => ID)
+  @Field(() => ID, { nullable: true })
   @IsNotEmpty()
   @IsMongoId()
   businessId: string;
@@ -92,7 +92,7 @@ export class CreateBusinessBookingInput {
   @IsMongoId({ each: true })
   mediaId?: string[];
 
-  @Field(() => BusinessBookingStatus)
+  @Field(() => BusinessBookingStatus, { nullable: true })
   @IsNotEmpty()
   @IsEnum(BusinessBookingStatus)
   status: BusinessBookingStatus;

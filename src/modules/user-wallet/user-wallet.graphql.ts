@@ -28,17 +28,17 @@ export class UserWallet {
 
 @InputType()
 export class CreateUserWalletInput {
-  @Field(() => ID)
+  @Field(() => ID, { nullable: true })
   @IsNotEmpty()
   @IsMongoId()
   userId: string;
 
-  @Field()
+  @Field({ nullable: true })
   @IsNotEmpty()
   @IsDecimal()
   balance: number;
 
-  @Field(() => ID)
+  @Field(() => ID, { nullable: true })
   @IsNotEmpty()
   @IsMongoId()
   currencyId: string;

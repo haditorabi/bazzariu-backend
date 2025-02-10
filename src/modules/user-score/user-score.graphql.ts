@@ -22,12 +22,12 @@ export class UserScore {
 
 @InputType()
 export class CreateUserScoreInput {
-  @Field(() => ID)
+  @Field(() => ID, { nullable: true })
   @IsNotEmpty()
   @IsMongoId()
   userId: string;
 
-  @Field(() => Int)
+  @Field(() => Int, { nullable: true })
   @IsNotEmpty()
   @IsInt()
   score: number;

@@ -27,17 +27,17 @@ export class Language {
 
 @InputType()
 export class CreateLanguageInput {
-  @Field()
+  @Field({ nullable: true })
   @IsNotEmpty()
   @Length(3, 30)
   name: string;
 
-  @Field()
+  @Field({ nullable: true })
   @IsNotEmpty()
   @Length(2, 2)
   code: string;
 
-  @Field(() => LanguageStatus)
+  @Field(() => LanguageStatus, { nullable: true })
   @IsNotEmpty()
   @IsEnum(LanguageStatus)
   status: LanguageStatus;

@@ -77,7 +77,7 @@ export class Payment {
 
 @InputType()
 export class CreatePaymentInput {
-  @Field(() => ID)
+  @Field(() => ID, { nullable: true })
   @IsNotEmpty()
   transactionId: string;
 
@@ -86,17 +86,17 @@ export class CreatePaymentInput {
   @IsString()
   description?: string;
 
-  @Field(() => ID)
+  @Field(() => ID, { nullable: true })
   @IsNotEmpty()
   @IsMongoId()
   targetId: string;
 
-  @Field(() => PaymentTargetType)
+  @Field(() => PaymentTargetType, { nullable: true })
   @IsNotEmpty()
   @IsEnum(PaymentTargetType)
   targetType: PaymentTargetType;
 
-  @Field(() => ID)
+  @Field(() => ID, { nullable: true })
   @IsNotEmpty()
   @IsMongoId()
   userId: string;
@@ -106,23 +106,23 @@ export class CreatePaymentInput {
   @IsMongoId()
   businessId?: string;
 
-  @Field(() => ID)
+  @Field(() => ID, { nullable: true })
   @IsNotEmpty()
   @IsMongoId()
   paymentMethodId: string;
 
-  @Field()
+  @Field({ nullable: true })
   @IsNotEmpty()
   @IsDecimal()
   @IsPositive()
   amount: number;
 
-  @Field(() => ID)
+  @Field(() => ID, { nullable: true })
   @IsNotEmpty()
   @IsMongoId()
   currencyId: string;
 
-  @Field(() => PaymentStatus)
+  @Field(() => PaymentStatus, { nullable: true })
   @IsNotEmpty()
   @IsEnum(PaymentStatus)
   status: PaymentStatus;

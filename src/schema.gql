@@ -485,162 +485,162 @@ enum CountryStatus {
 
 input CreateAmenityInput {
   mediaId: ID
-  name: String!
+  name: String
 }
 
 input CreateBookingTimeSlotInput {
   businessBookingId: ID
-  endAt: DateTime!
-  startAt: DateTime!
-  status: BookingTimeSlotStatus!
-  timezone: String!
+  endAt: DateTime
+  startAt: DateTime
+  status: BookingTimeSlotStatus
+  timezone: String
 }
 
 input CreateBusinessBookingInput {
-  businessId: ID!
+  businessId: ID
   businessProductId: [ID!]
   maxAvailable: Int
   maxGuest: Int
   mediaId: [ID!]
-  status: BusinessBookingStatus!
+  status: BusinessBookingStatus
 }
 
 input CreateBusinessBoostInput {
-  businessId: ID!
-  endAt: DateTime!
-  startAt: DateTime!
-  status: BusinessBoostStatus!
-  type: BusinessBoostType!
+  businessId: ID
+  endAt: DateTime
+  startAt: DateTime
+  status: BusinessBoostStatus
+  type: BusinessBoostType
 }
 
 input CreateBusinessCategoryInput {
   mediaId: ID
-  name: String!
-  status: BusinessCategoryStatus!
+  name: String
+  status: BusinessCategoryStatus
 }
 
 input CreateBusinessDealInput {
-  businessId: ID!
+  businessId: ID
   businessProductId: [ID!]
   description: String
-  discountType: DiscountType!
-  endDate: DateTime!
+  discountType: DiscountType
+  endDate: DateTime
   maxPerUser: Int
   maxRedemption: Int
   mediaId: [ID!]
-  name: String!
-  startDate: DateTime!
-  status: BusinessDealStatus!
-  value: Float!
+  name: String
+  startDate: DateTime
+  status: BusinessDealStatus
+  value: Float
 }
 
 input CreateBusinessFollowingInput {
-  businessId: ID!
-  userId: ID!
+  businessId: ID
+  userId: ID
 }
 
 input CreateBusinessHourInput {
-  businessId: ID!
-  closeTime: String!
-  dayOfWeek: String!
-  openTime: String!
-  status: BusinessHourStatus!
+  businessId: ID
+  closeTime: String
+  dayOfWeek: String
+  openTime: String
+  status: BusinessHourStatus
 }
 
 input CreateBusinessInput {
   amenityId: [ID!]
   businessCategoryId: [ID!]
   description: String
-  isClaimed: Boolean!
+  isClaimed: Boolean
   languageId: [ID!]
   mediaId: [ID!]
-  name: String!
+  name: String
   regionId: ID
-  status: BusinessStatus!
+  status: BusinessStatus
   website: String
 }
 
 input CreateBusinessLocationInput {
   address: String
-  businessId: ID!
+  businessId: ID
   cityId: ID
   countryId: ID
   latitude: Float
   longitude: Float
   phone: String
   provinceId: ID
-  status: BusinessLocationStatus!
+  status: BusinessLocationStatus
   zipCode: String
 }
 
 input CreateBusinessProductInput {
-  businessId: ID!
+  businessId: ID
   description: String
   mediaId: [ID!]
-  name: String!
+  name: String
   productCategroyId: [ID!]
-  status: BusinessProductStatus!
+  status: BusinessProductStatus
 }
 
 input CreateBusinessProductPriceInput {
   businessProductId: ID
-  currencyId: ID!
-  price: Float!
+  currencyId: ID
+  price: Float
 }
 
 input CreateBusinessTagInput {
-  name: String!
-  status: BusinessTagStatus!
+  name: String
+  status: BusinessTagStatus
 }
 
 input CreateBusinessUpdateInput {
-  businessId: ID!
-  context: String!
-  endAt: DateTime!
-  startAt: DateTime!
-  status: BusinessUpdateStatus!
-  type: BusinessUpdateType!
+  businessId: ID
+  context: String
+  endAt: DateTime
+  startAt: DateTime
+  status: BusinessUpdateStatus
+  type: BusinessUpdateType
 }
 
 input CreateCityInput {
-  name: String!
-  provinceId: ID!
-  statusId: CityStatus!
+  name: String
+  provinceId: ID
+  statusId: CityStatus
 }
 
 input CreateCountryInput {
-  code: String!
-  name: String!
-  status: CountryStatus!
+  code: String
+  name: String
+  status: CountryStatus
 }
 
 input CreateCurrencyInput {
-  code: String!
-  name: String!
-  status: CurrencyStatus!
+  code: String
+  name: String
+  status: CurrencyStatus
 }
 
 input CreateDealsRedemptionInput {
-  businessDealId: ID!
-  expiresAt: DateTime!
+  businessDealId: ID
+  expiresAt: DateTime
   redeemedAt: DateTime
-  status: DealsRedemptionStatus!
-  userId: ID!
+  status: DealsRedemptionStatus
+  userId: ID
 }
 
 input CreateEventCategoryInput {
-  name: String!
-  status: EventCategoryStatus!
+  name: String
+  status: EventCategoryStatus
 }
 
 input CreateEventInput {
   categoryId: [ID!]
   description: String
-  endDate: DateTime!
+  endDate: DateTime
   mediaId: [ID!]
-  name: String!
-  startDate: DateTime!
-  status: EventStatus!
+  name: String
+  startDate: DateTime
+  status: EventStatus
 }
 
 input CreateExampleInput {
@@ -649,152 +649,152 @@ input CreateExampleInput {
 }
 
 input CreateLanguageInput {
-  code: String!
-  name: String!
-  status: LanguageStatus!
+  code: String
+  name: String
+  status: LanguageStatus
 }
 
 input CreateMediaInput {
-  moduleType: ModuleType!
-  type: MediaType!
-  url: String!
+  moduleType: ModuleType
+  type: MediaType
+  url: String
 }
 
 input CreatePaymentInput {
-  amount: Float!
+  amount: Float
   businessId: ID
-  currencyId: ID!
+  currencyId: ID
   description: String
-  paymentMethodId: ID!
-  status: PaymentStatus!
-  targetId: ID!
-  targetType: PaymentTargetType!
-  transactionId: ID!
-  userId: ID!
+  paymentMethodId: ID
+  status: PaymentStatus
+  targetId: ID
+  targetType: PaymentTargetType
+  transactionId: ID
+  userId: ID
 }
 
 input CreatePaymentMethodInput {
   details: String
-  status: PaymentMethodStatus!
-  type: PaymentMethodType!
-  userId: ID!
+  status: PaymentMethodStatus
+  type: PaymentMethodType
+  userId: ID
 }
 
 input CreateProductCategoryInput {
-  name: String!
-  status: ProductCategoryStatus!
+  name: String
+  status: ProductCategoryStatus
 }
 
 input CreateProvinceInput {
-  countryId: ID!
-  name: String!
-  status: ProvinceStatus!
+  countryId: ID
+  name: String
+  status: ProvinceStatus
 }
 
 input CreateRegionInput {
-  boundry: String!
-  cityId: ID!
-  countryId: ID!
-  name: String!
-  status: RegionStatus!
+  boundry: String
+  cityId: ID
+  countryId: ID
+  name: String
+  status: RegionStatus
 }
 
 input CreateReportInput {
-  byId: ID!
-  reason: ReportReasonType!
-  targetId: ID!
-  targetType: ReportTargetType!
+  byId: ID
+  reason: ReportReasonType
+  targetId: ID
+  targetType: ReportTargetType
 }
 
 input CreateTransactionInput {
-  amount: Float!
-  businessId: ID!
-  currencyId: ID!
+  amount: Float
+  businessId: ID
+  currencyId: ID
   description: String!
-  paymentId: ID!
-  status: TransactionStatus!
-  userId: ID!
+  paymentId: ID
+  status: TransactionStatus
+  userId: ID
 }
 
 input CreateUserActionInput {
-  action: UserActionType!
+  action: UserActionType
   actionDetails: String
-  points: Float!
-  targetId: ID!
-  targetType: UserActionTargetType!
-  userId: ID!
+  points: Float
+  targetId: ID
+  targetType: UserActionTargetType
+  userId: ID
 }
 
 input CreateUserActionLogInput {
-  action: UserActionLogType!
+  action: UserActionLogType
   actionDetails: String
   device: String
-  ipAddress: String!
+  ipAddress: String
   os: String
-  targetId: ID!
-  targetType: UserActionLogTargetType!
-  userId: ID!
+  targetId: ID
+  targetType: UserActionLogTargetType
+  userId: ID
 }
 
 input CreateUserBlockedInput {
-  blockedId: ID!
-  userId: ID!
+  blockedId: ID
+  userId: ID
 }
 
 input CreateUserBookingInput {
-  bookingTimeSlotId: ID!
+  bookingTimeSlotId: ID
   businessProductId: [ID!]
-  status: UserBookingStatus!
-  userId: ID!
+  status: UserBookingStatus
+  userId: ID
 }
 
 input CreateUserBookmarkInput {
-  targetId: ID!
-  targetType: UserBookmarkType!
-  userId: ID!
+  targetId: ID
+  targetType: UserBookmarkType
+  userId: ID
 }
 
 input CreateUserCheckinInput {
-  businessId: ID!
-  userId: ID!
+  businessId: ID
+  userId: ID
 }
 
 input CreateUserFollowingInput {
-  followeeId: ID!
-  followerId: ID!
+  followeeId: ID
+  followerId: ID
 }
 
 input CreateUserPreferenceInput {
-  key: String!
-  userId: ID!
-  value: String!
+  key: String
+  userId: ID
+  value: String
 }
 
 input CreateUserReviewInput {
   content: String
   mediaId: [ID!]
-  rating: Int!
-  status: UserReviewStatus!
+  rating: Int
+  status: UserReviewStatus
   targetId: ID
-  targetType: UserReviewType!
-  userId: ID!
+  targetType: UserReviewType
+  userId: ID
 }
 
 input CreateUserScoreInput {
-  score: Int!
-  userId: ID!
+  score: Int
+  userId: ID
 }
 
 input CreateUserVerificationInput {
-  status: UserVerificationStatus!
-  type: UserVerificationType!
-  userId: ID!
+  status: UserVerificationStatus
+  type: UserVerificationType
+  userId: ID
 }
 
 input CreateUserWalletInput {
-  balance: Float!
-  currencyId: ID!
-  userId: ID!
+  balance: Float
+  currencyId: ID
+  userId: ID
 }
 
 type Currency {
