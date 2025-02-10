@@ -1,4 +1,10 @@
-import { Field, ObjectType, InputType, ID } from '@nestjs/graphql';
+import {
+  Field,
+  ObjectType,
+  InputType,
+  ID,
+  registerEnumType,
+} from '@nestjs/graphql';
 import { BusinessUpdateStatus, BusinessUpdateType } from '@prisma/client';
 import {
   IsNotEmpty,
@@ -10,7 +16,12 @@ import {
   IsOptional,
 } from 'class-validator';
 import { CommonBusiness } from 'src/graphql/business.type';
-
+registerEnumType(BusinessUpdateType, {
+  name: 'BusinessUpdateType',
+});
+registerEnumType(BusinessUpdateStatus, {
+  name: 'BusinessUpdateStatus',
+});
 @ObjectType()
 export class BusinessUpdate {
   @Field(() => ID)
@@ -25,7 +36,7 @@ export class BusinessUpdate {
   @Field()
   context: string;
 
-  @Field()
+  @Field(() => BusinessUpdateType)
   type: BusinessUpdateType;
 
   @Field()
@@ -34,7 +45,7 @@ export class BusinessUpdate {
   @Field()
   endAt: Date;
 
-  @Field()
+  @Field(() => BusinessUpdateStatus)
   status: BusinessUpdateStatus;
 
   @Field()
@@ -57,7 +68,7 @@ export class CreateBusinessUpdateInput {
   @Length(10, 70)
   context: string;
 
-  @Field()
+  @Field(() => BusinessUpdateType)
   @IsNotEmpty()
   @IsEnum(BusinessUpdateType)
   type: BusinessUpdateType;
@@ -72,7 +83,7 @@ export class CreateBusinessUpdateInput {
   @IsDate()
   endAt: Date;
 
-  @Field()
+  @Field(() => BusinessUpdateStatus)
   @IsNotEmpty()
   @IsEnum(BusinessUpdateStatus)
   status: BusinessUpdateStatus;

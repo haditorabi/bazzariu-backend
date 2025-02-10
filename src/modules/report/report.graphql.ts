@@ -1,8 +1,19 @@
-import { Field, ObjectType, InputType, ID } from '@nestjs/graphql';
+import {
+  Field,
+  ObjectType,
+  InputType,
+  ID,
+  registerEnumType,
+} from '@nestjs/graphql';
 import { ReportReasonType, ReportTargetType } from '@prisma/client';
 import { IsNotEmpty, IsMongoId, IsEnum, IsOptional } from 'class-validator';
 import { CommonUser } from 'src/graphql/user.type';
-
+registerEnumType(ReportReasonType, {
+  name: 'ReportReasonType',
+});
+registerEnumType(ReportTargetType, {
+  name: 'ReportTargetType',
+});
 @ObjectType()
 export class Report {
   @Field(() => ID)
@@ -17,10 +28,10 @@ export class Report {
   @Field()
   targetId: string;
 
-  @Field()
+  @Field(() => ReportTargetType)
   targetType: ReportTargetType;
 
-  @Field({ nullable: true })
+  @Field(() => ReportReasonType, { nullable: true })
   reason?: ReportReasonType;
 
   @Field()
@@ -39,12 +50,12 @@ export class CreateReportInput {
   @IsMongoId()
   targetId: string;
 
-  @Field()
+  @Field(() => ReportTargetType)
   @IsNotEmpty()
   @IsEnum(ReportTargetType)
   targetType: ReportTargetType;
 
-  @Field()
+  @Field(() => ReportReasonType)
   @IsNotEmpty()
   @IsEnum(ReportReasonType)
   reason: ReportReasonType;
@@ -62,12 +73,12 @@ export class UpdateReportInput {
   @IsMongoId()
   targetId?: string;
 
-  @Field({ nullable: true })
+  @Field(() => ReportTargetType, { nullable: true })
   @IsOptional()
   @IsEnum(ReportTargetType)
   targetType?: ReportTargetType;
 
-  @Field({ nullable: true })
+  @Field(() => ReportReasonType, { nullable: true })
   @IsOptional()
   @IsEnum(ReportReasonType)
   reason?: ReportReasonType;

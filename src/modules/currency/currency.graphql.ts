@@ -1,4 +1,10 @@
-import { Field, ObjectType, InputType, ID } from '@nestjs/graphql';
+import {
+  Field,
+  ObjectType,
+  InputType,
+  ID,
+  registerEnumType,
+} from '@nestjs/graphql';
 import { CurrencyStatus } from '@prisma/client';
 import {
   IsNotEmpty,
@@ -7,7 +13,9 @@ import {
   IsEnum,
   IsOptional,
 } from 'class-validator';
-
+registerEnumType(CurrencyStatus, {
+  name: 'CurrencyStatus',
+});
 @ObjectType()
 export class Currency {
   @Field(() => ID)
@@ -19,7 +27,7 @@ export class Currency {
   @Field()
   code: string;
 
-  @Field()
+  @Field(() => CurrencyStatus)
   status: CurrencyStatus;
 }
 
@@ -37,7 +45,7 @@ export class CreateCurrencyInput {
   @Length(3, 3)
   code: string;
 
-  @Field()
+  @Field(() => CurrencyStatus)
   @IsNotEmpty()
   @IsEnum(CurrencyStatus)
   status: CurrencyStatus;
@@ -57,7 +65,7 @@ export class UpdateCurrencyInput {
   @Length(3, 3)
   code?: string;
 
-  @Field({ nullable: true })
+  @Field(() => CurrencyStatus, { nullable: true })
   @IsOptional()
   @IsEnum(CurrencyStatus)
   status?: CurrencyStatus;

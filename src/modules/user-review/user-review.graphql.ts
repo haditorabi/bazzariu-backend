@@ -1,4 +1,11 @@
-import { Field, ObjectType, InputType, ID, Int } from '@nestjs/graphql';
+import {
+  Field,
+  ObjectType,
+  InputType,
+  ID,
+  Int,
+  registerEnumType,
+} from '@nestjs/graphql';
 import { UserReviewStatus, UserReviewType } from '@prisma/client';
 import {
   IsNotEmpty,
@@ -13,7 +20,12 @@ import {
   IsArray,
 } from 'class-validator';
 import { CommonUser } from 'src/graphql/user.type';
-
+registerEnumType(UserReviewType, {
+  name: 'UserReviewType',
+});
+registerEnumType(UserReviewStatus, {
+  name: 'UserReviewStatus',
+});
 @ObjectType()
 export class UserReview {
   @Field(() => ID)
@@ -28,7 +40,7 @@ export class UserReview {
   @Field(() => ID)
   targetId: string;
 
-  @Field()
+  @Field(() => UserReviewType)
   targetType: UserReviewType;
 
   @Field(() => [ID], { nullable: true })

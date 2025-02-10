@@ -1,4 +1,10 @@
-import { Field, ObjectType, InputType, ID } from '@nestjs/graphql';
+import {
+  Field,
+  ObjectType,
+  InputType,
+  ID,
+  registerEnumType,
+} from '@nestjs/graphql';
 import { PaymentMethodStatus, PaymentMethodType } from '@prisma/client';
 import {
   IsNotEmpty,
@@ -9,7 +15,12 @@ import {
 } from 'class-validator';
 import { CommonPayment } from 'src/graphql/payment.type';
 import { CommonUser } from 'src/graphql/user.type';
-
+registerEnumType(PaymentMethodType, {
+  name: 'PaymentMethodType',
+});
+registerEnumType(PaymentMethodStatus, {
+  name: 'PaymentMethodStatus',
+});
 @ObjectType()
 export class PaymentMethod {
   @Field(() => ID)
@@ -27,10 +38,10 @@ export class PaymentMethod {
   @Field({ nullable: true })
   details?: string;
 
-  @Field()
+  @Field(() => PaymentMethodType)
   type: PaymentMethodType;
 
-  @Field()
+  @Field(() => PaymentMethodStatus)
   status: PaymentMethodStatus;
 
   @Field({ nullable: true })
@@ -52,12 +63,12 @@ export class CreatePaymentMethodInput {
   @IsString()
   details?: string;
 
-  @Field()
+  @Field(() => PaymentMethodType)
   @IsNotEmpty()
   @IsEnum(PaymentMethodType)
   type: PaymentMethodType;
 
-  @Field()
+  @Field(() => PaymentMethodStatus)
   @IsNotEmpty()
   @IsEnum(PaymentMethodStatus)
   status: PaymentMethodStatus;
@@ -75,12 +86,12 @@ export class UpdatePaymentMethodInput {
   @IsString()
   details?: string;
 
-  @Field({ nullable: true })
+  @Field(() => PaymentMethodType, { nullable: true })
   @IsOptional()
   @IsEnum(PaymentMethodType)
   type?: PaymentMethodType;
 
-  @Field({ nullable: true })
+  @Field(() => PaymentMethodStatus, { nullable: true })
   @IsOptional()
   @IsEnum(PaymentMethodStatus)
   status?: PaymentMethodStatus;

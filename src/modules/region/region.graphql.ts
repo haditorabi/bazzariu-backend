@@ -19,7 +19,6 @@ import { CommonCountry } from 'src/graphql/country.type';
 
 registerEnumType(RegionStatus, {
   name: 'RegionStatus',
-  description: 'The status of the region',
 });
 @ObjectType()
 export class Region {

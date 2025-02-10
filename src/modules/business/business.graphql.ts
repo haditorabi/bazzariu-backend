@@ -1,4 +1,10 @@
-import { Field, ObjectType, InputType, ID } from '@nestjs/graphql';
+import {
+  Field,
+  ObjectType,
+  InputType,
+  ID,
+  registerEnumType,
+} from '@nestjs/graphql';
 import { BusinessStatus } from '@prisma/client';
 import { CommonBusinessBooking } from 'src/graphql/business-booking.type';
 import { CommonBusinessHour } from 'src/graphql/business-hour.type';
@@ -17,6 +23,9 @@ import {
   IsMongoId,
   IsEnum,
 } from 'class-validator';
+registerEnumType(BusinessStatus, {
+  name: 'BusinessStatus',
+});
 
 @ObjectType()
 export class Business {
@@ -53,7 +62,7 @@ export class Business {
   @Field(() => [ID], { nullable: true })
   mediaId?: string[];
 
-  @Field()
+  @Field(() => BusinessStatus)
   status: BusinessStatus;
 
   @Field({ nullable: true })
@@ -131,7 +140,7 @@ export class CreateBusinessInput {
   @IsMongoId({ each: true })
   mediaId?: string[];
 
-  @Field()
+  @Field(() => BusinessStatus)
   @IsNotEmpty()
   @IsEnum(BusinessStatus)
   status: BusinessStatus;
@@ -190,7 +199,7 @@ export class UpdateBusinessInput {
   @IsMongoId({ each: true })
   mediaId?: string[];
 
-  @Field({ nullable: true })
+  @Field(() => BusinessStatus, { nullable: true })
   @IsOptional()
   @IsEnum(BusinessStatus)
   status?: BusinessStatus;

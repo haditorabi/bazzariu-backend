@@ -1,4 +1,10 @@
-import { Field, ObjectType, InputType, ID } from '@nestjs/graphql';
+import {
+  Field,
+  ObjectType,
+  InputType,
+  ID,
+  registerEnumType,
+} from '@nestjs/graphql';
 import { BookingTimeSlotStatus } from '@prisma/client';
 import {
   IsNotEmpty,
@@ -10,7 +16,9 @@ import {
   IsEnum,
 } from 'class-validator';
 import { CommonBusinessBooking } from 'src/graphql/business-booking.type';
-
+registerEnumType(BookingTimeSlotStatus, {
+  name: 'BookingTimeSlotStatus',
+});
 @ObjectType()
 export class BookingTimeSlot {
   @Field(() => ID)
@@ -28,7 +36,7 @@ export class BookingTimeSlot {
   @Field({ nullable: true })
   timezone?: string;
 
-  @Field()
+  @Field(() => BookingTimeSlotStatus)
   status: BookingTimeSlotStatus;
 }
 
@@ -55,7 +63,7 @@ export class CreateBookingTimeSlotInput {
   @Length(3, 3)
   timezone: string;
 
-  @Field()
+  @Field(() => BookingTimeSlotStatus)
   @IsNotEmpty()
   @IsEnum(BookingTimeSlotStatus)
   status: BookingTimeSlotStatus;
@@ -83,7 +91,7 @@ export class UpdateBookingTimeSlotInput {
   @IsOptional()
   timezone?: string;
 
-  @Field({ nullable: true })
+  @Field(() => BookingTimeSlotStatus, { nullable: true })
   @IsOptional()
   @IsEnum(BookingTimeSlotStatus)
   status?: BookingTimeSlotStatus;

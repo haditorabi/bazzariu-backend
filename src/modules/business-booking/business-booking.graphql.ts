@@ -1,4 +1,11 @@
-import { Field, ObjectType, InputType, ID, Int } from '@nestjs/graphql';
+import {
+  Field,
+  ObjectType,
+  InputType,
+  ID,
+  Int,
+  registerEnumType,
+} from '@nestjs/graphql';
 import { CommonBusiness } from 'src/graphql/business.type';
 import { CommonBusinessProduct } from 'src/graphql/business-product.type';
 import { BusinessBookingStatus } from '@prisma/client';
@@ -12,7 +19,9 @@ import {
   Min,
   IsEnum,
 } from 'class-validator';
-
+registerEnumType(BusinessBookingStatus, {
+  name: 'BusinessBookingStatus',
+});
 @ObjectType()
 export class BusinessBooking {
   @Field(() => ID)
@@ -42,7 +51,7 @@ export class BusinessBooking {
   @Field(() => [BookingTimeSlot], { nullable: true })
   bookingTimeSlot?: BookingTimeSlot[];
 
-  @Field()
+  @Field(() => BusinessBookingStatus)
   status: BusinessBookingStatus;
 
   @Field({ nullable: true })
@@ -83,7 +92,7 @@ export class CreateBusinessBookingInput {
   @IsMongoId({ each: true })
   mediaId?: string[];
 
-  @Field()
+  @Field(() => BusinessBookingStatus)
   @IsNotEmpty()
   @IsEnum(BusinessBookingStatus)
   status: BusinessBookingStatus;
@@ -120,7 +129,7 @@ export class UpdateBusinessBookingInput {
   @IsMongoId({ each: true })
   mediaId?: string[];
 
-  @Field({ nullable: true })
+  @Field(() => BusinessBookingStatus, { nullable: true })
   @IsOptional()
   @IsEnum(BusinessBookingStatus)
   status?: BusinessBookingStatus;

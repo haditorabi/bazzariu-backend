@@ -1,4 +1,10 @@
-import { Field, ObjectType, InputType, ID } from '@nestjs/graphql';
+import {
+  Field,
+  ObjectType,
+  InputType,
+  ID,
+  registerEnumType,
+} from '@nestjs/graphql';
 import { TransactionStatus } from '@prisma/client';
 import {
   IsNotEmpty,
@@ -12,7 +18,9 @@ import {
 import { CommonBusiness } from 'src/graphql/business.type';
 import { CommonPayment } from 'src/graphql/payment.type';
 import { CommonUser } from 'src/graphql/user.type';
-
+registerEnumType(TransactionStatus, {
+  name: 'TransactionStatus',
+});
 @ObjectType()
 export class Transaction {
   @Field(() => ID)
@@ -45,7 +53,7 @@ export class Transaction {
   @Field()
   description?: string;
 
-  @Field()
+  @Field(() => TransactionStatus)
   status: TransactionStatus;
 
   @Field({ nullable: true })
@@ -88,7 +96,7 @@ export class CreateTransactionInput {
   @IsString()
   description?: string;
 
-  @Field()
+  @Field(() => TransactionStatus)
   @IsNotEmpty()
   @IsEnum(TransactionStatus)
   status: TransactionStatus;
@@ -127,7 +135,7 @@ export class UpdateTransactionInput {
   @IsString()
   description?: string;
 
-  @Field({ nullable: true })
+  @Field(() => TransactionStatus, { nullable: true })
   @IsOptional()
   @IsEnum(TransactionStatus)
   status?: TransactionStatus;

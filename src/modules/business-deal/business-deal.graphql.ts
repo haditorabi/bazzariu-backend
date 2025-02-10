@@ -1,4 +1,12 @@
-import { Field, ObjectType, InputType, ID, Int, Float } from '@nestjs/graphql';
+import {
+  Field,
+  ObjectType,
+  InputType,
+  ID,
+  Int,
+  Float,
+  registerEnumType,
+} from '@nestjs/graphql';
 import { CommonBusiness } from 'src/graphql/business.type';
 import { CommonBusinessProduct } from 'src/graphql/business-product.type';
 import { BusinessDealStatus, DiscountType } from '@prisma/client';
@@ -15,7 +23,12 @@ import {
   IsDate,
   IsPositive,
 } from 'class-validator';
-
+registerEnumType(BusinessDealStatus, {
+  name: 'BusinessDealStatus',
+});
+registerEnumType(DiscountType, {
+  name: 'DiscountType',
+});
 @ObjectType()
 export class BusinessDeal {
   @Field(() => ID)
@@ -36,7 +49,7 @@ export class BusinessDeal {
   @Field(() => [CommonBusinessProduct], { nullable: true })
   businessProduct?: CommonBusinessProduct[];
 
-  @Field()
+  @Field(() => DiscountType)
   discountType: DiscountType;
 
   @Field()
@@ -57,7 +70,7 @@ export class BusinessDeal {
   @Field(() => [ID], { nullable: true })
   mediaId?: string[];
 
-  @Field()
+  @Field(() => BusinessDealStatus)
   status: BusinessDealStatus;
 
   @Field()
@@ -92,7 +105,7 @@ export class CreateBusinessDealInput {
   @IsMongoId({ each: true })
   businessProductId?: string[];
 
-  @Field()
+  @Field(() => DiscountType)
   @IsNotEmpty()
   @IsEnum(DiscountType)
   discountType: DiscountType;
@@ -131,7 +144,7 @@ export class CreateBusinessDealInput {
   @IsMongoId({ each: true })
   mediaId?: string[];
 
-  @Field()
+  @Field(() => BusinessDealStatus)
   @IsNotEmpty()
   @IsEnum(BusinessDealStatus)
   status: BusinessDealStatus;
@@ -162,7 +175,7 @@ export class UpdateBusinessDealInput {
   @IsMongoId({ each: true })
   businessProductId?: string[];
 
-  @Field({ nullable: true })
+  @Field(() => DiscountType, { nullable: true })
   @IsOptional()
   @IsEnum(DiscountType)
   discountType?: DiscountType;
@@ -201,7 +214,7 @@ export class UpdateBusinessDealInput {
   @IsMongoId({ each: true })
   mediaId?: string[];
 
-  @Field({ nullable: true })
+  @Field(() => BusinessDealStatus, { nullable: true })
   @IsOptional()
   @IsEnum(BusinessDealStatus)
   status?: BusinessDealStatus;

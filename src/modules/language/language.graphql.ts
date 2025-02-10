@@ -1,7 +1,15 @@
-import { Field, ObjectType, InputType, ID } from '@nestjs/graphql';
+import {
+  Field,
+  ObjectType,
+  InputType,
+  ID,
+  registerEnumType,
+} from '@nestjs/graphql';
 import { LanguageStatus } from '@prisma/client';
 import { IsNotEmpty, Length, IsEnum, IsOptional } from 'class-validator';
-
+registerEnumType(LanguageStatus, {
+  name: 'LanguageStatus',
+});
 @ObjectType()
 export class Language {
   @Field(() => ID)
@@ -13,7 +21,7 @@ export class Language {
   @Field()
   code: string;
 
-  @Field()
+  @Field(() => LanguageStatus)
   status: LanguageStatus;
 }
 
@@ -29,7 +37,7 @@ export class CreateLanguageInput {
   @Length(2, 2)
   code: string;
 
-  @Field()
+  @Field(() => LanguageStatus)
   @IsNotEmpty()
   @IsEnum(LanguageStatus)
   status: LanguageStatus;
@@ -47,7 +55,7 @@ export class UpdateLanguageInput {
   @Length(2, 2)
   code?: string;
 
-  @Field({ nullable: true })
+  @Field(() => LanguageStatus, { nullable: true })
   @IsOptional()
   @IsEnum(LanguageStatus)
   status?: LanguageStatus;

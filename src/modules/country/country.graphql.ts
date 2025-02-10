@@ -1,4 +1,10 @@
-import { Field, ObjectType, InputType, ID } from '@nestjs/graphql';
+import {
+  Field,
+  ObjectType,
+  InputType,
+  ID,
+  registerEnumType,
+} from '@nestjs/graphql';
 import { CountryStatus } from '@prisma/client';
 import {
   IsNotEmpty,
@@ -9,7 +15,9 @@ import {
 } from 'class-validator';
 import { CommonProvince } from 'src/graphql/province.type';
 import { CommonRegion } from 'src/graphql/region.type';
-
+registerEnumType(CountryStatus, {
+  name: 'CountryStatus',
+});
 @ObjectType()
 export class Country {
   @Field(() => ID)
@@ -21,7 +29,7 @@ export class Country {
   @Field()
   code: string;
 
-  @Field()
+  @Field(() => CountryStatus)
   status: CountryStatus;
 
   @Field(() => [CommonProvince], { nullable: true })
@@ -45,7 +53,7 @@ export class CreateCountryInput {
   @Length(3, 3)
   code: string;
 
-  @Field()
+  @Field(() => CountryStatus)
   @IsNotEmpty()
   @IsEnum(CountryStatus)
   status: CountryStatus;
@@ -65,7 +73,7 @@ export class UpdateCountryInput {
   @Length(3, 3)
   code?: string;
 
-  @Field({ nullable: true })
+  @Field(() => CountryStatus, { nullable: true })
   @IsOptional()
   @IsEnum(CountryStatus)
   status?: CountryStatus;

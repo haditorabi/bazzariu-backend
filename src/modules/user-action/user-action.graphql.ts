@@ -1,4 +1,11 @@
-import { Field, ObjectType, InputType, ID, Int } from '@nestjs/graphql';
+import {
+  Field,
+  ObjectType,
+  InputType,
+  ID,
+  Int,
+  registerEnumType,
+} from '@nestjs/graphql';
 import { UserActionTargetType, UserActionType } from '@prisma/client';
 import {
   IsNotEmpty,
@@ -13,7 +20,12 @@ import {
   MaxLength,
 } from 'class-validator';
 import { CommonUser } from 'src/graphql/user.type';
-
+registerEnumType(UserActionTargetType, {
+  name: 'UserActionTargetType',
+});
+registerEnumType(UserActionType, {
+  name: 'UserActionType',
+});
 @ObjectType()
 export class UserAction {
   @Field(() => ID)

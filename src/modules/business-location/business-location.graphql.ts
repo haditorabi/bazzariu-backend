@@ -1,4 +1,10 @@
-import { Field, ObjectType, InputType, ID } from '@nestjs/graphql';
+import {
+  Field,
+  ObjectType,
+  InputType,
+  ID,
+  registerEnumType,
+} from '@nestjs/graphql';
 import { BusinessLocationStatus } from '@prisma/client';
 import {
   IsNotEmpty,
@@ -11,7 +17,9 @@ import {
   IsEnum,
 } from 'class-validator';
 import { CommonBusiness } from 'src/graphql/business.type';
-
+registerEnumType(BusinessLocationStatus, {
+  name: 'BusinessLocationStatus',
+});
 @ObjectType()
 export class BusinessLocation {
   @Field(() => ID)
@@ -44,7 +52,7 @@ export class BusinessLocation {
   @Field()
   phone: string;
 
-  @Field()
+  @Field(() => BusinessLocationStatus)
   status: BusinessLocationStatus;
 
   @Field()
@@ -102,7 +110,7 @@ export class CreateBusinessLocationInput {
   @IsPhoneNumber()
   phone?: string;
 
-  @Field()
+  @Field(() => BusinessLocationStatus)
   @IsNotEmpty()
   @IsEnum(BusinessLocationStatus)
   status: BusinessLocationStatus;
@@ -155,7 +163,7 @@ export class UpdateBusinessLocationInput {
   @IsPhoneNumber()
   phone?: string;
 
-  @Field({ nullable: true })
+  @Field(() => BusinessLocationStatus, { nullable: true })
   @IsOptional()
   @IsEnum(BusinessLocationStatus)
   status?: BusinessLocationStatus;

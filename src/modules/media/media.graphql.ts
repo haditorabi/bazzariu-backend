@@ -1,7 +1,18 @@
-import { Field, ObjectType, InputType, ID } from '@nestjs/graphql';
+import {
+  Field,
+  ObjectType,
+  InputType,
+  ID,
+  registerEnumType,
+} from '@nestjs/graphql';
 import { MediaType, ModuleType } from '@prisma/client';
 import { IsNotEmpty, IsUrl, IsEnum, IsOptional } from 'class-validator';
-
+registerEnumType(MediaType, {
+  name: 'MediaType',
+});
+registerEnumType(ModuleType, {
+  name: 'ModuleType',
+});
 @ObjectType()
 export class Media {
   @Field(() => ID)
@@ -10,10 +21,10 @@ export class Media {
   @Field()
   url: string;
 
-  @Field()
+  @Field(() => MediaType)
   type: MediaType;
 
-  @Field()
+  @Field(() => ModuleType)
   moduleType: ModuleType;
 
   @Field({ nullable: true })
@@ -27,12 +38,12 @@ export class CreateMediaInput {
   @IsUrl()
   url: string;
 
-  @Field()
+  @Field(() => MediaType)
   @IsNotEmpty()
   @IsEnum(MediaType)
   type: MediaType;
 
-  @Field()
+  @Field(() => ModuleType)
   @IsNotEmpty()
   @IsEnum(ModuleType)
   moduleType: ModuleType;
@@ -45,12 +56,12 @@ export class UpdateMediaInput {
   @IsUrl()
   url?: string;
 
-  @Field({ nullable: true })
+  @Field(() => MediaType, { nullable: true })
   @IsOptional()
   @IsEnum(MediaType)
   type?: MediaType;
 
-  @Field({ nullable: true })
+  @Field(() => ModuleType, { nullable: true })
   @IsOptional()
   @IsEnum(ModuleType)
   moduleType?: ModuleType;

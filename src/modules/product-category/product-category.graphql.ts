@@ -1,4 +1,10 @@
-import { Field, ObjectType, InputType, ID } from '@nestjs/graphql';
+import {
+  Field,
+  ObjectType,
+  InputType,
+  ID,
+  registerEnumType,
+} from '@nestjs/graphql';
 import { ProductCategoryStatus } from '@prisma/client';
 import {
   IsNotEmpty,
@@ -7,7 +13,9 @@ import {
   IsEnum,
   IsOptional,
 } from 'class-validator';
-
+registerEnumType(ProductCategoryStatus, {
+  name: 'ProductCategoryStatus',
+});
 @ObjectType()
 export class ProductCategory {
   @Field(() => ID)
@@ -16,7 +24,7 @@ export class ProductCategory {
   @Field()
   name: string;
 
-  @Field()
+  @Field(() => ProductCategoryStatus)
   status: ProductCategoryStatus;
 
   @Field({ nullable: true })
@@ -31,7 +39,7 @@ export class CreateProductCategoryInput {
   @Length(3, 30)
   name: string;
 
-  @Field()
+  @Field(() => ProductCategoryStatus)
   @IsNotEmpty()
   @IsEnum(ProductCategoryStatus)
   status: ProductCategoryStatus;
@@ -45,7 +53,7 @@ export class UpdateProductCategoryInput {
   @Length(3, 30)
   name?: string;
 
-  @Field({ nullable: true })
+  @Field(() => ProductCategoryStatus, { nullable: true })
   @IsOptional()
   @IsEnum(ProductCategoryStatus)
   status?: ProductCategoryStatus;

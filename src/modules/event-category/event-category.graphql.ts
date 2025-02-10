@@ -1,8 +1,16 @@
-import { Field, ObjectType, InputType, ID } from '@nestjs/graphql';
+import {
+  Field,
+  ObjectType,
+  InputType,
+  ID,
+  registerEnumType,
+} from '@nestjs/graphql';
 import { EventCategoryStatus } from '@prisma/client';
 import { IsNotEmpty, Length, IsEnum, IsOptional } from 'class-validator';
 import { CommonEvent } from 'src/graphql/event.type';
-
+registerEnumType(EventCategoryStatus, {
+  name: 'EventCategoryStatus',
+});
 @ObjectType()
 export class EventCategory {
   @Field(() => ID)
@@ -11,7 +19,7 @@ export class EventCategory {
   @Field()
   name: string;
 
-  @Field()
+  @Field(() => EventCategoryStatus)
   status: EventCategoryStatus;
 
   @Field(() => [ID], { nullable: true })
@@ -31,7 +39,7 @@ export class CreateEventCategoryInput {
   @Length(3, 50)
   name: string;
 
-  @Field()
+  @Field(() => EventCategoryStatus)
   @IsNotEmpty()
   @IsEnum(EventCategoryStatus)
   status: EventCategoryStatus;
@@ -44,7 +52,7 @@ export class UpdateEventCategoryInput {
   @Length(3, 50)
   name?: string;
 
-  @Field({ nullable: true })
+  @Field(() => EventCategoryStatus, { nullable: true })
   @IsOptional()
   @IsEnum(EventCategoryStatus)
   status?: EventCategoryStatus;

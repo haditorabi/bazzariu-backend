@@ -14,8 +14,13 @@ type BookingTimeSlot {
   endAt: DateTime!
   id: ID!
   startAt: DateTime!
-  status: String!
+  status: BookingTimeSlotStatus!
   timezone: String
+}
+
+enum BookingTimeSlotStatus {
+  ACTIVE
+  NOTAVAILABLE
 }
 
 type Business {
@@ -35,7 +40,7 @@ type Business {
   name: String!
   region: CommonRegion
   regionId: ID
-  status: String!
+  status: BusinessStatus!
   updatedAt: DateTime
   website: String
 }
@@ -51,8 +56,15 @@ type BusinessBooking {
   maxAvailable: Int!
   maxGuest: Int!
   mediaId: [ID!]
-  status: String!
+  status: BusinessBookingStatus!
   updatedAt: DateTime
+}
+
+enum BusinessBookingStatus {
+  ACTIVE
+  CANCELED
+  CLOSED
+  SUSPENDED
 }
 
 type BusinessBoost {
@@ -62,9 +74,24 @@ type BusinessBoost {
   endAt: DateTime!
   id: ID!
   startAt: DateTime!
-  status: String!
-  type: String
+  status: BusinessBoostStatus!
+  type: BusinessBoostType
   updatedAt: DateTime
+}
+
+enum BusinessBoostStatus {
+  ACTIVE
+  ARCHIVED
+  DELETED
+  SUSPENDED
+}
+
+enum BusinessBoostType {
+  BOOKING
+  BUSINESS
+  DEAL
+  MEDIA
+  REVIEW
 }
 
 type BusinessCategory {
@@ -72,8 +99,13 @@ type BusinessCategory {
   id: ID!
   mediaId: ID
   name: String!
-  status: String!
+  status: BusinessCategoryStatus!
   updatedAt: DateTime
+}
+
+enum BusinessCategoryStatus {
+  ACTIVE
+  ARCHIVED
 }
 
 type BusinessDeal {
@@ -82,7 +114,7 @@ type BusinessDeal {
   businessProduct: [CommonBusinessProduct!]
   createdAt: DateTime!
   description: String!
-  discountType: String!
+  discountType: DiscountType!
   endDate: DateTime!
   id: ID!
   maxPerUser: Int!
@@ -90,9 +122,16 @@ type BusinessDeal {
   mediaId: [ID!]
   name: String!
   startDate: DateTime!
-  status: String!
+  status: BusinessDealStatus!
   updatedAt: DateTime!
   value: Float!
+}
+
+enum BusinessDealStatus {
+  ACTIVE
+  ARCHIVED
+  CLOSED
+  SUSPENDED
 }
 
 type BusinessFollowing {
@@ -111,7 +150,14 @@ type BusinessHour {
   dayOfWeek: String!
   id: ID!
   openTime: String!
-  status: String!
+  status: BusinessHourStatus!
+}
+
+enum BusinessHourStatus {
+  ACTIVE
+  ARCHIVED
+  CLOSED
+  SUSPENDED
 }
 
 type BusinessLocation {
@@ -125,9 +171,17 @@ type BusinessLocation {
   longitude: String!
   phone: String!
   provinceId: ID!
-  status: String!
+  status: BusinessLocationStatus!
   updatedAt: DateTime!
   zipCode: String!
+}
+
+enum BusinessLocationStatus {
+  CLOSED
+  MOVED
+  OPEN
+  PERMANENTLYCLOSED
+  TEMPORARYCLOSED
 }
 
 type BusinessProduct {
@@ -143,7 +197,7 @@ type BusinessProduct {
   name: String!
   productCategroy: CommonProductCategory
   productCategroyId: ID
-  status: String!
+  status: BusinessProductStatus!
   updatedAt: DateTime!
 }
 
@@ -158,11 +212,34 @@ type BusinessProductPrice {
   updatedAt: DateTime
 }
 
+enum BusinessProductStatus {
+  ACTIVE
+  ARCHIVED
+  DISCOUNTINUED
+  NOTAVAILABLE
+  OUTOFSERVICE
+  SUSPENDED
+}
+
+enum BusinessStatus {
+  ACTIVE
+  ARCHIVED
+  DELETED
+  DISABLED
+  SUSPENDED
+}
+
 type BusinessTag {
   createdAt: DateTime
   id: ID!
   name: String!
-  status: String!
+  status: BusinessTagStatus!
+}
+
+enum BusinessTagStatus {
+  ACTIVE
+  ARCHIVED
+  SUSPENDED
 }
 
 type BusinessUpdate {
@@ -173,9 +250,29 @@ type BusinessUpdate {
   endAt: DateTime!
   id: ID!
   startAt: DateTime!
-  status: String!
-  type: String!
+  status: BusinessUpdateStatus!
+  type: BusinessUpdateType!
   updatedAt: DateTime!
+}
+
+enum BusinessUpdateStatus {
+  ACTIVE
+  ARCHIVED
+  DELETED
+  SUSPENDED
+}
+
+enum BusinessUpdateType {
+  CONGRRATS
+  EVENTS
+  HIRING
+  NEWAMENITY
+  NEWDEALS
+  NEWLOCATION
+  NEWPRICE
+  NEWPRODUCTS
+  RATES
+  WORKHOURS
 }
 
 type City {
@@ -185,8 +282,13 @@ type City {
   province: CommonProvince!
   provinceId: ID!
   regionId: ID
-  status: String!
+  status: CityStatus!
   updatedAt: DateTime
+}
+
+enum CityStatus {
+  ACTIVE
+  DISABLED
 }
 
 type CommonBookingTimeSlot {
@@ -331,8 +433,8 @@ type CommonPaymentMethod {
   createdAt: DateTime!
   details: String
   id: ID!
-  status: String!
-  type: String!
+  status: PaymentMethodStatus!
+  type: PaymentMethodType!
   userId: ID!
 }
 
@@ -373,7 +475,12 @@ type Country {
   name: String!
   province: [CommonProvince!]
   region: [CommonRegion!]
-  status: String!
+  status: CountryStatus!
+}
+
+enum CountryStatus {
+  ACTIVE
+  DISABLED
 }
 
 input CreateAmenityInput {
@@ -385,7 +492,7 @@ input CreateBookingTimeSlotInput {
   businessBookingId: ID
   endAt: DateTime!
   startAt: DateTime!
-  status: String!
+  status: BookingTimeSlotStatus!
   timezone: String!
 }
 
@@ -395,35 +502,35 @@ input CreateBusinessBookingInput {
   maxAvailable: Int
   maxGuest: Int
   mediaId: [ID!]
-  status: String!
+  status: BusinessBookingStatus!
 }
 
 input CreateBusinessBoostInput {
   businessId: ID!
   endAt: DateTime!
   startAt: DateTime!
-  status: String!
-  type: String!
+  status: BusinessBoostStatus!
+  type: BusinessBoostType!
 }
 
 input CreateBusinessCategoryInput {
   mediaId: ID
   name: String!
-  status: String!
+  status: BusinessCategoryStatus!
 }
 
 input CreateBusinessDealInput {
   businessId: ID!
   businessProductId: [ID!]
   description: String
-  discountType: String!
+  discountType: DiscountType!
   endDate: DateTime!
   maxPerUser: Int
   maxRedemption: Int
   mediaId: [ID!]
   name: String!
   startDate: DateTime!
-  status: String!
+  status: BusinessDealStatus!
   value: Float!
 }
 
@@ -437,7 +544,7 @@ input CreateBusinessHourInput {
   closeTime: String!
   dayOfWeek: String!
   openTime: String!
-  status: String!
+  status: BusinessHourStatus!
 }
 
 input CreateBusinessInput {
@@ -449,7 +556,7 @@ input CreateBusinessInput {
   mediaId: [ID!]
   name: String!
   regionId: ID
-  status: String!
+  status: BusinessStatus!
   website: String
 }
 
@@ -462,7 +569,7 @@ input CreateBusinessLocationInput {
   longitude: Float
   phone: String
   provinceId: ID
-  status: String!
+  status: BusinessLocationStatus!
   zipCode: String
 }
 
@@ -472,7 +579,7 @@ input CreateBusinessProductInput {
   mediaId: [ID!]
   name: String!
   productCategroyId: [ID!]
-  status: String!
+  status: BusinessProductStatus!
 }
 
 input CreateBusinessProductPriceInput {
@@ -483,7 +590,7 @@ input CreateBusinessProductPriceInput {
 
 input CreateBusinessTagInput {
   name: String!
-  status: String!
+  status: BusinessTagStatus!
 }
 
 input CreateBusinessUpdateInput {
@@ -491,39 +598,39 @@ input CreateBusinessUpdateInput {
   context: String!
   endAt: DateTime!
   startAt: DateTime!
-  status: String!
-  type: String!
+  status: BusinessUpdateStatus!
+  type: BusinessUpdateType!
 }
 
 input CreateCityInput {
   name: String!
   provinceId: ID!
-  statusId: String!
+  statusId: CityStatus!
 }
 
 input CreateCountryInput {
   code: String!
   name: String!
-  status: String!
+  status: CountryStatus!
 }
 
 input CreateCurrencyInput {
   code: String!
   name: String!
-  status: String!
+  status: CurrencyStatus!
 }
 
 input CreateDealsRedemptionInput {
   businessDealId: ID!
   expiresAt: DateTime!
   redeemedAt: DateTime
-  status: String!
+  status: DealsRedemptionStatus!
   userId: ID!
 }
 
 input CreateEventCategoryInput {
   name: String!
-  status: String!
+  status: EventCategoryStatus!
 }
 
 input CreateEventInput {
@@ -533,7 +640,7 @@ input CreateEventInput {
   mediaId: [ID!]
   name: String!
   startDate: DateTime!
-  status: String!
+  status: EventStatus!
 }
 
 input CreateExampleInput {
@@ -544,12 +651,12 @@ input CreateExampleInput {
 input CreateLanguageInput {
   code: String!
   name: String!
-  status: String!
+  status: LanguageStatus!
 }
 
 input CreateMediaInput {
-  moduleType: String!
-  type: String!
+  moduleType: ModuleType!
+  type: MediaType!
   url: String!
 }
 
@@ -559,29 +666,29 @@ input CreatePaymentInput {
   currencyId: ID!
   description: String
   paymentMethodId: ID!
-  status: String!
+  status: PaymentStatus!
   targetId: ID!
-  targetType: String!
+  targetType: PaymentTargetType!
   transactionId: ID!
   userId: ID!
 }
 
 input CreatePaymentMethodInput {
   details: String
-  status: String!
-  type: String!
+  status: PaymentMethodStatus!
+  type: PaymentMethodType!
   userId: ID!
 }
 
 input CreateProductCategoryInput {
   name: String!
-  status: String!
+  status: ProductCategoryStatus!
 }
 
 input CreateProvinceInput {
   countryId: ID!
   name: String!
-  status: String!
+  status: ProvinceStatus!
 }
 
 input CreateRegionInput {
@@ -594,9 +701,9 @@ input CreateRegionInput {
 
 input CreateReportInput {
   byId: ID!
-  reason: String!
+  reason: ReportReasonType!
   targetId: ID!
-  targetType: String!
+  targetType: ReportTargetType!
 }
 
 input CreateTransactionInput {
@@ -605,27 +712,27 @@ input CreateTransactionInput {
   currencyId: ID!
   description: String!
   paymentId: ID!
-  status: String!
+  status: TransactionStatus!
   userId: ID!
 }
 
 input CreateUserActionInput {
-  action: String!
+  action: UserActionType!
   actionDetails: String
-  points: Int!
+  points: Float!
   targetId: ID!
-  targetType: String!
+  targetType: UserActionTargetType!
   userId: ID!
 }
 
 input CreateUserActionLogInput {
-  action: String!
+  action: UserActionLogType!
   actionDetails: String
   device: String
   ipAddress: String!
   os: String
   targetId: ID!
-  targetType: String!
+  targetType: UserActionLogTargetType!
   userId: ID!
 }
 
@@ -637,13 +744,13 @@ input CreateUserBlockedInput {
 input CreateUserBookingInput {
   bookingTimeSlotId: ID!
   businessProductId: [ID!]
-  status: String!
+  status: UserBookingStatus!
   userId: ID!
 }
 
 input CreateUserBookmarkInput {
   targetId: ID!
-  targetType: String!
+  targetType: UserBookmarkType!
   userId: ID!
 }
 
@@ -667,9 +774,9 @@ input CreateUserReviewInput {
   content: String
   mediaId: [ID!]
   rating: Int!
-  status: String!
+  status: UserReviewStatus!
   targetId: ID
-  targetType: String!
+  targetType: UserReviewType!
   userId: ID!
 }
 
@@ -679,8 +786,8 @@ input CreateUserScoreInput {
 }
 
 input CreateUserVerificationInput {
-  status: String!
-  type: String!
+  status: UserVerificationStatus!
+  type: UserVerificationType!
   userId: ID!
 }
 
@@ -694,7 +801,12 @@ type Currency {
   code: String!
   id: ID!
   name: String!
-  status: String!
+  status: CurrencyStatus!
+}
+
+enum CurrencyStatus {
+  ACTIVE
+  DISABLED
 }
 
 """
@@ -709,10 +821,21 @@ type DealsRedemption {
   expiresAt: DateTime!
   id: ID!
   redeemedAt: DateTime
-  status: String!
+  status: DealsRedemptionStatus!
   updatedAt: DateTime
   user: CommonUser
   userId: ID!
+}
+
+enum DealsRedemptionStatus {
+  EXPIRED
+  PENDING
+  REDEEMED
+}
+
+enum DiscountType {
+  FLAT
+  PERCENT
 }
 
 type Event {
@@ -725,7 +848,7 @@ type Event {
   mediaId: [ID!]
   name: String!
   startDate: DateTime!
-  status: String!
+  status: EventStatus!
   updatedAt: DateTime
 }
 
@@ -735,7 +858,17 @@ type EventCategory {
   eventId: [ID!]
   id: ID!
   name: String!
-  status: String!
+  status: EventCategoryStatus!
+}
+
+enum EventCategoryStatus {
+  ACTIVE
+  DISABLED
+}
+
+enum EventStatus {
+  ACTIVE
+  DISABLED
 }
 
 type ExampleModel {
@@ -748,15 +881,38 @@ type Language {
   code: String!
   id: ID!
   name: String!
-  status: String!
+  status: LanguageStatus!
+}
+
+enum LanguageStatus {
+  ACTIVE
+  DISABLED
 }
 
 type Media {
   createdAt: DateTime
   id: ID!
-  moduleType: String!
-  type: String!
+  moduleType: ModuleType!
+  type: MediaType!
   url: String!
+}
+
+enum MediaType {
+  AUDIO
+  DOCUMENT
+  IMAGE
+  VIDEO
+}
+
+enum ModuleType {
+  AMENITY
+  BUSINESS
+  BUSINESSBOOKING
+  BUSINESSCATEGORY
+  BUSINESSDEAL
+  BUSINESSPRODUCT
+  EVENT
+  REVIEW
 }
 
 type Mutation {
@@ -896,9 +1052,9 @@ type Payment {
   id: ID!
   paymentMethod: CommonPaymentMethod
   paymentMethodId: ID!
-  status: String!
+  status: PaymentStatus!
   targetId: ID!
-  targetType: String!
+  targetType: PaymentTargetType!
   transactionId: ID!
   updatedAt: DateTime
   user: CommonUser
@@ -911,10 +1067,47 @@ type PaymentMethod {
   id: ID!
   payment: [CommonPayment!]
   paymentId: ID!
-  status: String!
-  type: String!
+  status: PaymentMethodStatus!
+  type: PaymentMethodType!
   user: CommonUser
   userId: ID!
+}
+
+enum PaymentMethodStatus {
+  ACTIVE
+  DIACTIVE
+  DISABLED
+}
+
+enum PaymentMethodType {
+  APPLEPAY
+  BANKTRANSFER
+  CASH
+  CHECK
+  CREDITCARD
+  DEBITCARD
+  GOOGLEPAY
+  PAYPAL
+  STRIPE
+}
+
+enum PaymentStatus {
+  CANCELED
+  COMPLETED
+  FAILED
+  PENDING
+  REFUNDED
+}
+
+enum PaymentTargetType {
+  BOOKING
+  BOOSTBOOKING
+  BOOSTBUSINESS
+  BOOSTDEAL
+  BOOSTREVIEW
+  BOOSTUPDATE
+  DEAL
+  PRODUCTORDER
 }
 
 type ProductCategory {
@@ -922,7 +1115,12 @@ type ProductCategory {
   createdAt: DateTime
   id: ID!
   name: String!
-  status: String!
+  status: ProductCategoryStatus!
+}
+
+enum ProductCategoryStatus {
+  ACTIVE
+  DISABLED
 }
 
 type Province {
@@ -930,7 +1128,12 @@ type Province {
   country: CommonCountry
   id: ID!
   name: String!
-  status: String!
+  status: ProvinceStatus!
+}
+
+enum ProvinceStatus {
+  ACTIVE
+  DISABLED
 }
 
 type Query {
@@ -1289,7 +1492,6 @@ type Region {
   status: RegionStatus!
 }
 
-"""The status of the region"""
 enum RegionStatus {
   ACTIVE
   DISABLED
@@ -1300,9 +1502,37 @@ type Report {
   byId: ID!
   createdAt: DateTime!
   id: ID!
-  reason: String
+  reason: ReportReasonType
   targetId: String!
-  targetType: String!
+  targetType: ReportTargetType!
+}
+
+enum ReportReasonType {
+  ABUSE
+  FAKE
+  FRAUD
+  HATE
+  ILLEGAL
+  INAPPROPRIATE
+  MISUSE
+  OFFENSIVE
+  OTHER
+  PRIVACY
+  SCAM
+  SPAM
+  THREAT
+  VIOLANCE
+}
+
+enum ReportTargetType {
+  BOOKING
+  BUSINESS
+  DEAL
+  EVENT
+  MEDIA
+  PRODUCT
+  REVIEW
+  USER
 }
 
 type Transaction {
@@ -1315,10 +1545,19 @@ type Transaction {
   id: ID!
   payment: CommonPayment
   paymentId: ID!
-  status: String!
+  status: TransactionStatus!
   updatedAt: DateTime
   user: CommonUser
   userId: ID!
+}
+
+enum TransactionStatus {
+  CANCELED
+  COMPLETED
+  FAILED
+  PENDING
+  REFUNDED
+  REVERSED
 }
 
 input UpdateAmenityInput {
@@ -1330,7 +1569,7 @@ input UpdateBookingTimeSlotInput {
   businessBookingId: ID
   endAt: DateTime
   startAt: DateTime
-  status: String
+  status: BookingTimeSlotStatus
   timezone: String
 }
 
@@ -1340,35 +1579,35 @@ input UpdateBusinessBookingInput {
   maxAvailable: Int
   maxGuest: Int
   mediaId: [ID!]
-  status: String
+  status: BusinessBookingStatus
 }
 
 input UpdateBusinessBoostInput {
   businessId: ID
   endAt: DateTime
   startAt: DateTime
-  status: String
-  type: String
+  status: BusinessBoostStatus
+  type: BusinessBoostType
 }
 
 input UpdateBusinessCategoryInput {
   mediaId: ID
   name: String
-  status: String
+  status: BusinessCategoryStatus
 }
 
 input UpdateBusinessDealInput {
   businessId: ID
   businessProductId: [ID!]
   description: String
-  discountType: String
+  discountType: DiscountType
   endDate: DateTime
   maxPerUser: Int
   maxRedemption: Int
   mediaId: [ID!]
   name: String
   startDate: DateTime
-  status: String
+  status: BusinessDealStatus
   value: Int
 }
 
@@ -1394,7 +1633,7 @@ input UpdateBusinessInput {
   mediaId: [ID!]
   name: String
   regionId: ID
-  status: String
+  status: BusinessStatus
   website: String
 }
 
@@ -1407,7 +1646,7 @@ input UpdateBusinessLocationInput {
   longitude: Float
   phone: String
   provinceId: ID
-  status: String
+  status: BusinessLocationStatus
   zipCode: String
 }
 
@@ -1417,7 +1656,7 @@ input UpdateBusinessProductInput {
   mediaId: [ID!]
   name: String
   productCategroyId: [ID!]
-  status: String
+  status: BusinessProductStatus
 }
 
 input UpdateBusinessProductPriceInput {
@@ -1428,7 +1667,7 @@ input UpdateBusinessProductPriceInput {
 
 input UpdateBusinessTagInput {
   name: String
-  status: String
+  status: BusinessTagStatus
 }
 
 input UpdateBusinessUpdateInput {
@@ -1443,32 +1682,32 @@ input UpdateBusinessUpdateInput {
 input UpdateCityInput {
   name: String
   provinceId: ID
-  status: String
+  status: CityStatus
 }
 
 input UpdateCountryInput {
   code: String
   name: String
-  status: String
+  status: CountryStatus
 }
 
 input UpdateCurrencyInput {
   code: String
   name: String
-  status: String
+  status: CurrencyStatus
 }
 
 input UpdateDealsRedemptionInput {
   businessDealId: ID
   expiresAt: DateTime
   redeemedAt: DateTime
-  status: String
+  status: DealsRedemptionStatus
   userId: ID
 }
 
 input UpdateEventCategoryInput {
   name: String
-  status: String
+  status: EventCategoryStatus
 }
 
 input UpdateEventInput {
@@ -1478,18 +1717,18 @@ input UpdateEventInput {
   mediaId: [ID!]
   name: String
   startDate: DateTime
-  status: String
+  status: EventStatus
 }
 
 input UpdateLanguageInput {
   code: String
   name: String
-  status: String
+  status: LanguageStatus
 }
 
 input UpdateMediaInput {
-  moduleType: String
-  type: String
+  moduleType: ModuleType
+  type: MediaType
   url: String
 }
 
@@ -1499,29 +1738,29 @@ input UpdatePaymentInput {
   currencyId: String
   description: String
   paymentMethodId: ID
-  status: String
+  status: PaymentStatus
   targetId: ID
-  targetType: String
+  targetType: PaymentTargetType
   transactionId: ID
   userId: ID
 }
 
 input UpdatePaymentMethodInput {
   details: String
-  status: String
-  type: String
+  status: PaymentMethodStatus
+  type: PaymentMethodType
   userId: ID
 }
 
 input UpdateProductCategoryInput {
   name: String
-  status: String
+  status: ProductCategoryStatus
 }
 
 input UpdateProvinceInput {
   countryId: ID
   name: String
-  status: String
+  status: ProvinceStatus
 }
 
 input UpdateRegionInput {
@@ -1534,9 +1773,9 @@ input UpdateRegionInput {
 
 input UpdateReportInput {
   byId: ID
-  reason: String
+  reason: ReportReasonType
   targetId: ID
-  targetType: String
+  targetType: ReportTargetType
 }
 
 input UpdateTransactionInput {
@@ -1545,27 +1784,27 @@ input UpdateTransactionInput {
   currencyId: ID
   description: String
   paymentId: ID
-  status: String
+  status: TransactionStatus
   userId: ID
 }
 
 input UpdateUserActionInput {
-  action: String
+  action: UserActionType
   actionDetails: String
   points: Int
   targetId: ID
-  targetType: String
+  targetType: UserActionTargetType
   userId: ID
 }
 
 input UpdateUserActionLogInput {
-  action: String
+  action: UserActionLogType
   actionDetails: String
   device: String
   ipAddress: String
   os: String
   targetId: ID
-  targetType: String
+  targetType: UserActionLogTargetType
   userId: ID
 }
 
@@ -1577,13 +1816,13 @@ input UpdateUserBlockedInput {
 input UpdateUserBookingInput {
   bookingTimeSlotId: ID
   businessProductId: [ID!]
-  status: String
+  status: UserBookingStatus
   userId: ID
 }
 
 input UpdateUserBookmarkInput {
   targetId: ID
-  targetType: String
+  targetType: UserBookmarkType
   userId: ID
 }
 
@@ -1614,9 +1853,9 @@ input UpdateUserReviewInput {
   content: String
   mediaId: [ID!]
   rating: Int
-  status: String
+  status: UserReviewStatus
   targetId: ID
-  targetType: String
+  targetType: UserReviewType
   userId: ID
 }
 
@@ -1626,8 +1865,8 @@ input UpdateUserScoreInput {
 }
 
 input UpdateUserVerificationInput {
-  status: String
-  type: String
+  status: UserVerificationStatus
+  type: UserVerificationType
   userId: ID
 }
 
@@ -1668,19 +1907,19 @@ type User {
 }
 
 type UserAction {
-  action: String!
+  action: UserActionType!
   actionDetails: String
   createdAt: DateTime!
   id: ID!
   points: Int!
   targetId: ID!
-  targetType: String!
+  targetType: UserActionTargetType!
   user: CommonUser!
   userId: ID!
 }
 
 type UserActionLog {
-  action: String!
+  action: UserActionLogType!
   actionDetails: String
   createdAt: DateTime
   device: String
@@ -1688,9 +1927,78 @@ type UserActionLog {
   ipAddress: String!
   os: String
   targetId: ID!
-  targetType: String!
+  targetType: UserActionLogTargetType!
   user: CommonUser
   userId: ID!
+}
+
+enum UserActionLogTargetType {
+  BOOKING
+  BUSINESS
+  DEAL
+  EVENT
+  MEDIA
+  PRODUCT
+  REVIEW
+  USER
+}
+
+enum UserActionLogType {
+  BLOCK
+  BOOKMARK
+  BOOST
+  CANCEL
+  CHECKIN
+  DELETE
+  FOLLOW
+  INVITE
+  LIKE
+  ORDER
+  PAY
+  PURCHASE
+  REFUND
+  REPORT
+  REVIEW
+  SHARE
+  UNBLOCK
+  UNBOOKMARK
+  UNFOLLOW
+  UPDATE
+}
+
+enum UserActionTargetType {
+  BOOKING
+  BUSINESS
+  DEAL
+  EVENT
+  MEDIA
+  PRODUCT
+  REVIEW
+  USER
+}
+
+enum UserActionType {
+  BLOCK
+  BOOKMARK
+  BOOST
+  CANCEL
+  CHECKIN
+  DELETE
+  FOLLOW
+  INVITE
+  LIKE
+  ORDER
+  PAY
+  PURCHASE
+  REDEEM
+  REFUND
+  REPORT
+  REVIEW
+  SHARE
+  UNBLOCK
+  UNBOOKMARK
+  UNFOLLOW
+  UPDATE
 }
 
 type UserBlocked {
@@ -1708,19 +2016,38 @@ type UserBooking {
   businessProductId: [String!]
   createdAt: DateTime
   id: ID!
-  status: String!
+  status: UserBookingStatus!
   updatedAt: DateTime
   user: CommonUser
   userId: ID!
+}
+
+enum UserBookingStatus {
+  CANCELED
+  COMPLETED
+  CONFIRMED
+  PENDING
+  REDEEMED
+  REJECTED
 }
 
 type UserBookmark {
   createdAt: DateTime
   id: ID!
   targetId: ID!
-  targetType: String!
+  targetType: UserBookmarkType!
   user: CommonUser
   userId: ID!
+}
+
+enum UserBookmarkType {
+  BOOKING
+  BUSINESS
+  DEAL
+  EVENT
+  MEDIA
+  PRODUCT
+  REVIEW
 }
 
 type UserCheckin {
@@ -1758,10 +2085,25 @@ type UserReview {
   rating: Float!
   status: String!
   targetId: ID!
-  targetType: String!
+  targetType: UserReviewType!
   updatedAt: DateTime
   user: CommonUser
   userId: ID!
+}
+
+enum UserReviewStatus {
+  APPROVED
+  PENDING
+  REJECTED
+}
+
+enum UserReviewType {
+  BOOKING
+  BUSINESS
+  DEAL
+  EVENT
+  PRODUCT
+  REVIEW
 }
 
 type UserScore {
@@ -1775,11 +2117,22 @@ type UserScore {
 type UserVerification {
   createdAt: DateTime
   id: ID!
-  status: String!
-  type: String!
+  status: UserVerificationStatus!
+  type: UserVerificationType!
   updatedAt: DateTime
   user: CommonUser
   userId: ID!
+}
+
+enum UserVerificationStatus {
+  APPROVED
+  PENDING
+  REJECTED
+}
+
+enum UserVerificationType {
+  EMAIL
+  PHONE
 }
 
 type UserWallet {

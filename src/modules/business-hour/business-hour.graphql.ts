@@ -1,4 +1,10 @@
-import { Field, ObjectType, InputType, ID } from '@nestjs/graphql';
+import {
+  Field,
+  ObjectType,
+  InputType,
+  ID,
+  registerEnumType,
+} from '@nestjs/graphql';
 import { BusinessHourStatus } from '@prisma/client';
 import {
   IsNotEmpty,
@@ -9,7 +15,9 @@ import {
   IsOptional,
 } from 'class-validator';
 import { CommonBusiness } from 'src/graphql/business.type';
-
+registerEnumType(BusinessHourStatus, {
+  name: 'BusinessHourStatus',
+});
 @ObjectType()
 export class BusinessHour {
   @Field(() => ID)
@@ -30,7 +38,7 @@ export class BusinessHour {
   @Field()
   closeTime: string;
 
-  @Field()
+  @Field(() => BusinessHourStatus)
   status: BusinessHourStatus;
 
   @Field({ nullable: true })
@@ -62,7 +70,7 @@ export class CreateBusinessHourInput {
   @Length(5, 5)
   closeTime: string;
 
-  @Field()
+  @Field(() => BusinessHourStatus)
   @IsNotEmpty()
   @IsEnum(BusinessHourStatus)
   status: BusinessHourStatus;

@@ -1,8 +1,19 @@
-import { Field, ObjectType, InputType, ID } from '@nestjs/graphql';
+import {
+  Field,
+  ObjectType,
+  InputType,
+  ID,
+  registerEnumType,
+} from '@nestjs/graphql';
 import { UserVerificationStatus, UserVerificationType } from '@prisma/client';
 import { IsNotEmpty, IsMongoId, IsEnum, IsOptional } from 'class-validator';
 import { CommonUser } from 'src/graphql/user.type';
-
+registerEnumType(UserVerificationStatus, {
+  name: 'UserVerificationStatus',
+});
+registerEnumType(UserVerificationType, {
+  name: 'UserVerificationType',
+});
 @ObjectType()
 export class UserVerification {
   @Field(() => ID)
@@ -14,10 +25,10 @@ export class UserVerification {
   @Field(() => ID)
   userId: string;
 
-  @Field()
+  @Field(() => UserVerificationType)
   type: UserVerificationType;
 
-  @Field()
+  @Field(() => UserVerificationStatus)
   status: UserVerificationStatus;
 
   @Field({ nullable: true })

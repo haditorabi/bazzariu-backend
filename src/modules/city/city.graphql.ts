@@ -1,4 +1,10 @@
-import { Field, ObjectType, InputType, ID } from '@nestjs/graphql';
+import {
+  Field,
+  ObjectType,
+  InputType,
+  ID,
+  registerEnumType,
+} from '@nestjs/graphql';
 import { CityStatus } from '@prisma/client';
 import {
   IsNotEmpty,
@@ -8,7 +14,9 @@ import {
   IsEnum,
   IsOptional,
 } from 'class-validator';
-
+registerEnumType(CityStatus, {
+  name: 'CityStatus',
+});
 @ObjectType()
 export class City {
   @Field(() => ID)
@@ -20,7 +28,7 @@ export class City {
   @Field(() => ID)
   provinceId: string;
 
-  @Field()
+  @Field(() => CityStatus)
   status: CityStatus;
 
   @Field({ nullable: true })
@@ -46,7 +54,7 @@ export class CreateCityInput {
   @IsMongoId()
   provinceId: string;
 
-  @Field()
+  @Field(() => CityStatus)
   @IsNotEmpty()
   @IsEnum(CityStatus)
   statusId: CityStatus;
@@ -65,7 +73,7 @@ export class UpdateCityInput {
   @IsMongoId()
   provinceId?: string;
 
-  @Field({ nullable: true })
+  @Field(() => CityStatus, { nullable: true })
   @IsOptional()
   @IsEnum(CityStatus)
   status?: CityStatus;

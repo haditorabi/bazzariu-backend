@@ -1,8 +1,16 @@
-import { Field, ObjectType, InputType, ID } from '@nestjs/graphql';
+import {
+  Field,
+  ObjectType,
+  InputType,
+  ID,
+  registerEnumType,
+} from '@nestjs/graphql';
 import { UserBookmarkType } from '@prisma/client';
 import { IsNotEmpty, IsMongoId, IsEnum, IsOptional } from 'class-validator';
 import { CommonUser } from 'src/graphql/user.type';
-
+registerEnumType(UserBookmarkType, {
+  name: 'UserBookmarkType',
+});
 @ObjectType()
 export class UserBookmark {
   @Field(() => ID)
@@ -17,7 +25,7 @@ export class UserBookmark {
   @Field(() => ID)
   targetId: string;
 
-  @Field()
+  @Field(() => UserBookmarkType)
   targetType: UserBookmarkType;
 
   @Field({ nullable: true })

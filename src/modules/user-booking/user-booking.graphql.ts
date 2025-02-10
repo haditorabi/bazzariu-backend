@@ -1,4 +1,10 @@
-import { Field, ObjectType, InputType, ID } from '@nestjs/graphql';
+import {
+  Field,
+  ObjectType,
+  InputType,
+  ID,
+  registerEnumType,
+} from '@nestjs/graphql';
 import { UserBookingStatus } from '@prisma/client';
 import {
   IsNotEmpty,
@@ -9,7 +15,9 @@ import {
 } from 'class-validator';
 import { CommonBookingTimeSlot } from 'src/graphql/booking-time-slot.type';
 import { CommonUser } from 'src/graphql/user.type';
-
+registerEnumType(UserBookingStatus, {
+  name: 'UserBookingStatus',
+});
 @ObjectType()
 export class UserBooking {
   @Field(() => ID)
@@ -30,7 +38,7 @@ export class UserBooking {
   @Field(() => ID)
   bookingTimeSlotId: string;
 
-  @Field()
+  @Field(() => UserBookingStatus)
   status: UserBookingStatus;
 
   @Field({ nullable: true })
