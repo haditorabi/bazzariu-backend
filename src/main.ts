@@ -14,7 +14,7 @@ async function bootstrap() {
 
   app.useGlobalPipes(
     new ValidationPipe({
-      whitelist: true, // Removes unknown fields
+      // whitelist: true, // Removes unknown fields
       forbidNonWhitelisted: true, // Throws an error on unknown fields
       transform: true, // Automatically transforms input to DTOs
       exceptionFactory: (errors: ValidationError[]) => {
@@ -29,6 +29,7 @@ async function bootstrap() {
       },
     }),
   );
+  app.enableCors();
   await app.listen(process.env.PORT ?? 3000);
 }
 bootstrap();

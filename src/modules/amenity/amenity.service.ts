@@ -21,6 +21,20 @@ export class AmenityService {
       skip,
     });
   }
+  @ServiceErrorHandler('find all amenities')
+  async findAndCount(
+    paginationArgs: PaginationArgs,
+  ): Promise<[Amenity[], number]> {
+    const { take, skip } = paginationArgs;
+    const [items, totalCount] = await this.prisma.$transaction([
+      this.prisma.amenity.findMany({
+        skip,
+        take,
+      }),
+      this.prisma.amenity.count(),
+    ]);
+    return [items, totalCount];
+  }
 
   @ServiceErrorHandler('find amenity by ID')
   async findOne(id: string): Promise<Amenity | null> {

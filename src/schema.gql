@@ -1042,6 +1042,11 @@ type Mutation {
   updateUserWallet(data: UpdateUserWalletInput!, id: String!): UserWallet!
 }
 
+type PaginatedAmenities {
+  items: [Amenity!]!
+  totalCount: Int!
+}
+
 type Payment {
   amount: Float!
   business: CommonBusiness
@@ -1137,6 +1142,13 @@ enum ProvinceStatus {
 }
 
 type Query {
+  allAmenity(
+    """The number of items per page"""
+    limit: Int! = 10
+
+    """The page number to fetch"""
+    page: Int! = 1
+  ): PaginatedAmenities!
   amenities(
     """The number of items per page"""
     limit: Int! = 10

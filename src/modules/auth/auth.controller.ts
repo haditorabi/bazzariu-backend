@@ -1,4 +1,5 @@
-import { Body, Controller, Post } from '@nestjs/common';
+import { Body, Controller, Post, Res } from '@nestjs/common';
+import { Response } from 'express';
 import { AuthService } from './auth.service';
 import { UserService } from '../user/user.service';
 
@@ -16,8 +17,6 @@ export class AuthController {
       email: string;
       password: string;
       name: string;
-      role;
-      string;
       status: string;
     },
   ) {
@@ -35,19 +34,23 @@ export class AuthController {
   }
 
   @Post('login')
-  async login(@Body() body: { email: string; password: string }) {
+  async login(
+    @Body() body: { email: string; password: string },
+    @Res() res: Response,
+  ) {
     const user = await this.userService.findUserByEmail(body.email);
     if (
       !user ||
       !(await this.authService.comparePasswords(body.password, user.password))
     ) {
-      throw new Error('Invalid credentials');
+      return res.status(401).json({ message: 'Invalid credentials' });
     }
-    return this.authService.generateToken({
+    const token = await this.authService.generateToken({
       id: user.id,
       email: user.email,
       name: user.name,
     });
+    return res.status(200).json({ message: 'Login successful', token });
   }
 }
 

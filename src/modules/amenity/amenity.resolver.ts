@@ -6,6 +6,7 @@ import {
   UpdateAmenityInput,
 } from './amenity.graphql';
 import { PaginationArgs } from 'src/graphql/pagination-args-types';
+import { PaginatedAmenities } from 'src/graphql/paginated-response';
 
 @Resolver(() => Amenity)
 export class AmenityResolver {
@@ -14,6 +15,12 @@ export class AmenityResolver {
   @Query(() => [Amenity])
   async amenities(@Args() paginationArgs: PaginationArgs) {
     return this.service.findAll(paginationArgs);
+  }
+
+  @Query(() => PaginatedAmenities)
+  async allAmenity(@Args() paginationArgs: PaginationArgs) {
+    const [items, totalCount] = await this.service.findAndCount(paginationArgs);
+    return { items, totalCount };
   }
 
   @Query(() => Amenity)
