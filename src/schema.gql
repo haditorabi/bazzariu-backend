@@ -1112,6 +1112,141 @@ type PaginatedBusinessUpdate {
   totalCount: Int!
 }
 
+type PaginatedCity {
+  items: [City!]!
+  totalCount: Int!
+}
+
+type PaginatedCountry {
+  items: [Country!]!
+  totalCount: Int!
+}
+
+type PaginatedCurrency {
+  items: [Currency!]!
+  totalCount: Int!
+}
+
+type PaginatedDealsRedemption {
+  items: [DealsRedemption!]!
+  totalCount: Int!
+}
+
+type PaginatedEvent {
+  items: [Event!]!
+  totalCount: Int!
+}
+
+type PaginatedEventCategory {
+  items: [EventCategory!]!
+  totalCount: Int!
+}
+
+type PaginatedMedia {
+  items: [Media!]!
+  totalCount: Int!
+}
+
+type PaginatedPayment {
+  items: [Payment!]!
+  totalCount: Int!
+}
+
+type PaginatedPaymentMethod {
+  items: [PaymentMethod!]!
+  totalCount: Int!
+}
+
+type PaginatedProductCategory {
+  items: [ProductCategory!]!
+  totalCount: Int!
+}
+
+type PaginatedProvince {
+  items: [Province!]!
+  totalCount: Int!
+}
+
+type PaginatedRegion {
+  items: [Region!]!
+  totalCount: Int!
+}
+
+type PaginatedReport {
+  items: [Report!]!
+  totalCount: Int!
+}
+
+type PaginatedTransaction {
+  items: [Transaction!]!
+  totalCount: Int!
+}
+
+type PaginatedUser {
+  items: [User!]!
+  totalCount: Int!
+}
+
+type PaginatedUserAction {
+  items: [UserAction!]!
+  totalCount: Int!
+}
+
+type PaginatedUserActionLog {
+  items: [UserActionLog!]!
+  totalCount: Int!
+}
+
+type PaginatedUserBlocked {
+  items: [UserBlocked!]!
+  totalCount: Int!
+}
+
+type PaginatedUserBooking {
+  items: [UserBooking!]!
+  totalCount: Int!
+}
+
+type PaginatedUserBookmark {
+  items: [UserBookmark!]!
+  totalCount: Int!
+}
+
+type PaginatedUserCheckin {
+  items: [UserCheckin!]!
+  totalCount: Int!
+}
+
+type PaginatedUserFollowing {
+  items: [UserFollowing!]!
+  totalCount: Int!
+}
+
+type PaginatedUserPreference {
+  items: [UserPreference!]!
+  totalCount: Int!
+}
+
+type PaginatedUserReview {
+  items: [UserReview!]!
+  totalCount: Int!
+}
+
+type PaginatedUserScore {
+  items: [UserScore!]!
+  totalCount: Int!
+}
+
+type PaginatedUserVerification {
+  items: [UserVerification!]!
+  totalCount: Int!
+}
+
+type PaginatedUserWallet {
+  items: [UserWallet!]!
+  totalCount: Int!
+}
+
 type Payment {
   amount: Float!
   business: CommonBusiness
@@ -1213,7 +1348,7 @@ type Query {
 
     """The page number to fetch"""
     page: Int! = 1
-  ): PaginatedBusinessProductPrice!
+  ): PaginatedUserVerification!
   allBookingTimeSlot(
     """The number of items per page"""
     limit: Int! = 10
@@ -1298,6 +1433,167 @@ type Query {
     """The page number to fetch"""
     page: Int! = 1
   ): PaginatedBusinessUpdate!
+  allCountry(
+    """The number of items per page"""
+    limit: Int! = 10
+
+    """The page number to fetch"""
+    page: Int! = 1
+  ): PaginatedCountry!
+  allDealsRedemption(
+    """The number of items per page"""
+    limit: Int! = 10
+
+    """The page number to fetch"""
+    page: Int! = 1
+  ): PaginatedDealsRedemption!
+  allEvent(
+    """The number of items per page"""
+    limit: Int! = 10
+
+    """The page number to fetch"""
+    page: Int! = 1
+  ): PaginatedEvent!
+  allEventCategory(
+    """The number of items per page"""
+    limit: Int! = 10
+
+    """The page number to fetch"""
+    page: Int! = 1
+  ): PaginatedEventCategory!
+  allMedia(
+    """The number of items per page"""
+    limit: Int! = 10
+
+    """The page number to fetch"""
+    page: Int! = 1
+  ): PaginatedMedia!
+  allPayment(
+    """The number of items per page"""
+    limit: Int! = 10
+
+    """The page number to fetch"""
+    page: Int! = 1
+  ): PaginatedPayment!
+  allPaymentMethod(
+    """The number of items per page"""
+    limit: Int! = 10
+
+    """The page number to fetch"""
+    page: Int! = 1
+  ): PaginatedPaymentMethod!
+  allProductCategory(
+    """The number of items per page"""
+    limit: Int! = 10
+
+    """The page number to fetch"""
+    page: Int! = 1
+  ): PaginatedProductCategory!
+  allProvince(
+    """The number of items per page"""
+    limit: Int! = 10
+
+    """The page number to fetch"""
+    page: Int! = 1
+  ): PaginatedProvince!
+  allRegion(
+    """The number of items per page"""
+    limit: Int! = 10
+
+    """The page number to fetch"""
+    page: Int! = 1
+  ): PaginatedRegion!
+  allReport(
+    """The number of items per page"""
+    limit: Int! = 10
+
+    """The page number to fetch"""
+    page: Int! = 1
+  ): PaginatedReport!
+  allTransaction(
+    """The number of items per page"""
+    limit: Int! = 10
+
+    """The page number to fetch"""
+    page: Int! = 1
+  ): PaginatedTransaction!
+  allUser(
+    """The number of items per page"""
+    limit: Int! = 10
+
+    """The page number to fetch"""
+    page: Int! = 1
+  ): PaginatedUser!
+  allUserAction(
+    """The number of items per page"""
+    limit: Int! = 10
+
+    """The page number to fetch"""
+    page: Int! = 1
+  ): PaginatedUserAction!
+  allUserActionLog(
+    """The number of items per page"""
+    limit: Int! = 10
+
+    """The page number to fetch"""
+    page: Int! = 1
+  ): PaginatedUserActionLog!
+  allUserBooking(
+    """The number of items per page"""
+    limit: Int! = 10
+
+    """The page number to fetch"""
+    page: Int! = 1
+  ): PaginatedUserBooking!
+  allUserBookmark(
+    """The number of items per page"""
+    limit: Int! = 10
+
+    """The page number to fetch"""
+    page: Int! = 1
+  ): PaginatedUserBookmark!
+  allUserCheckin(
+    """The number of items per page"""
+    limit: Int! = 10
+
+    """The page number to fetch"""
+    page: Int! = 1
+  ): PaginatedUserCheckin!
+  allUserFollowing(
+    """The number of items per page"""
+    limit: Int! = 10
+
+    """The page number to fetch"""
+    page: Int! = 1
+  ): PaginatedUserFollowing!
+  allUserPreference(
+    """The number of items per page"""
+    limit: Int! = 10
+
+    """The page number to fetch"""
+    page: Int! = 1
+  ): PaginatedUserPreference!
+  allUserReview(
+    """The number of items per page"""
+    limit: Int! = 10
+
+    """The page number to fetch"""
+    page: Int! = 1
+  ): PaginatedUserReview!
+  allUserScore(
+    """The number of items per page"""
+    limit: Int! = 10
+
+    """The page number to fetch"""
+    page: Int! = 1
+  ): PaginatedUserScore!
+  allUserWallet(
+    """The number of items per page"""
+    limit: Int! = 10
+
+    """The page number to fetch"""
+    page: Int! = 1
+  ): PaginatedUserWallet!
   amenities(
     """The number of items per page"""
     limit: Int! = 10

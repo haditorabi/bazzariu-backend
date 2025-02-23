@@ -100,39 +100,67 @@ export class PaginatedBusinessTag extends PaginatedResponse(BusinessTag) {}
 export class PaginatedBusinessUpdate extends PaginatedResponse(
   BusinessUpdate,
 ) {}
+@ObjectType()
 export class PaginatedCity extends PaginatedResponse(City) {}
+@ObjectType()
 export class PaginatedCountry extends PaginatedResponse(Country) {}
+@ObjectType()
 export class PaginatedCurrency extends PaginatedResponse(Currency) {}
+@ObjectType()
 export class PaginatedDealsRedemption extends PaginatedResponse(
   DealsRedemption,
 ) {}
+@ObjectType()
 export class PaginatedEvent extends PaginatedResponse(Event) {}
+@ObjectType()
 export class PaginatedEventCategory extends PaginatedResponse(EventCategory) {}
+@ObjectType()
 export class PaginatedLanguage extends PaginatedResponse(Language) {}
+@ObjectType()
 export class PaginatedMedia extends PaginatedResponse(Media) {}
+@ObjectType()
 export class PaginatedPayment extends PaginatedResponse(Payment) {}
+@ObjectType()
 export class PaginatedPaymentMethod extends PaginatedResponse(PaymentMethod) {}
+@ObjectType()
 export class PaginatedProductCategory extends PaginatedResponse(
   ProductCategory,
 ) {}
+@ObjectType()
 export class PaginatedProvince extends PaginatedResponse(Province) {}
+@ObjectType()
 export class PaginatedRegion extends PaginatedResponse(Region) {}
+@ObjectType()
 export class PaginatedReport extends PaginatedResponse(Report) {}
+@ObjectType()
 export class PaginatedTransaction extends PaginatedResponse(Transaction) {}
+@ObjectType()
 export class PaginatedUser extends PaginatedResponse(User) {}
+@ObjectType()
 export class PaginatedUserAction extends PaginatedResponse(UserAction) {}
+@ObjectType()
 export class PaginatedUserActionLog extends PaginatedResponse(UserActionLog) {}
+@ObjectType()
 export class PaginatedUserBlocked extends PaginatedResponse(UserBlocked) {}
+@ObjectType()
 export class PaginatedUserBooking extends PaginatedResponse(UserBooking) {}
+@ObjectType()
 export class PaginatedUserBookmark extends PaginatedResponse(UserBookmark) {}
+@ObjectType()
 export class PaginatedUserCheckin extends PaginatedResponse(UserCheckin) {}
+@ObjectType()
 export class PaginatedUserFollowing extends PaginatedResponse(UserFollowing) {}
+@ObjectType()
 export class PaginatedUserPreference extends PaginatedResponse(
   UserPreference,
 ) {}
+@ObjectType()
 export class PaginatedUserReview extends PaginatedResponse(UserReview) {}
+@ObjectType()
 export class PaginatedUserScore extends PaginatedResponse(UserScore) {}
+@ObjectType()
 export class PaginatedUserVerification extends PaginatedResponse(
   UserVerification,
 ) {}
+@ObjectType()
 export class PaginatedUserWallet extends PaginatedResponse(UserWallet) {}
