@@ -18,7 +18,7 @@ export class LanguageResolver {
     return this.service.findAll(paginationArgs);
   }
   @Query(() => PaginatedAmenities)
-  async allAmenity(@Args() paginationArgs: PaginationArgs) {
+  async allLanguage(@Args() paginationArgs: PaginationArgs) {
     const [items, totalCount] = await this.service.findAndCount(paginationArgs);
     return { items, totalCount };
   }

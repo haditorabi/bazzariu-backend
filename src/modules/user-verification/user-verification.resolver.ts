@@ -25,7 +25,7 @@ export class UserVerificationResolver {
     return this.service.findAll(paginationArgs);
   }
   @Query(() => PaginatedUserVerification)
-  async allAmenity(@Args() paginationArgs: PaginationArgs) {
+  async allUserVerification(@Args() paginationArgs: PaginationArgs) {
     const [items, totalCount] = await this.service.findAndCount(paginationArgs);
     return { items, totalCount };
   }

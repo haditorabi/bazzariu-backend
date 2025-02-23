@@ -1348,7 +1348,7 @@ type Query {
 
     """The page number to fetch"""
     page: Int! = 1
-  ): PaginatedUserVerification!
+  ): PaginatedAmenities!
   allBookingTimeSlot(
     """The number of items per page"""
     limit: Int! = 10
@@ -1419,6 +1419,13 @@ type Query {
     """The page number to fetch"""
     page: Int! = 1
   ): PaginatedBusinessProduct!
+  allBusinessProductPrice(
+    """The number of items per page"""
+    limit: Int! = 10
+
+    """The page number to fetch"""
+    page: Int! = 1
+  ): PaginatedBusinessProductPrice!
   allBusinessTag(
     """The number of items per page"""
     limit: Int! = 10
@@ -1433,6 +1440,13 @@ type Query {
     """The page number to fetch"""
     page: Int! = 1
   ): PaginatedBusinessUpdate!
+  allCity(
+    """The number of items per page"""
+    limit: Int! = 10
+
+    """The page number to fetch"""
+    page: Int! = 1
+  ): PaginatedCity!
   allCountry(
     """The number of items per page"""
     limit: Int! = 10
@@ -1440,6 +1454,13 @@ type Query {
     """The page number to fetch"""
     page: Int! = 1
   ): PaginatedCountry!
+  allCurrency(
+    """The number of items per page"""
+    limit: Int! = 10
+
+    """The page number to fetch"""
+    page: Int! = 1
+  ): PaginatedCurrency!
   allDealsRedemption(
     """The number of items per page"""
     limit: Int! = 10
@@ -1461,6 +1482,13 @@ type Query {
     """The page number to fetch"""
     page: Int! = 1
   ): PaginatedEventCategory!
+  allLanguage(
+    """The number of items per page"""
+    limit: Int! = 10
+
+    """The page number to fetch"""
+    page: Int! = 1
+  ): PaginatedAmenities!
   allMedia(
     """The number of items per page"""
     limit: Int! = 10
@@ -1538,6 +1566,13 @@ type Query {
     """The page number to fetch"""
     page: Int! = 1
   ): PaginatedUserActionLog!
+  allUserBlocked(
+    """The number of items per page"""
+    limit: Int! = 10
+
+    """The page number to fetch"""
+    page: Int! = 1
+  ): PaginatedUserBlocked!
   allUserBooking(
     """The number of items per page"""
     limit: Int! = 10
@@ -1587,6 +1622,13 @@ type Query {
     """The page number to fetch"""
     page: Int! = 1
   ): PaginatedUserScore!
+  allUserVerification(
+    """The number of items per page"""
+    limit: Int! = 10
+
+    """The page number to fetch"""
+    page: Int! = 1
+  ): PaginatedUserVerification!
   allUserWallet(
     """The number of items per page"""
     limit: Int! = 10

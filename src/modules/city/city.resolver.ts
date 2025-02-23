@@ -22,7 +22,7 @@ export class CityResolver {
     return this.service.findAll(paginationArgs);
   }
   @Query(() => PaginatedCity)
-  async allAmenity(@Args() paginationArgs: PaginationArgs) {
+  async allCity(@Args() paginationArgs: PaginationArgs) {
     const [items, totalCount] = await this.service.findAndCount(paginationArgs);
     return { items, totalCount };
   }

@@ -26,7 +26,7 @@ export class BusinessProductPriceResolver {
     return this.service.findAll(paginationArgs);
   }
   @Query(() => PaginatedBusinessProductPrice)
-  async allAmenity(@Args() paginationArgs: PaginationArgs) {
+  async allBusinessProductPrice(@Args() paginationArgs: PaginationArgs) {
     const [items, totalCount] = await this.service.findAndCount(paginationArgs);
     return { items, totalCount };
   }

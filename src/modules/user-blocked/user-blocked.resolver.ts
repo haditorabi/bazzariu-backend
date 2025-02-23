@@ -27,7 +27,7 @@ export class UserBlockedResolver {
     return this.service.findAll(paginationArgs);
   }
   @Query(() => PaginatedUserBlocked)
-  async allAmenity(@Args() paginationArgs: PaginationArgs) {
+  async allUserBlocked(@Args() paginationArgs: PaginationArgs) {
     const [items, totalCount] = await this.service.findAndCount(paginationArgs);
     return { items, totalCount };
   }
