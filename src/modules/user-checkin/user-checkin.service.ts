@@ -23,7 +23,20 @@ export class UserCheckinService {
       take,
     });
   }
-
+  @ServiceErrorHandler('find all UserCheckin')
+  async findAndCount(
+    paginationArgs: PaginationArgs,
+  ): Promise<[UserCheckin[], number]> {
+    const { take, skip } = paginationArgs;
+    const [items, totalCount] = await this.prisma.$transaction([
+      this.prisma.userCheckin.findMany({
+        skip,
+        take,
+      }),
+      this.prisma.userCheckin.count(),
+    ]);
+    return [items, totalCount];
+  }
   @ServiceErrorHandler('Find One UserCheckin')
   async findOne(id: string): Promise<UserCheckin | null> {
     return this.prisma.userCheckin.findUnique({

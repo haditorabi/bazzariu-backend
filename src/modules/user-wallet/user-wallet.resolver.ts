@@ -14,6 +14,7 @@ import {
 } from './user-wallet.graphql';
 import { Prisma } from '@prisma/client';
 import { PaginationArgs } from 'src/graphql/pagination-args-types';
+import { PaginatedUserWallet } from 'src/graphql/paginated-response';
 @Resolver(() => UserWallet)
 export class UserWalletResolver {
   constructor(private service: UserWalletService) {}
@@ -21,6 +22,11 @@ export class UserWalletResolver {
   @Query(() => [UserWallet])
   async userWallets(@Args() paginationArgs: PaginationArgs) {
     return this.service.findAll(paginationArgs);
+  }
+  @Query(() => PaginatedUserWallet)
+  async allUserWallet(@Args() paginationArgs: PaginationArgs) {
+    const [items, totalCount] = await this.service.findAndCount(paginationArgs);
+    return { items, totalCount };
   }
 
   @Query(() => UserWallet)

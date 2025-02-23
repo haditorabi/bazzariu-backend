@@ -28,6 +28,7 @@ import { UserWallet } from '../user-wallet/user-wallet.graphql';
 import { UserPreference } from '../user-preference/user-preference.graphql';
 import { Report } from '../report/report.graphql';
 import { Prisma } from '@prisma/client';
+import { PaginatedUser } from 'src/graphql/paginated-response';
 
 @Resolver(() => User)
 export class UserResolver {
@@ -37,6 +38,12 @@ export class UserResolver {
   async users(@Args() paginationArgs: PaginationArgs) {
     return this.service.findAll(paginationArgs);
   }
+  @Query(() => PaginatedUser)
+  async allUser(@Args() paginationArgs: PaginationArgs) {
+    const [items, totalCount] = await this.service.findAndCount(paginationArgs);
+    return { items, totalCount };
+  }
+
   @Query(() => User)
   async user(@Args('id') userId: string) {
     return this.service.findOne(userId);

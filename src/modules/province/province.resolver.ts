@@ -16,6 +16,7 @@ import { Prisma } from '@prisma/client';
 import { CommonCountry } from 'src/graphql/country.type';
 import { CommonCity } from 'src/graphql/city.type';
 import { PaginationArgs } from 'src/graphql/pagination-args-types';
+import { PaginatedProvince } from 'src/graphql/paginated-response';
 
 @Resolver(() => Province)
 export class ProvinceResolver {
@@ -24,6 +25,11 @@ export class ProvinceResolver {
   @Query(() => [Province])
   async provinces(@Args() paginationArgs: PaginationArgs) {
     return this.service.findAll(paginationArgs);
+  }
+  @Query(() => PaginatedProvince)
+  async allProvince(@Args() paginationArgs: PaginationArgs) {
+    const [items, totalCount] = await this.service.findAndCount(paginationArgs);
+    return { items, totalCount };
   }
 
   @Query(() => Province)

@@ -23,7 +23,20 @@ export class UserBlockedService {
       take,
     });
   }
-
+  @ServiceErrorHandler('find all UserBlocked')
+  async findAndCount(
+    paginationArgs: PaginationArgs,
+  ): Promise<[UserBlocked[], number]> {
+    const { take, skip } = paginationArgs;
+    const [items, totalCount] = await this.prisma.$transaction([
+      this.prisma.userBlocked.findMany({
+        skip,
+        take,
+      }),
+      this.prisma.userBlocked.count(),
+    ]);
+    return [items, totalCount];
+  }
   @ServiceErrorHandler('Find user block by ID')
   async findOne(id: string): Promise<UserBlocked | null> {
     return this.prisma.userBlocked.findUnique({

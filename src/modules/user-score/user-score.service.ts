@@ -23,6 +23,20 @@ export class UserScoreService {
       take,
     });
   }
+  @ServiceErrorHandler('find all UserScore')
+  async findAndCount(
+    paginationArgs: PaginationArgs,
+  ): Promise<[UserScore[], number]> {
+    const { take, skip } = paginationArgs;
+    const [items, totalCount] = await this.prisma.$transaction([
+      this.prisma.userScore.findMany({
+        skip,
+        take,
+      }),
+      this.prisma.userScore.count(),
+    ]);
+    return [items, totalCount];
+  }
 
   @ServiceErrorHandler('findOne UserScore')
   async findOne(id: string): Promise<UserScore | null> {

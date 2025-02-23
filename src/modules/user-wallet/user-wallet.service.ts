@@ -23,6 +23,20 @@ export class UserWalletService {
       take,
     });
   }
+  @ServiceErrorHandler('find all UserWallet')
+  async findAndCount(
+    paginationArgs: PaginationArgs,
+  ): Promise<[UserWallet[], number]> {
+    const { take, skip } = paginationArgs;
+    const [items, totalCount] = await this.prisma.$transaction([
+      this.prisma.userWallet.findMany({
+        skip,
+        take,
+      }),
+      this.prisma.userWallet.count(),
+    ]);
+    return [items, totalCount];
+  }
 
   @ServiceErrorHandler('find one user wallet')
   async findOne(id: string): Promise<UserWallet | null> {

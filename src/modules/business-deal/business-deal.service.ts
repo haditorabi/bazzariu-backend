@@ -29,7 +29,20 @@ export class BusinessDealService {
       take,
     });
   }
-
+  @ServiceErrorHandler('find all Business Deals')
+  async findAndCount(
+    paginationArgs: PaginationArgs,
+  ): Promise<[BusinessDeal[], number]> {
+    const { take, skip } = paginationArgs;
+    const [items, totalCount] = await this.prisma.$transaction([
+      this.prisma.businessDeal.findMany({
+        skip,
+        take,
+      }),
+      this.prisma.businessDeal.count(),
+    ]);
+    return [items, totalCount];
+  }
   @ServiceErrorHandler('Get Business Deal by ID')
   async findOne(id: string): Promise<BusinessDeal | null> {
     return this.prisma.businessDeal.findUnique({

@@ -24,7 +24,20 @@ export class EventService {
       take,
     });
   }
-
+  @ServiceErrorHandler('find all Event')
+  async findAndCount(
+    paginationArgs: PaginationArgs,
+  ): Promise<[Event[], number]> {
+    const { take, skip } = paginationArgs;
+    const [items, totalCount] = await this.prisma.$transaction([
+      this.prisma.event.findMany({
+        skip,
+        take,
+      }),
+      this.prisma.event.count(),
+    ]);
+    return [items, totalCount];
+  }
   @ServiceErrorHandler('Fetching event by ID')
   async findOne(id: string): Promise<Event | null> {
     return this.prisma.event.findUnique({

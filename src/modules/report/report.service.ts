@@ -23,7 +23,20 @@ export class ReportService {
       take,
     });
   }
-
+  @ServiceErrorHandler('find all Report')
+  async findAndCount(
+    paginationArgs: PaginationArgs,
+  ): Promise<[Report[], number]> {
+    const { take, skip } = paginationArgs;
+    const [items, totalCount] = await this.prisma.$transaction([
+      this.prisma.report.findMany({
+        skip,
+        take,
+      }),
+      this.prisma.report.count(),
+    ]);
+    return [items, totalCount];
+  }
   @ServiceErrorHandler('find report by id')
   async findOne(id: string): Promise<Report | null> {
     return this.prisma.report.findUnique({

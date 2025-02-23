@@ -23,7 +23,20 @@ export class ProvinceService {
       take,
     });
   }
-
+  @ServiceErrorHandler('find all Province')
+  async findAndCount(
+    paginationArgs: PaginationArgs,
+  ): Promise<[Province[], number]> {
+    const { take, skip } = paginationArgs;
+    const [items, totalCount] = await this.prisma.$transaction([
+      this.prisma.province.findMany({
+        skip,
+        take,
+      }),
+      this.prisma.province.count(),
+    ]);
+    return [items, totalCount];
+  }
   @ServiceErrorHandler('retrieve a province')
   async findOne(id: string): Promise<Province | null> {
     return this.prisma.province.findUnique({

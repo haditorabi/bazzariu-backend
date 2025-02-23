@@ -18,6 +18,7 @@ import { CommonBusinessDeal } from 'src/graphql/business-deal.type';
 import { CommonBusinessProductPrice } from 'src/graphql/business-product-price.type';
 import { PaginationArgs } from 'src/graphql/pagination-args-types';
 import { CommonBusiness } from 'src/graphql/business.type';
+import { PaginatedBusinessProduct } from 'src/graphql/paginated-response';
 
 @Resolver(() => BusinessProduct)
 export class BusinessProductResolver {
@@ -26,6 +27,11 @@ export class BusinessProductResolver {
   @Query(() => [BusinessProduct])
   async businessProducts(@Args() paginationArgs: PaginationArgs) {
     return this.service.findAll(paginationArgs);
+  }
+  @Query(() => PaginatedBusinessProduct)
+  async allBusinessProduct(@Args() paginationArgs: PaginationArgs) {
+    const [items, totalCount] = await this.service.findAndCount(paginationArgs);
+    return { items, totalCount };
   }
 
   @Query(() => BusinessProduct)

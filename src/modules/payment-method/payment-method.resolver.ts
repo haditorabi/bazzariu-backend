@@ -16,6 +16,7 @@ import { Prisma } from '@prisma/client';
 import { PaginationArgs } from 'src/graphql/pagination-args-types';
 import { CommonUser } from 'src/graphql/user.type';
 import { CommonPayment } from 'src/graphql/payment.type';
+import { PaginatedPaymentMethod } from 'src/graphql/paginated-response';
 
 @Resolver(() => PaymentMethod)
 export class PaymentMethodResolver {
@@ -24,6 +25,11 @@ export class PaymentMethodResolver {
   @Query(() => [PaymentMethod])
   async paymentMethods(@Args() paginationArgs: PaginationArgs) {
     return this.service.findAll(paginationArgs);
+  }
+  @Query(() => PaginatedPaymentMethod)
+  async allPaymentMethod(@Args() paginationArgs: PaginationArgs) {
+    const [items, totalCount] = await this.service.findAndCount(paginationArgs);
+    return { items, totalCount };
   }
 
   @Query(() => PaymentMethod)

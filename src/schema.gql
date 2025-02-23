@@ -1047,6 +1047,71 @@ type PaginatedAmenities {
   totalCount: Int!
 }
 
+type PaginatedBookingTimeSlot {
+  items: [BookingTimeSlot!]!
+  totalCount: Int!
+}
+
+type PaginatedBusiness {
+  items: [Business!]!
+  totalCount: Int!
+}
+
+type PaginatedBusinessBooking {
+  items: [BusinessBooking!]!
+  totalCount: Int!
+}
+
+type PaginatedBusinessBoost {
+  items: [BusinessBoost!]!
+  totalCount: Int!
+}
+
+type PaginatedBusinessCategory {
+  items: [BusinessCategory!]!
+  totalCount: Int!
+}
+
+type PaginatedBusinessDeal {
+  items: [BusinessDeal!]!
+  totalCount: Int!
+}
+
+type PaginatedBusinessFollowing {
+  items: [BusinessFollowing!]!
+  totalCount: Int!
+}
+
+type PaginatedBusinessHour {
+  items: [BusinessHour!]!
+  totalCount: Int!
+}
+
+type PaginatedBusinessLocation {
+  items: [BusinessLocation!]!
+  totalCount: Int!
+}
+
+type PaginatedBusinessProduct {
+  items: [BusinessProduct!]!
+  totalCount: Int!
+}
+
+type PaginatedBusinessProductPrice {
+  items: [BusinessProductPrice!]!
+  totalCount: Int!
+}
+
+type PaginatedBusinessTag {
+  items: [BusinessTag!]!
+  totalCount: Int!
+}
+
+type PaginatedBusinessUpdate {
+  items: [BusinessUpdate!]!
+  totalCount: Int!
+}
+
 type Payment {
   amount: Float!
   business: CommonBusiness
@@ -1148,7 +1213,91 @@ type Query {
 
     """The page number to fetch"""
     page: Int! = 1
-  ): PaginatedAmenities!
+  ): PaginatedBusinessProductPrice!
+  allBookingTimeSlot(
+    """The number of items per page"""
+    limit: Int! = 10
+
+    """The page number to fetch"""
+    page: Int! = 1
+  ): PaginatedBookingTimeSlot!
+  allBusiness(
+    """The number of items per page"""
+    limit: Int! = 10
+
+    """The page number to fetch"""
+    page: Int! = 1
+  ): PaginatedBusiness!
+  allBusinessBooking(
+    """The number of items per page"""
+    limit: Int! = 10
+
+    """The page number to fetch"""
+    page: Int! = 1
+  ): PaginatedBusinessBooking!
+  allBusinessBoost(
+    """The number of items per page"""
+    limit: Int! = 10
+
+    """The page number to fetch"""
+    page: Int! = 1
+  ): PaginatedBusinessBoost!
+  allBusinessCategory(
+    """The number of items per page"""
+    limit: Int! = 10
+
+    """The page number to fetch"""
+    page: Int! = 1
+  ): PaginatedBusinessCategory!
+  allBusinessDeal(
+    """The number of items per page"""
+    limit: Int! = 10
+
+    """The page number to fetch"""
+    page: Int! = 1
+  ): PaginatedBusinessDeal!
+  allBusinessFollowing(
+    """The number of items per page"""
+    limit: Int! = 10
+
+    """The page number to fetch"""
+    page: Int! = 1
+  ): PaginatedBusinessFollowing!
+  allBusinessHour(
+    """The number of items per page"""
+    limit: Int! = 10
+
+    """The page number to fetch"""
+    page: Int! = 1
+  ): PaginatedBusinessHour!
+  allBusinessLocation(
+    """The number of items per page"""
+    limit: Int! = 10
+
+    """The page number to fetch"""
+    page: Int! = 1
+  ): PaginatedBusinessLocation!
+  allBusinessProduct(
+    """The number of items per page"""
+    limit: Int! = 10
+
+    """The page number to fetch"""
+    page: Int! = 1
+  ): PaginatedBusinessProduct!
+  allBusinessTag(
+    """The number of items per page"""
+    limit: Int! = 10
+
+    """The page number to fetch"""
+    page: Int! = 1
+  ): PaginatedBusinessTag!
+  allBusinessUpdate(
+    """The number of items per page"""
+    limit: Int! = 10
+
+    """The page number to fetch"""
+    page: Int! = 1
+  ): PaginatedBusinessUpdate!
   amenities(
     """The number of items per page"""
     limit: Int! = 10

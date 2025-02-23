@@ -25,6 +25,20 @@ export class UserVerificationService {
       take,
     });
   }
+  @ServiceErrorHandler('find all UserVerification')
+  async findAndCount(
+    paginationArgs: PaginationArgs,
+  ): Promise<[UserVerification[], number]> {
+    const { take, skip } = paginationArgs;
+    const [items, totalCount] = await this.prisma.$transaction([
+      this.prisma.userVerification.findMany({
+        skip,
+        take,
+      }),
+      this.prisma.userVerification.count(),
+    ]);
+    return [items, totalCount];
+  }
 
   @ServiceErrorHandler('Get One User Verification')
   async findOne(id: string): Promise<UserVerification | null> {

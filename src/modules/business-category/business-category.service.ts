@@ -26,7 +26,20 @@ export class BusinessCategoryService {
       take,
     });
   }
-
+  @ServiceErrorHandler('find all Business Categories')
+  async findAndCount(
+    paginationArgs: PaginationArgs,
+  ): Promise<[BusinessCategory[], number]> {
+    const { take, skip } = paginationArgs;
+    const [items, totalCount] = await this.prisma.$transaction([
+      this.prisma.businessCategory.findMany({
+        skip,
+        take,
+      }),
+      this.prisma.businessCategory.count(),
+    ]);
+    return [items, totalCount];
+  }
   @ServiceErrorHandler('Find One Business Category')
   async findOne(id: string): Promise<BusinessCategory | null> {
     return this.prisma.businessCategory.findUnique({

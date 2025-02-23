@@ -15,6 +15,7 @@ import {
 import { CommonProvince } from 'src/graphql/province.type';
 import { ServiceErrorHandler } from 'src/common/decorators/ServiceErrorHandler';
 import { PaginationArgs } from 'src/graphql/pagination-args-types';
+import { PaginatedCountry } from 'src/graphql/paginated-response';
 
 @Resolver(() => Country)
 export class CountryResolver {
@@ -24,6 +25,11 @@ export class CountryResolver {
   @ServiceErrorHandler('findAll countries') // Error handling
   async countries(@Args() paginationArgs: PaginationArgs) {
     return this.service.findAll(paginationArgs);
+  }
+  @Query(() => PaginatedCountry)
+  async allCountry(@Args() paginationArgs: PaginationArgs) {
+    const [items, totalCount] = await this.service.findAndCount(paginationArgs);
+    return { items, totalCount };
   }
 
   @Query(() => Country)

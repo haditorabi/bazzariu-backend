@@ -25,7 +25,20 @@ export class DealsRedemptionService {
       take,
     });
   }
-
+  @ServiceErrorHandler('find all DealsRedemption')
+  async findAndCount(
+    paginationArgs: PaginationArgs,
+  ): Promise<[DealsRedemption[], number]> {
+    const { take, skip } = paginationArgs;
+    const [items, totalCount] = await this.prisma.$transaction([
+      this.prisma.dealsRedemption.findMany({
+        skip,
+        take,
+      }),
+      this.prisma.dealsRedemption.count(),
+    ]);
+    return [items, totalCount];
+  }
   @ServiceErrorHandler('fetch deal redemption by ID')
   async findOne(id: string): Promise<DealsRedemption | null> {
     return this.prisma.dealsRedemption.findUnique({

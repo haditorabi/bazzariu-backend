@@ -15,6 +15,7 @@ import {
 import { Prisma } from '@prisma/client';
 import { User } from '../user/user.graphql';
 import { PaginationArgs } from 'src/graphql/pagination-args-types';
+import { PaginatedUserScore } from 'src/graphql/paginated-response';
 @Resolver(() => UserScore)
 export class UserScoreResolver {
   constructor(private service: UserScoreService) {}
@@ -22,6 +23,11 @@ export class UserScoreResolver {
   @Query(() => [UserScore])
   async userScores(@Args() paginationArgs: PaginationArgs) {
     return this.service.findAll(paginationArgs);
+  }
+  @Query(() => PaginatedUserScore)
+  async allUserScore(@Args() paginationArgs: PaginationArgs) {
+    const [items, totalCount] = await this.service.findAndCount(paginationArgs);
+    return { items, totalCount };
   }
 
   @Query(() => UserScore)

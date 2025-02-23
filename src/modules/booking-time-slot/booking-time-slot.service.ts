@@ -17,6 +17,20 @@ export class BookingTimeSlotService {
       take,
     });
   }
+  @ServiceErrorHandler('find all booking time slots')
+  async findAndCount(
+    paginationArgs: PaginationArgs,
+  ): Promise<[BookingTimeSlot[], number]> {
+    const { take, skip } = paginationArgs;
+    const [items, totalCount] = await this.prisma.$transaction([
+      this.prisma.bookingTimeSlot.findMany({
+        skip,
+        take,
+      }),
+      this.prisma.bookingTimeSlot.count(),
+    ]);
+    return [items, totalCount];
+  }
 
   @ServiceErrorHandler('find a booking time slot')
   async findOne(id: string): Promise<BookingTimeSlot | null> {

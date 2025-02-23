@@ -15,6 +15,7 @@ import {
 import { Prisma } from '@prisma/client';
 import { PaginationArgs } from 'src/graphql/pagination-args-types';
 import { NotFoundException } from '@nestjs/common';
+import { PaginatedBusinessLocation } from 'src/graphql/paginated-response';
 
 @Resolver(() => BusinessLocation)
 export class BusinessLocationResolver {
@@ -23,6 +24,11 @@ export class BusinessLocationResolver {
   @Query(() => [BusinessLocation])
   async businessLocations(@Args() paginationArgs: PaginationArgs) {
     return this.service.findAll(paginationArgs);
+  }
+  @Query(() => PaginatedBusinessLocation)
+  async allBusinessLocation(@Args() paginationArgs: PaginationArgs) {
+    const [items, totalCount] = await this.service.findAndCount(paginationArgs);
+    return { items, totalCount };
   }
 
   @Query(() => BusinessLocation)

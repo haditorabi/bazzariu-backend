@@ -15,6 +15,7 @@ import {
 import { Prisma } from '@prisma/client';
 import { PaginationArgs } from 'src/graphql/pagination-args-types';
 import { CommonUser } from 'src/graphql/user.type';
+import { PaginatedUserPreference } from 'src/graphql/paginated-response';
 
 @Resolver(() => UserPreference)
 export class UserPreferenceResolver {
@@ -23,6 +24,11 @@ export class UserPreferenceResolver {
   @Query(() => [UserPreference])
   async userPreferences(@Args() paginationArgs: PaginationArgs) {
     return this.service.findAll(paginationArgs);
+  }
+  @Query(() => PaginatedUserPreference)
+  async allUserPreference(@Args() paginationArgs: PaginationArgs) {
+    const [items, totalCount] = await this.service.findAndCount(paginationArgs);
+    return { items, totalCount };
   }
 
   @Query(() => UserPreference)

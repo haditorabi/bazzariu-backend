@@ -25,7 +25,20 @@ export class BusinessUpdateService {
       take,
     });
   }
-
+  @ServiceErrorHandler('find all BusinessUpdate')
+  async findAndCount(
+    paginationArgs: PaginationArgs,
+  ): Promise<[BusinessUpdate[], number]> {
+    const { take, skip } = paginationArgs;
+    const [items, totalCount] = await this.prisma.$transaction([
+      this.prisma.businessUpdate.findMany({
+        skip,
+        take,
+      }),
+      this.prisma.businessUpdate.count(),
+    ]);
+    return [items, totalCount];
+  }
   @ServiceErrorHandler('findOne BusinessUpdate') // Applying error handler decorator
   async findOne(id: string): Promise<BusinessUpdate | null> {
     return this.prisma.businessUpdate.findUnique({

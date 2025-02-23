@@ -23,7 +23,20 @@ export class EventCategoryService {
       take,
     });
   }
-
+  @ServiceErrorHandler('find all EventCategory')
+  async findAndCount(
+    paginationArgs: PaginationArgs,
+  ): Promise<[EventCategory[], number]> {
+    const { take, skip } = paginationArgs;
+    const [items, totalCount] = await this.prisma.$transaction([
+      this.prisma.eventCategory.findMany({
+        skip,
+        take,
+      }),
+      this.prisma.eventCategory.count(),
+    ]);
+    return [items, totalCount];
+  }
   @ServiceErrorHandler('find one event category')
   async findOne(id: string): Promise<EventCategory | null> {
     return this.prisma.eventCategory.findUnique({

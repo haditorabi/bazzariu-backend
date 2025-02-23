@@ -17,6 +17,7 @@ import { CommonPaymentMethod } from 'src/graphql/payment-method.type';
 import { CommonBusiness } from 'src/graphql/business.type';
 import { CommonUser } from 'src/graphql/user.type';
 import { PaginationArgs } from 'src/graphql/pagination-args-types';
+import { PaginatedPayment } from 'src/graphql/paginated-response';
 @Resolver(() => Payment)
 export class PaymentResolver {
   constructor(private service: PaymentService) {}
@@ -24,6 +25,11 @@ export class PaymentResolver {
   @Query(() => [Payment])
   async payments(@Args() paginationArgs: PaginationArgs) {
     return this.service.findAll(paginationArgs); // Pass pagination params
+  }
+  @Query(() => PaginatedPayment)
+  async allPayment(@Args() paginationArgs: PaginationArgs) {
+    const [items, totalCount] = await this.service.findAndCount(paginationArgs);
+    return { items, totalCount };
   }
 
   @Query(() => Payment)

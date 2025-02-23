@@ -25,7 +25,20 @@ export class ProductCategoryService {
       take,
     });
   }
-
+  @ServiceErrorHandler('find all ProductCategory')
+  async findAndCount(
+    paginationArgs: PaginationArgs,
+  ): Promise<[ProductCategory[], number]> {
+    const { take, skip } = paginationArgs;
+    const [items, totalCount] = await this.prisma.$transaction([
+      this.prisma.productCategory.findMany({
+        skip,
+        take,
+      }),
+      this.prisma.productCategory.count(),
+    ]);
+    return [items, totalCount];
+  }
   @ServiceErrorHandler('find one ProductCategory')
   async findOne(id: string): Promise<ProductCategory | null> {
     return this.prisma.productCategory.findUnique({

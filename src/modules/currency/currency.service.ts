@@ -24,7 +24,20 @@ export class CurrencyService {
       take,
     });
   }
-
+  @ServiceErrorHandler('find all Currency')
+  async findAndCount(
+    paginationArgs: PaginationArgs,
+  ): Promise<[Currency[], number]> {
+    const { take, skip } = paginationArgs;
+    const [items, totalCount] = await this.prisma.$transaction([
+      this.prisma.currency.findMany({
+        skip,
+        take,
+      }),
+      this.prisma.currency.count(),
+    ]);
+    return [items, totalCount];
+  }
   @ServiceErrorHandler('findOneCurrency')
   async findOne(id: string): Promise<Currency | null> {
     return this.prisma.currency.findUnique({

@@ -24,7 +24,20 @@ export class BusinessHourService {
       take,
     });
   }
-
+  @ServiceErrorHandler('find all BusinessHours')
+  async findAndCount(
+    paginationArgs: PaginationArgs,
+  ): Promise<[BusinessHour[], number]> {
+    const { take, skip } = paginationArgs;
+    const [items, totalCount] = await this.prisma.$transaction([
+      this.prisma.businessHour.findMany({
+        skip,
+        take,
+      }),
+      this.prisma.businessHour.count(),
+    ]);
+    return [items, totalCount];
+  }
   @ServiceErrorHandler('findOne BusinessHour')
   async findOne(id: string): Promise<BusinessHour | null> {
     return this.prisma.businessHour.findUnique({

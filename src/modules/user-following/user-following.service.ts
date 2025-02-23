@@ -21,7 +21,20 @@ export class UserFollowingService {
       take,
     });
   }
-
+  @ServiceErrorHandler('find all UserFollowing')
+  async findAndCount(
+    paginationArgs: PaginationArgs,
+  ): Promise<[UserFollowing[], number]> {
+    const { take, skip } = paginationArgs;
+    const [items, totalCount] = await this.prisma.$transaction([
+      this.prisma.userFollowing.findMany({
+        skip,
+        take,
+      }),
+      this.prisma.userFollowing.count(),
+    ]);
+    return [items, totalCount];
+  }
   @ServiceErrorHandler('findOne UserFollowing')
   async findOne(id: string): Promise<UserFollowing | null> {
     return this.prisma.userFollowing.findUnique({

@@ -15,6 +15,7 @@ import {
 import { Prisma } from '@prisma/client';
 import { CommonUser } from 'src/graphql/user.type';
 import { PaginationArgs } from 'src/graphql/pagination-args-types';
+import { PaginatedUserVerification } from 'src/graphql/paginated-response';
 @Resolver(() => UserVerification)
 export class UserVerificationResolver {
   constructor(private service: UserVerificationService) {}
@@ -22,6 +23,11 @@ export class UserVerificationResolver {
   @Query(() => [UserVerification])
   async userVerifications(@Args() paginationArgs: PaginationArgs) {
     return this.service.findAll(paginationArgs);
+  }
+  @Query(() => PaginatedUserVerification)
+  async allAmenity(@Args() paginationArgs: PaginationArgs) {
+    const [items, totalCount] = await this.service.findAndCount(paginationArgs);
+    return { items, totalCount };
   }
 
   @Query(() => UserVerification)

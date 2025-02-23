@@ -16,6 +16,7 @@ import { Prisma } from '@prisma/client';
 import { ServiceErrorHandler } from 'src/common/decorators/ServiceErrorHandler';
 import { PaginationArgs } from 'src/graphql/pagination-args-types';
 import { CommonUser } from 'src/graphql/user.type';
+import { PaginatedUserBlocked } from 'src/graphql/paginated-response';
 
 @Resolver(() => UserBlocked)
 export class UserBlockedResolver {
@@ -24,6 +25,11 @@ export class UserBlockedResolver {
   @Query(() => [UserBlocked])
   async userBlockes(@Args() paginationArgs: PaginationArgs) {
     return this.service.findAll(paginationArgs);
+  }
+  @Query(() => PaginatedUserBlocked)
+  async allAmenity(@Args() paginationArgs: PaginationArgs) {
+    const [items, totalCount] = await this.service.findAndCount(paginationArgs);
+    return { items, totalCount };
   }
 
   @Query(() => UserBlocked)

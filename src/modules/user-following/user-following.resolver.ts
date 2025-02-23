@@ -15,6 +15,7 @@ import {
 import { Prisma } from '@prisma/client';
 import { CommonUser } from 'src/graphql/user.type';
 import { PaginationArgs } from 'src/graphql/pagination-args-types';
+import { PaginatedUserFollowing } from 'src/graphql/paginated-response';
 
 @Resolver(() => UserFollowing)
 export class UserFollowingResolver {
@@ -23,6 +24,11 @@ export class UserFollowingResolver {
   @Query(() => [UserFollowing])
   async userFollowings(@Args() paginationArgs: PaginationArgs) {
     return this.service.findAll(paginationArgs);
+  }
+  @Query(() => PaginatedUserFollowing)
+  async allUserFollowing(@Args() paginationArgs: PaginationArgs) {
+    const [items, totalCount] = await this.service.findAndCount(paginationArgs);
+    return { items, totalCount };
   }
 
   @Query(() => UserFollowing)

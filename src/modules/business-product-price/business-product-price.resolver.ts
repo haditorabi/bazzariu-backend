@@ -15,6 +15,7 @@ import {
 import { Prisma } from '@prisma/client';
 import { CommonBusinessProduct } from 'src/graphql/business-product.type';
 import { PaginationArgs } from 'src/graphql/pagination-args-types';
+import { PaginatedBusinessProductPrice } from 'src/graphql/paginated-response';
 
 @Resolver(() => BusinessProductPrice)
 export class BusinessProductPriceResolver {
@@ -23,6 +24,11 @@ export class BusinessProductPriceResolver {
   @Query(() => [BusinessProductPrice])
   async businessProductPrices(@Args() paginationArgs: PaginationArgs) {
     return this.service.findAll(paginationArgs);
+  }
+  @Query(() => PaginatedBusinessProductPrice)
+  async allAmenity(@Args() paginationArgs: PaginationArgs) {
+    const [items, totalCount] = await this.service.findAndCount(paginationArgs);
+    return { items, totalCount };
   }
 
   @Query(() => BusinessProductPrice)

@@ -1,4 +1,4 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service';
 import { Prisma, BusinessLocation, Business } from '@prisma/client';
 import { ServiceErrorHandler } from 'src/common/decorators/ServiceErrorHandler';
@@ -26,7 +26,20 @@ export class BusinessLocationService {
       take,
     });
   }
-
+  @ServiceErrorHandler('find all Business Locations')
+  async findAndCount(
+    paginationArgs: PaginationArgs,
+  ): Promise<[BusinessLocation[], number]> {
+    const { take, skip } = paginationArgs;
+    const [items, totalCount] = await this.prisma.$transaction([
+      this.prisma.businessLocation.findMany({
+        skip,
+        take,
+      }),
+      this.prisma.businessLocation.count(),
+    ]);
+    return [items, totalCount];
+  }
   @ServiceErrorHandler('Find Business Location by ID')
   async findOne(id: string): Promise<BusinessLocation | null> {
     const location = await this.prisma.businessLocation.findUnique({

@@ -23,7 +23,20 @@ export class UserBookingService {
       take,
     });
   }
-
+  @ServiceErrorHandler('find all UserBooking')
+  async findAndCount(
+    paginationArgs: PaginationArgs,
+  ): Promise<[UserBooking[], number]> {
+    const { take, skip } = paginationArgs;
+    const [items, totalCount] = await this.prisma.$transaction([
+      this.prisma.userBooking.findMany({
+        skip,
+        take,
+      }),
+      this.prisma.userBooking.count(),
+    ]);
+    return [items, totalCount];
+  }
   @ServiceErrorHandler('Find One UserBooking')
   async findOne(id: string): Promise<UserBooking | null> {
     return this.prisma.userBooking.findUnique({

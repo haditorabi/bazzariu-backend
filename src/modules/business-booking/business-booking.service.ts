@@ -37,7 +37,20 @@ export class BusinessBookingService {
       },
     });
   }
-
+  @ServiceErrorHandler('find all business bookings')
+  async findAndCount(
+    paginationArgs: PaginationArgs,
+  ): Promise<[BusinessBooking[], number]> {
+    const { take, skip } = paginationArgs;
+    const [items, totalCount] = await this.prisma.$transaction([
+      this.prisma.businessBooking.findMany({
+        skip,
+        take,
+      }),
+      this.prisma.businessBooking.count(),
+    ]);
+    return [items, totalCount];
+  }
   async findOne(id: string): Promise<BusinessBooking | null> {
     const businessBooking = await this.prisma.businessBooking.findUnique({
       where: { id },

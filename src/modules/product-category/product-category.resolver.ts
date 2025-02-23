@@ -15,6 +15,7 @@ import {
 import { Prisma } from '@prisma/client';
 import { CommonBusinessProduct } from 'src/graphql/business-product.type';
 import { PaginationArgs } from 'src/graphql/pagination-args-types';
+import { PaginatedProductCategory } from 'src/graphql/paginated-response';
 
 @Resolver(() => ProductCategory)
 export class ProductCategoryResolver {
@@ -24,6 +25,12 @@ export class ProductCategoryResolver {
   async productCategories(@Args() paginationArgs: PaginationArgs) {
     return this.service.findAll(paginationArgs);
   }
+  @Query(() => PaginatedProductCategory)
+  async allProductCategory(@Args() paginationArgs: PaginationArgs) {
+    const [items, totalCount] = await this.service.findAndCount(paginationArgs);
+    return { items, totalCount };
+  }
+
   @ResolveField(() => [CommonBusinessProduct])
   async BusinessProduct(@Parent() category: ProductCategory) {
     const { id } = category;

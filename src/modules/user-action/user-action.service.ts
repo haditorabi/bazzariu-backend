@@ -23,6 +23,20 @@ export class UserActionService {
       take,
     });
   }
+  @ServiceErrorHandler('find all UserAction')
+  async findAndCount(
+    paginationArgs: PaginationArgs,
+  ): Promise<[UserAction[], number]> {
+    const { take, skip } = paginationArgs;
+    const [items, totalCount] = await this.prisma.$transaction([
+      this.prisma.userAction.findMany({
+        skip,
+        take,
+      }),
+      this.prisma.userAction.count(),
+    ]);
+    return [items, totalCount];
+  }
 
   @ServiceErrorHandler('find one user action')
   async findOne(id: string): Promise<UserAction | null> {

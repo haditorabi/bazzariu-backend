@@ -16,6 +16,7 @@ import { Prisma } from '@prisma/client';
 import { PaginationArgs } from 'src/graphql/pagination-args-types';
 import { CommonBusiness } from 'src/graphql/business.type';
 import { NotFoundException } from '@nestjs/common';
+import { PaginatedBusinessHour } from 'src/graphql/paginated-response';
 
 @Resolver(() => BusinessHour)
 export class BusinessHourResolver {
@@ -24,6 +25,11 @@ export class BusinessHourResolver {
   @Query(() => [BusinessHour])
   async businessHours(@Args() paginationArgs: PaginationArgs) {
     return this.service.findAll(paginationArgs);
+  }
+  @Query(() => PaginatedBusinessHour)
+  async allBusinessHour(@Args() paginationArgs: PaginationArgs) {
+    const [items, totalCount] = await this.service.findAndCount(paginationArgs);
+    return { items, totalCount };
   }
 
   @Query(() => BusinessHour)

@@ -23,7 +23,20 @@ export class BusinessBoostService {
       take,
     });
   }
-
+  @ServiceErrorHandler('find all Business Boosts')
+  async findAndCount(
+    paginationArgs: PaginationArgs,
+  ): Promise<[BusinessBoost[], number]> {
+    const { take, skip } = paginationArgs;
+    const [items, totalCount] = await this.prisma.$transaction([
+      this.prisma.businessBoost.findMany({
+        skip,
+        take,
+      }),
+      this.prisma.businessBoost.count(),
+    ]);
+    return [items, totalCount];
+  }
   @ServiceErrorHandler('Find One Business Boost')
   async findOne(id: string): Promise<BusinessBoost | null> {
     const businessBoost = await this.prisma.businessBoost.findUnique({

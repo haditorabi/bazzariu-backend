@@ -23,7 +23,20 @@ export class RegionService {
       take,
     });
   }
-
+  @ServiceErrorHandler('find all Region')
+  async findAndCount(
+    paginationArgs: PaginationArgs,
+  ): Promise<[Region[], number]> {
+    const { take, skip } = paginationArgs;
+    const [items, totalCount] = await this.prisma.$transaction([
+      this.prisma.region.findMany({
+        skip,
+        take,
+      }),
+      this.prisma.region.count(),
+    ]);
+    return [items, totalCount];
+  }
   @ServiceErrorHandler('find region by ID')
   async findOne(id: string): Promise<Region | null> {
     return this.prisma.region.findUnique({

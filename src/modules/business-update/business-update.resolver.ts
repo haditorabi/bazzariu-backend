@@ -15,6 +15,7 @@ import {
 import { Prisma } from '@prisma/client';
 import { CommonBusiness } from 'src/graphql/business.type';
 import { PaginationArgs } from 'src/graphql/pagination-args-types';
+import { PaginatedBusinessUpdate } from 'src/graphql/paginated-response';
 
 @Resolver(() => BusinessUpdate)
 export class BusinessUpdateResolver {
@@ -23,6 +24,11 @@ export class BusinessUpdateResolver {
   @Query(() => [BusinessUpdate])
   async businessUpdates(@Args() paginationArgs: PaginationArgs) {
     return this.service.findAll(paginationArgs);
+  }
+  @Query(() => PaginatedBusinessUpdate)
+  async allBusinessUpdate(@Args() paginationArgs: PaginationArgs) {
+    const [items, totalCount] = await this.service.findAndCount(paginationArgs);
+    return { items, totalCount };
   }
 
   @Query(() => BusinessUpdate)

@@ -23,7 +23,20 @@ export class UserActionLogService {
       take,
     });
   }
-
+  @ServiceErrorHandler('find all UserActionLog')
+  async findAndCount(
+    paginationArgs: PaginationArgs,
+  ): Promise<[UserActionLog[], number]> {
+    const { take, skip } = paginationArgs;
+    const [items, totalCount] = await this.prisma.$transaction([
+      this.prisma.userActionLog.findMany({
+        skip,
+        take,
+      }),
+      this.prisma.userActionLog.count(),
+    ]);
+    return [items, totalCount];
+  }
   @ServiceErrorHandler('find user action log')
   async findOne(id: string): Promise<UserActionLog | null> {
     return this.prisma.userActionLog.findUnique({

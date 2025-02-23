@@ -21,6 +21,7 @@ import { CommonBusinessProduct } from 'src/graphql/business-product.type';
 import { CommonBusinessHour } from 'src/graphql/business-hour.type';
 import { CommonBusinessLocation } from 'src/graphql/business-location.type';
 import { PaginationArgs } from 'src/graphql/pagination-args-types';
+import { PaginatedBusiness } from 'src/graphql/paginated-response';
 
 @Resolver(() => Business)
 export class BusinessResolver {
@@ -32,7 +33,11 @@ export class BusinessResolver {
   ): Promise<Business[]> {
     return this.service.findAll(paginationArgs);
   }
-
+  @Query(() => PaginatedBusiness)
+  async allBusiness(@Args() paginationArgs: PaginationArgs) {
+    const [items, totalCount] = await this.service.findAndCount(paginationArgs);
+    return { items, totalCount };
+  }
   @Query(() => Int)
   async totalBusinesses(): Promise<number> {
     return this.service.count();

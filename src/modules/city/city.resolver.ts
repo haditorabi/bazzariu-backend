@@ -11,6 +11,7 @@ import { City, CreateCityInput, UpdateCityInput } from './city.graphql';
 import { Prisma } from '@prisma/client';
 import { PaginationArgs } from 'src/graphql/pagination-args-types';
 import { CommonProvince } from 'src/graphql/province.type';
+import { PaginatedCity } from 'src/graphql/paginated-response';
 
 @Resolver(() => City)
 export class CityResolver {
@@ -19,6 +20,11 @@ export class CityResolver {
   @Query(() => [City])
   async cities(@Args() paginationArgs: PaginationArgs) {
     return this.service.findAll(paginationArgs);
+  }
+  @Query(() => PaginatedCity)
+  async allAmenity(@Args() paginationArgs: PaginationArgs) {
+    const [items, totalCount] = await this.service.findAndCount(paginationArgs);
+    return { items, totalCount };
   }
 
   @Query(() => City)

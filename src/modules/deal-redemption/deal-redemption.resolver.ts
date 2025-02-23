@@ -17,6 +17,7 @@ import { CommonBusinessDeal } from 'src/graphql/business-deal.type';
 import { CommonUser } from 'src/graphql/user.type';
 import { ServiceErrorHandler } from 'src/common/decorators/ServiceErrorHandler';
 import { PaginationArgs } from 'src/graphql/pagination-args-types';
+import { PaginatedDealsRedemption } from 'src/graphql/paginated-response';
 
 @Resolver(() => DealsRedemption)
 export class DealsRedemptionResolver {
@@ -26,6 +27,11 @@ export class DealsRedemptionResolver {
   @ServiceErrorHandler('fetch all deal redemptions')
   async dealRedemptions(@Args() paginationArgs: PaginationArgs) {
     return this.service.findAll(paginationArgs);
+  }
+  @Query(() => PaginatedDealsRedemption)
+  async allDealsRedemption(@Args() paginationArgs: PaginationArgs) {
+    const [items, totalCount] = await this.service.findAndCount(paginationArgs);
+    return { items, totalCount };
   }
 
   @Query(() => DealsRedemption)

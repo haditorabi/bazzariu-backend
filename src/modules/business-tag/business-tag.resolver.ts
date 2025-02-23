@@ -7,6 +7,7 @@ import {
 } from './business-tag.graphql';
 import { Prisma } from '@prisma/client';
 import { PaginationArgs } from 'src/graphql/pagination-args-types';
+import { PaginatedBusinessTag } from 'src/graphql/paginated-response';
 
 @Resolver(() => BusinessTag)
 export class BusinessTagResolver {
@@ -15,6 +16,11 @@ export class BusinessTagResolver {
   @Query(() => [BusinessTag])
   async businessTags(@Args() paginationArgs: PaginationArgs) {
     return this.service.findAll(paginationArgs);
+  }
+  @Query(() => PaginatedBusinessTag)
+  async allBusinessTag(@Args() paginationArgs: PaginationArgs) {
+    const [items, totalCount] = await this.service.findAndCount(paginationArgs);
+    return { items, totalCount };
   }
 
   @Query(() => BusinessTag)

@@ -15,6 +15,7 @@ import {
 import { Prisma } from '@prisma/client';
 import { CommonUser } from 'src/graphql/user.type';
 import { PaginationArgs } from 'src/graphql/pagination-args-types';
+import { PaginatedUserActionLog } from 'src/graphql/paginated-response';
 
 @Resolver(() => UserActionLog)
 export class UserActionLogResolver {
@@ -23,6 +24,11 @@ export class UserActionLogResolver {
   @Query(() => [UserActionLog])
   async userActionLogs(@Args() paginationArgs: PaginationArgs) {
     return this.service.findAll(paginationArgs);
+  }
+  @Query(() => PaginatedUserActionLog)
+  async allUserActionLog(@Args() paginationArgs: PaginationArgs) {
+    const [items, totalCount] = await this.service.findAndCount(paginationArgs);
+    return { items, totalCount };
   }
 
   @ResolveField(() => CommonUser)

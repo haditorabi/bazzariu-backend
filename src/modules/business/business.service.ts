@@ -32,7 +32,20 @@ export class BusinessService {
       take,
     });
   }
-
+  @ServiceErrorHandler('find all businesses')
+  async findAndCount(
+    paginationArgs: PaginationArgs,
+  ): Promise<[Business[], number]> {
+    const { take, skip } = paginationArgs;
+    const [items, totalCount] = await this.prisma.$transaction([
+      this.prisma.business.findMany({
+        skip,
+        take,
+      }),
+      this.prisma.business.count(),
+    ]);
+    return [items, totalCount];
+  }
   @ServiceErrorHandler('count all businesses')
   async count(): Promise<number> {
     return this.prisma.business.count();

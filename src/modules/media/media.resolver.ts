@@ -3,6 +3,7 @@ import { MediaService } from './media.service';
 import { Media, CreateMediaInput, UpdateMediaInput } from './media.graphql';
 import { Prisma } from '@prisma/client';
 import { PaginationArgs } from 'src/graphql/pagination-args-types';
+import { PaginatedMedia } from 'src/graphql/paginated-response';
 
 @Resolver(() => Media)
 export class MediaResolver {
@@ -16,6 +17,11 @@ export class MediaResolver {
   @Query(() => [Media])
   async mediaList(@Args() paginationArgs: PaginationArgs) {
     return this.service.findAll(paginationArgs);
+  }
+  @Query(() => PaginatedMedia)
+  async allMedia(@Args() paginationArgs: PaginationArgs) {
+    const [items, totalCount] = await this.service.findAndCount(paginationArgs);
+    return { items, totalCount };
   }
 
   @Query(() => [Media])

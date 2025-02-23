@@ -16,6 +16,7 @@ import { Prisma } from '@prisma/client';
 import { CommonUser } from 'src/graphql/user.type';
 import { User } from '../user/user.graphql';
 import { PaginationArgs } from 'src/graphql/pagination-args-types';
+import { PaginatedUserReview } from 'src/graphql/paginated-response';
 @Resolver(() => UserReview)
 export class UserReviewResolver {
   constructor(private service: UserReviewService) {}
@@ -23,6 +24,11 @@ export class UserReviewResolver {
   @Query(() => [UserReview])
   async userReviews(@Args() paginationArgs: PaginationArgs) {
     return this.service.findAll(paginationArgs);
+  }
+  @Query(() => PaginatedUserReview)
+  async allUserReview(@Args() paginationArgs: PaginationArgs) {
+    const [items, totalCount] = await this.service.findAndCount(paginationArgs);
+    return { items, totalCount };
   }
 
   @Query(() => UserReview)

@@ -49,6 +49,20 @@ export class UserService {
       take,
     });
   }
+  @ServiceErrorHandler('find all User')
+  async findAndCount(
+    paginationArgs: PaginationArgs,
+  ): Promise<[User[], number]> {
+    const { take, skip } = paginationArgs;
+    const [items, totalCount] = await this.prisma.$transaction([
+      this.prisma.user.findMany({
+        skip,
+        take,
+      }),
+      this.prisma.user.count(),
+    ]);
+    return [items, totalCount];
+  }
   @ServiceErrorHandler('delete a user')
   async delete(id: string): Promise<User> {
     return this.prisma.user.delete({

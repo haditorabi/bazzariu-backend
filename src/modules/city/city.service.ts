@@ -22,7 +22,20 @@ export class CityService {
       take,
     });
   }
-
+  @ServiceErrorHandler('find all City')
+  async findAndCount(
+    paginationArgs: PaginationArgs,
+  ): Promise<[City[], number]> {
+    const { take, skip } = paginationArgs;
+    const [items, totalCount] = await this.prisma.$transaction([
+      this.prisma.city.findMany({
+        skip,
+        take,
+      }),
+      this.prisma.city.count(),
+    ]);
+    return [items, totalCount];
+  }
   async findOne(id: string): Promise<City | null> {
     return this.prisma.city.findUnique({
       where: { id },

@@ -17,6 +17,7 @@ import { CommonBusinessProduct } from 'src/graphql/business-product.type';
 import { CommonBusiness } from 'src/graphql/business.type';
 import { PaginationArgs } from 'src/graphql/pagination-args-types';
 import { NotFoundException } from '@nestjs/common';
+import { PaginatedBusinessDeal } from 'src/graphql/paginated-response';
 
 @Resolver(() => BusinessDeal)
 export class BusinessDealResolver {
@@ -25,6 +26,11 @@ export class BusinessDealResolver {
   @Query(() => [BusinessDeal])
   async businessDeals(@Args() paginationArgs: PaginationArgs) {
     return this.service.findAll(paginationArgs);
+  }
+  @Query(() => PaginatedBusinessDeal)
+  async allBusinessDeal(@Args() paginationArgs: PaginationArgs) {
+    const [items, totalCount] = await this.service.findAndCount(paginationArgs);
+    return { items, totalCount };
   }
 
   @Query(() => BusinessDeal)

@@ -24,7 +24,20 @@ export class LanguageService {
       take,
     });
   }
-
+  @ServiceErrorHandler('find all Language')
+  async findAndCount(
+    paginationArgs: PaginationArgs,
+  ): Promise<[Language[], number]> {
+    const { take, skip } = paginationArgs;
+    const [items, totalCount] = await this.prisma.$transaction([
+      this.prisma.language.findMany({
+        skip,
+        take,
+      }),
+      this.prisma.language.count(),
+    ]);
+    return [items, totalCount];
+  }
   @ServiceErrorHandler('find language by id')
   async findOne(id: string): Promise<Language | null> {
     return this.prisma.language.findUnique({

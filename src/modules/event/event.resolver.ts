@@ -11,6 +11,7 @@ import { Event, CreateEventInput, UpdateEventInput } from './event.graphql';
 import { Prisma } from '@prisma/client';
 import { CommonEventCategory } from 'src/graphql/event-category.type';
 import { PaginationArgs } from 'src/graphql/pagination-args-types';
+import { PaginatedEvent } from 'src/graphql/paginated-response';
 
 @Resolver(() => Event)
 export class EventResolver {
@@ -19,6 +20,11 @@ export class EventResolver {
   @Query(() => [Event])
   async events(@Args() paginationArgs: PaginationArgs) {
     return this.service.findAll(paginationArgs);
+  }
+  @Query(() => PaginatedEvent)
+  async allEvent(@Args() paginationArgs: PaginationArgs) {
+    const [items, totalCount] = await this.service.findAndCount(paginationArgs);
+    return { items, totalCount };
   }
 
   @Query(() => Event)

@@ -23,7 +23,20 @@ export class MediaService {
       take,
     });
   }
-
+  @ServiceErrorHandler('find all Media')
+  async findAndCount(
+    paginationArgs: PaginationArgs,
+  ): Promise<[Media[], number]> {
+    const { take, skip } = paginationArgs;
+    const [items, totalCount] = await this.prisma.$transaction([
+      this.prisma.media.findMany({
+        skip,
+        take,
+      }),
+      this.prisma.media.count(),
+    ]);
+    return [items, totalCount];
+  }
   @ServiceErrorHandler('Find Media by ID')
   async findOne(id: string): Promise<Media | null> {
     return this.prisma.media.findUnique({

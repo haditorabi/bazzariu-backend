@@ -7,6 +7,7 @@ import {
 } from './language.graphql';
 import { Prisma } from '@prisma/client';
 import { PaginationArgs } from 'src/graphql/pagination-args-types';
+import { PaginatedAmenities } from 'src/graphql/paginated-response';
 
 @Resolver(() => Language)
 export class LanguageResolver {
@@ -15,6 +16,11 @@ export class LanguageResolver {
   @Query(() => [Language])
   async languages(@Args() paginationArgs: PaginationArgs) {
     return this.service.findAll(paginationArgs);
+  }
+  @Query(() => PaginatedAmenities)
+  async allAmenity(@Args() paginationArgs: PaginationArgs) {
+    const [items, totalCount] = await this.service.findAndCount(paginationArgs);
+    return { items, totalCount };
   }
 
   @Query(() => Language)

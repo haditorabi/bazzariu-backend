@@ -25,7 +25,20 @@ export class CountryService {
       take,
     });
   }
-
+  @ServiceErrorHandler('find all amenities')
+  async findAndCount(
+    paginationArgs: PaginationArgs,
+  ): Promise<[Country[], number]> {
+    const { take, skip } = paginationArgs;
+    const [items, totalCount] = await this.prisma.$transaction([
+      this.prisma.country.findMany({
+        skip,
+        take,
+      }),
+      this.prisma.country.count(),
+    ]);
+    return [items, totalCount];
+  }
   @ServiceErrorHandler('find one country') // Error handling
   async findOne(id: string): Promise<Country | null> {
     return this.prisma.country.findUnique({

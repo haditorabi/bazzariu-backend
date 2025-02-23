@@ -7,6 +7,7 @@ import {
 } from './currency.graphql';
 import { Prisma } from '@prisma/client';
 import { PaginationArgs } from 'src/graphql/pagination-args-types';
+import { PaginatedCurrency } from 'src/graphql/paginated-response';
 
 @Resolver(() => Currency)
 export class CurrencyResolver {
@@ -15,6 +16,11 @@ export class CurrencyResolver {
   @Query(() => [Currency])
   async currencies(@Args() paginationArgs: PaginationArgs) {
     return this.service.findAll(paginationArgs);
+  }
+  @Query(() => PaginatedCurrency)
+  async allAmenity(@Args() paginationArgs: PaginationArgs) {
+    const [items, totalCount] = await this.service.findAndCount(paginationArgs);
+    return { items, totalCount };
   }
 
   @Query(() => Currency)

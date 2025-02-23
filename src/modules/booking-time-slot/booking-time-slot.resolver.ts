@@ -16,6 +16,7 @@ import { Prisma } from '@prisma/client';
 import { CommonBusinessBooking } from 'src/graphql/business-booking.type';
 import { PaginationArgs } from 'src/graphql/pagination-args-types';
 import { NotFoundException } from '@nestjs/common';
+import { PaginatedBookingTimeSlot } from 'src/graphql/paginated-response';
 
 @Resolver(() => BookingTimeSlot)
 export class BookingTimeSlotResolver {
@@ -25,7 +26,11 @@ export class BookingTimeSlotResolver {
   async bookingTimeSlots(@Args() paginationArgs: PaginationArgs) {
     return this.service.findAll(paginationArgs);
   }
-
+  @Query(() => PaginatedBookingTimeSlot)
+  async allBookingTimeSlot(@Args() paginationArgs: PaginationArgs) {
+    const [items, totalCount] = await this.service.findAndCount(paginationArgs);
+    return { items, totalCount };
+  }
   @Query(() => BookingTimeSlot, { nullable: true })
   async bookingTimeSlot(@Args('id') id: string) {
     const bookingTimeSlot = await this.service.findOne(id);

@@ -18,6 +18,7 @@ import { CommonBusinessProduct } from 'src/graphql/business-product.type';
 import { CommonBookingTimeSlot } from 'src/graphql/booking-time-slot.type';
 import { PaginationArgs } from 'src/graphql/pagination-args-types';
 import { NotFoundException } from '@nestjs/common';
+import { PaginatedBusinessBooking } from 'src/graphql/paginated-response';
 
 @Resolver(() => BusinessBooking)
 export class BusinessBookingResolver {
@@ -27,7 +28,11 @@ export class BusinessBookingResolver {
   async businessBookings(@Args() paginationArgs: PaginationArgs) {
     return this.service.findAll(paginationArgs);
   }
-
+  @Query(() => PaginatedBusinessBooking)
+  async allBusinessBooking(@Args() paginationArgs: PaginationArgs) {
+    const [items, totalCount] = await this.service.findAndCount(paginationArgs);
+    return { items, totalCount };
+  }
   @Query(() => BusinessBooking)
   async businessBooking(@Args('id') id: string) {
     const businessBooking = await this.service.findOne(id);

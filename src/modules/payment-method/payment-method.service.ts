@@ -23,7 +23,20 @@ export class PaymentMethodService {
       take,
     });
   }
-
+  @ServiceErrorHandler('find all PaymentMethod')
+  async findAndCount(
+    paginationArgs: PaginationArgs,
+  ): Promise<[PaymentMethod[], number]> {
+    const { take, skip } = paginationArgs;
+    const [items, totalCount] = await this.prisma.$transaction([
+      this.prisma.paymentMethod.findMany({
+        skip,
+        take,
+      }),
+      this.prisma.paymentMethod.count(),
+    ]);
+    return [items, totalCount];
+  }
   @ServiceErrorHandler('find payment method by id')
   async findOne(id: string): Promise<PaymentMethod | null> {
     return this.prisma.paymentMethod.findUnique({

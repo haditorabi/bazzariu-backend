@@ -26,7 +26,20 @@ export class UserPreferenceService {
       take,
     });
   }
-
+  @ServiceErrorHandler('find all UserPreference')
+  async findAndCount(
+    paginationArgs: PaginationArgs,
+  ): Promise<[UserPreference[], number]> {
+    const { take, skip } = paginationArgs;
+    const [items, totalCount] = await this.prisma.$transaction([
+      this.prisma.userPreference.findMany({
+        skip,
+        take,
+      }),
+      this.prisma.userPreference.count(),
+    ]);
+    return [items, totalCount];
+  }
   @ServiceErrorHandler('Find One User Preference')
   async findOne(id: string): Promise<UserPreference | null> {
     return this.prisma.userPreference.findUnique({

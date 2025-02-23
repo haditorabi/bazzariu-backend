@@ -23,7 +23,20 @@ export class PaymentService {
       take,
     });
   }
-
+  @ServiceErrorHandler('find all Payment')
+  async findAndCount(
+    paginationArgs: PaginationArgs,
+  ): Promise<[Payment[], number]> {
+    const { take, skip } = paginationArgs;
+    const [items, totalCount] = await this.prisma.$transaction([
+      this.prisma.payment.findMany({
+        skip,
+        take,
+      }),
+      this.prisma.payment.count(),
+    ]);
+    return [items, totalCount];
+  }
   @ServiceErrorHandler('Find One Payment') // Adding ServiceErrorHandler decorator
   async findOne(id: string): Promise<Payment | null> {
     return this.prisma.payment.findUnique({

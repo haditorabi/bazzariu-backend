@@ -16,6 +16,7 @@ import { Prisma } from '@prisma/client';
 import { CommonUser } from 'src/graphql/user.type';
 import { CommonBusiness } from 'src/graphql/business.type';
 import { PaginationArgs } from 'src/graphql/pagination-args-types';
+import { PaginatedBusinessFollowing } from 'src/graphql/paginated-response';
 @Resolver(() => BusinessFollowing)
 export class BusinessFollowingResolver {
   constructor(private service: BusinessFollowingService) {}
@@ -23,6 +24,11 @@ export class BusinessFollowingResolver {
   @Query(() => [BusinessFollowing])
   async businessFollowings(@Args() paginationArgs: PaginationArgs) {
     return this.service.findAll(paginationArgs);
+  }
+  @Query(() => PaginatedBusinessFollowing)
+  async allBusinessFollowing(@Args() paginationArgs: PaginationArgs) {
+    const [items, totalCount] = await this.service.findAndCount(paginationArgs);
+    return { items, totalCount };
   }
 
   @Query(() => BusinessFollowing)

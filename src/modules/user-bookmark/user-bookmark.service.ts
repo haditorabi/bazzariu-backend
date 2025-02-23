@@ -23,7 +23,20 @@ export class UserBookmarkService {
       take,
     });
   }
-
+  @ServiceErrorHandler('find all UserBookmark')
+  async findAndCount(
+    paginationArgs: PaginationArgs,
+  ): Promise<[UserBookmark[], number]> {
+    const { take, skip } = paginationArgs;
+    const [items, totalCount] = await this.prisma.$transaction([
+      this.prisma.userBookmark.findMany({
+        skip,
+        take,
+      }),
+      this.prisma.userBookmark.count(),
+    ]);
+    return [items, totalCount];
+  }
   @ServiceErrorHandler('find one user bookmark')
   async findOne(id: string): Promise<UserBookmark | null> {
     return this.prisma.userBookmark.findUnique({

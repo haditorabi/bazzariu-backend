@@ -23,6 +23,20 @@ export class UserReviewService {
       take,
     });
   }
+  @ServiceErrorHandler('find all UserReview')
+  async findAndCount(
+    paginationArgs: PaginationArgs,
+  ): Promise<[UserReview[], number]> {
+    const { take, skip } = paginationArgs;
+    const [items, totalCount] = await this.prisma.$transaction([
+      this.prisma.userReview.findMany({
+        skip,
+        take,
+      }),
+      this.prisma.userReview.count(),
+    ]);
+    return [items, totalCount];
+  }
 
   @ServiceErrorHandler('find one user review')
   async findOne(id: string): Promise<UserReview | null> {

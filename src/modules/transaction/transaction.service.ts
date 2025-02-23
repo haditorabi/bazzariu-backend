@@ -21,7 +21,20 @@ export class TransactionService {
       take,
     });
   }
-
+  @ServiceErrorHandler('find all Transaction')
+  async findAndCount(
+    paginationArgs: PaginationArgs,
+  ): Promise<[Transaction[], number]> {
+    const { take, skip } = paginationArgs;
+    const [items, totalCount] = await this.prisma.$transaction([
+      this.prisma.transaction.findMany({
+        skip,
+        take,
+      }),
+      this.prisma.transaction.count(),
+    ]);
+    return [items, totalCount];
+  }
   @ServiceErrorHandler('find transaction by ID')
   async findOne(id: string): Promise<Transaction | null> {
     return this.prisma.transaction.findUnique({ where: { id } });

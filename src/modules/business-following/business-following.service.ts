@@ -24,7 +24,20 @@ export class BusinessFollowingService {
       take,
     });
   }
-
+  @ServiceErrorHandler('find all business followings')
+  async findAndCount(
+    paginationArgs: PaginationArgs,
+  ): Promise<[BusinessFollowing[], number]> {
+    const { take, skip } = paginationArgs;
+    const [items, totalCount] = await this.prisma.$transaction([
+      this.prisma.businessFollowing.findMany({
+        skip,
+        take,
+      }),
+      this.prisma.businessFollowing.count(),
+    ]);
+    return [items, totalCount];
+  }
   @ServiceErrorHandler('find one business following')
   async findOne(id: string): Promise<BusinessFollowing | null> {
     return this.prisma.businessFollowing.findUnique({

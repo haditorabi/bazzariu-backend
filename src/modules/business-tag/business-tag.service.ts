@@ -24,7 +24,20 @@ export class BusinessTagService {
       take,
     });
   }
-
+  @ServiceErrorHandler('find all business tags')
+  async findAndCount(
+    paginationArgs: PaginationArgs,
+  ): Promise<[BusinessTag[], number]> {
+    const { take, skip } = paginationArgs;
+    const [items, totalCount] = await this.prisma.$transaction([
+      this.prisma.businessTag.findMany({
+        skip,
+        take,
+      }),
+      this.prisma.businessTag.count(),
+    ]);
+    return [items, totalCount];
+  }
   @ServiceErrorHandler('find business tag by id')
   async findOne(id: string): Promise<BusinessTag | null> {
     return this.prisma.businessTag.findUnique({

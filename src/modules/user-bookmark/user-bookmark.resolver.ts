@@ -15,6 +15,7 @@ import {
 import { Prisma } from '@prisma/client';
 import { PaginationArgs } from 'src/graphql/pagination-args-types';
 import { CommonUser } from 'src/graphql/user.type';
+import { PaginatedUserBookmark } from 'src/graphql/paginated-response';
 
 @Resolver(() => UserBookmark)
 export class UserBookmarkResolver {
@@ -23,6 +24,11 @@ export class UserBookmarkResolver {
   @Query(() => [UserBookmark])
   async userBookmarks(@Args() paginationArgs: PaginationArgs) {
     return this.service.findAll(paginationArgs);
+  }
+  @Query(() => PaginatedUserBookmark)
+  async allUserBookmark(@Args() paginationArgs: PaginationArgs) {
+    const [items, totalCount] = await this.service.findAndCount(paginationArgs);
+    return { items, totalCount };
   }
 
   @Query(() => UserBookmark)
