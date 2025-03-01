@@ -29,6 +29,9 @@ export class BookingTimeSlot {
   @Field(() => CommonBusinessBooking, { nullable: true })
   businessBooking?: CommonBusinessBooking;
 
+  @Field(() => ID, { nullable: true })
+  businessBookingId?: string;
+
   @Field()
   startAt: Date;
 

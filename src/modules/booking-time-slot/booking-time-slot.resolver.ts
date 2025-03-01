@@ -42,7 +42,7 @@ export class BookingTimeSlotResolver {
   }
   @ResolveField(() => CommonBusinessBooking)
   async businessBooking(@Root() bookingTimeSlot: BookingTimeSlot) {
-    return this.service.getBusinessBooking(bookingTimeSlot.id);
+    return this.service.getBusinessBooking(bookingTimeSlot.businessBookingId);
   }
   @Mutation(() => BookingTimeSlot)
   async createBookingTimeSlot(@Args('data') data: CreateBookingTimeSlotInput) {

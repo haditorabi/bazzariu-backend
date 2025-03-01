@@ -11,6 +11,7 @@ type Amenity {
 
 type BookingTimeSlot {
   businessBooking: CommonBusinessBooking
+  businessBookingId: ID
   endAt: DateTime!
   id: ID!
   startAt: DateTime!
