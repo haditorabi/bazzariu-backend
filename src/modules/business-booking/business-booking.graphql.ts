@@ -41,11 +41,11 @@ export class BusinessBooking {
   @Field(() => [ID])
   businessProductId: string[];
 
-  @Field(() => Int)
-  maxAvailable: number;
+  @Field(() => Int, { nullable: true })
+  maxAvailable?: number;
 
-  @Field(() => Int)
-  maxGuest: number;
+  @Field(() => Int, { nullable: true })
+  maxGuest?: number;
 
   @Field(() => [ID], { nullable: true })
   mediaId?: string[];

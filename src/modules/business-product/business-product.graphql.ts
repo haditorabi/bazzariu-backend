@@ -65,8 +65,8 @@ export class BusinessProduct {
   @Field(() => CommonBusinessProductPrice, { nullable: true })
   businessProductPrice?: CommonBusinessProductPrice;
 
-  @Field(() => ID, { nullable: true })
-  businessDealId?: string;
+  @Field(() => [ID], { nullable: true })
+  businessDealId?: string[];
 }
 
 @InputType()

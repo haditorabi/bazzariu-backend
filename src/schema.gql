@@ -54,8 +54,8 @@ type BusinessBooking {
   businessProductId: [ID!]!
   createdAt: DateTime
   id: ID!
-  maxAvailable: Int!
-  maxGuest: Int!
+  maxAvailable: Int
+  maxGuest: Int
   mediaId: [ID!]
   status: BusinessBookingStatus!
   updatedAt: DateTime
@@ -188,7 +188,7 @@ enum BusinessLocationStatus {
 type BusinessProduct {
   business: CommonBusiness
   businessDeal: CommonBusinessDeal
-  businessDealId: ID
+  businessDealId: [ID!]
   businessId: ID!
   businessProductPrice: CommonBusinessProductPrice
   createdAt: DateTime!
@@ -1143,6 +1143,11 @@ type PaginatedEventCategory {
   totalCount: Int!
 }
 
+type PaginatedLanguage {
+  items: [Language!]!
+  totalCount: Int!
+}
+
 type PaginatedMedia {
   items: [Media!]!
   totalCount: Int!
@@ -1489,7 +1494,7 @@ type Query {
 
     """The page number to fetch"""
     page: Int! = 1
-  ): PaginatedAmenities!
+  ): PaginatedLanguage!
   allMedia(
     """The number of items per page"""
     limit: Int! = 10

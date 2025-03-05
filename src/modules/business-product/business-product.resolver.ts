@@ -99,7 +99,7 @@ export class BusinessProductResolver {
 
   @ResolveField(() => CommonBusinessDeal, { nullable: true })
   async businessDeal(@Parent() businessProduct: BusinessProduct) {
-    return this.service.getBusinessDeal([businessProduct.businessDealId]);
+    return this.service.getBusinessDeal(businessProduct.businessDealId);
   }
 
   @ResolveField(() => CommonBusinessProductPrice, { nullable: true })
