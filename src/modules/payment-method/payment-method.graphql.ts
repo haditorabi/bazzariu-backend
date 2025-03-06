@@ -34,7 +34,7 @@ export class PaymentMethod {
   @Field(() => ID)
   userId: string;
 
-  @Field(() => ID)
+  @Field(() => ID, { nullable: true })
   paymentId: string;
 
   @Field({ nullable: true })

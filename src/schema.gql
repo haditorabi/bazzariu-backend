@@ -1277,7 +1277,7 @@ type PaymentMethod {
   details: String
   id: ID!
   payment: [CommonPayment!]
-  paymentId: ID!
+  paymentId: ID
   status: PaymentMethodStatus!
   type: PaymentMethodType!
   user: CommonUser
